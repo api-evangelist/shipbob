@@ -1,0 +1,29 @@
+aid: shipbob
+url: https://raw.githubusercontent.com/api-evangelist/shipbob/refs/heads/main/apis.yml
+name: ShipBob
+x-type: company
+description: >-
+  ShipBob is a global e-commerce fulfillment network with 50+ warehouses, integrated APIs, and direct integrations with Shopify, Amazon, and more for storage, pick, pack, and ship.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Logistics
+  - Fulfillment
+  - E-Commerce
+  - 3PL
+  - Warehousing
+created: '2026-05-08'
+modified: '2026-05-08'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://www.shipbob.com/
+  - type: Plans
+    url: plans/shipbob-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/shipbob-rate-limits.yml
+  - type: FinOps
+    url: finops/shipbob-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
