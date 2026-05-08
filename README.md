@@ -1,6 +1,6 @@
 # ShipBob (shipbob)
 
-ShipBob is a global e-commerce fulfillment network with 50+ warehouses, integrated APIs, and direct integrations with Shopify, Amazon, and more for storage, pick, pack, and ship.
+ShipBob is a global ecommerce fulfillment platform offering distributed warehousing, inventory management, and shipping operations for direct-to-consumer brands.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/shipbob/refs/heads/main/apis.yml)
 
@@ -10,14 +10,24 @@ ShipBob is a global e-commerce fulfillment network with 50+ warehouses, integrat
 - **x-type:** company
 
 ## Tags:
- - Logistics, Fulfillment, E-Commerce, 3PL, Warehousing
+ - Logistics, Fulfillment, 3PL, Ecommerce, Inventory
 
 ## Timestamps
 - **Created:** 2026-05-08
 - **Modified:** 2026-05-08
 
+## APIs
+
+### ShipBob Developer API
+ShipBob Developer API provides REST endpoints for channels, orders, products, inventory, receiving orders, returns, webhooks, locations, billing, and shipment simulations across multiple dated and versioned releases (default 2026-01).
+
+- **Human URL:** https://developer.shipbob.com/
+- **Base URL:** https://api.shipbob.com
+- **OpenAPI:** [openapi/shipbob-openapi.json](openapi/shipbob-openapi.json)
+
 ## Common Properties
 - [Website](https://www.shipbob.com/)
+- [Documentation](https://developer.shipbob.com/)
 - [Plans](plans/shipbob-plans-pricing.yml) — placeholder, pipeline reconciles later
 - [RateLimits](rate-limits/shipbob-rate-limits.yml) — placeholder
 - [FinOps](finops/shipbob-finops.yml) — FOCUS-aligned placeholder

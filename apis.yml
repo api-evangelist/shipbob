@@ -3,21 +3,39 @@ url: https://raw.githubusercontent.com/api-evangelist/shipbob/refs/heads/main/ap
 name: ShipBob
 x-type: company
 description: >-
-  ShipBob is a global e-commerce fulfillment network with 50+ warehouses, integrated APIs, and direct integrations with Shopify, Amazon, and more for storage, pick, pack, and ship.
+  ShipBob is a global ecommerce fulfillment platform offering distributed warehousing, inventory management, and shipping operations for direct-to-consumer brands.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Logistics
   - Fulfillment
-  - E-Commerce
   - 3PL
-  - Warehousing
+  - Ecommerce
+  - Inventory
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: shipbob:shipbob-developer-api
+    name: ShipBob Developer API
+    description: >-
+      ShipBob Developer API provides REST endpoints for channels, orders, products, inventory, receiving orders, returns, webhooks, locations, billing, and shipment simulations across multiple dated and versioned releases (default 2026-01).
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.shipbob.com/
+    baseURL: https://api.shipbob.com
+    tags:
+      - Logistics
+      - Fulfillment
+      - REST
+    properties:
+      - type: Documentation
+        url: https://developer.shipbob.com/
+      - type: OpenAPI
+        url: openapi/shipbob-openapi.json
 common:
   - type: Website
     url: https://www.shipbob.com/
+  - type: Documentation
+    url: https://developer.shipbob.com/
   - type: Plans
     url: plans/shipbob-plans-pricing.yml
   - type: RateLimits
