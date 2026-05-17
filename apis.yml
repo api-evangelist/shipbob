@@ -1,7 +1,7 @@
 aid: shipbob
 url: https://raw.githubusercontent.com/api-evangelist/shipbob/refs/heads/main/apis.yml
 name: ShipBob
-x-type: company
+kind: company
 description: >-
   ShipBob is a global ecommerce fulfillment platform offering distributed warehousing, inventory management, and shipping operations for direct-to-consumer brands.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
