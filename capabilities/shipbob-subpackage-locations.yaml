@@ -1,0 +1,98 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: API Reference — subpackage_locations
+  description: 'API Reference — subpackage_locations. 1 operations. Lead operation: Get Locations. Self-contained Naftiko
+    capability covering one Shipbob business surface.'
+  tags:
+  - Shipbob
+  - subpackage_locations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHIPBOB_API_KEY: SHIPBOB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shipbob-subpackage-locations
+    baseUri: https://api.shipbob.com
+    description: API Reference — subpackage_locations business capability. Self-contained, no shared references.
+    resources:
+    - name: 2026-01-location
+      path: /2026-01/location
+      operations:
+      - name: getlocations
+        method: GET
+        description: Get Locations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: IncludeInactive
+          in: query
+          type: boolean
+          description: Whether the inactive locations should be included or not
+        - name: ReceivingEnabled
+          in: query
+          type: boolean
+          description: Return all the receiving enabled locations
+        - name: AccessGranted
+          in: query
+          type: boolean
+          description: Return all the access granted locations
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SHIPBOB_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shipbob-subpackage-locations-rest
+    port: 8080
+    description: REST adapter for API Reference — subpackage_locations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/2026-01/location
+      name: 2026-01-location
+      description: REST surface for 2026-01-location.
+      operations:
+      - method: GET
+        name: getlocations
+        description: Get Locations
+        call: shipbob-subpackage-locations.getlocations
+        with:
+          IncludeInactive: rest.IncludeInactive
+          ReceivingEnabled: rest.ReceivingEnabled
+          AccessGranted: rest.AccessGranted
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shipbob-subpackage-locations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for API Reference — subpackage_locations. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-locations
+      description: Get Locations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-locations.getlocations
+      with:
+        IncludeInactive: tools.IncludeInactive
+        ReceivingEnabled: tools.ReceivingEnabled
+        AccessGranted: tools.AccessGranted
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.

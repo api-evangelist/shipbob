@@ -1,0 +1,398 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: API Reference — subpackage_returns
+  description: 'API Reference — subpackage_returns. 5 operations. Lead operation: Create Return Order. Self-contained Naftiko
+    capability covering one Shipbob business surface.'
+  tags:
+  - Shipbob
+  - subpackage_returns
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHIPBOB_API_KEY: SHIPBOB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shipbob-subpackage-returns
+    baseUri: https://api.shipbob.com
+    description: API Reference — subpackage_returns business capability. Self-contained, no shared references.
+    resources:
+    - name: 2026-01-return
+      path: /2026-01/return
+      operations:
+      - name: createreturnorder
+        method: POST
+        description: Create Return Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: shipbob_channel_id
+          in: header
+          type: string
+          description: Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel
+            ID that has write scopes.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: getreturnorders
+        method: GET
+        description: Get Return Orders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Ids
+          in: query
+          type: string
+          description: The IDs of the returns to fetch. Accepts a comma-separated list of return IDs (e.g., 123,456,789).
+        - name: ReferenceIds
+          in: query
+          type: string
+          description: Comma-separated list of return reference IDs (RMA numbers) to filter by.
+        - name: Status
+          in: query
+          type: string
+          description: Comma-separated list of return statuses to filter by (e.g., AwaitingArrival,Arrived,Processing,Completed,Cancelled).
+        - name: FulfillmentCenterIds
+          in: query
+          type: string
+          description: Comma-separated list of fulfillment center IDs to filter by.
+        - name: TrackingNumbers
+          in: query
+          type: string
+          description: Comma-separated list of tracking numbers to filter by.
+        - name: OriginalShipmentIds
+          in: query
+          type: string
+          description: Comma-separated list of original shipment IDs to filter by.
+        - name: InventoryIds
+          in: query
+          type: string
+          description: Comma-separated list of inventory IDs to filter by.
+        - name: StartDate
+          in: query
+          type: string
+          description: Filter returns created on or after this date (ISO 8601 format).
+        - name: EndDate
+          in: query
+          type: string
+          description: Filter returns created on or before this date (ISO 8601 format).
+        - name: ReturnTypes
+          in: query
+          type: string
+          description: Comma-separated list of return types to filter by (e.g., Regular,ReturnToSender).
+        - name: ReturnActions
+          in: query
+          type: string
+          description: Comma-separated list of return actions to filter by (e.g., Restock,Quarantine,Dispose).
+        - name: StoreOrderIds
+          in: query
+          type: string
+          description: Comma-separated list of store order IDs to filter by.
+        - name: Sortby
+          in: query
+          type: string
+          description: Field to sort results by.
+        - name: CompletedStartDate
+          in: query
+          type: string
+          description: Filter returns completed on or after this date (ISO 8601 format).
+        - name: CompletedEndDate
+          in: query
+          type: string
+          description: Filter returns completed on or before this date (ISO 8601 format).
+        - name: Cursor
+          in: query
+          type: integer
+          description: Page number to retrieve. Used for pagination through result sets.
+        - name: Limit
+          in: query
+          type: integer
+          description: Maximum number of records to return per page.
+        - name: SortOrder
+          in: query
+          type: string
+          description: Sort order for results. Desc = newest to oldest, Asc = oldest to newest, Desc is default
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: shipbob_channel_id
+          in: header
+          type: string
+          description: Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel
+            ID that has write scopes.
+    - name: 2026-01-return-id
+      path: /2026-01/return/{id}
+      operations:
+      - name: getreturnorder
+        method: GET
+        description: Get Return Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The Id of the Return
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: shipbob_channel_id
+          in: header
+          type: string
+          description: Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel
+            ID that has write scopes.
+      - name: editreturnorder
+        method: PUT
+        description: Edit Return Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: 2026-01-return-id}:cancel
+      path: /2026-01/return/{id}:cancel
+      operations:
+      - name: cancelreturnorder
+        method: POST
+        description: Cancel Return order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Id of the return order
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SHIPBOB_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shipbob-subpackage-returns-rest
+    port: 8080
+    description: REST adapter for API Reference — subpackage_returns. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/2026-01/return
+      name: 2026-01-return
+      description: REST surface for 2026-01-return.
+      operations:
+      - method: POST
+        name: createreturnorder
+        description: Create Return Order
+        call: shipbob-subpackage-returns.createreturnorder
+        with:
+          Authorization: rest.Authorization
+          shipbob_channel_id: rest.shipbob_channel_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getreturnorders
+        description: Get Return Orders
+        call: shipbob-subpackage-returns.getreturnorders
+        with:
+          Ids: rest.Ids
+          ReferenceIds: rest.ReferenceIds
+          Status: rest.Status
+          FulfillmentCenterIds: rest.FulfillmentCenterIds
+          TrackingNumbers: rest.TrackingNumbers
+          OriginalShipmentIds: rest.OriginalShipmentIds
+          InventoryIds: rest.InventoryIds
+          StartDate: rest.StartDate
+          EndDate: rest.EndDate
+          ReturnTypes: rest.ReturnTypes
+          ReturnActions: rest.ReturnActions
+          StoreOrderIds: rest.StoreOrderIds
+          Sortby: rest.Sortby
+          CompletedStartDate: rest.CompletedStartDate
+          CompletedEndDate: rest.CompletedEndDate
+          Cursor: rest.Cursor
+          Limit: rest.Limit
+          SortOrder: rest.SortOrder
+          Authorization: rest.Authorization
+          shipbob_channel_id: rest.shipbob_channel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/return/{id}
+      name: 2026-01-return-id
+      description: REST surface for 2026-01-return-id.
+      operations:
+      - method: GET
+        name: getreturnorder
+        description: Get Return Order
+        call: shipbob-subpackage-returns.getreturnorder
+        with:
+          id: rest.id
+          Authorization: rest.Authorization
+          shipbob_channel_id: rest.shipbob_channel_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: editreturnorder
+        description: Edit Return Order
+        call: shipbob-subpackage-returns.editreturnorder
+        with:
+          id: rest.id
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/return/id-cancel
+      name: 2026-01-return-id-cancel
+      description: REST surface for 2026-01-return-id}:cancel.
+      operations:
+      - method: POST
+        name: cancelreturnorder
+        description: Cancel Return order
+        call: shipbob-subpackage-returns.cancelreturnorder
+        with:
+          id: rest.id
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shipbob-subpackage-returns-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for API Reference — subpackage_returns. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-return-order
+      description: Create Return Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-returns.createreturnorder
+      with:
+        Authorization: tools.Authorization
+        shipbob_channel_id: tools.shipbob_channel_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-return-orders
+      description: Get Return Orders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-returns.getreturnorders
+      with:
+        Ids: tools.Ids
+        ReferenceIds: tools.ReferenceIds
+        Status: tools.Status
+        FulfillmentCenterIds: tools.FulfillmentCenterIds
+        TrackingNumbers: tools.TrackingNumbers
+        OriginalShipmentIds: tools.OriginalShipmentIds
+        InventoryIds: tools.InventoryIds
+        StartDate: tools.StartDate
+        EndDate: tools.EndDate
+        ReturnTypes: tools.ReturnTypes
+        ReturnActions: tools.ReturnActions
+        StoreOrderIds: tools.StoreOrderIds
+        Sortby: tools.Sortby
+        CompletedStartDate: tools.CompletedStartDate
+        CompletedEndDate: tools.CompletedEndDate
+        Cursor: tools.Cursor
+        Limit: tools.Limit
+        SortOrder: tools.SortOrder
+        Authorization: tools.Authorization
+        shipbob_channel_id: tools.shipbob_channel_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-return-order
+      description: Get Return Order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-returns.getreturnorder
+      with:
+        id: tools.id
+        Authorization: tools.Authorization
+        shipbob_channel_id: tools.shipbob_channel_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-return-order
+      description: Edit Return Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-returns.editreturnorder
+      with:
+        id: tools.id
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-return-order
+      description: Cancel Return order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-returns.cancelreturnorder
+      with:
+        id: tools.id
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.

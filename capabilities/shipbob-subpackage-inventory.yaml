@@ -1,0 +1,645 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: API Reference — subpackage_inventory
+  description: 'API Reference — subpackage_inventory. 9 operations. Lead operation: Get All Inventories. Self-contained Naftiko
+    capability covering one Shipbob business surface.'
+  tags:
+  - Shipbob
+  - subpackage_inventory
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHIPBOB_API_KEY: SHIPBOB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shipbob-subpackage-inventory
+    baseUri: https://api.shipbob.com
+    description: API Reference — subpackage_inventory business capability. Self-contained, no shared references.
+    resources:
+    - name: 2026-01-inventory
+      path: /2026-01/inventory
+      operations:
+      - name: getallinventories
+        method: GET
+        description: Get All Inventories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: SearchBy
+          in: query
+          type: string
+          description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory
+            ID is exact match. Expected behavior for search by Inve'
+        - name: FilterOperations
+          in: query
+          type: string
+          description: 'Advanced filtering operations. Apply multiple key-value filters to refine inventory results. Each
+            filter operation contains a ''key'' (field name) and ''rawValue'' '
+        - name: InventoryIds
+          in: query
+          type: string
+          description: Comma-separated list of inventory IDs to filter results. Use this to retrieve information for specific
+            inventory items only.
+        - name: IsActive
+          in: query
+          type: boolean
+          description: Filter by active status. True returns only active inventory items, False returns only inactive items.
+            Omit to return both.
+        - name: IsDigital
+          in: query
+          type: boolean
+          description: Filter by digital product status. True returns only digital products (no physical fulfillment), False
+            returns only physical products. Omit to return both.
+        - name: PageSize
+          in: query
+          type: string
+          description: Number of items to return per page. Controls pagination size for the response.
+        - name: SortBy
+          in: query
+          type: string
+          description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g.,
+            '-name' sorts by name descending). Multiple fields can be co
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-inventory-level
+      path: /2026-01/inventory-level
+      operations:
+      - name: getallinventorylevels
+        method: GET
+        description: Get All Inventory Levels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: SearchBy
+          in: query
+          type: string
+          description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory
+            ID is exact match. Expected behavior for search by Inve'
+        - name: InventoryIds
+          in: query
+          type: string
+          description: Comma-separated list of inventory IDs to filter results. Use this to retrieve inventory levels for
+            specific inventory items only.
+        - name: IsActive
+          in: query
+          type: boolean
+          description: Filter inventory levels by active status. Set to true to return only active inventory items, false
+            for inactive items. Omit to return all items regardless of st
+        - name: IsDigital
+          in: query
+          type: boolean
+          description: Filter inventory levels by digital product status. Set to true to return only digital products, false
+            for physical products. Digital products are items that don
+        - name: PageSize
+          in: query
+          type: string
+          description: Number of inventory level items to return per page. Controls pagination size for the response.
+        - name: SortBy
+          in: query
+          type: string
+          description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g.,
+            '-total_on_hand_quantity' sorts by quantity descending). Mul
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-inventory-level-locations
+      path: /2026-01/inventory-level/locations
+      operations:
+      - name: getallinventorylevelsgroupedbyfulfillmentcenter
+        method: GET
+        description: Get All Inventory Levels Grouped By Fulfillment Center
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LocationType
+          in: query
+          type: string
+          description: 'Filter by location type. Valid values: ''hub'', ''spoke'', or ''lts''. Defaults to all locations if
+            not specified.'
+        - name: LocationId
+          in: query
+          type: string
+          description: Filter by specific fulfillment center location ID. Use this to retrieve inventory levels for a particular
+            fulfillment center.
+        - name: SearchBy
+          in: query
+          type: string
+          description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory
+            ID is exact match. Expected behavior for search by Inve'
+        - name: InventoryIds
+          in: query
+          type: string
+          description: Comma-separated list of inventory IDs to filter results. Use this to retrieve location-grouped inventory
+            levels for specific inventory items only.
+        - name: IsActive
+          in: query
+          type: boolean
+          description: Filter inventory levels by active status. Set to true to return only active inventory items, false
+            for inactive items. Omit to return all items regardless of st
+        - name: IsDigital
+          in: query
+          type: boolean
+          description: Filter inventory levels by digital product status. Set to true to return only digital products, false
+            for physical products. Digital products are items that don
+        - name: PageSize
+          in: query
+          type: string
+          description: Number of location-grouped inventory level items to return per page. Controls pagination size for the
+            response.
+        - name: SortBy
+          in: query
+          type: string
+          description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g.,
+            '-name' sorts by name descending). Multiple fields can be co
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-inventory-level-lots
+      path: /2026-01/inventory-level/lots
+      operations:
+      - name: getallinventorylevelsgroupedbylot
+        method: GET
+        description: Get All Inventory Levels Grouped By Lot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LocationId
+          in: query
+          type: string
+          description: Filter by specific fulfillment center location ID. Use this to retrieve lot-based inventory levels
+            for a particular warehouse or distribution center.
+        - name: SearchBy
+          in: query
+          type: string
+          description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory
+            ID is exact match. Expected behavior for search by Inve'
+        - name: InventoryIds
+          in: query
+          type: string
+          description: Comma-separated list of inventory IDs to filter results. Use this to retrieve lot-grouped inventory
+            levels for specific inventory items only.
+        - name: IsActive
+          in: query
+          type: boolean
+          description: Filter inventory levels by active status. Set to true to return only active inventory items, false
+            for inactive items. Omit to return all items regardless of st
+        - name: IsDigital
+          in: query
+          type: boolean
+          description: Filter inventory levels by digital product status. Set to true to return only digital products, false
+            for physical products. Digital products are items that don
+        - name: PageSize
+          in: query
+          type: string
+          description: Number of lot-grouped inventory level items to return per page. Controls pagination size for the response.
+        - name: SortBy
+          in: query
+          type: string
+          description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g.,
+            '-lot_date' sorts by lot date descending). Multiple fields c
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-inventory-level-inventoryId
+      path: /2026-01/inventory-level/{inventoryId}
+      operations:
+      - name: getinventorylevels
+        method: GET
+        description: Get Inventory Levels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: inventoryId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-inventory-level-inventoryId-locations
+      path: /2026-01/inventory-level/{inventoryId}/locations
+      operations:
+      - name: getinventorylevelsgroupedbyfulfillmentcenter
+        method: GET
+        description: Get Inventory Levels Grouped By Fulfillment Center
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: inventoryId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-inventory-level-inventoryId-lots
+      path: /2026-01/inventory-level/{inventoryId}/lots
+      operations:
+      - name: getinventorylevelsgroupedbylot
+        method: GET
+        description: Get Inventory Levels Grouped By Lot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: inventoryId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-inventory-history:query
+      path: /2026-01/inventory/history:query
+      operations:
+      - name: queryinventoryhistoryevents
+        method: POST
+        description: Query Inventory History Events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: 2026-01-inventory-inventoryId
+      path: /2026-01/inventory/{inventoryId}
+      operations:
+      - name: getinventory
+        method: GET
+        description: Get Inventory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: inventoryId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SHIPBOB_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shipbob-subpackage-inventory-rest
+    port: 8080
+    description: REST adapter for API Reference — subpackage_inventory. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/2026-01/inventory
+      name: 2026-01-inventory
+      description: REST surface for 2026-01-inventory.
+      operations:
+      - method: GET
+        name: getallinventories
+        description: Get All Inventories
+        call: shipbob-subpackage-inventory.getallinventories
+        with:
+          SearchBy: rest.SearchBy
+          FilterOperations: rest.FilterOperations
+          InventoryIds: rest.InventoryIds
+          IsActive: rest.IsActive
+          IsDigital: rest.IsDigital
+          PageSize: rest.PageSize
+          SortBy: rest.SortBy
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory-level
+      name: 2026-01-inventory-level
+      description: REST surface for 2026-01-inventory-level.
+      operations:
+      - method: GET
+        name: getallinventorylevels
+        description: Get All Inventory Levels
+        call: shipbob-subpackage-inventory.getallinventorylevels
+        with:
+          SearchBy: rest.SearchBy
+          InventoryIds: rest.InventoryIds
+          IsActive: rest.IsActive
+          IsDigital: rest.IsDigital
+          PageSize: rest.PageSize
+          SortBy: rest.SortBy
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory-level/locations
+      name: 2026-01-inventory-level-locations
+      description: REST surface for 2026-01-inventory-level-locations.
+      operations:
+      - method: GET
+        name: getallinventorylevelsgroupedbyfulfillmentcenter
+        description: Get All Inventory Levels Grouped By Fulfillment Center
+        call: shipbob-subpackage-inventory.getallinventorylevelsgroupedbyfulfillmentcenter
+        with:
+          LocationType: rest.LocationType
+          LocationId: rest.LocationId
+          SearchBy: rest.SearchBy
+          InventoryIds: rest.InventoryIds
+          IsActive: rest.IsActive
+          IsDigital: rest.IsDigital
+          PageSize: rest.PageSize
+          SortBy: rest.SortBy
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory-level/lots
+      name: 2026-01-inventory-level-lots
+      description: REST surface for 2026-01-inventory-level-lots.
+      operations:
+      - method: GET
+        name: getallinventorylevelsgroupedbylot
+        description: Get All Inventory Levels Grouped By Lot
+        call: shipbob-subpackage-inventory.getallinventorylevelsgroupedbylot
+        with:
+          LocationId: rest.LocationId
+          SearchBy: rest.SearchBy
+          InventoryIds: rest.InventoryIds
+          IsActive: rest.IsActive
+          IsDigital: rest.IsDigital
+          PageSize: rest.PageSize
+          SortBy: rest.SortBy
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory-level/{inventoryid}
+      name: 2026-01-inventory-level-inventoryid
+      description: REST surface for 2026-01-inventory-level-inventoryId.
+      operations:
+      - method: GET
+        name: getinventorylevels
+        description: Get Inventory Levels
+        call: shipbob-subpackage-inventory.getinventorylevels
+        with:
+          inventoryId: rest.inventoryId
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory-level/{inventoryid}/locations
+      name: 2026-01-inventory-level-inventoryid-locations
+      description: REST surface for 2026-01-inventory-level-inventoryId-locations.
+      operations:
+      - method: GET
+        name: getinventorylevelsgroupedbyfulfillmentcenter
+        description: Get Inventory Levels Grouped By Fulfillment Center
+        call: shipbob-subpackage-inventory.getinventorylevelsgroupedbyfulfillmentcenter
+        with:
+          inventoryId: rest.inventoryId
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory-level/{inventoryid}/lots
+      name: 2026-01-inventory-level-inventoryid-lots
+      description: REST surface for 2026-01-inventory-level-inventoryId-lots.
+      operations:
+      - method: GET
+        name: getinventorylevelsgroupedbylot
+        description: Get Inventory Levels Grouped By Lot
+        call: shipbob-subpackage-inventory.getinventorylevelsgroupedbylot
+        with:
+          inventoryId: rest.inventoryId
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory/history-query
+      name: 2026-01-inventory-history-query
+      description: REST surface for 2026-01-inventory-history:query.
+      operations:
+      - method: POST
+        name: queryinventoryhistoryevents
+        description: Query Inventory History Events
+        call: shipbob-subpackage-inventory.queryinventoryhistoryevents
+        with:
+          cursor: rest.cursor
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/inventory/{inventoryid}
+      name: 2026-01-inventory-inventoryid
+      description: REST surface for 2026-01-inventory-inventoryId.
+      operations:
+      - method: GET
+        name: getinventory
+        description: Get Inventory
+        call: shipbob-subpackage-inventory.getinventory
+        with:
+          inventoryId: rest.inventoryId
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shipbob-subpackage-inventory-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for API Reference — subpackage_inventory. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-all-inventories
+      description: Get All Inventories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getallinventories
+      with:
+        SearchBy: tools.SearchBy
+        FilterOperations: tools.FilterOperations
+        InventoryIds: tools.InventoryIds
+        IsActive: tools.IsActive
+        IsDigital: tools.IsDigital
+        PageSize: tools.PageSize
+        SortBy: tools.SortBy
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-inventory-levels
+      description: Get All Inventory Levels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getallinventorylevels
+      with:
+        SearchBy: tools.SearchBy
+        InventoryIds: tools.InventoryIds
+        IsActive: tools.IsActive
+        IsDigital: tools.IsDigital
+        PageSize: tools.PageSize
+        SortBy: tools.SortBy
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-inventory-levels-grouped
+      description: Get All Inventory Levels Grouped By Fulfillment Center
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getallinventorylevelsgroupedbyfulfillmentcenter
+      with:
+        LocationType: tools.LocationType
+        LocationId: tools.LocationId
+        SearchBy: tools.SearchBy
+        InventoryIds: tools.InventoryIds
+        IsActive: tools.IsActive
+        IsDigital: tools.IsDigital
+        PageSize: tools.PageSize
+        SortBy: tools.SortBy
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-inventory-levels-grouped-2
+      description: Get All Inventory Levels Grouped By Lot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getallinventorylevelsgroupedbylot
+      with:
+        LocationId: tools.LocationId
+        SearchBy: tools.SearchBy
+        InventoryIds: tools.InventoryIds
+        IsActive: tools.IsActive
+        IsDigital: tools.IsDigital
+        PageSize: tools.PageSize
+        SortBy: tools.SortBy
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-inventory-levels
+      description: Get Inventory Levels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getinventorylevels
+      with:
+        inventoryId: tools.inventoryId
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-inventory-levels-grouped-fulfillment
+      description: Get Inventory Levels Grouped By Fulfillment Center
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getinventorylevelsgroupedbyfulfillmentcenter
+      with:
+        inventoryId: tools.inventoryId
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-inventory-levels-grouped-lot
+      description: Get Inventory Levels Grouped By Lot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getinventorylevelsgroupedbylot
+      with:
+        inventoryId: tools.inventoryId
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query-inventory-history-events
+      description: Query Inventory History Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-inventory.queryinventoryhistoryevents
+      with:
+        cursor: tools.cursor
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-inventory
+      description: Get Inventory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-inventory.getinventory
+      with:
+        inventoryId: tools.inventoryId
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.

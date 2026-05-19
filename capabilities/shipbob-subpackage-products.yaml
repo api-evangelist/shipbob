@@ -1,0 +1,963 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: API Reference — subpackage_products
+  description: 'API Reference — subpackage_products. 16 operations. Lead operation: Get Packaging Requirement. Self-contained
+    Naftiko capability covering one Shipbob business surface.'
+  tags:
+  - Shipbob
+  - subpackage_products
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHIPBOB_API_KEY: SHIPBOB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shipbob-subpackage-products
+    baseUri: https://api.shipbob.com
+    description: API Reference — subpackage_products business capability. Self-contained, no shared references.
+    resources:
+    - name: 2026-01-packaging-requirement
+      path: /2026-01/packaging-requirement
+      operations:
+      - name: getpackagingrequirement
+        method: GET
+        description: Get Packaging Requirement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-product
+      path: /2026-01/product
+      operations:
+      - name: createproduct
+        method: POST
+        description: Create Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: getproducts
+        method: GET
+        description: Get Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Search
+          in: query
+          type: string
+          description: Search Products by name, sku, inventory id or product Id.
+        - name: Barcode
+          in: query
+          type: string
+          description: Barcode Associated with variant
+        - name: Barcodes
+          in: query
+          type: string
+          description: Barcodes Associated with variant
+        - name: CategoryIds
+          in: query
+          type: string
+          description: List of Category Ids associated with product
+        - name: ChannelIds
+          in: query
+          type: string
+          description: Looks for Products variants by their channel IDs
+        - name: HasDigitalVariants
+          in: query
+          type: string
+          description: Looks for Products with/without digital variants
+        - name: HasVariants
+          in: query
+          type: string
+          description: Looks for Products with/without variants
+        - name: InventoryId
+          in: query
+          type: string
+          description: Looks for variants by its associated inventory id
+        - name: IsInventorySyncEnabled
+          in: query
+          type: string
+          description: Looks for Products variants by their IsInventorySyncEnabled is true
+        - name: LastUpdatedTimestamp
+          in: query
+          type: string
+          description: Looks for Products that have been updated since the given date
+        - name: LegacyIds
+          in: query
+          type: string
+          description: Looks for Products with by Legacy Product Id(s)
+        - name: Name
+          in: query
+          type: string
+          description: Looks for Products/Variants by name
+        - name: OnHand
+          in: query
+          type: string
+          description: Looks for Products with inventory
+        - name: PlatformIds
+          in: query
+          type: string
+          description: Looks for Products variants by their external Platform IDs
+        - name: ProductId
+          in: query
+          type: string
+          description: Looks for Products with an assigned Id
+        - name: ProductType
+          in: query
+          type: string
+          description: Looks for Products by type
+        - name: ReviewsPending
+          in: query
+          type: string
+          description: Looks for Products by ReviewsPending
+        - name: SalesChannel
+          in: query
+          type: string
+          description: Looks for Products variants assigned to a platform/sales channel
+        - name: SellerSKU
+          in: query
+          type: string
+          description: Looks for Products that match the provided Seller query
+        - name: SKU
+          in: query
+          type: string
+          description: Looks for Products that match the provided Sku query
+        - name: TaxonomyIds
+          in: query
+          type: string
+          description: Looks for Products variants by their taxonomy id or any descendants of the taxonomies sent separated
+            by comma
+        - name: VariantId
+          in: query
+          type: string
+          description: Looks for products that contain a variant with the given ID
+        - name: VariantStatus
+          in: query
+          type: string
+          description: Looks for Products with variants that contain provided status
+        - name: PageSize
+          in: query
+          type: string
+          description: 1-250
+        - name: SortBy
+          in: query
+          type: string
+          description: Id, Name, Category, TotalOnHandQty
+        - name: SortOrder
+          in: query
+          type: string
+          description: ASC,DESC
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-product-productId
+      path: /2026-01/product/{productId}
+      operations:
+      - name: getproduct
+        method: GET
+        description: Get Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+      - name: updateproduct
+        method: PATCH
+        description: Update Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          description: The product identifier
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: deleteproductbundle
+        method: DELETE
+        description: Delete Product Bundle
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          description: The product identifier
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-product-productId-variants
+      path: /2026-01/product/{productId}/variants
+      operations:
+      - name: getproductvariants
+        method: GET
+        description: Get Product Variants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          description: The product id
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+      - name: addproductvariants
+        method: POST
+        description: Add Product Variants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: updateproductvariants
+        method: PATCH
+        description: Update Product Variants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: 2026-01-product-productId}:moveVariants
+      path: /2026-01/product/{productId}:moveVariants
+      operations:
+      - name: movevariantsbetweenproducts
+        method: POST
+        description: Move Variants Between Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: 2026-01-product:moveVariants
+      path: /2026-01/product:moveVariants
+      operations:
+      - name: movevariantstonewproduct
+        method: POST
+        description: Move Variants to New Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: 2026-01-taxonomy
+      path: /2026-01/taxonomy
+      operations:
+      - name: gettaxonomies
+        method: GET
+        description: Get Taxonomies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: search
+          in: query
+          type: string
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-taxonomy-id
+      path: /2026-01/taxonomy/{id}
+      operations:
+      - name: gettaxonomybyid
+        method: GET
+        description: Get Taxonomy by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-taxonomy-id-parent
+      path: /2026-01/taxonomy/{id}/parent
+      operations:
+      - name: gettaxonomyparent
+        method: GET
+        description: Get Taxonomy Parent
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-variant-variantId}:convertToBundle
+      path: /2026-01/variant/{variantId}:convertToBundle
+      operations:
+      - name: convertvarianttobundle
+        method: POST
+        description: Convert Variant to Bundle
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: variantId
+          in: path
+          type: string
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: 2026-01-variant-variantId}:merge
+      path: /2026-01/variant/{variantId}:merge
+      operations:
+      - name: mergevariants
+        method: POST
+        description: Merge Variants
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: variantId
+          in: path
+          type: string
+          description: The ID of the variant to use as the merge target
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SHIPBOB_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shipbob-subpackage-products-rest
+    port: 8080
+    description: REST adapter for API Reference — subpackage_products. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/2026-01/packaging-requirement
+      name: 2026-01-packaging-requirement
+      description: REST surface for 2026-01-packaging-requirement.
+      operations:
+      - method: GET
+        name: getpackagingrequirement
+        description: Get Packaging Requirement
+        call: shipbob-subpackage-products.getpackagingrequirement
+        with:
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/product
+      name: 2026-01-product
+      description: REST surface for 2026-01-product.
+      operations:
+      - method: POST
+        name: createproduct
+        description: Create Product
+        call: shipbob-subpackage-products.createproduct
+        with:
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getproducts
+        description: Get Products
+        call: shipbob-subpackage-products.getproducts
+        with:
+          Search: rest.Search
+          Barcode: rest.Barcode
+          Barcodes: rest.Barcodes
+          CategoryIds: rest.CategoryIds
+          ChannelIds: rest.ChannelIds
+          HasDigitalVariants: rest.HasDigitalVariants
+          HasVariants: rest.HasVariants
+          InventoryId: rest.InventoryId
+          IsInventorySyncEnabled: rest.IsInventorySyncEnabled
+          LastUpdatedTimestamp: rest.LastUpdatedTimestamp
+          LegacyIds: rest.LegacyIds
+          Name: rest.Name
+          OnHand: rest.OnHand
+          PlatformIds: rest.PlatformIds
+          ProductId: rest.ProductId
+          ProductType: rest.ProductType
+          ReviewsPending: rest.ReviewsPending
+          SalesChannel: rest.SalesChannel
+          SellerSKU: rest.SellerSKU
+          SKU: rest.SKU
+          TaxonomyIds: rest.TaxonomyIds
+          VariantId: rest.VariantId
+          VariantStatus: rest.VariantStatus
+          PageSize: rest.PageSize
+          SortBy: rest.SortBy
+          SortOrder: rest.SortOrder
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/product/{productid}
+      name: 2026-01-product-productid
+      description: REST surface for 2026-01-product-productId.
+      operations:
+      - method: GET
+        name: getproduct
+        description: Get Product
+        call: shipbob-subpackage-products.getproduct
+        with:
+          productId: rest.productId
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateproduct
+        description: Update Product
+        call: shipbob-subpackage-products.updateproduct
+        with:
+          productId: rest.productId
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteproductbundle
+        description: Delete Product Bundle
+        call: shipbob-subpackage-products.deleteproductbundle
+        with:
+          productId: rest.productId
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/product/{productid}/variants
+      name: 2026-01-product-productid-variants
+      description: REST surface for 2026-01-product-productId-variants.
+      operations:
+      - method: GET
+        name: getproductvariants
+        description: Get Product Variants
+        call: shipbob-subpackage-products.getproductvariants
+        with:
+          productId: rest.productId
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addproductvariants
+        description: Add Product Variants
+        call: shipbob-subpackage-products.addproductvariants
+        with:
+          productId: rest.productId
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateproductvariants
+        description: Update Product Variants
+        call: shipbob-subpackage-products.updateproductvariants
+        with:
+          productId: rest.productId
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/product/productid-movevariants
+      name: 2026-01-product-productid-movevariants
+      description: REST surface for 2026-01-product-productId}:moveVariants.
+      operations:
+      - method: POST
+        name: movevariantsbetweenproducts
+        description: Move Variants Between Products
+        call: shipbob-subpackage-products.movevariantsbetweenproducts
+        with:
+          productId: rest.productId
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/product-movevariants
+      name: 2026-01-product-movevariants
+      description: REST surface for 2026-01-product:moveVariants.
+      operations:
+      - method: POST
+        name: movevariantstonewproduct
+        description: Move Variants to New Product
+        call: shipbob-subpackage-products.movevariantstonewproduct
+        with:
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/taxonomy
+      name: 2026-01-taxonomy
+      description: REST surface for 2026-01-taxonomy.
+      operations:
+      - method: GET
+        name: gettaxonomies
+        description: Get Taxonomies
+        call: shipbob-subpackage-products.gettaxonomies
+        with:
+          search: rest.search
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/taxonomy/{id}
+      name: 2026-01-taxonomy-id
+      description: REST surface for 2026-01-taxonomy-id.
+      operations:
+      - method: GET
+        name: gettaxonomybyid
+        description: Get Taxonomy by ID
+        call: shipbob-subpackage-products.gettaxonomybyid
+        with:
+          id: rest.id
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/taxonomy/{id}/parent
+      name: 2026-01-taxonomy-id-parent
+      description: REST surface for 2026-01-taxonomy-id-parent.
+      operations:
+      - method: GET
+        name: gettaxonomyparent
+        description: Get Taxonomy Parent
+        call: shipbob-subpackage-products.gettaxonomyparent
+        with:
+          id: rest.id
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/variant/variantid-converttobundle
+      name: 2026-01-variant-variantid-converttobundle
+      description: REST surface for 2026-01-variant-variantId}:convertToBundle.
+      operations:
+      - method: POST
+        name: convertvarianttobundle
+        description: Convert Variant to Bundle
+        call: shipbob-subpackage-products.convertvarianttobundle
+        with:
+          variantId: rest.variantId
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/variant/variantid-merge
+      name: 2026-01-variant-variantid-merge
+      description: REST surface for 2026-01-variant-variantId}:merge.
+      operations:
+      - method: POST
+        name: mergevariants
+        description: Merge Variants
+        call: shipbob-subpackage-products.mergevariants
+        with:
+          variantId: rest.variantId
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shipbob-subpackage-products-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for API Reference — subpackage_products. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-packaging-requirement
+      description: Get Packaging Requirement
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.getpackagingrequirement
+      with:
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-product
+      description: Create Product
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-products.createproduct
+      with:
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-products
+      description: Get Products
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.getproducts
+      with:
+        Search: tools.Search
+        Barcode: tools.Barcode
+        Barcodes: tools.Barcodes
+        CategoryIds: tools.CategoryIds
+        ChannelIds: tools.ChannelIds
+        HasDigitalVariants: tools.HasDigitalVariants
+        HasVariants: tools.HasVariants
+        InventoryId: tools.InventoryId
+        IsInventorySyncEnabled: tools.IsInventorySyncEnabled
+        LastUpdatedTimestamp: tools.LastUpdatedTimestamp
+        LegacyIds: tools.LegacyIds
+        Name: tools.Name
+        OnHand: tools.OnHand
+        PlatformIds: tools.PlatformIds
+        ProductId: tools.ProductId
+        ProductType: tools.ProductType
+        ReviewsPending: tools.ReviewsPending
+        SalesChannel: tools.SalesChannel
+        SellerSKU: tools.SellerSKU
+        SKU: tools.SKU
+        TaxonomyIds: tools.TaxonomyIds
+        VariantId: tools.VariantId
+        VariantStatus: tools.VariantStatus
+        PageSize: tools.PageSize
+        SortBy: tools.SortBy
+        SortOrder: tools.SortOrder
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product
+      description: Get Product
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.getproduct
+      with:
+        productId: tools.productId
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-product
+      description: Update Product
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.updateproduct
+      with:
+        productId: tools.productId
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-product-bundle
+      description: Delete Product Bundle
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: shipbob-subpackage-products.deleteproductbundle
+      with:
+        productId: tools.productId
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product-variants
+      description: Get Product Variants
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.getproductvariants
+      with:
+        productId: tools.productId
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-product-variants
+      description: Add Product Variants
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-products.addproductvariants
+      with:
+        productId: tools.productId
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-product-variants
+      description: Update Product Variants
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.updateproductvariants
+      with:
+        productId: tools.productId
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: move-variants-between-products
+      description: Move Variants Between Products
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-products.movevariantsbetweenproducts
+      with:
+        productId: tools.productId
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: move-variants-new-product
+      description: Move Variants to New Product
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-products.movevariantstonewproduct
+      with:
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-taxonomies
+      description: Get Taxonomies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.gettaxonomies
+      with:
+        search: tools.search
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-taxonomy-id
+      description: Get Taxonomy by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.gettaxonomybyid
+      with:
+        id: tools.id
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-taxonomy-parent
+      description: Get Taxonomy Parent
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-products.gettaxonomyparent
+      with:
+        id: tools.id
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: convert-variant-bundle
+      description: Convert Variant to Bundle
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-products.convertvarianttobundle
+      with:
+        variantId: tools.variantId
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: merge-variants
+      description: Merge Variants
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-products.mergevariants
+      with:
+        variantId: tools.variantId
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

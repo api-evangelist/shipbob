@@ -1,0 +1,284 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: API Reference — subpackage_billing
+  description: 'API Reference — subpackage_billing. 4 operations. Lead operation: Get Invoices. Self-contained Naftiko capability
+    covering one Shipbob business surface.'
+  tags:
+  - Shipbob
+  - subpackage_billing
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHIPBOB_API_KEY: SHIPBOB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shipbob-subpackage-billing
+    baseUri: https://api.shipbob.com
+    description: API Reference — subpackage_billing business capability. Self-contained, no shared references.
+    resources:
+    - name: 2026-01-invoices
+      path: /2026-01/invoices
+      operations:
+      - name: getinvoices
+        method: GET
+        description: Get Invoices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Cursor
+          in: query
+          type: string
+          description: '[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied,
+            it overrides all other filter parameters.'
+        - name: FromDate
+          in: query
+          type: string
+          description: '[Optional] Start date for filtering invoices by invoice date. Default is current - 1 month date.'
+        - name: ToDate
+          in: query
+          type: string
+          description: '[Optional] End date for filtering invoices by invoice date. Default is current date.'
+        - name: InvoiceTypes
+          in: query
+          type: array
+          description: '[Optional] Filter invoices by invoice type.'
+        - name: PageSize
+          in: query
+          type: integer
+          description: 'Number of invoices to return per page (default: 100). Must be between 1 and 1000.'
+        - name: SortOrder
+          in: query
+          type: string
+          description: 'Sort invoices by Invoice Date. Values - Ascending, Descending. Default: Descending.'
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-invoices-invoiceId-transactions
+      path: /2026-01/invoices/{invoiceId}/transactions
+      operations:
+      - name: gettransactionsbyinvoiceid
+        method: GET
+        description: Get Transactions by Invoice ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: invoiceId
+          in: path
+          type: string
+          description: The unique identifier of the invoice whose transactions are to be retrieved.
+          required: true
+        - name: Cursor
+          in: query
+          type: string
+          description: '[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied,
+            it overrides all other filter parameters.'
+        - name: PageSize
+          in: query
+          type: integer
+          description: Number of transactions to return per page (default is 100, to be entered when API is called for first
+            time). Must be between 1 and 1000.
+        - name: SortOrder
+          in: query
+          type: string
+          description: 'Sort order of the results. Valid values: Ascending or Descending (default: Descending).'
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-transaction-fees
+      path: /2026-01/transaction-fees
+      operations:
+      - name: gettransactionfees
+        method: GET
+        description: Get Transaction Fees
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-transactions:query
+      path: /2026-01/transactions:query
+      operations:
+      - name: searchtransactions
+        method: POST
+        description: Search Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Cursor
+          in: query
+          type: string
+          description: '[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied,
+            it overrides all other filter parameters.'
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.SHIPBOB_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shipbob-subpackage-billing-rest
+    port: 8080
+    description: REST adapter for API Reference — subpackage_billing. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/2026-01/invoices
+      name: 2026-01-invoices
+      description: REST surface for 2026-01-invoices.
+      operations:
+      - method: GET
+        name: getinvoices
+        description: Get Invoices
+        call: shipbob-subpackage-billing.getinvoices
+        with:
+          Cursor: rest.Cursor
+          FromDate: rest.FromDate
+          ToDate: rest.ToDate
+          InvoiceTypes: rest.InvoiceTypes
+          PageSize: rest.PageSize
+          SortOrder: rest.SortOrder
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/invoices/{invoiceid}/transactions
+      name: 2026-01-invoices-invoiceid-transactions
+      description: REST surface for 2026-01-invoices-invoiceId-transactions.
+      operations:
+      - method: GET
+        name: gettransactionsbyinvoiceid
+        description: Get Transactions by Invoice ID
+        call: shipbob-subpackage-billing.gettransactionsbyinvoiceid
+        with:
+          invoiceId: rest.invoiceId
+          Cursor: rest.Cursor
+          PageSize: rest.PageSize
+          SortOrder: rest.SortOrder
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/transaction-fees
+      name: 2026-01-transaction-fees
+      description: REST surface for 2026-01-transaction-fees.
+      operations:
+      - method: GET
+        name: gettransactionfees
+        description: Get Transaction Fees
+        call: shipbob-subpackage-billing.gettransactionfees
+        with:
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/transactions-query
+      name: 2026-01-transactions-query
+      description: REST surface for 2026-01-transactions:query.
+      operations:
+      - method: POST
+        name: searchtransactions
+        description: Search Transactions
+        call: shipbob-subpackage-billing.searchtransactions
+        with:
+          Cursor: rest.Cursor
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shipbob-subpackage-billing-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for API Reference — subpackage_billing. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-invoices
+      description: Get Invoices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-billing.getinvoices
+      with:
+        Cursor: tools.Cursor
+        FromDate: tools.FromDate
+        ToDate: tools.ToDate
+        InvoiceTypes: tools.InvoiceTypes
+        PageSize: tools.PageSize
+        SortOrder: tools.SortOrder
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-transactions-invoice-id
+      description: Get Transactions by Invoice ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-billing.gettransactionsbyinvoiceid
+      with:
+        invoiceId: tools.invoiceId
+        Cursor: tools.Cursor
+        PageSize: tools.PageSize
+        SortOrder: tools.SortOrder
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-transaction-fees
+      description: Get Transaction Fees
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-billing.gettransactionfees
+      with:
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-transactions
+      description: Search Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-billing.searchtransactions
+      with:
+        Cursor: tools.Cursor
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

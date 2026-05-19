@@ -1,0 +1,184 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: API Reference — subpackage_webhooks
+  description: 'API Reference — subpackage_webhooks. 3 operations. Lead operation: Create Subscription. Self-contained Naftiko
+    capability covering one Shipbob business surface.'
+  tags:
+  - Shipbob
+  - subpackage_webhooks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHIPBOB_API_KEY: SHIPBOB_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shipbob-subpackage-webhooks
+    baseUri: https://api.shipbob.com
+    description: API Reference — subpackage_webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: 2026-01-webhook
+      path: /2026-01/webhook
+      operations:
+      - name: createsubscription
+        method: POST
+        description: Create Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: getsubscriptions
+        method: GET
+        description: Get Subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: RecordsPerPage
+          in: query
+          type: integer
+          description: Number of webhooks returned per page in a paginated response.
+        - name: Cursor
+          in: query
+          type: string
+          description: '[Optional] A pagination token used to retrieve the next or previous page of results. Omit to start
+            at the first page.'
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    - name: 2026-01-webhook-id
+      path: /2026-01/webhook/{id}
+      operations:
+      - name: deletesubscription
+        method: DELETE
+        description: Delete Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: This is the id of the webhook subscription to delete
+          required: true
+        - name: Authorization
+          in: header
+          type: string
+          description: Authentication using Personal Access Token (PAT) token or OAuth2
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SHIPBOB_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shipbob-subpackage-webhooks-rest
+    port: 8080
+    description: REST adapter for API Reference — subpackage_webhooks. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/2026-01/webhook
+      name: 2026-01-webhook
+      description: REST surface for 2026-01-webhook.
+      operations:
+      - method: POST
+        name: createsubscription
+        description: Create Subscription
+        call: shipbob-subpackage-webhooks.createsubscription
+        with:
+          Authorization: rest.Authorization
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getsubscriptions
+        description: Get Subscriptions
+        call: shipbob-subpackage-webhooks.getsubscriptions
+        with:
+          RecordsPerPage: rest.RecordsPerPage
+          Cursor: rest.Cursor
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2026-01/webhook/{id}
+      name: 2026-01-webhook-id
+      description: REST surface for 2026-01-webhook-id.
+      operations:
+      - method: DELETE
+        name: deletesubscription
+        description: Delete Subscription
+        call: shipbob-subpackage-webhooks.deletesubscription
+        with:
+          id: rest.id
+          Authorization: rest.Authorization
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shipbob-subpackage-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for API Reference — subpackage_webhooks. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-subscription
+      description: Create Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shipbob-subpackage-webhooks.createsubscription
+      with:
+        Authorization: tools.Authorization
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-subscriptions
+      description: Get Subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shipbob-subpackage-webhooks.getsubscriptions
+      with:
+        RecordsPerPage: tools.RecordsPerPage
+        Cursor: tools.Cursor
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-subscription
+      description: Delete Subscription
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: shipbob-subpackage-webhooks.deletesubscription
+      with:
+        id: tools.id
+        Authorization: tools.Authorization
+      outputParameters:
+      - type: object
+        mapping: $.
