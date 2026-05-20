@@ -6,65 +6,67 @@ description: ShipBob is a global ecommerce fulfillment platform offering distrib
   shipping operations for direct-to-consumer brands.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Logistics
-- Fulfillment
-- 3PL
-- Ecommerce
-- Inventory
+  - Logistics
+  - Fulfillment
+  - 3PL
+  - Ecommerce
+  - Inventory
 created: '2026-05-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: shipbob:shipbob-developer-api
-  name: ShipBob Developer API
-  description: ShipBob Developer API provides REST endpoints for channels, orders, products, inventory, receiving orders,
-    returns, webhooks, locations, billing, and shipment simulations across multiple dated and versioned releases (default
-    2026-01).
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.shipbob.com/
-  baseURL: https://api.shipbob.com
-  tags:
-  - Logistics
-  - Fulfillment
-  - REST
-  properties:
+  - aid: shipbob:shipbob-developer-api
+    name: ShipBob Developer API
+    description: ShipBob Developer API provides REST endpoints for channels, orders, products, inventory, receiving orders,
+      returns, webhooks, locations, billing, and shipment simulations across multiple dated and versioned releases (default
+      2026-01).
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.shipbob.com/
+    baseURL: https://api.shipbob.com
+    tags:
+    - Logistics
+    - Fulfillment
+    - REST
+    properties:
+    - type: Documentation
+      url: https://developer.shipbob.com/
+    - type: OpenAPI
+      url: openapi/shipbob-openapi.json
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-billing.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-channels.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-inventory.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-locations.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-orders.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-products.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-receiving.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-returns.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-simulations.yaml
+    - type: NaftikoCapability
+      url: capabilities/shipbob-subpackage-webhooks.yaml
+common:
+  - type: GitHubOrganization
+    url: https://github.com/ShipBob
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/shipbob
+  - type: Website
+    url: https://www.shipbob.com/
   - type: Documentation
     url: https://developer.shipbob.com/
-  - type: OpenAPI
-    url: openapi/shipbob-openapi.json
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-billing.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-channels.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-inventory.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-locations.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-orders.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-products.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-receiving.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-returns.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-simulations.yaml
-  - type: NaftikoCapability
-    url: capabilities/shipbob-subpackage-webhooks.yaml
-common:
-- type: LinkedIn
-  url: https://www.linkedin.com/company/shipbob
-- type: Website
-  url: https://www.shipbob.com/
-- type: Documentation
-  url: https://developer.shipbob.com/
-- type: Plans
-  url: plans/shipbob-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/shipbob-rate-limits.yml
-- type: FinOps
-  url: finops/shipbob-finops.yml
+  - type: Plans
+    url: plans/shipbob-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/shipbob-rate-limits.yml
+  - type: FinOps
+    url: finops/shipbob-finops.yml
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
