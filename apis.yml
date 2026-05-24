@@ -67,6 +67,8 @@ common:
     url: rate-limits/shipbob-rate-limits.yml
   - type: FinOps
     url: finops/shipbob-finops.yml
+  - type: LLMsTxt
+    url: https://developer.shipbob.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
