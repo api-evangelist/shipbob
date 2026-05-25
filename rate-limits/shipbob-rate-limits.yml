@@ -4,8 +4,8 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: ShipBob
 providerId: shipbob
 created: '2026-05-08'
-modified: '2026-05-08'
-reconciled: false
+modified: '2026-05-25'
+reconciled: true
 tags:
 - Logistics
 - Fulfillment
@@ -15,21 +15,37 @@ tags:
 - Rate Limiting
 - Quotas
 - Throttling
-description: Placeholder rate-limit artifact for ShipBob. Replace with real limits once researched.
-notes: Initial scaffold — limits have not yet been reconciled.
+description: ShipBob enforces a sliding-window rate limit of 150 requests per minute, totalled
+  per user, per application across all ShipBob Developer API endpoints. Exceeding the limit
+  returns HTTP 429 with `x-retry-after` (seconds to wait) and `x-remaining-calls` headers.
 sources:
-- https://www.shipbob.com/
+- https://developer.shipbob.com/rate-limit
 responseCodes:
   throttled: 429
+headers:
+- name: x-retry-after
+  description: Seconds the client must wait before retrying after a 429 response.
+- name: x-remaining-calls
+  description: Number of API calls remaining in the current sliding window.
 limits:
-- name: Default
-  scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+- name: Global Sliding Window
+  scope: user + application
+  metric: requests
+  limit: 150
+  window: 60s
+  algorithm: sliding window
+  notes: Counted across all ShipBob Developer API endpoints (channels, orders, products,
+    inventory, receiving, returns, webhooks, locations, billing, simulations).
 policies:
 - name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  description: Clients should honor the `x-retry-after` header on 429 responses and
+    implement exponential backoff with jitter for unhandled throttling cases.
+- name: Pre-Emptive Throttling
+  description: Inspect `x-remaining-calls` in responses and slow down before the window
+    is exhausted.
+- name: Per-Application Isolation
+  description: Spread workload across multiple OAuth applications when integrating
+    multiple high-volume use cases to avoid contention against a single 150/min budget.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

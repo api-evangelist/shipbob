@@ -2,8 +2,9 @@ aid: shipbob
 url: https://raw.githubusercontent.com/api-evangelist/shipbob/refs/heads/main/apis.yml
 name: ShipBob
 kind: company
-description: ShipBob is a global ecommerce fulfillment platform offering distributed warehousing, inventory management, and
-  shipping operations for direct-to-consumer brands.
+description: ShipBob is a Chicago-based global ecommerce fulfillment network and 3PL operating 60+
+  fulfillment centers, providing distributed warehousing, inventory, B2B/EDI, and shipping operations
+  for direct-to-consumer brands with a developer-friendly REST API.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Logistics
@@ -11,15 +12,22 @@ tags:
   - 3PL
   - Ecommerce
   - Inventory
+  - Warehousing
+  - Shipping
+  - Direct-to-Consumer
 created: '2026-05-08'
-modified: '2026-05-19'
+modified: '2026-05-25'
 specificationVersion: '0.19'
 apis:
   - aid: shipbob:shipbob-developer-api
     name: ShipBob Developer API
-    description: ShipBob Developer API provides REST endpoints for channels, orders, products, inventory, receiving orders,
-      returns, webhooks, locations, billing, and shipment simulations across multiple dated and versioned releases (default
-      2026-01).
+    description: ShipBob Developer API provides versioned REST endpoints for channels, orders, products,
+      inventory, receiving orders, returns, webhooks, locations, billing, and shipment simulations.
+      Latest API version is 2026-01 (released February 2026); selectable via dated URL prefix
+      (e.g. /2026-01/order). Authentication via Personal Access Token (PAT) for single-user
+      integrations or OAuth 2.0 for multi-tenant App Store apps. Sliding-window rate limit of
+      150 requests/minute per user per application; throttled responses return HTTP 429 with
+      `x-retry-after` and `x-remaining-calls` headers.
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://developer.shipbob.com/
     baseURL: https://api.shipbob.com
@@ -27,9 +35,23 @@ apis:
     - Logistics
     - Fulfillment
     - REST
+    - 3PL
+    - Ecommerce
+    - Inventory
+    - Webhooks
     properties:
     - type: Documentation
       url: https://developer.shipbob.com/
+    - type: Authentication
+      url: https://developer.shipbob.com/auth
+    - type: Quickstart
+      url: https://developer.shipbob.com/quickstart
+    - type: ReleaseNotes
+      url: https://developer.shipbob.com/release-notes
+    - type: RateLimit
+      url: https://developer.shipbob.com/rate-limit
+    - type: FAQ
+      url: https://developer.shipbob.com/faq
     - type: OpenAPI
       url: openapi/shipbob-openapi.json
     - type: NaftikoCapability
@@ -53,14 +75,20 @@ apis:
     - type: NaftikoCapability
       url: capabilities/shipbob-subpackage-webhooks.yaml
 common:
-  - type: GitHubOrganization
-    url: https://github.com/ShipBob
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/shipbob
   - type: Website
     url: https://www.shipbob.com/
   - type: Documentation
     url: https://developer.shipbob.com/
+  - type: Pricing
+    url: https://www.shipbob.com/pricing/
+  - type: AppStore
+    url: https://www.shipbob.com/integrations/
+  - type: SupportPortal
+    url: https://support.shipbob.com/
+  - type: GitHubOrganization
+    url: https://github.com/ShipBob
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/shipbob
   - type: Plans
     url: plans/shipbob-plans-pricing.yml
   - type: RateLimits

@@ -4,8 +4,8 @@ schema: https://www.finops.org/framework/
 provider: ShipBob
 providerId: shipbob
 created: '2026-05-08'
-modified: '2026-05-08'
-reconciled: false
+modified: '2026-05-25'
+reconciled: true
 tags:
 - Logistics
 - Fulfillment
@@ -15,10 +15,14 @@ tags:
 - FinOps
 - Cost Management
 - FOCUS
-description: FOCUS-aligned FinOps placeholder for ShipBob. Pipeline will replace with real billing details.
-notes: Initial scaffold — billing model has not yet been reconciled.
+description: FOCUS-aligned FinOps view of ShipBob's quote-based 3PL billing model. ShipBob
+  invoices a $275/month fulfillment minimum plus per-event usage charges across pick-and-pack,
+  storage (per bin/shelf/pallet), warehouse receiving (per WRO with hourly overage), and
+  outbound shipping (per shipment). API consumption is included.
 sources:
-- https://www.shipbob.com/
+- https://www.shipbob.com/pricing/
+- https://support.shipbob.com/s/article/ShipBob-Storage
+- https://support.shipbob.com/s/article/US-Fulfillment-Center-Additional-Services-Pricing
 - https://focus.finops.org/focus-specification/v1-3/
 alignedWith:
   framework: FinOps Foundation Framework
@@ -29,15 +33,16 @@ alignedWith:
 publisherName: ShipBob
 serviceCategory: Logistics
 billingModel:
-  pricingCategory: To Be Reconciled
+  pricingCategory: Usage-Based With Monthly Minimum
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
   - Usage
   - Purchase
   - Adjustment
+  invoiceDelivery: Monthly invoice from ShipBob; no self-serve usage export documented.
 focusColumns:
-  ServiceName: ShipBob
+  ServiceName: ShipBob Fulfillment
   ServiceCategory: Logistics
   ProviderName: ShipBob
   PublisherName: ShipBob
@@ -45,22 +50,68 @@ focusColumns:
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-- name: api_usage
-  description: Catch-all meter pending reconciliation.
-  unit: varies
-  aggregation: sum
+- name: monthly_minimum
+  description: $275/month fulfillment-services minimum (storage, receiving, shipping
+    billed separately).
+  unit: USD/month
+  aggregation: flat
   dimensions:
   - account
-  - resource
+- name: pick_and_pack
+  description: Per-item fulfillment pick-and-pack charges.
+  unit: items
+  aggregation: sum
+  dimensions:
+  - sku
+  - order
+  - warehouse
+- name: storage
+  description: Monthly storage charges per occupied bin, shelf, and pallet.
+  unit: storage units
+  aggregation: sum
+  dimensions:
+  - warehouse
+  - sku
+  - storage_class
+- name: receiving
+  description: Warehouse Receiving Order (WRO) charges; flat $25-$40 for first 2 hours,
+    $45/hour thereafter.
+  unit: WRO
+  aggregation: sum
+  dimensions:
+  - warehouse
+  - wro
+- name: outbound_shipping
+  description: Per-shipment outbound shipping charges based on destination, weight,
+    and method.
+  unit: shipments
+  aggregation: sum
+  dimensions:
+  - destination_country
+  - carrier
+  - service_level
+- name: api_usage
+  description: ShipBob Developer API access (included with fulfillment account).
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - application
+  - user
 principles:
 - name: Visibility
-  description: Pull provider invoices or usage exports until a self-serve usage feed is documented.
+  description: Pull ShipBob's monthly invoices and reconcile against per-order outbound
+    shipping costs. Quoted estimates frequently understate actual billed amounts;
+    track delta as a FinOps KPI.
 - name: Allocation
-  description: Tag invoice line items to consuming business units in your FinOps store.
+  description: Tag invoice line items to brands, SKUs, sales channels, and 3PL warehouses
+    in your FinOps store; allocate receiving and storage to inventory cost.
 - name: Optimization
-  description: Levers depend on the provider's billing model; review at renewal once reconciled.
+  description: Right-size storage by purging slow movers, consolidate WROs to avoid
+    hourly overage, and renegotiate per-pick rates at higher tiers. Audit ancillary
+    fees (custom packaging, additional picks) which can reach 10-20% of net sales.
 - name: Accountability
-  description: Assign a contract owner to review billing against negotiated terms.
+  description: Assign a contract owner to review quote-to-actual variance monthly and
+    govern App Store integrations that drive additional fulfillment events.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
