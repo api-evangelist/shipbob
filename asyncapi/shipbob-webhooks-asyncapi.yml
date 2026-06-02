@@ -1,0 +1,494 @@
+asyncapi: 2.6.0
+info:
+  title: ShipBob Webhooks
+  version: '2026-01'
+  description: |
+    AsyncAPI 2.6 specification modeling the ShipBob webhook event surface.
+
+    ShipBob webhooks allow applications to subscribe to events that occur in a
+    ShipBob merchant account (order shipments, returns, warehouse receiving
+    orders, and billing). When a subscribed event occurs, ShipBob sends an HTTP
+    POST request with a JSON payload to the configured subscription URL. The
+    subscription URL MUST be HTTPS and MUST accept `application/json`.
+
+    Two header conventions exist:
+
+    Current (Standard Webhooks-style) headers, used on subscriptions created
+    via the dated REST surface (for example `POST /2026-01/webhook`):
+
+    - `webhook-id` — unique identifier for the delivery (stable across retries)
+    - `webhook-timestamp` — Unix timestamp in seconds when the message was sent
+    - `webhook-signature` — space-delimited list of versioned, base64-encoded
+      HMAC-SHA256 signatures (for example `v1,<base64>`)
+    - `x-webhook-topic` — the event topic (for example `order.shipped`)
+
+    Legacy headers, retained for v1.0/v2.0 subscriptions:
+
+    - `shipbob-subscription-id` — the numeric subscription identifier
+    - `shipbob-topic` — the legacy topic name (for example `order_shipped`)
+
+    Signature verification: ShipBob signs every delivery using HMAC-SHA256.
+    The signed content is the concatenation
+    `{webhook-id}.{webhook-timestamp}.{raw_request_body}`. The signing key is
+    the base64-decoded bytes that follow the `whsec_` prefix of the secret
+    issued when the subscription is created. Receivers MUST compute the HMAC
+    over the raw, unmodified request body and constant-time compare against the
+    value in `webhook-signature` (after stripping the `v1,` version prefix).
+
+    Delivery semantics: Receivers MUST return an HTTP 2xx response within 15
+    seconds. ShipBob retries failed deliveries on the schedule
+    immediate, 5s, 5m, 30m, 2h, 5h, 10h, 10h. After all retries fail across a
+    5-day window, the endpoint is automatically disabled and the account
+    owner is notified by email.
+
+    Every topic enumerated in this specification is drawn from the official
+    ShipBob developer documentation at https://developer.shipbob.com/webhooks.
+    Per-topic payload shapes are not exhaustively published by ShipBob; the
+    documentation recommends generating sample payloads via the dashboard
+    webhook test tool. This specification therefore models each topic as a
+    delivery of the generic `ShipBobWebhookPayload` envelope and leaves the
+    topic-specific resource body as `additionalProperties: true`.
+  contact:
+    name: ShipBob Developer Support
+    url: https://developer.shipbob.com/
+  license:
+    name: Proprietary
+    url: https://www.shipbob.com/terms-of-service/
+  x-apis-json-aid: shipbob:shipbob-developer-api
+  x-spec-source: https://developer.shipbob.com/webhooks
+defaultContentType: application/json
+servers:
+  webhook-receiver:
+    url: '{endpoint}'
+    protocol: https
+    description: |
+      The application-hosted HTTPS endpoint to which ShipBob delivers webhook
+      events. This URL is registered via `POST /2026-01/webhook` (current) or
+      through the ShipBob dashboard at Integrations > Webhooks > Add
+      Subscription.
+    variables:
+      endpoint:
+        default: https://example.com/shipbob/webhooks
+        description: The fully-qualified HTTPS callback URL hosted by the receiver.
+channels:
+  order.shipped:
+    description: |
+      Triggered when a shipment label has been printed and the shipment is
+      ready to leave the fulfillment center. Carries tracking information for
+      the shipment.
+    subscribe:
+      operationId: subscribeOrderShipped
+      summary: Receive order.shipped events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipped
+  order.shipment.tracking.updated:
+    description: |
+      Triggered when the tracking status of a shipment changes after the label
+      has been generated (intermediate carrier scans).
+    subscribe:
+      operationId: subscribeOrderShipmentTrackingUpdated
+      summary: Receive order.shipment.tracking.updated events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.tracking.updated
+  order.shipment.delivered:
+    description: |
+      Triggered when the carrier reports that the shipment has been delivered
+      to the customer.
+    subscribe:
+      operationId: subscribeOrderShipmentDelivered
+      summary: Receive order.shipment.delivered events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.delivered
+  order.shipment.exception:
+    description: |
+      Triggered when a shipment encounters an exception (for example, an
+      out-of-stock product or other fulfillment issue).
+    subscribe:
+      operationId: subscribeOrderShipmentException
+      summary: Receive order.shipment.exception events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.exception
+  order.shipment.on_hold:
+    description: |
+      Triggered when a shipment is placed on hold (for example, missing or
+      invalid address or payment information).
+    subscribe:
+      operationId: subscribeOrderShipmentOnHold
+      summary: Receive order.shipment.on_hold events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.on_hold
+  order.shipment.cancelled:
+    description: Triggered when a shipment is cancelled before it is dispatched.
+    subscribe:
+      operationId: subscribeOrderShipmentCancelled
+      summary: Receive order.shipment.cancelled events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.cancelled
+  order.shipment.address.updated:
+    description: Triggered when the shipping address on a pending shipment is modified.
+    subscribe:
+      operationId: subscribeOrderShipmentAddressUpdated
+      summary: Receive order.shipment.address.updated events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.address.updated
+  order.shipment.line_item.added:
+    description: Triggered when a line item is added to a pending shipment.
+    subscribe:
+      operationId: subscribeOrderShipmentLineItemAdded
+      summary: Receive order.shipment.line_item.added events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.line_item.added
+  order.shipment.line_item.removed:
+    description: Triggered when a line item is removed from a pending shipment.
+    subscribe:
+      operationId: subscribeOrderShipmentLineItemRemoved
+      summary: Receive order.shipment.line_item.removed events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.line_item.removed
+  order.shipment.line_item.updated:
+    description: Triggered when a line item on a pending shipment is updated.
+    subscribe:
+      operationId: subscribeOrderShipmentLineItemUpdated
+      summary: Receive order.shipment.line_item.updated events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.line_item.updated
+  order.shipment.shipping_service.updated:
+    description: |
+      Triggered when the carrier or shipping service selected for a shipment
+      changes.
+    subscribe:
+      operationId: subscribeOrderShipmentShippingServiceUpdated
+      summary: Receive order.shipment.shipping_service.updated events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: order.shipment.shipping_service.updated
+  return.created:
+    description: Triggered when a new return order is created.
+    subscribe:
+      operationId: subscribeReturnCreated
+      summary: Receive return.created events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: return.created
+  return.updated:
+    description: Triggered when an existing return order is updated.
+    subscribe:
+      operationId: subscribeReturnUpdated
+      summary: Receive return.updated events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: return.updated
+  return.completed:
+    description: |
+      Triggered when a return order has been completed at the fulfillment
+      center (inspected and dispositioned).
+    subscribe:
+      operationId: subscribeReturnCompleted
+      summary: Receive return.completed events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: return.completed
+  wro.created:
+    description: Triggered when a Warehouse Receiving Order (WRO) is created.
+    subscribe:
+      operationId: subscribeWroCreated
+      summary: Receive wro.created events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: wro.created
+  wro.updated:
+    description: Triggered when a Warehouse Receiving Order is updated.
+    subscribe:
+      operationId: subscribeWroUpdated
+      summary: Receive wro.updated events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: wro.updated
+  wro.completed:
+    description: |
+      Triggered when a Warehouse Receiving Order has been fully received and
+      stowed.
+    subscribe:
+      operationId: subscribeWroCompleted
+      summary: Receive wro.completed events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: wro.completed
+  wro.box.arrived:
+    description: Triggered when an inbound box associated with a WRO arrives at the fulfillment center.
+    subscribe:
+      operationId: subscribeWroBoxArrived
+      summary: Receive wro.box.arrived events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: wro.box.arrived
+  wro.box.scanned:
+    description: Triggered when an inbound box associated with a WRO is scanned into receiving.
+    subscribe:
+      operationId: subscribeWroBoxScanned
+      summary: Receive wro.box.scanned events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: wro.box.scanned
+  wro.box.stowed:
+    description: Triggered when the contents of a WRO inbound box are stowed into inventory.
+    subscribe:
+      operationId: subscribeWroBoxStowed
+      summary: Receive wro.box.stowed events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: wro.box.stowed
+  billing.charge.created:
+    description: Triggered when a new billing charge is created on the merchant's account.
+    subscribe:
+      operationId: subscribeBillingChargeCreated
+      summary: Receive billing.charge.created events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: billing.charge.created
+  billing.refund.created:
+    description: Triggered when a billing refund is issued on the merchant's account.
+    subscribe:
+      operationId: subscribeBillingRefundCreated
+      summary: Receive billing.refund.created events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: billing.refund.created
+  billing.credit.created:
+    description: Triggered when a billing credit is applied to the merchant's account.
+    subscribe:
+      operationId: subscribeBillingCreditCreated
+      summary: Receive billing.credit.created events.
+      message:
+        $ref: '#/components/messages/ShipBobWebhook'
+        x-topic: billing.credit.created
+  legacy.order_shipped:
+    description: |
+      Legacy v1.0/v2.0 topic delivered with the legacy header set
+      (`shipbob-subscription-id`, `shipbob-topic`). Fires when a shipment label
+      has been printed. New integrations SHOULD subscribe to `order.shipped`
+      via the current REST surface.
+    subscribe:
+      operationId: subscribeLegacyOrderShipped
+      summary: Receive legacy order_shipped events.
+      message:
+        $ref: '#/components/messages/ShipBobLegacyWebhook'
+        x-topic: order_shipped
+  legacy.shipment_delivered:
+    description: |
+      Legacy v1.0/v2.0 topic. Fires when a shipment is reported delivered by
+      the carrier.
+    subscribe:
+      operationId: subscribeLegacyShipmentDelivered
+      summary: Receive legacy shipment_delivered events.
+      message:
+        $ref: '#/components/messages/ShipBobLegacyWebhook'
+        x-topic: shipment_delivered
+  legacy.shipment_exception:
+    description: |
+      Legacy v1.0/v2.0 topic. Fires when a shipment encounters a fulfillment
+      exception.
+    subscribe:
+      operationId: subscribeLegacyShipmentException
+      summary: Receive legacy shipment_exception events.
+      message:
+        $ref: '#/components/messages/ShipBobLegacyWebhook'
+        x-topic: shipment_exception
+  legacy.shipment_onhold:
+    description: |
+      Legacy v1.0/v2.0 topic. Fires when a shipment is placed on hold (for
+      example, an invalid address).
+    subscribe:
+      operationId: subscribeLegacyShipmentOnHold
+      summary: Receive legacy shipment_onhold events.
+      message:
+        $ref: '#/components/messages/ShipBobLegacyWebhook'
+        x-topic: shipment_onhold
+  legacy.shipment_cancelled:
+    description: |
+      Legacy v1.0/v2.0 topic. Fires when a shipment is cancelled before
+      dispatch.
+    subscribe:
+      operationId: subscribeLegacyShipmentCancelled
+      summary: Receive legacy shipment_cancelled events.
+      message:
+        $ref: '#/components/messages/ShipBobLegacyWebhook'
+        x-topic: shipment_cancelled
+components:
+  messages:
+    ShipBobWebhook:
+      name: ShipBobWebhook
+      title: ShipBob Webhook Delivery
+      summary: A signed ShipBob webhook HTTP POST delivery (current header format).
+      description: |
+        ShipBob delivers a JSON payload via HTTP POST to the registered
+        subscription URL. The envelope includes a Standard Webhooks-style
+        header set (`webhook-id`, `webhook-timestamp`, `webhook-signature`,
+        `x-webhook-topic`). The per-topic payload shape is not formally
+        published by ShipBob; refer to the dashboard webhook test tool to
+        capture concrete examples for the topics you subscribe to.
+      contentType: application/json
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ShipBobWebhookPayload'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: 0.3.0
+      examples:
+        - name: orderShipmentOnHoldHeaders
+          summary: Representative current-format header set
+          headers:
+            x-webhook-topic: order.shipment.on_hold
+            webhook-id: msg_31eW7bWRi16lL0Ajjik68kfyeUh
+            webhook-timestamp: '1755884852'
+            webhook-signature: v1,5BO0uMAu1XYGkAJOpZb0Piel11YaChVEZCpXY6mwUMA
+            content-type: application/json
+    ShipBobLegacyWebhook:
+      name: ShipBobLegacyWebhook
+      title: ShipBob Legacy Webhook Delivery
+      summary: A ShipBob webhook HTTP POST delivery using the legacy v1.0/v2.0 header format.
+      description: |
+        Subscriptions created against the v1.0 or v2.0 webhook surface receive
+        deliveries with the legacy header set (`shipbob-subscription-id`,
+        `shipbob-topic`). New integrations SHOULD prefer the current header
+        format described by `ShipBobWebhook`.
+      contentType: application/json
+      headers:
+        $ref: '#/components/schemas/LegacyWebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/ShipBobWebhookPayload'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: 0.3.0
+      examples:
+        - name: legacyOrderShippedHeaders
+          summary: Representative legacy header set
+          headers:
+            shipbob-subscription-id: '1582'
+            shipbob-topic: order_shipped
+            content-type: application/json
+  schemas:
+    WebhookHeaders:
+      type: object
+      required:
+        - webhook-id
+        - webhook-timestamp
+        - webhook-signature
+        - x-webhook-topic
+      properties:
+        webhook-id:
+          type: string
+          description: |
+            Unique identifier for the webhook delivery. The same value is
+            replayed across retries of the same message and is the recommended
+            idempotency key for receivers.
+          example: msg_31eW7bWRi16lL0Ajjik68kfyeUh
+        webhook-timestamp:
+          type: string
+          description: |
+            Unix timestamp (seconds since epoch) at which ShipBob signed and
+            sent the delivery. Receivers SHOULD reject deliveries whose
+            timestamp differs from the current time by more than a small
+            tolerance to mitigate replay attacks.
+          example: '1755884852'
+        webhook-signature:
+          type: string
+          description: |
+            Space-delimited list of versioned, base64-encoded HMAC-SHA256
+            signatures over the string
+            `{webhook-id}.{webhook-timestamp}.{raw_request_body}`. Each entry
+            is prefixed with its scheme version (currently `v1,`). Multiple
+            entries support key rotation; a receiver passes verification if any
+            entry matches.
+          example: v1,5BO0uMAu1XYGkAJOpZb0Piel11YaChVEZCpXY6mwUMA
+        x-webhook-topic:
+          type: string
+          description: |
+            The webhook topic that triggered the delivery (for example,
+            `order.shipped`, `return.completed`).
+          example: order.shipment.on_hold
+        content-type:
+          type: string
+          description: Always `application/json`.
+          example: application/json
+    LegacyWebhookHeaders:
+      type: object
+      required:
+        - shipbob-subscription-id
+        - shipbob-topic
+      properties:
+        shipbob-subscription-id:
+          type: string
+          description: |
+            The numeric identifier of the legacy webhook subscription that
+            produced this delivery.
+          example: '1582'
+        shipbob-topic:
+          type: string
+          description: |
+            The legacy topic name (for example, `order_shipped`,
+            `shipment_delivered`).
+          example: order_shipped
+        content-type:
+          type: string
+          description: Always `application/json`.
+          example: application/json
+    ShipBobWebhookPayload:
+      type: object
+      description: |
+        Topic-specific JSON payload. ShipBob does not publish exhaustive
+        per-topic JSON schemas; the developer documentation directs
+        integrators to capture concrete examples via the dashboard webhook
+        test tool. The payload shape generally mirrors the corresponding
+        ShipBob REST resource (order, shipment, return, WRO, billing). This
+        schema therefore admits any JSON object and is intentionally open
+        (`additionalProperties: true`).
+      additionalProperties: true
+  securitySchemes:
+    hmacSha256Signature:
+      type: symmetricEncryption
+      description: |
+        ShipBob signs every webhook delivery with an HMAC-SHA256 signature
+        computed over the string
+        `{webhook-id}.{webhook-timestamp}.{raw_request_body}`. The signing key
+        is the base64-decoded bytes that follow the `whsec_` prefix of the
+        secret returned when the subscription is created.
+
+        Receivers MUST:
+          1. Read the raw, unparsed request body.
+          2. Construct `signed_content = webhook-id + "." + webhook-timestamp + "." + raw_body`.
+          3. Compute `base64(HMAC_SHA256(decoded_secret, signed_content))`.
+          4. For each entry in `webhook-signature`, strip the `v1,` prefix and
+             constant-time compare to the computed signature.
+          5. Reject the request with HTTP 401 if no entry matches.
+
+        Reference: https://developer.shipbob.com/webhooks
+tags:
+  - name: order
+    description: Order and shipment lifecycle events.
+  - name: return
+    description: Return order lifecycle events.
+  - name: wro
+    description: Warehouse Receiving Order (inbound inventory) events.
+  - name: billing
+    description: Billing charge, refund, and credit events.
+  - name: legacy
+    description: Legacy v1.0/v2.0 webhook topics.
+externalDocs:
+  description: ShipBob webhook reference
+  url: https://developer.shipbob.com/webhooks

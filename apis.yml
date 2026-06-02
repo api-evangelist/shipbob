@@ -16,7 +16,7 @@ tags:
   - Shipping
   - Direct-to-Consumer
 created: '2026-05-08'
-modified: '2026-05-25'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
   - aid: shipbob:shipbob-developer-api
@@ -54,6 +54,8 @@ apis:
       url: https://developer.shipbob.com/faq
     - type: OpenAPI
       url: openapi/shipbob-openapi.json
+    - type: AsyncAPI
+      url: asyncapi/shipbob-webhooks-asyncapi.yml
     - type: NaftikoCapability
       url: capabilities/shipbob-subpackage-billing.yaml
     - type: NaftikoCapability
