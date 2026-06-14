@@ -1,0 +1,963 @@
+"""
+ShipBob GraphQL Schema
+Conceptual schema based on the ShipBob Developer REST API (https://developer.shipbob.com/).
+ShipBob is a global ecommerce fulfillment network and 3PL provider offering distributed
+warehousing, inventory management, shipping, and returns for direct-to-consumer brands.
+"""
+
+# ─────────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────────
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar Decimal
+
+# ─────────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────────
+
+enum OrderStatusValue {
+  NONE
+  PROCESSING
+  COMPLETED
+  EXCEPTION
+  ON_HOLD
+  CANCELLED
+  IMPORT_REVIEW
+  CLEAN_SWITCH
+  PENDING_FULFILLMENT
+}
+
+enum ShipmentStatusValue {
+  NONE
+  PROCESSING
+  COMPLETED
+  EXCEPTION
+  IMPORT_REVIEW
+  CANCELLED
+  LABEL_CREATED
+  SHIPPED
+  DELIVERED
+  RETURN_TO_SENDER
+}
+
+enum ReturnStatusValue {
+  AWAITING_ARRIVAL
+  ARRIVED
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+enum ReceivingStatusValue {
+  AWAITING_ARRIVAL
+  ARRIVED
+  PROCESSING
+  COMPLETED
+  CANCELLED
+  EXCEPTION
+}
+
+enum InventoryType {
+  GOOD
+  BAD
+  INTERNAL_TRANSFER
+}
+
+enum WebhookTopic {
+  ORDER_SHIPPED
+  ORDER_DELIVERED
+  ORDER_EXCEPTION
+  ORDER_CANCELLED
+  RECEIVING_COMPLETED
+  RETURN_COMPLETED
+  INVENTORY_UPDATED
+}
+
+enum TrackingStatusValue {
+  IN_TRANSIT
+  DELIVERED
+  OUT_FOR_DELIVERY
+  EXCEPTION
+  UNKNOWN
+}
+
+enum ReturnDisposition {
+  RESTOCK
+  QUARANTINE
+  DONATE
+  DISPOSE
+  RETURN_TO_MERCHANT
+}
+
+# ─────────────────────────────────────────────
+# Order Domain
+# ─────────────────────────────────────────────
+
+"""Top-level order record."""
+type Order {
+  id: ID!
+  orderNumber: String
+  referenceId: String
+  createdDate: DateTime
+  purchaseDate: DateTime
+  status: OrderStatus
+  details: OrderDetails
+  history: [OrderHistory]
+  products: [OrderProduct]
+  items: [OrderItem]
+  shipTo: ShipTo
+  recipient: Recipient
+  returnAddress: ReturnAddress
+  metadata: OrderMetadata
+  customFields: CustomFields
+  quantities: OrderQuantities
+  channel: Channel
+  location: Location
+  shipments: [Shipment]
+  tags: [String]
+}
+
+"""Summary status of an order."""
+type OrderStatus {
+  id: ID!
+  name: String
+  status: OrderStatusValue
+  updatedDate: DateTime
+}
+
+"""Detailed attributes for an order."""
+type OrderDetails {
+  orderId: ID!
+  orderType: String
+  shippingMethod: String
+  carrierType: String
+  requiresSignature: Boolean
+  giftMessage: String
+  packingSlipUrl: String
+  estimatedFulfillmentDate: DateTime
+  fulfillmentDate: DateTime
+}
+
+"""A single event in an order's lifecycle history."""
+type OrderHistory {
+  id: ID!
+  orderId: ID!
+  timestamp: DateTime
+  event: String
+  description: String
+  userId: String
+}
+
+"""A product line within an order (catalog reference)."""
+type OrderProduct {
+  id: ID!
+  referenceId: String
+  name: String
+  sku: String
+  quantity: Int
+  unitPrice: Decimal
+  totalPrice: Decimal
+}
+
+"""A fulfillable item within an order."""
+type OrderItem {
+  id: ID!
+  inventoryId: ID
+  name: String
+  quantity: Int
+  unitWeight: PackageWeight
+  packagedQuantity: Int
+}
+
+"""Destination address for an order."""
+type OrderAddress {
+  address1: String
+  address2: String
+  city: String
+  state: String
+  country: String
+  zipCode: String
+  phone: String
+}
+
+"""Shipping destination for the order."""
+type ShipTo {
+  name: String
+  company: String
+  address: OrderAddress
+  email: String
+  phone: String
+}
+
+"""End recipient for the order."""
+type Recipient {
+  name: String
+  email: String
+  phone: String
+  address: OrderAddress
+}
+
+"""Merchant return address on file."""
+type ReturnAddress {
+  name: String
+  company: String
+  address: OrderAddress
+}
+
+"""Arbitrary metadata attached to an order."""
+type OrderMetadata {
+  source: String
+  externalOrderId: String
+  channel: String
+  storeUrl: String
+  notes: String
+}
+
+"""Merchant-defined key-value pairs on an order."""
+type CustomFields {
+  fields: JSON
+}
+
+"""Quantity summary for items within an order."""
+type OrderQuantities {
+  ordered: Int
+  shipped: Int
+  cancelled: Int
+  returned: Int
+  restocked: Int
+}
+
+# ─────────────────────────────────────────────
+# Location & Warehouse Domain
+# ─────────────────────────────────────────────
+
+"""A ShipBob fulfillment location."""
+type Location {
+  id: ID!
+  name: String
+  abbreviation: String
+  timezone: String
+  address: OrderAddress
+  isActive: Boolean
+  fulfillmentCenter: FulfillmentCenter
+  warehouses: [Warehouse]
+  services: [String]
+}
+
+"""A warehouse within a ShipBob location."""
+type Warehouse {
+  id: ID!
+  locationId: ID!
+  name: String
+  isActive: Boolean
+  details: WarehouseDetails
+  capacity: WarehouseCapacity
+}
+
+"""Operational details for a warehouse."""
+type WarehouseDetails {
+  warehouseId: ID!
+  contactEmail: String
+  contactPhone: String
+  operatingHours: String
+  cutoffTime: String
+  processingDays: Int
+}
+
+"""Storage and throughput capacity figures for a warehouse."""
+type WarehouseCapacity {
+  warehouseId: ID!
+  totalPallets: Int
+  usedPallets: Int
+  availablePallets: Int
+  totalBins: Int
+  usedBins: Int
+}
+
+"""High-level fulfillment center record (may contain multiple warehouses)."""
+type FulfillmentCenter {
+  id: ID!
+  name: String
+  region: String
+  country: String
+  isActive: Boolean
+  address: OrderAddress
+}
+
+# ─────────────────────────────────────────────
+# Inventory Domain
+# ─────────────────────────────────────────────
+
+"""Aggregate inventory record for a product across all locations."""
+type Inventory {
+  id: ID!
+  name: String
+  sku: String
+  isDigital: Boolean
+  isBundle: Boolean
+  totalFulfillableQuantity: Int
+  totalCommittedQuantity: Int
+  totalOnhandQuantity: Int
+  totalSellableQuantity: Int
+  locations: [InventoryLocation]
+  log: [InventoryLog]
+}
+
+"""Inventory item with extended tracking attributes."""
+type InventoryItem {
+  id: ID!
+  inventoryId: ID!
+  name: String
+  sku: String
+  barcode: String
+  weight: ProductWeight
+  dimensions: ProductDimension
+  isActive: Boolean
+  isDigital: Boolean
+}
+
+"""Quantity breakdown for inventory at a specific location."""
+type InventoryQuantity {
+  inventoryId: ID!
+  locationId: ID!
+  fulfillableQuantity: Int
+  committedQuantity: Int
+  onhandQuantity: Int
+  sellableQuantity: Int
+  damagedQuantity: Int
+  awaitingQuantity: Int
+  exceptionQuantity: Int
+}
+
+"""Per-location inventory allocation."""
+type InventoryLocation {
+  locationId: ID!
+  locationName: String
+  quantities: InventoryQuantity
+}
+
+"""An inventory adjustment or movement log entry."""
+type InventoryLog {
+  id: ID!
+  inventoryId: ID!
+  timestamp: DateTime
+  type: InventoryType
+  quantityChange: Int
+  quantityAfter: Int
+  reason: String
+  referenceId: String
+  userId: String
+}
+
+# ─────────────────────────────────────────────
+# Product Domain
+# ─────────────────────────────────────────────
+
+"""A merchant product in the ShipBob catalog."""
+type Product {
+  id: ID!
+  referenceId: String
+  name: String
+  sku: ProductSKU
+  barcode: ProductBarcode
+  weight: ProductWeight
+  dimensions: ProductDimension
+  isActive: Boolean
+  isBundle: Boolean
+  details: ProductDetails
+  bundleParts: BundleParts
+  inventory: Inventory
+  createdDate: DateTime
+  modifiedDate: DateTime
+}
+
+"""Extended descriptive attributes for a product."""
+type ProductDetails {
+  productId: ID!
+  description: String
+  category: String
+  tags: [String]
+  imageUrl: String
+  unitCost: Decimal
+  unitPrice: Decimal
+  countryOfOrigin: String
+  hsCode: String
+}
+
+"""SKU identifiers for a product."""
+type ProductSKU {
+  sku: String
+  merchantSku: String
+  channelSku: String
+}
+
+"""Barcode identifiers for a product."""
+type ProductBarcode {
+  upc: String
+  ean: String
+  isbn: String
+  asin: String
+  gtin: String
+}
+
+"""Weight attributes for a product."""
+type ProductWeight {
+  value: Decimal
+  unit: String
+}
+
+"""Physical dimensions for a product."""
+type ProductDimension {
+  length: Decimal
+  width: Decimal
+  height: Decimal
+  unit: String
+}
+
+"""A bundle product composed of multiple component SKUs."""
+type BundleProduct {
+  id: ID!
+  referenceId: String
+  name: String
+  sku: ProductSKU
+  isActive: Boolean
+  parts: BundleParts
+}
+
+"""Component parts that make up a bundle."""
+type BundleParts {
+  bundleId: ID!
+  parts: [BundlePartItem]
+}
+
+"""A single component item within a bundle."""
+type BundlePartItem {
+  productId: ID!
+  name: String
+  sku: String
+  quantity: Int
+}
+
+# ─────────────────────────────────────────────
+# Shipment Domain
+# ─────────────────────────────────────────────
+
+"""An outbound shipment associated with an order."""
+type Shipment {
+  id: ID!
+  orderId: ID!
+  status: ShipmentStatus
+  details: ShipmentDetails
+  packages: ShipmentPackages
+  tracking: TrackingInfo
+  createdDate: DateTime
+  shippedDate: DateTime
+  estimatedDeliveryDate: DateTime
+  actualDeliveryDate: DateTime
+}
+
+"""Operational details for a shipment."""
+type ShipmentDetails {
+  shipmentId: ID!
+  locationId: ID!
+  carrier: String
+  carrierService: String
+  shippingMethod: String
+  shipTo: ShipTo
+  labelUrl: String
+  packingSlipUrl: String
+  insuranceValue: Decimal
+  requiresSignature: Boolean
+}
+
+"""Current status of a shipment."""
+type ShipmentStatus {
+  shipmentId: ID!
+  status: ShipmentStatusValue
+  updatedDate: DateTime
+  exceptionDescription: String
+}
+
+"""Collection of packages within a shipment."""
+type ShipmentPackages {
+  shipmentId: ID!
+  packages: [Package]
+  totalWeight: PackageWeight
+}
+
+"""A single physical package within a shipment."""
+type Package {
+  id: ID!
+  shipmentId: ID!
+  trackingNumber: String
+  carrierTrackingUrl: String
+  detail: PackageDetail
+  weight: PackageWeight
+  dimensions: PackageDimension
+  label: Label
+  parcel: Parcel
+}
+
+"""Item contents detail for a package."""
+type PackageDetail {
+  packageId: ID!
+  items: [OrderItem]
+  referenceId: String
+}
+
+"""Weight of a package."""
+type PackageWeight {
+  value: Decimal
+  unit: String
+}
+
+"""Physical dimensions of a package."""
+type PackageDimension {
+  length: Decimal
+  width: Decimal
+  height: Decimal
+  unit: String
+}
+
+"""A shipping parcel type configuration."""
+type Parcel {
+  id: ID!
+  name: String
+  weight: PackageWeight
+  dimensions: PackageDimension
+  carrier: String
+}
+
+"""A shipping label associated with a package."""
+type Label {
+  id: ID!
+  packageId: ID!
+  url: String
+  trackingNumber: String
+  carrier: String
+  service: String
+  createdDate: DateTime
+}
+
+"""Aggregate tracking information for a shipment."""
+type TrackingInfo {
+  shipmentId: ID!
+  carrier: String
+  trackingNumber: String
+  trackingUrl: String
+  status: TrackingStatus
+  estimatedDeliveryDate: DateTime
+  events: [TrackingEvent]
+}
+
+"""A single tracking scan event."""
+type TrackingEvent {
+  id: ID!
+  shipmentId: ID!
+  timestamp: DateTime
+  status: TrackingStatusValue
+  location: String
+  description: String
+  exceptionDescription: String
+}
+
+"""Current tracking status for a shipment."""
+type TrackingStatus {
+  shipmentId: ID!
+  status: TrackingStatusValue
+  lastUpdated: DateTime
+  currentLocation: String
+}
+
+# ─────────────────────────────────────────────
+# Returns Domain
+# ─────────────────────────────────────────────
+
+"""A return merchandise authorization (RMA) record."""
+type Return {
+  id: ID!
+  referenceId: String
+  orderId: ID
+  status: ReturnStatus
+  details: ReturnDetails
+  inventory: ReturnInventory
+  createdDate: DateTime
+  completedDate: DateTime
+}
+
+"""Detailed attributes for a return."""
+type ReturnDetails {
+  returnId: ID!
+  locationId: ID!
+  carrierTrackingNumber: String
+  carrier: String
+  expectedArrivalDate: Date
+  returnLabelUrl: String
+  notes: String
+}
+
+"""Current status of a return."""
+type ReturnStatus {
+  returnId: ID!
+  status: ReturnStatusValue
+  updatedDate: DateTime
+}
+
+"""Inventory disposition for items in a return."""
+type ReturnInventory {
+  returnId: ID!
+  items: [ReturnInventoryItem]
+}
+
+"""A single inventory item received back in a return."""
+type ReturnInventoryItem {
+  inventoryId: ID!
+  name: String
+  sku: String
+  quantity: Int
+  disposition: ReturnDisposition
+  condition: String
+  notes: String
+}
+
+# ─────────────────────────────────────────────
+# Receiving Domain
+# ─────────────────────────────────────────────
+
+"""An inbound purchase order / warehouse receiving record."""
+type Receiving {
+  id: ID!
+  referenceId: String
+  status: ReceivingStatusValue
+  details: ReceivingDetails
+  createdDate: DateTime
+  expectedArrivalDate: Date
+  completedDate: DateTime
+}
+
+"""Detailed attributes for a receiving order."""
+type ReceivingDetails {
+  receivingId: ID!
+  locationId: ID!
+  warehouseId: ID
+  boxCount: Int
+  palletCount: Int
+  trackingNumber: String
+  carrier: String
+  notes: String
+  items: [ReceivingItem]
+}
+
+"""An item expected or received in an inbound order."""
+type ReceivingItem {
+  inventoryId: ID!
+  name: String
+  sku: String
+  expectedQuantity: Int
+  receivedQuantity: Int
+  damagedQuantity: Int
+  exceptionQuantity: Int
+  exceptionReason: String
+}
+
+# ─────────────────────────────────────────────
+# Channel & Account Domain
+# ─────────────────────────────────────────────
+
+"""A sales channel connected to ShipBob (e.g. Shopify, Amazon)."""
+type Channel {
+  id: ID!
+  name: String
+  type: String
+  referenceId: String
+  isActive: Boolean
+  createdDate: DateTime
+  mappings: [ChannelMapping]
+}
+
+"""A mapping between a sales channel resource and a ShipBob resource."""
+type ChannelMapping {
+  id: ID!
+  channelId: ID!
+  channelReferenceId: String
+  shipbobResourceId: ID
+  resourceType: String
+  mappedSku: String
+  isActive: Boolean
+}
+
+"""A ShipBob platform user."""
+type User {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String
+  role: String
+  isActive: Boolean
+  account: Account
+  createdDate: DateTime
+}
+
+"""A ShipBob merchant account."""
+type Account {
+  id: ID!
+  name: String
+  email: String
+  companyName: String
+  website: String
+  isActive: Boolean
+  createdDate: DateTime
+  modifiedDate: DateTime
+}
+
+"""A ShipBob API key (Personal Access Token)."""
+type APIKey {
+  id: ID!
+  accountId: ID!
+  name: String
+  keyPrefix: String
+  scopes: [String]
+  createdDate: DateTime
+  expiresDate: DateTime
+  isActive: Boolean
+}
+
+"""An OAuth access token for ShipBob API access."""
+type Token {
+  accessToken: String
+  refreshToken: String
+  tokenType: String
+  expiresIn: Int
+  scope: String
+  issuedAt: DateTime
+}
+
+"""A registered webhook for ShipBob event notifications."""
+type Webhook {
+  id: ID!
+  channelId: ID
+  topic: WebhookTopic
+  url: String
+  secret: String
+  isActive: Boolean
+  createdDate: DateTime
+  modifiedDate: DateTime
+}
+
+# ─────────────────────────────────────────────
+# Query Root
+# ─────────────────────────────────────────────
+
+type Query {
+  """Fetch a single order by ID."""
+  order(id: ID!): Order
+
+  """List orders with optional filters."""
+  orders(
+    status: OrderStatusValue
+    channelId: ID
+    locationId: ID
+    startDate: DateTime
+    endDate: DateTime
+    page: Int
+    limit: Int
+  ): [Order]
+
+  """Fetch a single shipment by ID."""
+  shipment(id: ID!): Shipment
+
+  """List shipments for an order."""
+  shipmentsByOrder(orderId: ID!): [Shipment]
+
+  """Fetch tracking information for a shipment."""
+  trackingInfo(shipmentId: ID!): TrackingInfo
+
+  """Fetch a single product by ID."""
+  product(id: ID!): Product
+
+  """List products with optional filters."""
+  products(
+    sku: String
+    isActive: Boolean
+    page: Int
+    limit: Int
+  ): [Product]
+
+  """Fetch inventory for a product."""
+  inventory(id: ID!): Inventory
+
+  """List inventory items."""
+  inventoryItems(
+    locationId: ID
+    sku: String
+    page: Int
+    limit: Int
+  ): [InventoryItem]
+
+  """Fetch a single location by ID."""
+  location(id: ID!): Location
+
+  """List all active fulfillment locations."""
+  locations(isActive: Boolean): [Location]
+
+  """Fetch a single return by ID."""
+  return(id: ID!): Return
+
+  """List returns."""
+  returns(
+    status: ReturnStatusValue
+    orderId: ID
+    startDate: DateTime
+    endDate: DateTime
+    page: Int
+    limit: Int
+  ): [Return]
+
+  """Fetch a single receiving order by ID."""
+  receiving(id: ID!): Receiving
+
+  """List receiving orders."""
+  receivingOrders(
+    status: ReceivingStatusValue
+    locationId: ID
+    startDate: DateTime
+    endDate: DateTime
+    page: Int
+    limit: Int
+  ): [Receiving]
+
+  """Fetch a channel by ID."""
+  channel(id: ID!): Channel
+
+  """List all channels."""
+  channels(isActive: Boolean): [Channel]
+
+  """Fetch the current user."""
+  me: User
+
+  """Fetch an account by ID."""
+  account(id: ID!): Account
+
+  """List webhooks."""
+  webhooks(channelId: ID): [Webhook]
+}
+
+# ─────────────────────────────────────────────
+# Mutation Root
+# ─────────────────────────────────────────────
+
+input CreateOrderInput {
+  referenceId: String!
+  orderNumber: String
+  purchaseDate: DateTime
+  shippingMethod: String
+  channelId: ID
+  shipTo: ShipToInput!
+  products: [OrderProductInput!]!
+  giftMessage: String
+  customFields: JSON
+  tags: [String]
+}
+
+input ShipToInput {
+  name: String!
+  company: String
+  address1: String!
+  address2: String
+  city: String!
+  state: String!
+  country: String!
+  zipCode: String!
+  phone: String
+  email: String
+}
+
+input OrderProductInput {
+  referenceId: String!
+  sku: String
+  quantity: Int!
+  unitPrice: Decimal
+}
+
+input CreateProductInput {
+  referenceId: String
+  name: String!
+  sku: String!
+  barcode: String
+  weight: Float
+  weightUnit: String
+  length: Float
+  width: Float
+  height: Float
+  dimensionUnit: String
+}
+
+input CreateReceivingInput {
+  referenceId: String
+  locationId: ID!
+  expectedArrivalDate: Date
+  trackingNumber: String
+  carrier: String
+  items: [ReceivingItemInput!]!
+}
+
+input ReceivingItemInput {
+  inventoryId: ID!
+  expectedQuantity: Int!
+}
+
+input CreateReturnInput {
+  referenceId: String
+  orderId: ID
+  locationId: ID!
+  expectedArrivalDate: Date
+  items: [ReturnItemInput!]!
+}
+
+input ReturnItemInput {
+  inventoryId: ID!
+  quantity: Int!
+  disposition: ReturnDisposition
+}
+
+input CreateWebhookInput {
+  channelId: ID
+  topic: WebhookTopic!
+  url: String!
+  secret: String
+}
+
+type Mutation {
+  """Create a new order."""
+  createOrder(input: CreateOrderInput!): Order
+
+  """Cancel an order by ID."""
+  cancelOrder(id: ID!): Order
+
+  """Create a new product."""
+  createProduct(input: CreateProductInput!): Product
+
+  """Update a product's details."""
+  updateProduct(id: ID!, input: CreateProductInput!): Product
+
+  """Create an inbound receiving order."""
+  createReceiving(input: CreateReceivingInput!): Receiving
+
+  """Cancel a receiving order."""
+  cancelReceiving(id: ID!): Receiving
+
+  """Create a return record."""
+  createReturn(input: CreateReturnInput!): Return
+
+  """Cancel a return."""
+  cancelReturn(id: ID!): Return
+
+  """Register a webhook."""
+  createWebhook(input: CreateWebhookInput!): Webhook
+
+  """Delete a webhook."""
+  deleteWebhook(id: ID!): Boolean
+}
