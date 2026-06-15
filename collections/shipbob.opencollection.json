@@ -1,0 +1,2532 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_channels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/channel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "RecordsPerPage",
+                "value": "",
+                "type": "query",
+                "description": "The number of records to return per page. This parameter is used for pagination. If not provided, a default value will be used."
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for pagination. This parameter is used to fetch the next set of results."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of channels that the authenticated user has access to based on the provided access token.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query",
+                "description": "Page of orders to get"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Amount of orders per page to request"
+              },
+              {
+                "name": "IDs",
+                "value": "",
+                "type": "query",
+                "description": "order ids to filter by, comma separated <br /><strong>Example:</strong> ?IDs=1,2"
+              },
+              {
+                "name": "ReferenceIds",
+                "value": "",
+                "type": "query",
+                "description": "Reference ids to filter by, comma separated <br /><strong>Example:</strong> ?ReferenceIds=Ref1,Ref2"
+              },
+              {
+                "name": "StartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date to filter orders inserted later than"
+              },
+              {
+                "name": "EndDate",
+                "value": "",
+                "type": "query",
+                "description": "End date to filter orders inserted earlier than"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order to sort results in"
+              },
+              {
+                "name": "HasTracking",
+                "value": "",
+                "type": "query",
+                "description": "Has any portion of this order been assigned a tracking number"
+              },
+              {
+                "name": "LastUpdateStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date to filter orders updated later than"
+              },
+              {
+                "name": "LastUpdateEndDate",
+                "value": "",
+                "type": "query",
+                "description": "End date to filter orders updated later than"
+              },
+              {
+                "name": "IsTrackingUploaded",
+                "value": "",
+                "type": "query",
+                "description": "Filter orders that their tracking information was fully uploaded"
+              },
+              {
+                "name": "LastTrackingUpdateStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date to filter orders with tracking updates later than the supplied date. Will only return orders that have tracking information"
+              },
+              {
+                "name": "LastTrackingUpdateEndDate",
+                "value": "",
+                "type": "query",
+                "description": "End date to filter orders updated later than the supplied date. Will only return orders that have tracking information"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of orders from your ShipBob account with optional filters. All filter parameters use AND logic, meaning orders must match all provided criteria to be returned."
+        },
+        {
+          "info": {
+            "name": "Create Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new order in ShipBob’s system that will be queued for fulfillment. Orders can be created using either product reference IDs (SKUs) or ShipBob product IDs, with reference IDs being the recommended approach."
+        },
+        {
+          "info": {
+            "name": "Get Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific order by its order ID, including order status, shipments, products, and recipient details."
+        },
+        {
+          "info": {
+            "name": "Get Shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific shipment by shipment ID, including shipment status, tracking information, fulfillment center location, and contained products."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId/timeline",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves a chronological timeline of shipment status updates by shipment ID, showing when each status change occurred and providing visibility into the fulfillment progress."
+        },
+        {
+          "info": {
+            "name": "Batch Cancel Shipments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment:batchCancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancels multiple shipments in a single request. Shipments can only be cancelled if they are in a cancellable state (i.e. not picked, packed, or shipped yet)."
+        },
+        {
+          "info": {
+            "name": "Mark Tracking Uploaded",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment:batchUpdateTrackingUpload",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark tracking information as synced to your external system for multiple shipments. Use this endpoint after syncing tracking data to update the IsTrackingUploaded flag, preventing these shipments from appearing in future GET /order queries with IsTrackingUploaded=false.\n\n<Tip>Use this endpoint if you're filtering orders by is_tracking_uploaded. This allows integrations to acknowledge that shipments have been successfully synced to their system.</Tip>"
+        },
+        {
+          "info": {
+            "name": "Update Shipment Address\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:updateAddress",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the shipment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the shipping address for a specific shipment.\n"
+        },
+        {
+          "info": {
+            "name": "Get Shipment Line Items\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:getLineItems",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the shipment"
+              }
+            ]
+          },
+          "docs": "Retrieves the line items for a specific shipment.\n"
+        },
+        {
+          "info": {
+            "name": "Update Shipment Line Items\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:updateLineItems",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the shipment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the line items for a specific shipment. The request body must include the complete list of line items as returned by the GET /{shipmentId}:getLineItems endpoint — partial updates are not supported. Retrieve the current line items first, modify the desired fields, and submit the full payload.\n"
+        },
+        {
+          "info": {
+            "name": "Bulk Update Shipping Service\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shipbob.com/2026-01/shipment:bulkUpdateShippingService",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the shipping service for multiple shipments in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order ID to cancel"
+              }
+            ]
+          },
+          "docs": "Cancels an order and all associated shipments. The order must be in a cancellable state to proceed with the cancellation."
+        },
+        {
+          "info": {
+            "name": "Cancel Shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Cancels a specific shipment by shipment ID. The shipment must not be picked, packed, or shipped to proceed with the cancellation."
+        },
+        {
+          "info": {
+            "name": "Get Shipping Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipping-method",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query",
+                "description": "Page of orders to get"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Amount of records per page to request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available shipping methods configured for your merchant account."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Status Timeline by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId/timeline",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get the shipment for"
+              },
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves a chronological timeline of shipment status updates by shipment ID, showing when each status change occurred and providing visibility into the fulfillment progress."
+        },
+        {
+          "info": {
+            "name": "Get All Shipments for Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get shipments for"
+              }
+            ]
+          },
+          "docs": "Retrieves all shipments associated with a specific order, including shipment status, tracking information, and product details."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Logs by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId/logs",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get the shipment for"
+              },
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves operational logs for a specific shipment by shipment ID, providing a detailed record of all events and status changes that have occurred."
+        },
+        {
+          "info": {
+            "name": "Cancel Shipment by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancels a specific shipment by order ID and shipment ID. The shipment must not be picked, packed, or shipped to proceed with the cancellation."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId/logs",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves operational logs for a specific shipment by shipment ID, providing a detailed record of all events and status changes that have occurred."
+        },
+        {
+          "info": {
+            "name": "Get Shipment by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get the shipment for"
+              },
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed shipment information for a specific order and shipment combination, including shipment status, tracking information, fulfillment center location, and contained products."
+        },
+        {
+          "info": {
+            "name": "Estimate Fulfillment Cost For Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order:estimate",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint will provide, where possible, an estimate of pricing and fulfillment center assignment of a potential standard (direct to consumer) order. Keep in mind that there are ways for the merchant to change FC assignment or product configuration after order creation that could invalidate this estimate. Estimates cannot be returned for items that are unknown, out of stock, or too large for fulfillment using standard box sizes. Additional services such as high-pick fees, shipping insurance, "
+        },
+        {
+          "info": {
+            "name": "Get Order Store Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/store-order-json",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order ID to Get the JSON Stored"
+              }
+            ]
+          },
+          "docs": "Retrieves the original store order data associated with the order in JSON format, preserving custom fields and metadata from the order source."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/product",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Search",
+                "value": "",
+                "type": "query",
+                "description": "Search Products by name, sku, inventory id or product Id.\n"
+              },
+              {
+                "name": "Barcode",
+                "value": "",
+                "type": "query",
+                "description": "Barcode Associated with variant\n"
+              },
+              {
+                "name": "Barcodes",
+                "value": "",
+                "type": "query",
+                "description": "Barcodes Associated with variant\n"
+              },
+              {
+                "name": "CategoryIds",
+                "value": "",
+                "type": "query",
+                "description": "List of Category Ids associated with product\n"
+              },
+              {
+                "name": "ChannelIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their channel IDs\n"
+              },
+              {
+                "name": "HasDigitalVariants",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with/without digital variants\n"
+              },
+              {
+                "name": "HasVariants",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with/without variants\n"
+              },
+              {
+                "name": "InventoryId",
+                "value": "",
+                "type": "query",
+                "description": "Looks for variants by its associated inventory id\n"
+              },
+              {
+                "name": "IsInventorySyncEnabled",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their IsInventorySyncEnabled is true\n"
+              },
+              {
+                "name": "LastUpdatedTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products that have been updated since the given date\n"
+              },
+              {
+                "name": "LegacyIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with by Legacy Product Id(s)\n"
+              },
+              {
+                "name": "Name",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products/Variants by name\n"
+              },
+              {
+                "name": "OnHand",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with inventory\n"
+              },
+              {
+                "name": "PlatformIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their external Platform IDs\n"
+              },
+              {
+                "name": "ProductId",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with an assigned Id\n"
+              },
+              {
+                "name": "ProductType",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products by type\n"
+              },
+              {
+                "name": "ReviewsPending",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products by ReviewsPending\n"
+              },
+              {
+                "name": "SalesChannel",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants assigned to a platform/sales channel \n"
+              },
+              {
+                "name": "SellerSKU",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products that match the provided Seller query\n"
+              },
+              {
+                "name": "SKU",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products that match the provided Sku query\n"
+              },
+              {
+                "name": "TaxonomyIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their taxonomy id or any descendants of the taxonomies sent separated by comma\n"
+              },
+              {
+                "name": "VariantId",
+                "value": "",
+                "type": "query",
+                "description": "Looks for products that contain a variant with the given ID\n"
+              },
+              {
+                "name": "VariantStatus",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with variants that contain provided status\n"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "1-250\n"
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Id, Name, Category, TotalOnHandQty\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "ASC,DESC\n"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of products. Supports filtering by search term, barcode, SKU, status, and other criteria."
+        },
+        {
+          "info": {
+            "name": "Create Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product with one or more variants. Requires a product name and at least one variant with a unique SKU."
+        },
+        {
+          "info": {
+            "name": "Get Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/product/:productId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a product with all its variants and details."
+        },
+        {
+          "info": {
+            "name": "Update Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shipbob.com/2026-01/product/:productId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product identifier\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a product. Supports partial updates - only the fields provided will be updated. When updating variants through this endpoint, you must include the variant ID."
+        },
+        {
+          "info": {
+            "name": "Delete Product Bundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shipbob.com/2026-01/product/:productId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product identifier\n"
+              }
+            ]
+          },
+          "docs": "Deletes a bundle product by ID. Delete operation not allowed for non-bundles."
+        },
+        {
+          "info": {
+            "name": "Get Product Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/product/:productId/variants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product id\n"
+              }
+            ]
+          },
+          "docs": "Retrieves all variants for a specific product."
+        },
+        {
+          "info": {
+            "name": "Add Product Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product/:productId/variants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds new variants to an existing product. The request body must be an array of variant objects, each requiring a unique SKU."
+        },
+        {
+          "info": {
+            "name": "Update Product Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shipbob.com/2026-01/product/:productId/variants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates one or more product variants. The request body must be an array of variant objects. Each variant must include the variant ID, and only the fields provided will be updated."
+        },
+        {
+          "info": {
+            "name": "Merge Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/variant/:variantId:merge",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the variant to use as the merge target\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Merges multiple product variants into a target variant. Provide an array of variant IDs to merge into the target variant specified in the path. Inventory from the merged variants will be consolidated into the target variant."
+        },
+        {
+          "info": {
+            "name": "Move Variants Between Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product/:productId:moveVariants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves variants from their current product to the target product specified in the path. Provide an array of variant IDs to move."
+        },
+        {
+          "info": {
+            "name": "Move Variants to New Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product:moveVariants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product and moves existing variants from their current products into it. Provide the new product details and variant IDs."
+        },
+        {
+          "info": {
+            "name": "Get Packaging Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/packaging-requirement",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all available packaging requirements that can be assigned to a product."
+        },
+        {
+          "info": {
+            "name": "Get Taxonomies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/taxonomy",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves all available product taxonomies for categorizing products."
+        },
+        {
+          "info": {
+            "name": "Get Taxonomy by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/taxonomy/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific taxonomy node and its details by taxonomy ID."
+        },
+        {
+          "info": {
+            "name": "Get Taxonomy Parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/taxonomy/:id/parent",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the parent taxonomy node for a given taxonomy ID."
+        },
+        {
+          "info": {
+            "name": "Convert Variant to Bundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/variant/:variantId:convertToBundle",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Converts an existing product variant into a bundle product. Provide the bundle definition specifying which variants and quantities make up the bundle."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Inventory Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve inventory levels for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of inventory level items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-total_on_hand_quantity' sorts by quantity descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves current inventory levels across all locations. Returns available, on-hand, committed, and other quantity types. Supports filtering by inventory IDs and product attributes."
+        },
+        {
+          "info": {
+            "name": "Get Inventory Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/:inventoryId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the aggregated inventory levels for a specific inventory item across all locations, including available, on-hand, committed, and other quantity types."
+        },
+        {
+          "info": {
+            "name": "Get Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory/:inventoryId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific inventory item by its ID, including product details, variant information, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "Get All Inventories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "FilterOperations",
+                "value": "",
+                "type": "query",
+                "description": "Advanced filtering operations. Apply multiple key-value filters to refine inventory results. Each filter operation contains a 'key' (field name) and 'rawValue' (filter value) to match."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve information for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter by active status. True returns only active inventory items, False returns only inactive items. Omit to return both."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter by digital product status. True returns only digital products (no physical fulfillment), False returns only physical products. Omit to return both."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of all inventory items. Supports filtering by active status, tags, and various product attributes. Use query parameters to search and filter results."
+        },
+        {
+          "info": {
+            "name": "Query Inventory History Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/inventory/history:query",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches inventory movement events that change on-hand quantities within the ShipBob network. Returns events such as receiving/stow, order picks, adjustments, restocks, and attribute updates. Filter by inventory IDs, event category, date range, and facility. Supports cursor-based pagination for large result sets."
+        },
+        {
+          "info": {
+            "name": "Get All Inventory Levels Grouped By Fulfillment Center",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/locations",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "LocationType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by location type. Valid values: 'hub', 'spoke', or 'lts'. Defaults to all locations if not specified."
+              },
+              {
+                "name": "LocationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific fulfillment center location ID. Use this to retrieve inventory levels for a particular fulfillment center."
+              },
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve location-grouped inventory levels for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of location-grouped inventory level items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for all inventory items grouped by fulfillment center location. Supports filtering by location type, location ID, and various product attributes."
+        },
+        {
+          "info": {
+            "name": "Get Inventory Levels Grouped By Fulfillment Center",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/:inventoryId/locations",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for a specific inventory item broken down by fulfillment center location. Shows quantity breakdowns for each location where the inventory is stored."
+        },
+        {
+          "info": {
+            "name": "Get All Inventory Levels Grouped By Lot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/lots",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "LocationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific fulfillment center location ID. Use this to retrieve lot-based inventory levels for a particular warehouse or distribution center."
+              },
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve lot-grouped inventory levels for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of lot-grouped inventory level items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-lot_date' sorts by lot date descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for all inventory items grouped by lot number. Enables tracking of inventory across multiple lots, including expiration dates and manufacturing batch information."
+        },
+        {
+          "info": {
+            "name": "Get Inventory Levels Grouped By Lot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/:inventoryId/lots",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for a specific inventory item broken down by lot number. Useful for tracking inventory by manufacturing lot, expiration date, or batch information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_receiving",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Multiple Warehouse Receiving Orders\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query",
+                "description": "Page of WROs to get\n"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of WROs per page to request\n"
+              },
+              {
+                "name": "IDs",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO IDs to filter by\n"
+              },
+              {
+                "name": "Statuses",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO statuses to filter by\n"
+              },
+              {
+                "name": "InsertStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Earliest date that a WRO was created\n"
+              },
+              {
+                "name": "InsertEndDate",
+                "value": "",
+                "type": "query",
+                "description": "Latest date that a WRO was created\n"
+              },
+              {
+                "name": "FulfillmentCenterIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO fulfillment center IDs to filter by\n"
+              },
+              {
+                "name": "PurchaseOrderNumbers",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO PO numbers to filter by\n"
+              },
+              {
+                "name": "ExternalSync",
+                "value": "",
+                "type": "query",
+                "description": "Flag to return external_sync_timestamp WROs\n"
+              },
+              {
+                "name": "CompletedStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Earliest date that a WRO was completed\n"
+              },
+              {
+                "name": "CompletedEndDate",
+                "value": "",
+                "type": "query",
+                "description": "Latest date that a WRO was completed\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of warehouse receiving orders with optional filtering by status, fulfillment center, purchase order number, and date range.\n"
+        },
+        {
+          "info": {
+            "name": "Create Warehouse Receiving Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/receiving",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new warehouse receiving order with specified fulfillment center, boxes, and inventory items.\n"
+        },
+        {
+          "info": {
+            "name": "Get Warehouse Receiving Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order\n"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific warehouse receiving order by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Get Fulfillment Centers\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/fulfillment-center",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns a list of ShipBob fulfillment centers where inventory can be received.\n"
+        },
+        {
+          "info": {
+            "name": "Get Warehouse Receiving Order Boxes\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id/boxes",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order"
+              }
+            ]
+          },
+          "docs": "Returns the boxes and their contents for a specific warehouse receiving order.\n"
+        },
+        {
+          "info": {
+            "name": "Get Warehouse Receiving Order Box Labels\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id/labels",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order"
+              }
+            ]
+          },
+          "docs": "Returns a PDF containing box labels for a specific warehouse receiving order.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel Warehouse Receiving Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order to cancel"
+              }
+            ]
+          },
+          "docs": "Cancels an existing warehouse receiving order. Only orders in certain statuses can be cancelled.\n"
+        },
+        {
+          "info": {
+            "name": "Set ExternalSync flag for Wros\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/receiving:setExternalSync",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the external sync flag for one or more warehouse receiving orders to enable or disable external synchronization.\n"
+        },
+        {
+          "info": {
+            "name": "Get Inventory Distributions by WRO ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id/distributions",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the distribution details for a specific receiving order within ShipBob's Inventory Placement Program (IPP).\n\n<Warning>This endpoint is available only to accounts enrolled in ShipBob's Inventory Placement Program (IPP).</Warning>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_returns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Return Orders\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/return",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Ids",
+                "value": "",
+                "type": "query",
+                "description": "The IDs of the returns to fetch. Accepts a comma-separated list of return IDs (e.g., 123,456,789).\n"
+              },
+              {
+                "name": "ReferenceIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return reference IDs (RMA numbers) to filter by.\n"
+              },
+              {
+                "name": "Status",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return statuses to filter by (e.g., AwaitingArrival,Arrived,Processing,Completed,Cancelled).\n"
+              },
+              {
+                "name": "FulfillmentCenterIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fulfillment center IDs to filter by.\n"
+              },
+              {
+                "name": "TrackingNumbers",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of tracking numbers to filter by.\n"
+              },
+              {
+                "name": "OriginalShipmentIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of original shipment IDs to filter by.\n"
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter by.\n"
+              },
+              {
+                "name": "StartDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns created on or after this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "EndDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns created on or before this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "ReturnTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return types to filter by (e.g., Regular,ReturnToSender).\n"
+              },
+              {
+                "name": "ReturnActions",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return actions to filter by (e.g., Restock,Quarantine,Dispose).\n"
+              },
+              {
+                "name": "StoreOrderIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of store order IDs to filter by.\n"
+              },
+              {
+                "name": "Sortby",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by.\n"
+              },
+              {
+                "name": "CompletedStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns completed on or after this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "CompletedEndDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns completed on or before this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve. Used for pagination through result sets.\n"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page.\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results. Desc = newest to oldest, Asc = oldest to newest, Desc is default\n"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of return orders with optional filters for IDs, statuses, dates, and other criteria. Use this to track all returns across your ShipBob account.\n"
+        },
+        {
+          "info": {
+            "name": "Create Return Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/return",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new return order for a previously shipped order. Specify the original shipment, inventory items to return, and requested return actions.\n"
+        },
+        {
+          "info": {
+            "name": "Get Return Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/return/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Id of the Return\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the complete details of a specific return order by its unique ID. Use this to view return status, inventory items, transactions, and processing history.\n"
+        },
+        {
+          "info": {
+            "name": "Edit Return Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shipbob.com/2026-01/return/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing return using the provided request body and returns the updated return payload.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel Return order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/return/:id:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the return order\n"
+              }
+            ]
+          },
+          "docs": "Cancels a return order for given return ID\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Subscriptions\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "RecordsPerPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of webhooks returned per page in a paginated response.\n"
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to retrieve the next or previous page of results. Omit to start at the first page.\n"
+              }
+            ]
+          },
+          "docs": "  This endpoint returns a list of webhook subscriptions.\n"
+        },
+        {
+          "info": {
+            "name": "Create Subscription\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new webhook subscription.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Subscription\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shipbob.com/2026-01/webhook/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "This is the id of the webhook subscription to delete\n"
+              }
+            ]
+          },
+          "docs": "  This endpoint deletes a webhook subscription.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/location",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "IncludeInactive",
+                "value": "",
+                "type": "query",
+                "description": "Whether the inactive locations should be included or not\n"
+              },
+              {
+                "name": "ReceivingEnabled",
+                "value": "",
+                "type": "query",
+                "description": "Return all the receiving enabled locations\n"
+              },
+              {
+                "name": "AccessGranted",
+                "value": "",
+                "type": "query",
+                "description": "Return all the access granted locations\n"
+              }
+            ]
+          },
+          "docs": "Retrieves physical locations across ShipBob's fulfillment network. An active location (`is_active=true`) is operational for fulfillment processes, including receiving inventory and processing returns. Access to locations varies: some are available to all merchants by default, while others require special approval. Use the `access_granted` parameter to determine if a location is available to the authenticated user, and `receiving_enabled` to confirm if the location accepts inventory."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/transactions:query",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search transactions with filters (date, invoice, fee type, etc.)"
+        },
+        {
+          "info": {
+            "name": "Get Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/invoices",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+              },
+              {
+                "name": "FromDate",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] Start date for filtering invoices by invoice date. Default is current - 1 month date.\n"
+              },
+              {
+                "name": "ToDate",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] End date for filtering invoices by invoice date. Default is current date.\n"
+              },
+              {
+                "name": "InvoiceTypes",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] Filter invoices by invoice type."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of invoices to return per page (default: 100). Must be between 1 and 1000.\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort invoices by Invoice Date. Values - Ascending, Descending. Default: Descending.\n"
+              }
+            ]
+          },
+          "docs": "Gets a paginated list of invoices, optionally filtered by invoice types and date range"
+        },
+        {
+          "info": {
+            "name": "Get Transactions by Invoice ID\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/invoices/:invoiceId/transactions",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the invoice whose transactions are to be retrieved.\n"
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of transactions to return per page (default is 100, to be entered when API is called for first time). Must be between 1 and 1000.\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the results. Valid values: Ascending or Descending (default: Descending).\n"
+              }
+            ]
+          },
+          "docs": "The unique identifier of the invoice whose transactions are to be retrieved"
+        },
+        {
+          "info": {
+            "name": "Get Transaction Fees\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/transaction-fees",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "This endpoint returns a list of transaction fees\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "subpackage_simulations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Simulates Shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/simulate/shipment",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulation shipments in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).\n\n<Warning>This endpoint is **only available** on sandbox.</Warning>"
+        },
+        {
+          "info": {
+            "name": "Get Simulation Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/simulate/status/:simulationId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "simulationId",
+                "value": "",
+                "type": "path",
+                "description": "The simulation id"
+              }
+            ]
+          },
+          "docs": "Get the status of a simulation in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).\n\n<Warning>This endpoint is **only available** on sandbox.</Warning>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
