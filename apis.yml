@@ -6,7 +6,7 @@ description: ShipBob is a Chicago-based global ecommerce fulfillment network and
   operating 60+ fulfillment centers, providing distributed warehousing, inventory,
   B2B/EDI, and shipping operations for direct-to-consumer brands with a developer-friendly
   REST API.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Logistics
 - Fulfillment
@@ -30,7 +30,7 @@ apis:
     App Store apps. Sliding-window rate limit of 150 requests/minute per user per
     application; throttled responses return HTTP 429 with `x-retry-after` and `x-remaining-calls`
     headers.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
   tags:
