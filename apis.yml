@@ -46,11 +46,11 @@ apis:
     url: https://developer.shipbob.com/
   - type: Authentication
     url: https://developer.shipbob.com/auth
-  - type: Quickstart
+  - type: GettingStarted
     url: https://developer.shipbob.com/quickstart
   - type: ReleaseNotes
     url: https://developer.shipbob.com/release-notes
-  - type: RateLimit
+  - type: RateLimits
     url: https://developer.shipbob.com/rate-limit
   - type: FAQ
     url: https://developer.shipbob.com/faq
@@ -81,7 +81,7 @@ common:
   url: rate-limits/shipbob-rate-limits.yml
 - type: FinOps
   url: finops/shipbob-finops.yml
-- type: LLMsTxt
+- type: LlmsText
   url: https://developer.shipbob.com/llms.txt
 maintainers:
 - FN: Kin Lane
