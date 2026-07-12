@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/shipbob-openapi.json
+summary:
+  types:
+  - http
+schemes:
+- name: PAT
+  type: http
+  scheme: bearer
+  description: Authentication using Personal Access Token (PAT) token or OAuth2
+  sources:
+  - openapi/shipbob-openapi.json

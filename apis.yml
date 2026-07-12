@@ -61,6 +61,12 @@ apis:
   - url: graphql/shipbob-graphql.md
     type: GraphQL
 common:
+- type: TrustCenter
+  url: security/shipbob-trust-center.yml
+- type: DomainSecurity
+  url: security/shipbob-domain-security.yml
+- type: Authentication
+  url: authentication/shipbob-authentication.yml
 - type: Website
   url: https://www.shipbob.com/
 - type: Documentation
@@ -83,6 +89,8 @@ common:
   url: finops/shipbob-finops.yml
 - type: LlmsText
   url: https://developer.shipbob.com/llms.txt
+- type: Blog
+  url: https://www.shipbob.com/blog/feed/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
