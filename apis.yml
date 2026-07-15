@@ -61,6 +61,8 @@ apis:
   - url: graphql/shipbob-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/shipbob-agentic-access.yml
 - type: TrustCenter
   url: security/shipbob-trust-center.yml
 - type: DomainSecurity
