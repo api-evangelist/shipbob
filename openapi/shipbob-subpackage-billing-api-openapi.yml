@@ -1,0 +1,769 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_billing
+paths:
+  /2026-01/transactions:query:
+    post:
+      operationId: search-transactions
+      summary: Search Transactions
+      description: Search transactions with filters (date, invoice, fee type, etc.)
+      tags:
+      - subpackage_billing
+      parameters:
+      - name: Cursor
+        in: query
+        description: '[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.TransactionDtoCursorPagedResponseV3'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.ProblemDetails'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+      requestBody:
+        description: Used to filter transactions based on search criteria. Required if cursor is not provided. Ignored when cursor is present (i.e., for paginated requests).
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Billing.TransactionRequestFilterV3'
+  /2026-01/invoices:
+    get:
+      operationId: get-invoices
+      summary: Get Invoices
+      description: Gets a paginated list of invoices, optionally filtered by invoice types and date range
+      tags:
+      - subpackage_billing
+      parameters:
+      - name: Cursor
+        in: query
+        description: '[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: FromDate
+        in: query
+        description: '[Optional] Start date for filtering invoices by invoice date. Default is current - 1 month date.
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: ToDate
+        in: query
+        description: '[Optional] End date for filtering invoices by invoice date. Default is current date.
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: InvoiceTypes
+        in: query
+        description: '[Optional] Filter invoices by invoice type.'
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/202601InvoicesGetParametersInvoiceTypesSchemaItems'
+      - name: PageSize
+        in: query
+        description: 'Number of invoices to return per page (default: 100). Must be between 1 and 1000.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: SortOrder
+        in: query
+        description: 'Sort invoices by Invoice Date. Values - Ascending, Descending. Default: Descending.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.InvoiceDtoCursorPagedResponseV3'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.ProblemDetails'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/invoices/{invoiceId}/transactions:
+    get:
+      operationId: get-transactions-by-invoice-id
+      summary: 'Get Transactions by Invoice ID
+
+        '
+      description: The unique identifier of the invoice whose transactions are to be retrieved
+      tags:
+      - subpackage_billing
+      parameters:
+      - name: invoiceId
+        in: path
+        description: 'The unique identifier of the invoice whose transactions are to be retrieved.
+
+          '
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Cursor
+        in: query
+        description: '[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: PageSize
+        in: query
+        description: 'Number of transactions to return per page (default is 100, to be entered when API is called for first time). Must be between 1 and 1000.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: SortOrder
+        in: query
+        description: 'Sort order of the results. Valid values: Ascending or Descending (default: Descending).
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.TransactionDtoCursorPagedResponseV3'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/transaction-fees:
+    get:
+      operationId: get-transaction-fees
+      summary: 'Get Transaction Fees
+
+        '
+      description: 'This endpoint returns a list of transaction fees
+
+        '
+      tags:
+      - subpackage_billing
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Billing.TransactionFeeModelV3'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+components:
+  schemas:
+    202601InvoicesGetParametersInvoiceTypesSchemaItems:
+      type: string
+      enum:
+      - Shipping
+      - WarehouseStorage
+      - Inbound Fee
+      - Return
+      - AdditionalFee
+      - Credits
+      title: 202601InvoicesGetParametersInvoiceTypesSchemaItems
+    Billing.InvoiceDtoCursorPagedResponseV3:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: Go to the first page
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Billing.InvoiceDtoV3'
+          description: List of invoices in the current page.
+        last:
+          type:
+          - string
+          - 'null'
+          description: Go to the Last page
+        next:
+          type:
+          - string
+          - 'null'
+          description: Go to the Next page
+        prev:
+          type:
+          - string
+          - 'null'
+          description: Go to the Previous page
+      description: Paginated response containing a list of invoices with navigation links for cursor-based pagination.
+      title: Billing.InvoiceDtoCursorPagedResponseV3
+    Billing.ProblemDetails:
+      type: object
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+      title: Billing.ProblemDetails
+    BillingTransactionDtoV3InvoiceType:
+      type: string
+      enum:
+      - Shipping
+      - Inbound Fee
+      - WarehouseStorage
+      - AdditionalFee
+      - Return
+      - Credits
+      - BalanceAdjustment
+      - Payment
+      description: The type or category of the invoice.
+      title: BillingTransactionDtoV3InvoiceType
+    Billing.TransactionRequestFilterV3:
+      type: object
+      properties:
+        from_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Start date for filtering transactions by charge date. Defaults to 7 days before the current date if not specified.
+        invoice_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of invoice IDs to filter transactions by.
+        invoiced_status:
+          type:
+          - boolean
+          - 'null'
+          description: Filter transactions by invoicing status. True returns billed transactions, false returns unbilled transactions, and null returns both billed and unbilled transactions.
+        page_size:
+          type: integer
+          description: Number of transactions to return per page. Default is 100. Must be between 1 and 1000.
+        reference_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of reference IDs (such as Shipment IDs, WRO IDs) to filter transactions. Can be numeric or string identifiers.
+        reference_types:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BillingTransactionRequestFilterV3ReferenceTypesItems'
+          description: The types of references associated with the reference IDs to filter by.
+        sort_order:
+          $ref: '#/components/schemas/Billing.SortOrder'
+        to_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: End date for filtering transactions by charge date. Defaults to the current date if not specified.
+        transaction_fees:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of transaction fee types to filter by. To get all available transaction fees, use the '/transaction-fees' endpoint.
+        transaction_types:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BillingTransactionRequestFilterV3TransactionTypesItems'
+          description: The classification or nature of the transactions to filter by.
+      title: Billing.TransactionRequestFilterV3
+    BillingTransactionRequestFilterV3ReferenceTypesItems:
+      type: string
+      enum:
+      - Shipment
+      - Return
+      - WRO
+      - URO
+      title: BillingTransactionRequestFilterV3ReferenceTypesItems
+    Billing.TransactionDtoV3:
+      type: object
+      properties:
+        additional_details:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            description: Any type
+          description: Any additional details related to the transaction in a key-value pair format.
+        amount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: The charge amount for the transaction.
+        charge_date:
+          type:
+          - string
+          - 'null'
+          description: The date when the transaction was charged.
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO currency code (e.g., USD, EUR) for the transaction.
+        fulfillment_center:
+          type:
+          - string
+          - 'null'
+          description: The name or code of the fulfillment center involved in the transaction.
+        invoice_date:
+          type:
+          - string
+          - 'null'
+          description: The date the invoice was generated.
+        invoice_id:
+          type:
+          - integer
+          - 'null'
+          description: The unique identifier of the invoice associated with this transaction.
+        invoice_type:
+          oneOf:
+          - $ref: '#/components/schemas/BillingTransactionDtoV3InvoiceType'
+          - type: 'null'
+          description: The type or category of the invoice.
+        invoiced_status:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the transaction has been invoiced. True if billed, false if unbilled.
+        reference_id:
+          type:
+          - string
+          - 'null'
+          description: A unique reference identifier associated with the transaction.
+        reference_type:
+          oneOf:
+          - $ref: '#/components/schemas/BillingTransactionDtoV3ReferenceType'
+          - type: 'null'
+          description: The type of reference associated with the reference ID.
+        taxes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Billing.InvoiceTaxDtoV3'
+          description: A list of tax details applied to the transaction, if any exist.
+        transaction_fee:
+          type:
+          - string
+          - 'null'
+          description: The fee type associated with the transaction. To get all available transaction fees, use the '/transaction-fees' endpoint.
+        transaction_id:
+          type:
+          - string
+          - 'null'
+          description: The unique identifier for the transaction.
+        transaction_type:
+          oneOf:
+          - $ref: '#/components/schemas/BillingTransactionDtoV3TransactionType'
+          - type: 'null'
+          description: The classification or nature of the transaction.
+      description: Represents a transaction data object.
+      title: Billing.TransactionDtoV3
+    BillingTransactionRequestFilterV3TransactionTypesItems:
+      type: string
+      enum:
+      - Charge
+      - Refund
+      - Credit
+      - Payment
+      - BalanceAdjustment
+      title: BillingTransactionRequestFilterV3TransactionTypesItems
+    BillingTransactionFeeModelV3FeeListItems:
+      type: string
+      enum:
+      - Shipping
+      - Warehousing Fee
+      - WRO Receiving Fee
+      - Per Pick Fee
+      - Affiliate
+      - Others
+      - Implementation Onboarding
+      - URO Storage Fee
+      - Package Intercept
+      - Freight
+      - Address Change
+      - Return Label
+      - Credit Reversal
+      - Return Processed by Operations Fee
+      - International Duties
+      - GST/HST Tax
+      - Return to sender - Processing Fees
+      - Custom Pick Fees
+      - Fragile Item
+      - Serial Scan
+      - Return Fee
+      - VAS - Paid Requests
+      - Shipper Manager
+      - Merchant Success Specialist
+      - WRO Label Fee
+      - Gift Note Fee
+      - International Taxes
+      - Additonal Import Tax
+      - Hazmat
+      - Shipping Charge Correction
+      - Account Closure Fee
+      - Additional Billing Fees
+      - Inventory Placement Program Fee
+      - Address Correction
+      - Credit Card Processing Fee
+      - Kitting Fee
+      - Delivery Area Surcharge
+      - Minimum Fulfillment Fee
+      - Long Term Storage Fee
+      - Integration Services
+      - Breakdown Case Fee
+      - Residential Surcharge
+      - Write Off
+      - Custom Routing Fee
+      - International Duties-Inbound
+      - B2B - Label Fee
+      - B2B - Cancellation Fee
+      - B2B - Rush
+      - B2B - Supplies
+      - B2B - Disposal Fee
+      - B2B - Order Fee
+      - B2B - Each Pick Fee
+      - B2B - Case Pick Fee
+      - B2B - Pallet Pick Fee
+      - B2B - Pallet Pack Fee
+      - B2B - Pallet Material Charge
+      - B2B - ShipBob Freight Fee
+      - B2B - Fulfilment Fees
+      - B2B - ASIN Fee
+      - WMS Equipment Fees
+      - WMS Monthly Fees
+      - WMS Installation Fees
+      - WMS - Fuel Surcharge
+      - ITO - Rush
+      - ITO - Supplies
+      - ITO - Order Fee
+      - ITO - Each Pick Fee
+      - ITO - Case Pick Fee
+      - ITO - Pallet Pick Fee
+      - ITO - Pallet Pack Fee
+      - ITO - ShipBob Freight Fee
+      - B2B - Labor
+      - Packaging Fee
+      - Custom Packaging Pick Fee
+      - Marketing Insert Pick Fee
+      - Premium Gift Note
+      - Standard Marketing Insert
+      - Fully Customizable Gift Note
+      - Fully Customizable Marketing Insert (4x6)
+      - Fully Customizable Marketing Insert (8x6)
+      - Fully Customizable Gift Note - Monthly
+      - Fully Customizable Marketing Insert - Monthly
+      - Custom Doc Printer Purchase Fee - WMS Merchants
+      - FlavorCloud Service Fee
+      - B2C order processing fee
+      - Shipbob Freight Fee - Accessorial
+      - EDI Connection Fee
+      - Return Item Processing Fee
+      title: BillingTransactionFeeModelV3FeeListItems
+    Billing.SortOrder:
+      type: string
+      enum:
+      - Ascending
+      - Descending
+      default: Descending
+      description: Sort order for results. Ascending sorts from lowest to highest, Descending sorts from highest to lowest.
+      title: Billing.SortOrder
+    Billing.TransactionFeeModelV3:
+      type: object
+      properties:
+        fee_list:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BillingTransactionFeeModelV3FeeListItems'
+          description: Available transaction fee types for billing operations.
+      description: Response model containing available transaction fee types.
+      title: Billing.TransactionFeeModelV3
+    Billing.InvoiceDtoV3:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The total invoice amount.
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO currency code used in the invoice (e.g., USD, EUR).
+        invoice_date:
+          type:
+          - string
+          - 'null'
+          description: The invoice date in yyyy-mm-dd format.
+        invoice_id:
+          type: integer
+          description: Unique identifier for the invoice.
+        invoice_type:
+          oneOf:
+          - $ref: '#/components/schemas/BillingInvoiceDtoV3InvoiceType'
+          - type: 'null'
+          description: The type or category of the invoice.
+        running_balance:
+          type: number
+          format: double
+          description: The running balance of the account after this invoice is applied.
+      description: Data transfer object representing an invoice.
+      title: Billing.InvoiceDtoV3
+    BillingTransactionDtoV3ReferenceType:
+      type: string
+      enum:
+      - Shipment
+      - Return
+      - WRO
+      - URO
+      - Ticket Number
+      - FC
+      - LPN Reference
+      - Transfer Plan
+      description: The type of reference associated with the reference ID.
+      title: BillingTransactionDtoV3ReferenceType
+    Billing.TransactionDtoCursorPagedResponseV3:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: Go to the first page
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Billing.TransactionDtoV3'
+        last:
+          type:
+          - string
+          - 'null'
+          description: Go to the Last page
+        next:
+          type:
+          - string
+          - 'null'
+          description: Go to the Next page
+        prev:
+          type:
+          - string
+          - 'null'
+          description: Go to the Previous page
+      title: Billing.TransactionDtoCursorPagedResponseV3
+    Billing.InvoiceTaxDtoV3:
+      type: object
+      properties:
+        tax_amount:
+          type: number
+          format: double
+          description: Tax amount charged for this tax type.
+        tax_rate:
+          type: number
+          format: double
+          description: Tax rate applied as a percentage.
+        tax_type:
+          type:
+          - string
+          - 'null'
+          description: Type of tax applied.
+      description: Tax information associated with a transaction or invoice.
+      title: Billing.InvoiceTaxDtoV3
+    BillingTransactionDtoV3TransactionType:
+      type: string
+      enum:
+      - Charge
+      - Refund
+      - Credit
+      - Payment
+      - BalanceAdjustment
+      description: The classification or nature of the transaction.
+      title: BillingTransactionDtoV3TransactionType
+    BillingInvoiceDtoV3InvoiceType:
+      type: string
+      enum:
+      - Shipping
+      - Inbound Fee
+      - WarehouseStorage
+      - AdditionalFee
+      - Return
+      - Credits
+      - BalanceAdjustment
+      - Payment
+      description: The type or category of the invoice.
+      title: BillingInvoiceDtoV3InvoiceType
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2

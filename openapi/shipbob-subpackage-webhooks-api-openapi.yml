@@ -1,0 +1,562 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing subpackage_webhooks API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_webhooks
+paths:
+  /2026-01/webhook:
+    post:
+      operationId: create-subscription
+      summary: 'Create Subscription
+
+        '
+      description: 'This endpoint creates a new webhook subscription.
+
+        '
+      tags:
+      - subpackage_webhooks
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhooks.V2.Create.WebhookViewModelV2'
+        '401':
+          description: No access right at this time
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: No access
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhooks.UnprocessableEntityObjectResult'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhooks.V2.CreateSubscriptionRequest'
+    get:
+      operationId: get-subscriptions
+      summary: 'Get Subscriptions
+
+        '
+      description: '  This endpoint returns a list of webhook subscriptions.
+
+        '
+      tags:
+      - subpackage_webhooks
+      parameters:
+      - name: RecordsPerPage
+        in: query
+        description: 'Number of webhooks returned per page in a paginated response.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: Cursor
+        in: query
+        description: '[Optional] A pagination token used to retrieve the next or previous page of results. Omit to start at the first page.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhooks.GetWebhookResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhooks.BadRequestObjectResult'
+        '401':
+          description: No access right at this time
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: No access
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/webhook/{id}:
+    delete:
+      operationId: delete-subscription
+      summary: 'Delete Subscription
+
+        '
+      description: '  This endpoint deletes a webhook subscription.
+
+        '
+      tags:
+      - subpackage_webhooks
+      parameters:
+      - name: id
+        in: path
+        description: 'This is the id of the webhook subscription to delete
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhooks_deleteSubscription_Response_204'
+        '401':
+          description: No access right at this time
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: No access
+          content:
+            application/json:
+              schema:
+                description: Any type
+components:
+  schemas:
+    WebhooksBadRequestObjectResultDeclaredType144:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType144
+    WebhooksBadRequestObjectResultDeclaredType10:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType10
+    WebhooksBadRequestObjectResultDeclaredType147:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType147
+    Webhooks.UnprocessableEntityObjectResult:
+      type: object
+      properties:
+        $type:
+          type: string
+        content_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        declared_type:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType'
+          - type: 'null'
+        formatters:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Webhooks.IOutputFormatter'
+        status_code:
+          type:
+          - integer
+          - 'null'
+        value:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultValue'
+          - type: 'null'
+      required:
+      - $type
+      title: Webhooks.UnprocessableEntityObjectResult
+    WebhooksBadRequestObjectResultDeclaredType146:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType146
+    WebhooksBadRequestObjectResultDeclaredType19:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType19
+    WebhooksBadRequestObjectResultDeclaredType9:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType9
+    WebhooksUnprocessableEntityObjectResultDeclaredType124:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType124
+    Webhooks.GetWebhookResponse:
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Webhooks.V2.WebhookViewModelV2'
+        next:
+          type:
+          - string
+          - 'null'
+          description: Go to the Next page
+        prev:
+          type:
+          - string
+          - 'null'
+          description: Go to the Previous page
+      title: Webhooks.GetWebhookResponse
+    Webhooks.IOutputFormatter:
+      type: object
+      properties: {}
+      title: Webhooks.IOutputFormatter
+    WebhooksUnprocessableEntityObjectResultValue:
+      type: object
+      properties: {}
+      title: WebhooksUnprocessableEntityObjectResultValue
+    Webhooks.V2.Create.WebhookViewModelV2:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: TimeStamp the webhook subscription was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the webhook subscription
+        id:
+          type: string
+          description: ID of the webhook subscription
+        secret:
+          type: string
+          description: A secret key used to sign the webhook payload for verifying its authenticity on the receiver's end.
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhooks.Topics'
+          description: List of event types the webhook will receive notifications for
+        url:
+          type: string
+          description: URL subscription events will be posted to
+      title: Webhooks.V2.Create.WebhookViewModelV2
+    WebhooksBadRequestObjectResultDeclaredType:
+      oneOf:
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType1'
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType9'
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType10'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType12'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType14'
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType17'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType19'
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType20'
+      - type: string
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType
+    WebhooksBadRequestObjectResultDeclaredType14:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType144'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType146'
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType147'
+      - type: string
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType14
+    Webhooks.Topics:
+      type: string
+      enum:
+      - order.shipped
+      - order.shipment.delivered
+      - order.shipment.exception
+      - order.shipment.on_hold
+      - order.shipment.cancelled
+      - return.created
+      - return.updated
+      - return.completed
+      - billing.charge.created
+      - billing.refund.created
+      - billing.credit.created
+      title: Webhooks.Topics
+    WebhooksUnprocessableEntityObjectResultDeclaredType12:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType124'
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType125'
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType12
+    WebhooksBadRequestObjectResultDeclaredType20:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType20
+    Webhooks.V2.WebhookViewModelV2:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: TimeStamp the webhook subscription was created
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the webhook subscription
+        enabled:
+          type: boolean
+          description: Indicates if the webhook subscription is enabled or not
+        id:
+          type: string
+          description: ID of the webhook subscription
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhooks.Topics'
+          description: List of event types the webhook will receive notifications for
+        url:
+          type: string
+          description: URL subscription events will be posted to
+      title: Webhooks.V2.WebhookViewModelV2
+    WebhooksUnprocessableEntityObjectResultDeclaredType19:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType19
+    WebhooksBadRequestObjectResultDeclaredType124:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType124
+    WebhooksUnprocessableEntityObjectResultDeclaredType9:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType9
+    WebhooksBadRequestObjectResultDeclaredType12:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType124'
+      - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType125'
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType12
+    WebhooksUnprocessableEntityObjectResultDeclaredType146:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType146
+    WebhooksUnprocessableEntityObjectResultDeclaredType20:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType20
+    WebhooksUnprocessableEntityObjectResultDeclaredType147:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType147
+    WebhooksBadRequestObjectResultDeclaredType125:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType125
+    WebhooksUnprocessableEntityObjectResultDeclaredType1:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType1
+    WebhooksUnprocessableEntityObjectResultDeclaredType125:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType125
+    WebhooksUnprocessableEntityObjectResultDeclaredType14:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType144'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType146'
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType147'
+      - type: string
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType14
+    WebhooksUnprocessableEntityObjectResultDeclaredType:
+      oneOf:
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType1'
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType9'
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType10'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType12'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType14'
+      - type: string
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType17'
+      - type: string
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType19'
+      - $ref: '#/components/schemas/WebhooksUnprocessableEntityObjectResultDeclaredType20'
+      - type: string
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType
+    WebhooksBadRequestObjectResultDeclaredType17:
+      oneOf:
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType17
+    WebhooksUnprocessableEntityObjectResultDeclaredType17:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType17
+    WebhooksBadRequestObjectResultValue:
+      type: object
+      properties: {}
+      title: WebhooksBadRequestObjectResultValue
+    WebhooksBadRequestObjectResultDeclaredType1:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      title: WebhooksBadRequestObjectResultDeclaredType1
+    Webhooks_deleteSubscription_Response_204:
+      type: object
+      properties: {}
+      description: Empty response body
+      title: Webhooks_deleteSubscription_Response_204
+    WebhooksUnprocessableEntityObjectResultDeclaredType10:
+      oneOf:
+      - type: string
+      - type: string
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType10
+    Webhooks.BadRequestObjectResult:
+      type: object
+      properties:
+        $type:
+          type: string
+        content_types:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        declared_type:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksBadRequestObjectResultDeclaredType'
+          - type: 'null'
+        formatters:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Webhooks.IOutputFormatter'
+        status_code:
+          type:
+          - integer
+          - 'null'
+        value:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksBadRequestObjectResultValue'
+          - type: 'null'
+      required:
+      - $type
+      title: Webhooks.BadRequestObjectResult
+    Webhooks.V2.CreateSubscriptionRequest:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Description of the webhook subscription.
+        secret:
+          type:
+          - string
+          - 'null'
+          description: A secret key used to sign the webhook payload for verifying its authenticity on the receiver's end.
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhooks.Topics'
+          description: The event types for which webhook callbacks will be received.
+        url:
+          type: string
+          format: uri
+          description: "The URL that will be called when an event matching the subscription topic occurs.\r\nThe URL must use HTTPS, accept POST requests, and handle content of type application/json."
+      required:
+      - topics
+      - url
+      title: Webhooks.V2.CreateSubscriptionRequest
+    WebhooksUnprocessableEntityObjectResultDeclaredType144:
+      oneOf:
+      - type: string
+      title: WebhooksUnprocessableEntityObjectResultDeclaredType144
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2

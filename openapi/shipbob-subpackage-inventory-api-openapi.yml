@@ -1,0 +1,1315 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing subpackage_inventory API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_inventory
+paths:
+  /2026-01/inventory-level:
+    get:
+      operationId: get-all-inventory-levels
+      summary: Get All Inventory Levels
+      description: Retrieves current inventory levels across all locations. Returns available, on-hand, committed, and other quantity types. Supports filtering by inventory IDs and product attributes.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: SearchBy
+        in: query
+        description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive).'
+        required: false
+        schema:
+          type: string
+      - name: InventoryIds
+        in: query
+        description: Comma-separated list of inventory IDs to filter results. Use this to retrieve inventory levels for specific inventory items only.
+        required: false
+        schema:
+          type: string
+      - name: IsActive
+        in: query
+        description: Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status.
+        required: false
+        schema:
+          type: boolean
+      - name: IsDigital
+        in: query
+        description: Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment.
+        required: false
+        schema:
+          type: boolean
+      - name: PageSize
+        in: query
+        description: Number of inventory level items to return per page. Controls pagination size for the response.
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: SortBy
+        in: query
+        description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-total_on_hand_quantity' sorts by quantity descending). Multiple fields can be comma-separated.
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryQuantityResponsePagedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/inventory-level/{inventoryId}:
+    get:
+      operationId: get-inventory-levels
+      summary: Get Inventory Levels
+      description: Retrieves the aggregated inventory levels for a specific inventory item across all locations, including available, on-hand, committed, and other quantity types.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: inventoryId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryQuantityResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/inventory/{inventoryId}:
+    get:
+      operationId: get-inventory
+      summary: Get Inventory
+      description: Retrieves detailed information about a specific inventory item by its ID, including product details, variant information, and associated metadata.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: inventoryId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/inventory:
+    get:
+      operationId: get-all-inventories
+      summary: Get All Inventories
+      description: Retrieves a paginated list of all inventory items. Supports filtering by active status, tags, and various product attributes. Use query parameters to search and filter results.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: SearchBy
+        in: query
+        description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive).'
+        required: false
+        schema:
+          type: string
+      - name: FilterOperations
+        in: query
+        description: Advanced filtering operations. Apply multiple key-value filters to refine inventory results. Each filter operation contains a 'key' (field name) and 'rawValue' (filter value) to match.
+        required: false
+        schema:
+          type: string
+      - name: InventoryIds
+        in: query
+        description: Comma-separated list of inventory IDs to filter results. Use this to retrieve information for specific inventory items only.
+        required: false
+        schema:
+          type: string
+      - name: IsActive
+        in: query
+        description: Filter by active status. True returns only active inventory items, False returns only inactive items. Omit to return both.
+        required: false
+        schema:
+          type: boolean
+      - name: IsDigital
+        in: query
+        description: Filter by digital product status. True returns only digital products (no physical fulfillment), False returns only physical products. Omit to return both.
+        required: false
+        schema:
+          type: boolean
+      - name: PageSize
+        in: query
+        description: Number of items to return per page. Controls pagination size for the response.
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: SortBy
+        in: query
+        description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated.
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryResponsePagedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/inventory/history:query:
+    post:
+      operationId: query-inventory-history-events
+      summary: Query Inventory History Events
+      description: Fetches inventory movement events that change on-hand quantities within the ShipBob network. Returns events such as receiving/stow, order picks, adjustments, restocks, and attribute updates. Filter by inventory IDs, event category, date range, and facility. Supports cursor-based pagination for large result sets.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: cursor
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FulfillmentCenterInventoryService.MerchantHistoryRequest'
+  /2026-01/inventory-level/locations:
+    get:
+      operationId: get-all-inventory-levels-grouped-by-fulfillment-center
+      summary: Get All Inventory Levels Grouped By Fulfillment Center
+      description: Retrieves inventory levels for all inventory items grouped by fulfillment center location. Supports filtering by location type, location ID, and various product attributes.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: LocationType
+        in: query
+        description: 'Filter by location type. Valid values: ''hub'', ''spoke'', or ''lts''. Defaults to all locations if not specified.'
+        required: false
+        schema:
+          type: string
+      - name: LocationId
+        in: query
+        description: Filter by specific fulfillment center location ID. Use this to retrieve inventory levels for a particular fulfillment center.
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: SearchBy
+        in: query
+        description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive).'
+        required: false
+        schema:
+          type: string
+      - name: InventoryIds
+        in: query
+        description: Comma-separated list of inventory IDs to filter results. Use this to retrieve location-grouped inventory levels for specific inventory items only.
+        required: false
+        schema:
+          type: string
+      - name: IsActive
+        in: query
+        description: Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status.
+        required: false
+        schema:
+          type: boolean
+      - name: IsDigital
+        in: query
+        description: Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment.
+        required: false
+        schema:
+          type: boolean
+      - name: PageSize
+        in: query
+        description: Number of location-grouped inventory level items to return per page. Controls pagination size for the response.
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: SortBy
+        in: query
+        description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated.
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryQuantityFcResponsePagedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/inventory-level/{inventoryId}/locations:
+    get:
+      operationId: get-inventory-levels-grouped-by-fulfillment-center
+      summary: Get Inventory Levels Grouped By Fulfillment Center
+      description: Retrieves inventory levels for a specific inventory item broken down by fulfillment center location. Shows quantity breakdowns for each location where the inventory is stored.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: inventoryId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryQuantityFcResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/inventory-level/lots:
+    get:
+      operationId: get-all-inventory-levels-grouped-by-lot
+      summary: Get All Inventory Levels Grouped By Lot
+      description: Retrieves inventory levels for all inventory items grouped by lot number. Enables tracking of inventory across multiple lots, including expiration dates and manufacturing batch information.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: LocationId
+        in: query
+        description: Filter by specific fulfillment center location ID. Use this to retrieve lot-based inventory levels for a particular warehouse or distribution center.
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: SearchBy
+        in: query
+        description: 'Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive).'
+        required: false
+        schema:
+          type: string
+      - name: InventoryIds
+        in: query
+        description: Comma-separated list of inventory IDs to filter results. Use this to retrieve lot-grouped inventory levels for specific inventory items only.
+        required: false
+        schema:
+          type: string
+      - name: IsActive
+        in: query
+        description: Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status.
+        required: false
+        schema:
+          type: boolean
+      - name: IsDigital
+        in: query
+        description: Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment.
+        required: false
+        schema:
+          type: boolean
+      - name: PageSize
+        in: query
+        description: Number of lot-grouped inventory level items to return per page. Controls pagination size for the response.
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: SortBy
+        in: query
+        description: Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-lot_date' sorts by lot date descending). Multiple fields can be comma-separated.
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryQuantityLotResponsePagedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/inventory-level/{inventoryId}/lots:
+    get:
+      operationId: get-inventory-levels-grouped-by-lot
+      summary: Get Inventory Levels Grouped By Lot
+      description: Retrieves inventory levels for a specific inventory item broken down by lot number. Useful for tracking inventory by manufacturing lot, expiration date, or batch information.
+      tags:
+      - subpackage_inventory
+      parameters:
+      - name: inventoryId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.InventoryQuantityLotResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory.ProblemDetails'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                description: Any type
+components:
+  schemas:
+    Inventory.InventoryQuantityResponsePagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results. Null if already on the first page.
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.InventoryQuantityResponse'
+          description: Array of inventory quantity items in the current page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results. Null if already on the last page.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if on the last page.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: Inventory.InventoryQuantityResponsePagedResponse
+    Inventory.WeightResponse:
+      type: object
+      properties:
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit of measurement for weight (e.g., pounds, kilograms)
+        value:
+          type: number
+          format: double
+          description: Weight value of the inventory item
+      title: Inventory.WeightResponse
+    Inventory.HazmatResponse:
+      type: object
+      properties:
+        is_hazmat:
+          type: boolean
+          description: Indicates if the inventory item is classified as hazardous material
+        validated:
+          type: boolean
+          description: Indicates whether hazmat status has been validated and confirmed
+      title: Inventory.HazmatResponse
+    Inventory.InventoryResponsePagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results. Null if already on the first page.
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.InventoryResponse'
+          description: Array of inventory items in the current page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results. Null if already on the last page.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if on the last page.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: Inventory.InventoryResponsePagedResponse
+    Inventory.InventoryQuantityFcResponse:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique identifier for the inventory item
+        locations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.FulfillmentCenterResponse'
+          description: List of fulfillment centers and their respective inventory quantities
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the inventory item
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier
+      title: Inventory.InventoryQuantityFcResponse
+    Inventory.InventoryQuantityFcResponsePagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results. Null if already on the first page.
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.InventoryQuantityFcResponse'
+          description: Array of location-grouped inventory quantity items in the current page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results. Null if already on the last page.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if on the last page.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: Inventory.InventoryQuantityFcResponsePagedResponse
+    FulfillmentCenterInventoryService.InventoryHistoryDetails:
+      type: object
+      properties:
+        committed_quantity_change:
+          type: integer
+          description: The change in committed (allocated) quantity.
+        expiration_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The expiration date for this inventory lot, if applicable.
+        facility_id:
+          type: integer
+          description: The fulfillment center ID where this quantity change occurred.
+        inventory_status:
+          type:
+          - string
+          - 'null'
+          description: The current status of the inventory.
+        location_id:
+          type: integer
+          description: The physical shelf/bin location ID within the fulfillment center.
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: The lot number associated with this inventory, if applicable.
+        operational_stage:
+          $ref: '#/components/schemas/FulfillmentCenterInventoryService.YukiOperationalStageEnumTypeResponse'
+          description: The operational stage of the inventory (e.g., available, reserved, in-transit).
+        pack_description_id:
+          $ref: '#/components/schemas/FulfillmentCenterInventoryService.Ulid'
+          description: Identifier for the packaging configuration of this inventory.
+        quantity_change:
+          type: integer
+          description: The change in on-hand quantity. Positive for increments, negative for decrements.
+        sku:
+          type:
+          - string
+          - 'null'
+          description: The merchant SKU for this inventory item.
+        yuki_id:
+          $ref: '#/components/schemas/FulfillmentCenterInventoryService.Ulid'
+          description: Unique identifier for the physical inventory unit (Yuki) in ShipBob's system.
+      title: FulfillmentCenterInventoryService.InventoryHistoryDetails
+    Inventory.ProblemDetails:
+      type: object
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code for this occurrence of the problem.
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem type.
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the problem type. This URI should provide human-readable documentation for the problem.
+      title: Inventory.ProblemDetails
+    Inventory.InventoryQuantityLotResponse:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique identifier for the inventory item
+        lots:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.Lots'
+          description: List of lot numbers and their respective inventory quantities
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the inventory item
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier
+      title: Inventory.InventoryQuantityLotResponse
+    Inventory.InventoryResponse:
+      type: object
+      properties:
+        barcode:
+          type:
+          - string
+          - 'null'
+          description: Barcode associated with the inventory item
+        dimensions:
+          $ref: '#/components/schemas/Inventory.DimensionsResponse'
+          description: Physical dimensions of the inventory item
+        inventory_id:
+          type: integer
+          description: Unique identifier for the inventory item
+        is_case:
+          type: boolean
+          description: Indicates if the inventory item is stored in cases
+        is_lot:
+          type: boolean
+          description: Indicates if the inventory item is tracked by lot number
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the inventory item
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier
+        user_id:
+          type: integer
+          description: User ID associated with this inventory item
+        variant:
+          $ref: '#/components/schemas/Inventory.VariantResponse'
+          description: Variant details including active status and product characteristics
+        weight:
+          $ref: '#/components/schemas/Inventory.WeightResponse'
+          description: Weight information of the inventory item
+      title: Inventory.InventoryResponse
+    FulfillmentCenterInventoryService.YukiOperationalStageEnumTypeResponse:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Human-readable description of the operational stage (e.g., 'Available', 'Reserved', 'In Transit').
+        id:
+          type: integer
+          description: Numeric identifier for the operational stage.
+      title: FulfillmentCenterInventoryService.YukiOperationalStageEnumTypeResponse
+    Inventory.Lots:
+      type: object
+      properties:
+        awaiting_quantity:
+          type: integer
+          description: Quantity expected to arrive for this lot
+        committed_quantity:
+          type: integer
+          description: Quantity reserved for existing orders from this lot
+        fulfillable_quantity:
+          type: integer
+          description: Quantity available to fulfill new orders for this lot
+        internal_transfer_quantity:
+          type: integer
+          description: Quantity in transit between locations for this lot
+        locations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.FulfillableQuantityByFulfillmentCenter'
+          description: Breakdown of lot quantities by fulfillment center location
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Expiration or manufacturing date associated with this lot
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: Unique lot or batch number for this inventory grouping
+        on_hand_quantity:
+          type: integer
+          description: Total quantity physically present for this lot
+      title: Inventory.Lots
+    Inventory.VariantResponse:
+      type: object
+      properties:
+        hazmat:
+          $ref: '#/components/schemas/Inventory.HazmatResponse'
+          description: Hazardous materials information
+        is_active:
+          type: boolean
+          description: Indicates if the variant is currently active and available for fulfillment
+        is_bundle:
+          type: boolean
+          description: Indicates if this item is a bundle of multiple products
+        is_digital:
+          type: boolean
+          description: Indicates if this is a digital product (no physical fulfillment required)
+      title: Inventory.VariantResponse
+    FulfillmentCenterInventoryService.InventoryHistoryResponse:
+      type: object
+      properties:
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistory'
+          description: Array of inventory history events matching the query criteria.
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if no more results available.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: FulfillmentCenterInventoryService.InventoryHistoryResponse
+    Inventory.FulfillmentCenterResponse:
+      type: object
+      properties:
+        awaiting_quantity:
+          type: integer
+          description: Quantity expected to arrive at this location
+        committed_quantity:
+          type: integer
+          description: Quantity reserved for existing orders at this location
+        fulfillable_quantity:
+          type: integer
+          description: Quantity available to fulfill new orders at this location
+        internal_transfer_quantity:
+          type: integer
+          description: Quantity in transit to or from this location
+        location_id:
+          type: integer
+          description: Unique identifier for the fulfillment center location
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the fulfillment center
+        on_hand_quantity:
+          type: integer
+          description: Total quantity physically present at this location
+      title: Inventory.FulfillmentCenterResponse
+    FulfillmentCenterInventoryService.MerchantHistoryRequest:
+      type: object
+      properties:
+        cursor:
+          type:
+          - integer
+          - 'null'
+          description: Optional. Pagination cursor using the `inventory_audit_event_id` from the previous response. Returns events after this ID.
+        end_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Recommended. End date for filtering events. If omitted, defaults to current date.
+        event_category:
+          type:
+          - string
+          - 'null'
+          description: 'Recommended. Filter by event type: `OrderPicked`, `InventoryAdjusted`, `InventoryFacilityUpdated`, `AttributeUpdated`, `InventoryReceived`, `InventoryRestocked`, `ReceivingStow`, or `KittingStow`.'
+        facility_id:
+          type: integer
+          description: Required. The ShipBob fulfillment center ID where the inventory events occurred. To find available facility IDs, use the [Get Fulfillment Centers](/api/2026-01/receiving/get-fulfillment-centers) endpoint.
+        inventory_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+          description: Recommended. Filter by specific inventory IDs. Returns events for these inventories only.
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Recommended. Start date for filtering events. If omitted, defaults to 90 days ago. Maximum range is 90 days.
+      required:
+      - facility_id
+      title: FulfillmentCenterInventoryService.MerchantHistoryRequest
+    FulfillmentCenterInventoryService.Ulid:
+      type: object
+      properties:
+        random:
+          type:
+          - string
+          - 'null'
+          format: byte
+          description: Random component of the ULID (Universally Unique Lexicographically Sortable Identifier).
+        time:
+          type: string
+          format: date-time
+          description: Timestamp component of the ULID, representing when the identifier was created.
+      title: FulfillmentCenterInventoryService.Ulid
+    Inventory.DimensionsResponse:
+      type: object
+      properties:
+        height:
+          type: number
+          format: double
+          description: Height measurement of the inventory item
+        is_locked:
+          type: boolean
+          description: Indicates whether dimensions are locked and cannot be modified
+        length:
+          type: number
+          format: double
+          description: Length measurement of the inventory item
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit of measurement for dimensions (i.e. inches)
+        validated:
+          type: boolean
+          description: Indicates whether dimensions have been validated by warehouse staff
+        width:
+          type: number
+          format: double
+          description: Width measurement of the inventory item
+      title: Inventory.DimensionsResponse
+    Inventory.InventoryQuantityResponse:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique identifier for the inventory item
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the inventory item
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier
+        total_awaiting_quantity:
+          type: integer
+          description: Total quantity expected to arrive from receiving or transfers
+        total_backordered_quantity:
+          type: integer
+          description: Total quantity on backorder for pending shipments
+        total_committed_quantity:
+          type: integer
+          description: Total quantity reserved for existing orders and allocations
+        total_exception_quantity:
+          type: integer
+          description: Total quantity in exception status (damaged, lost, or under investigation)
+        total_fulfillable_quantity:
+          type: integer
+          description: Total quantity available to fulfill new orders (on-hand minus committed)
+        total_internal_transfer_quantity:
+          type: integer
+          description: Total quantity currently in transit between fulfillment centers
+        total_on_hand_quantity:
+          type: integer
+          description: Total quantity physically present in all fulfillment centers
+        total_sellable_quantity:
+          type: integer
+          description: Total quantity available for sale (fulfillable plus awaiting)
+      title: Inventory.InventoryQuantityResponse
+    FulfillmentCenterInventoryService.InventoryHistory:
+      type: object
+      properties:
+        additional_reference:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference'
+          description: Additional key-value reference data related to this event.
+        decrement:
+          $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryDetails'
+          description: Details of the source location where inventory quantity decreased.
+        event_category:
+          type:
+          - string
+          - 'null'
+          description: 'The type of inventory event. Supported values: `OrderPicked`, `InventoryAdjusted`, `InventoryFacilityUpdated`, `AttributeUpdated`, `InventoryReceived`, `InventoryRestocked`, `ReceivingStow`, `KittingStow`.'
+        event_datetime:
+          type: string
+          format: date-time
+          description: The timestamp when this inventory event occurred.
+        increment:
+          $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryDetails'
+          description: Details of the destination location where inventory quantity increased.
+        inventory_audit_event_id:
+          type: integer
+          description: Unique identifier for this event. Use as cursor value for pagination to fetch subsequent records.
+        inventory_id:
+          type: integer
+          description: The ShipBob inventory ID for this item.
+        shipbob_order_id:
+          type:
+          - integer
+          - 'null'
+          description: The ShipBob order ID associated with this event, if applicable (e.g., for `OrderPicked` events).
+      title: FulfillmentCenterInventoryService.InventoryHistory
+    Inventory.InventoryQuantityLotResponsePagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results. Null if already on the first page.
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.InventoryQuantityLotResponse'
+          description: Array of lot-grouped inventory quantity items in the current page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results. Null if already on the last page.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if on the last page.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: Inventory.InventoryQuantityLotResponsePagedResponse
+    Inventory.FulfillableQuantityByFulfillmentCenter:
+      type: object
+      properties:
+        awaiting_quantity:
+          type: integer
+          description: Quantity expected to arrive at this location
+        committed_quantity:
+          type: integer
+          description: Quantity reserved for existing orders at this location
+        fulfillable_quantity:
+          type: integer
+          description: Quantity available to fulfill new orders at this location
+        internal_transfer_quantity:
+          type: integer
+          description: Quantity in transit to or from this location
+        location_id:
+          type: integer
+          description: Unique identifier for the fulfillment center location
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the fulfillment center
+        on_hand_quantity:
+          type: integer
+          description: Total quantity physically present at this location
+      title: Inventory.FulfillableQuantityByFulfillmentCenter
+    FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference:
+      type: object
+      properties:
+        key:
+          type:
+          - string
+          - 'null'
+          description: The reference key (e.g., WRO ID, order ID, or other contextual identifier).
+        value:
+          type:
+          - string
+          - 'null'
+          description: The reference value corresponding to the key.
+      title: FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2

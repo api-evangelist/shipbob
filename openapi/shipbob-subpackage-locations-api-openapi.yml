@@ -1,0 +1,208 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing subpackage_locations API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_locations
+paths:
+  /2026-01/location:
+    get:
+      operationId: get-locations
+      summary: Get Locations
+      description: 'Retrieves physical locations across ShipBob''s fulfillment network. An active location (`is_active=true`) is operational for fulfillment processes, including receiving inventory and processing returns. Access to locations varies: some are available to all merchants by default, while others require special approval. Use the `access_granted` parameter to determine if a location is available to the authenticated user, and `receiving_enabled` to confirm if the location accepts inventory.'
+      tags:
+      - subpackage_locations
+      parameters:
+      - name: IncludeInactive
+        in: query
+        description: 'Whether the inactive locations should be included or not
+
+          '
+        required: false
+        schema:
+          type: boolean
+      - name: ReceivingEnabled
+        in: query
+        description: 'Return all the receiving enabled locations
+
+          '
+        required: false
+        schema:
+          type: boolean
+      - name: AccessGranted
+        in: query
+        description: 'Return all the access granted locations
+
+          '
+        required: false
+        schema:
+          type: boolean
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Locations.Get.1.0.Location.OK.OneOfArray'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+components:
+  schemas:
+    Locations.ServiceTypeEnum:
+      type: string
+      enum:
+      - Receiving
+      - Returns
+      title: Locations.ServiceTypeEnum
+    Locations.Get.1.0.Location.OK.OneOfArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Locations.LocationViewModel'
+      title: Locations.Get.1.0.Location.OK.OneOfArray
+    Locations.LocationViewModel:
+      type: object
+      properties:
+        abbreviation:
+          type:
+          - string
+          - 'null'
+          description: Abbreviation of the location. Combination of nearest Airport Code and the sequence number.
+        access_granted:
+          type: boolean
+          description: Indicates whether or not the user is authorized to interact at all with the location
+        attributes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Available attributes for the location
+        id:
+          type: integer
+          description: Id of the location in ShipBob’s database
+        is_active:
+          type: boolean
+          description: Indicates if the location is operationally active or inactive
+        is_receiving_enabled:
+          type: boolean
+          description: Indicates if the receiving is enabled for FC
+        is_shipping_enabled:
+          type: boolean
+          description: Indicates if the shipping is enabled for FC
+        name:
+          type:
+          - string
+          - 'null'
+          description: "Name of the location. Follows the naming convention City (State Code)\r\nfor domestic FCs and City (Country Code) for international FCs"
+        region:
+          $ref: '#/components/schemas/Locations.FulfillmentCenterRegionViewModel'
+        services:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Locations.ServiceViewModel'
+          description: Services provided by the location
+        timezone:
+          type:
+          - string
+          - 'null'
+          description: Time zone of the location
+      title: Locations.LocationViewModel
+    Locations.ServiceViewModel:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Locations.AddressViewModel'
+        enabled:
+          type: boolean
+          description: Indicates if the user is authorized to access this service at the location
+        service_type:
+          $ref: '#/components/schemas/Locations.ServiceTypeEnum'
+      title: Locations.ServiceViewModel
+    Locations.AddressViewModel:
+      type: object
+      properties:
+        address1:
+          type:
+          - string
+          - 'null'
+          description: First part of the address of the location for this service
+        address2:
+          type:
+          - string
+          - 'null'
+          description: Second part of the address of the location for this service
+        city:
+          type:
+          - string
+          - 'null'
+          description: City of the location
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country of the location
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email of the location for this service
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name to use in the address of the location for this service
+        phone_number:
+          type:
+          - string
+          - 'null'
+          description: Phone Number of the location for this service
+        state:
+          type:
+          - string
+          - 'null'
+          description: State of the location
+        zip_code:
+          type:
+          - string
+          - 'null'
+          description: Zip code of the location
+      description: The service-specific address of the location. Each object contains address type, address1, address2, city, state, country, zip code, phone number, and email
+      title: Locations.AddressViewModel
+    Locations.FulfillmentCenterRegionViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique Id for the location region
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the region the location is in.
+      title: Locations.FulfillmentCenterRegionViewModel
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2

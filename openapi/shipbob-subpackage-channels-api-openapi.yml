@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing subpackage_channels API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_channels
+paths:
+  /2026-01/channel:
+    get:
+      operationId: get-channels
+      summary: Get Channels
+      description: 'Retrieves a paginated list of channels that the authenticated user has access to based on the provided access token.
+
+        '
+      tags:
+      - subpackage_channels
+      parameters:
+      - name: RecordsPerPage
+        in: query
+        description: The number of records to return per page. This parameter is used for pagination. If not provided, a default value will be used.
+        required: false
+        schema:
+          type: integer
+          default: 50
+      - name: Cursor
+        in: query
+        description: A cursor for pagination. This parameter is used to fetch the next set of results.
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channels.ChannelsV2ViewModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channels.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: Any type
+components:
+  schemas:
+    Channels.ChannelViewModel:
+      type: object
+      properties:
+        application_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the application that owns the channel
+        id:
+          type: integer
+          description: Unique id of the channel
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the channel
+        scopes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Array of permissions granted for the channel
+      title: Channels.ChannelViewModel
+    Channels.ErrorResponse:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Channels.ErrorResponse
+    Channels.ChannelsV2ViewModel:
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Channels.ChannelViewModel'
+          description: List of channels
+        next:
+          type:
+          - string
+          - 'null'
+          description: Next page url
+        prev:
+          type:
+          - string
+          - 'null'
+          description: Previous page url
+      description: Get Channels response
+      title: Channels.ChannelsV2ViewModel
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2

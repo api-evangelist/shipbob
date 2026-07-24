@@ -1,0 +1,1080 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing subpackage_receiving API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_receiving
+paths:
+  /2026-01/receiving:
+    post:
+      operationId: create-warehouse-receiving-order
+      summary: 'Create Warehouse Receiving Order
+
+        '
+      description: 'Creates a new warehouse receiving order with specified fulfillment center, boxes, and inventory items.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.Post.2.0.Receiving.Bad.Request.Object'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ValidationProblemDetails'
+      requestBody:
+        description: The receiving order to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Receiving.CreateReceivingOrderModel'
+    get:
+      operationId: get-multiple-warehouse-receiving-orders
+      summary: 'Get Multiple Warehouse Receiving Orders
+
+        '
+      description: 'Returns a list of warehouse receiving orders with optional filtering by status, fulfillment center, purchase order number, and date range.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: Page
+        in: query
+        description: 'Page of WROs to get
+
+          '
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: Limit
+        in: query
+        description: 'Number of WROs per page to request
+
+          '
+        required: false
+        schema:
+          type: string
+          format: int32
+      - name: IDs
+        in: query
+        description: 'Comma separated list of WRO IDs to filter by
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: Statuses
+        in: query
+        description: 'Comma separated list of WRO statuses to filter by
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: InsertStartDate
+        in: query
+        description: 'Earliest date that a WRO was created
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: InsertEndDate
+        in: query
+        description: 'Latest date that a WRO was created
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: FulfillmentCenterIds
+        in: query
+        description: 'Comma separated list of WRO fulfillment center IDs to filter by
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: PurchaseOrderNumbers
+        in: query
+        description: 'Comma separated list of WRO PO numbers to filter by
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: ExternalSync
+        in: query
+        description: 'Flag to return external_sync_timestamp WROs
+
+          '
+        required: false
+        schema:
+          type: boolean
+      - name: CompletedStartDate
+        in: query
+        description: 'Earliest date that a WRO was completed
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: CompletedEndDate
+        in: query
+        description: 'Latest date that a WRO was completed
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModelArray'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ValidationProblemDetails'
+  /2026-01/receiving/{id}:
+    get:
+      operationId: get-warehouse-receiving-order
+      summary: 'Get Warehouse Receiving Order
+
+        '
+      description: 'Returns details of a specific warehouse receiving order by ID.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: id
+        in: path
+        description: 'Id of the receiving order
+
+          '
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModel'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ValidationProblemDetails'
+  /2026-01/fulfillment-center:
+    get:
+      operationId: get-fulfillment-centers
+      summary: 'Get Fulfillment Centers
+
+        '
+      description: 'Returns a list of ShipBob fulfillment centers where inventory can be received.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.FulfillmentCenterViewModelArray'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+  /2026-01/receiving/{id}/boxes:
+    get:
+      operationId: get-warehouse-receiving-order-boxes
+      summary: 'Get Warehouse Receiving Order Boxes
+
+        '
+      description: 'Returns the boxes and their contents for a specific warehouse receiving order.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: id
+        in: path
+        description: Id of the receiving order
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.BoxViewModelArray'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ValidationProblemDetails'
+  /2026-01/receiving/{id}/labels:
+    get:
+      operationId: get-warehouse-receiving-order-box-labels
+      summary: 'Get Warehouse Receiving Order Box Labels
+
+        '
+      description: 'Returns a PDF containing box labels for a specific warehouse receiving order.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: id
+        in: path
+        description: Id of the receiving order
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.Get.2.0.Receiving.Id.Labels.OK.String'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ValidationProblemDetails'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ValidationProblemDetails'
+  /2026-01/receiving/{id}:cancel:
+    post:
+      operationId: cancel-warehouse-receiving-order
+      summary: 'Cancel Warehouse Receiving Order
+
+        '
+      description: 'Cancels an existing warehouse receiving order. Only orders in certain statuses can be cancelled.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: id
+        in: path
+        description: Id of the receiving order to cancel
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModel'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ValidationProblemDetails'
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.Post.2.0.Receiving.Id.Cancel.Unprocessable.Entity.Object'
+  /2026-01/receiving:setExternalSync:
+    post:
+      operationId: set-external-sync-flag-for-wros
+      summary: 'Set ExternalSync flag for Wros
+
+        '
+      description: 'Sets the external sync flag for one or more warehouse receiving orders to enable or disable external synchronization.
+
+        '
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.Post.2.0.Receiving.Set.External.Sync.Bad.Request.Object'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+      requestBody:
+        description: The list of wro ids and a flag to enable external sync
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Receiving.UpdateExternalSyncModel'
+  /2026-01/receiving/{id}/distributions:
+    get:
+      operationId: get-inventory-distributions-by-wro-id
+      summary: Get Inventory Distributions by WRO ID
+      description: 'Retrieves the distribution details for a specific receiving order within ShipBob''s Inventory Placement Program (IPP).
+
+
+        <Warning>This endpoint is available only to accounts enrolled in ShipBob''s Inventory Placement Program (IPP).</Warning>'
+      tags:
+      - subpackage_receiving
+      parameters:
+      - name: id
+        in: path
+        description: 'Id of the receiving order
+
+          '
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.WroDistributionDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiving.ProblemDetails'
+components:
+  schemas:
+    Receiving.AddBoxItemToBoxModel:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique inventory id of the items in the box
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Lot expiration date for the items in the box
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: Lot number of the items in the box
+        quantity:
+          type: integer
+          description: Quantity of the items in the box
+      required:
+      - inventory_id
+      - quantity
+      description: Information about an inventory item contained inside a receiving order box
+      title: Receiving.AddBoxItemToBoxModel
+    Receiving.DistributionStatus:
+      type: string
+      enum:
+      - NotStarted
+      - InProgress
+      - Stowing
+      - Completed
+      title: Receiving.DistributionStatus
+    Receiving.V2.InventoryQuantityViewModel:
+      type: object
+      properties:
+        expected_quantity:
+          type: integer
+          description: Quantity of the inventory item submitted in the WRO
+        inventory_id:
+          type: integer
+          description: ID of the inventory item
+        received_quantity:
+          type: integer
+          description: Quantity of the inventory item received by the warehouse
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Sku of the inventory item
+        stowed_quantity:
+          type: integer
+          description: Quantity of the inventory item stowed by the warehouse
+      title: Receiving.V2.InventoryQuantityViewModel
+    Receiving.AddBoxToOrderModel:
+      type: object
+      properties:
+        box_items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Receiving.AddBoxItemToBoxModel'
+          description: Items contained in this box
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number for the box shipment
+      required:
+      - box_items
+      - tracking_number
+      description: Information about a box shipment to be added to a receiving order
+      title: Receiving.AddBoxToOrderModel
+    Receiving.ReceivingStatus:
+      type: string
+      enum:
+      - Awaiting
+      - Processing
+      - Completed
+      - Cancelled
+      - Incomplete
+      - Arrived
+      - PartiallyArrived
+      - PartiallyArrivedAtHub
+      - ArrivedAtHub
+      - ProcessingAtHub
+      - InternalTransfer
+      title: Receiving.ReceivingStatus
+    Receiving.FulfillmentCenterViewModel:
+      type: object
+      properties:
+        address1:
+          type:
+          - string
+          - 'null'
+          description: Address line one of the fulfillment center
+        address2:
+          type:
+          - string
+          - 'null'
+          description: Address line two of the fulfillment center
+        city:
+          type:
+          - string
+          - 'null'
+          description: City the fulfillment center is located in
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country the fulfillment center is located in
+        email:
+          type:
+          - string
+          - 'null'
+          description: Email contact for the fulfillment center
+        id:
+          type: integer
+          description: Unique identifier of the fulfillment center
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the fulfillment center
+        phone_number:
+          type:
+          - string
+          - 'null'
+          description: Phone number contact for the fulfillment center
+        state:
+          type:
+          - string
+          - 'null'
+          description: State the fulfillment center is located in
+        timezone:
+          type:
+          - string
+          - 'null'
+          description: Timezone the fulfillment center is located in
+        zip_code:
+          type:
+          - string
+          - 'null'
+          description: Postal code of the fulfillment center
+      description: Information about a fulfillment center
+      title: Receiving.FulfillmentCenterViewModel
+    Receiving.V2.WarehouseReceivingOrderViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModel'
+      title: Receiving.V2.WarehouseReceivingOrderViewModelArray
+    Receiving.WarehousePickupRequestStatus:
+      type: string
+      enum:
+      - Awaiting
+      - Processing
+      - Completed
+      - Cancelled
+      - Incomplete
+      - Arrived
+      - PartiallyArrived
+      - PartiallyArrivedAtHub
+      - ArrivedAtHub
+      - ProcessingAtHub
+      - InternalTransfer
+      title: Receiving.WarehousePickupRequestStatus
+    Receiving.ValidationProblemDetails:
+      type: object
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        instance:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+      title: Receiving.ValidationProblemDetails
+    Receiving.FulfillmentCenterViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Receiving.FulfillmentCenterViewModel'
+      title: Receiving.FulfillmentCenterViewModelArray
+    Receiving.V2.WarehouseReceivingOrderViewModel:
+      type: object
+      properties:
+        box_labels_uri:
+          type:
+          - string
+          - 'null'
+          description: URL to the packing slip to be included in each box shipment for this receiving order
+        box_packaging_type:
+          $ref: '#/components/schemas/Receiving.PackingType'
+        expected_arrival_date:
+          type: string
+          format: date-time
+          description: Expected date that all packages will have arrived
+        external_sync_timestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The timestamp in UTC when a 3rd party integrator has set in our system
+        fulfillment_center:
+          $ref: '#/components/schemas/Receiving.FulfillmentCenterViewModel'
+        id:
+          type: integer
+          description: Unique id of the warehouse receiving order
+        insert_date:
+          type: string
+          format: date-time
+          description: Insert date of the receiving order
+        inventory_quantities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Receiving.V2.InventoryQuantityViewModel'
+          description: Inventory items and quantities within the WRO
+        last_updated_date:
+          type: string
+          format: date-time
+          description: Last date the receiving order was updated
+        package_type:
+          $ref: '#/components/schemas/Receiving.PackageType'
+        purchase_order_number:
+          type:
+          - string
+          - 'null'
+          description: Purchase order number for a receiving order
+        status:
+          $ref: '#/components/schemas/Receiving.ReceivingStatus'
+        status_history:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Receiving.V2.ReceivingOrderStatusHistoryViewModel'
+          description: The history of status changes for this receiving order
+      title: Receiving.V2.WarehouseReceivingOrderViewModel
+    Receiving.V2.ReceivingOrderStatusHistoryViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique id of the status
+        status:
+          type:
+          - string
+          - 'null'
+          description: Name of the status
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the status was recorded
+      description: View model for receiving order status history
+      title: Receiving.V2.ReceivingOrderStatusHistoryViewModel
+    Receiving.BoxViewModel:
+      type: object
+      properties:
+        arrived_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date the box arrived
+        box_id:
+          type: integer
+        box_items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Receiving.BoxItemViewModel'
+          description: Information about the items included in the box
+        box_number:
+          type: integer
+          description: The number of the box in the receiving order
+        box_status:
+          $ref: '#/components/schemas/Receiving.BoxStatus'
+        counting_started_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date counting of the box's inventory items started
+        received_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date the box was received
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number of the box shipment
+      description: Information about a box shipment included in a receiving order
+      title: Receiving.BoxViewModel
+    Receiving.DistributionItem:
+      type: object
+      properties:
+        expected_quantity:
+          type: integer
+          description: Quantity to be distributed according with the transfer plan calculation
+        fulfillment_center_abbreviation:
+          type:
+          - string
+          - 'null'
+          description: Abbreviation of Destination Fulfillment Center Id, including Airport Code and Sequence Number
+        fulfillment_center_id:
+          type: integer
+          description: Destination Fulfillment Center Id for the item
+        inventory_id:
+          type: integer
+          description: Inventory Id of the Item
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Lot expiration date of the item
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: Lot number of the item
+        product_sku:
+          type:
+          - string
+          - 'null'
+          description: Product SKU
+        received_quantity:
+          type: integer
+          description: Quantity received at hub for this item
+        status:
+          $ref: '#/components/schemas/Receiving.DistributionStatus'
+        stowed_quantity:
+          type: integer
+          description: Quantity stowed at Destination Fulfillment Center for this item
+      title: Receiving.DistributionItem
+    Receiving.UpdateExternalSyncModel:
+      type: object
+      properties:
+        ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+        is_external_sync:
+          type: boolean
+      title: Receiving.UpdateExternalSyncModel
+    Receiving.Get.2.0.Receiving.Id.Labels.OK.String:
+      type: string
+      format: byte
+      title: Receiving.Get.2.0.Receiving.Id.Labels.OK.String
+    Receiving.CreateReceivingOrderModel:
+      type: object
+      properties:
+        box_packaging_type:
+          $ref: '#/components/schemas/Receiving.PackingType'
+        boxes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Receiving.AddBoxToOrderModel'
+          description: Box shipments to be added to this receiving order
+        expected_arrival_date:
+          type: string
+          format: date-time
+          description: Expected arrival date of all the box shipments in this receiving order
+        fulfillment_center:
+          $ref: '#/components/schemas/Receiving.AssignOrderToFulfillmentCenterModel'
+        package_type:
+          $ref: '#/components/schemas/Receiving.PackageType'
+        purchase_order_number:
+          type:
+          - string
+          - 'null'
+          description: Purchase order number for this receiving order
+      required:
+      - box_packaging_type
+      - boxes
+      - expected_arrival_date
+      - fulfillment_center
+      - package_type
+      description: Information to create a new receiving order
+      title: Receiving.CreateReceivingOrderModel
+    Receiving.BoxViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Receiving.BoxViewModel'
+      title: Receiving.BoxViewModelArray
+    Receiving.WroDistributionDetailsResponse:
+      type: object
+      properties:
+        distributions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Receiving.DistributionItem'
+          description: List of distribution items, for a combination of InventoryId, Lot Number, Lot Date and Destination Fulfillment Center Id
+        id:
+          type: integer
+          description: Id of the receiving order
+        status:
+          $ref: '#/components/schemas/Receiving.WarehousePickupRequestStatus'
+      title: Receiving.WroDistributionDetailsResponse
+    Receiving.Post.2.0.Receiving.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Receiving.Post.2.0.Receiving.Bad.Request.Object
+    Receiving.PackageType:
+      type: string
+      enum:
+      - Package
+      - Pallet
+      - FloorLoadedContainer
+      title: Receiving.PackageType
+    Receiving.PackingType:
+      type: string
+      enum:
+      - EverythingInOneBox
+      - OneSkuPerBox
+      - MultipleSkuPerBox
+      title: Receiving.PackingType
+    Receiving.Post.2.0.Receiving.Set.External.Sync.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Receiving.Post.2.0.Receiving.Set.External.Sync.Bad.Request.Object
+    Receiving.BoxStatus:
+      type: string
+      enum:
+      - Awaiting
+      - Arrived
+      - Completed
+      - Counting
+      - Stowing
+      - Cancelled
+      - InternalTransfer
+      title: Receiving.BoxStatus
+    Receiving.ProblemDetails:
+      type: object
+      additionalProperties:
+        description: Any type
+      title: Receiving.ProblemDetails
+    Receiving.Post.2.0.Receiving.Id.Cancel.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Receiving.Post.2.0.Receiving.Id.Cancel.Unprocessable.Entity.Object
+    Receiving.BoxItemViewModel:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique identifier of the inventory item
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Expiration date of the item's lot
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: Lot number the item belongs to
+        quantity:
+          type: integer
+          description: Quantity of the item included
+        received_quantity:
+          type: integer
+          description: Quantity of the item that was received after processing the receiving order
+        stowed_quantity:
+          type: integer
+          description: Quantity of the item that has been stowed
+      description: Information about an item contained inside a box as part of a receiving order
+      title: Receiving.BoxItemViewModel
+    Receiving.AssignOrderToFulfillmentCenterModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the fulfillment center to assign this receiving order to
+      required:
+      - id
+      description: "Model containing information that assigns a receiving order to a fulfillment center.\r\nIf the fulfillment center provided is in a receiving hub region, then the response will be the receiving hub location."
+      title: Receiving.AssignOrderToFulfillmentCenterModel
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2

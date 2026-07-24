@@ -1,0 +1,1015 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing subpackage_returns API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_returns
+paths:
+  /2026-01/return:
+    post:
+      operationId: create-return-order
+      summary: 'Create Return Order
+
+        '
+      description: 'Creates a new return order for a previously shipped order. Specify the original shipment, inventory items to return, and requested return actions.
+
+        '
+      tags:
+      - subpackage_returns
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      - name: shipbob_channel_id
+        in: header
+        description: Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.
+        required: true
+        schema:
+          type: string
+          format: int32
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.PublicReturnV1Dto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.ProblemDetails'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.ApiError'
+      requestBody:
+        description: The return order creation request containing return details, items, and configuration.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Returns.CreateReturnRequest'
+    get:
+      operationId: get-return-orders
+      summary: 'Get Return Orders
+
+        '
+      description: 'Retrieves a paginated list of return orders with optional filters for IDs, statuses, dates, and other criteria. Use this to track all returns across your ShipBob account.
+
+        '
+      tags:
+      - subpackage_returns
+      parameters:
+      - name: Ids
+        in: query
+        description: 'The IDs of the returns to fetch. Accepts a comma-separated list of return IDs (e.g., 123,456,789).
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: ReferenceIds
+        in: query
+        description: 'Comma-separated list of return reference IDs (RMA numbers) to filter by.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: Status
+        in: query
+        description: 'Comma-separated list of return statuses to filter by (e.g., AwaitingArrival,Arrived,Processing,Completed,Cancelled).
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: FulfillmentCenterIds
+        in: query
+        description: 'Comma-separated list of fulfillment center IDs to filter by.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: TrackingNumbers
+        in: query
+        description: 'Comma-separated list of tracking numbers to filter by.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: OriginalShipmentIds
+        in: query
+        description: 'Comma-separated list of original shipment IDs to filter by.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: InventoryIds
+        in: query
+        description: 'Comma-separated list of inventory IDs to filter by.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: StartDate
+        in: query
+        description: 'Filter returns created on or after this date (ISO 8601 format).
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: EndDate
+        in: query
+        description: 'Filter returns created on or before this date (ISO 8601 format).
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: ReturnTypes
+        in: query
+        description: 'Comma-separated list of return types to filter by (e.g., Regular,ReturnToSender).
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: ReturnActions
+        in: query
+        description: 'Comma-separated list of return actions to filter by (e.g., Restock,Quarantine,Dispose).
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: StoreOrderIds
+        in: query
+        description: 'Comma-separated list of store order IDs to filter by.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: Sortby
+        in: query
+        description: 'Field to sort results by.
+
+          '
+        required: false
+        schema:
+          type: string
+      - name: CompletedStartDate
+        in: query
+        description: 'Filter returns completed on or after this date (ISO 8601 format).
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: CompletedEndDate
+        in: query
+        description: 'Filter returns completed on or before this date (ISO 8601 format).
+
+          '
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: Cursor
+        in: query
+        description: 'Page number to retrieve. Used for pagination through result sets.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: Limit
+        in: query
+        description: 'Maximum number of records to return per page.
+
+          '
+        required: false
+        schema:
+          type: integer
+      - name: SortOrder
+        in: query
+        description: 'Sort order for results. Desc = newest to oldest, Asc = oldest to newest, Desc is default
+
+          '
+        required: false
+        schema:
+          $ref: '#/components/schemas/202601ReturnGetParametersSortOrder'
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      - name: shipbob_channel_id
+        in: header
+        description: Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.
+        required: false
+        schema:
+          type: string
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.PublicReturnDtoPagedUrlResultDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.ProblemDetails'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.ProblemDetails'
+  /2026-01/return/{id}:
+    get:
+      operationId: get-return-order
+      summary: 'Get Return Order
+
+        '
+      description: 'Retrieves the complete details of a specific return order by its unique ID. Use this to view return status, inventory items, transactions, and processing history.
+
+        '
+      tags:
+      - subpackage_returns
+      parameters:
+      - name: id
+        in: path
+        description: 'The Id of the Return
+
+          '
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      - name: shipbob_channel_id
+        in: header
+        description: Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.
+        required: false
+        schema:
+          type: string
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.PublicReturnDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.ProblemDetails'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.ProblemDetails'
+    put:
+      operationId: edit-return-order
+      summary: 'Edit Return Order
+
+        '
+      description: 'Updates an existing return using the provided request body and returns the updated return payload.
+
+        '
+      tags:
+      - subpackage_returns
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.PublicReturnV1Dto'
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '422':
+          description: Client Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns.ApiError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Returns.CreateReturnRequest'
+  /2026-01/return/{id}:cancel:
+    post:
+      operationId: cancel-return-order
+      summary: 'Cancel Return order
+
+        '
+      description: 'Cancels a return order for given return ID
+
+        '
+      tags:
+      - subpackage_returns
+      parameters:
+      - name: id
+        in: path
+        description: 'Id of the return order
+
+          '
+        required: true
+        schema:
+          type: string
+          format: int32
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns_cancelReturnOrder_Response_200'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '401':
+          description: Authorization missing or invalid
+          content:
+            application/json:
+              schema:
+                description: Any type
+        '403':
+          description: The provided credentials are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                description: Any type
+components:
+  schemas:
+    Returns.PublicReturnDtoPagedUrlResultDto:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for first cursor
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.PublicReturnDto'
+          description: Return records
+        last:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for last cursor
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for next cursor
+        prev:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for prev cursor
+      title: Returns.PublicReturnDtoPagedUrlResultDto
+    Returns.ActionTakenDto:
+      type: object
+      properties:
+        action:
+          type:
+          - string
+          - 'null'
+          description: The return action taken
+        action_reason:
+          type:
+          - string
+          - 'null'
+          description: The reason the action was taken
+        image_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Image of inventory processed with this action.
+        quantity_processed:
+          type: integer
+          description: The quantity of inventory items processed with this reason and action
+      description: The details of an action taken for inventory item in the return
+      title: Returns.ActionTakenDto
+    Returns.StatusHistoryDto:
+      type: object
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status to change
+        timestamp:
+          type: string
+          format: date-time
+          description: Date change status
+      description: Status history
+      title: Returns.StatusHistoryDto
+    Returns.ProblemDetails:
+      type: object
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+      title: Returns.ProblemDetails
+    Returns.ApiError:
+      type: object
+      properties:
+        details:
+          oneOf:
+          - description: Any type
+          - type: 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        message:
+          type:
+          - string
+          - 'null'
+        stackTrace:
+          type:
+          - string
+          - 'null'
+          description: StackTrace of the Exception
+      title: Returns.ApiError
+    Returns.ReturnInventory:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the inventory item to return.
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lot_number:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          description: Quantity of the returned inventory item in the return.
+        requested_action:
+          $ref: '#/components/schemas/Returns.ReturnAction'
+      required:
+      - id
+      - quantity
+      - requested_action
+      description: An inventory being returned, includes the quantity and an override for the return action.
+      title: Returns.ReturnInventory
+    Returns.ChannelDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique Id of the channel
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name given to the channel
+      description: The details of a Channel
+      title: Returns.ChannelDto
+    Returns.Facility:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the facility
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the facility (It is optional because public API integrations do not pass this)
+      required:
+      - id
+      description: A Facility to process Returns.
+      title: Returns.Facility
+    Returns.TransactionDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The amount charged for this transaction
+        transaction_type:
+          type:
+          - string
+          - 'null'
+          description: The type of transaction
+      description: The details of a transaction charged to the return order
+      title: Returns.TransactionDto
+    Returns.PublicReturnV1Dto:
+      type: object
+      properties:
+        channel:
+          $ref: '#/components/schemas/Returns.ChannelDto'
+        completed_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time for when the return order was completely processed
+        customer_name:
+          type:
+          - string
+          - 'null'
+          description: Name of merchant that return belongs to
+        fulfillment_center:
+          $ref: '#/components/schemas/Returns.FulfillmentCenterDto'
+        id:
+          type: integer
+          description: Unique id of the return order
+        insert_date:
+          type: string
+          format: date-time
+          description: The date and time for when the return order was created
+        inventory:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.InventoryItemV1Dto'
+          description: List of inventory items in return order
+        invoice_amount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Amount merchant was invoiced for processing the return
+        original_shipment_id:
+          type:
+          - integer
+          - 'null'
+          description: ShipmentId for which return was created
+        reference_id:
+          type:
+          - string
+          - 'null'
+          description: Unique reference id of the return order. Created by merchant if a regular return.
+        return_type:
+          type:
+          - string
+          - 'null'
+          description: Type of the return, i.e. Regular, RTS
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status of the return order, i.e. AwaitingArrival
+        store_order_id:
+          type:
+          - string
+          - 'null'
+          description: Reference to external order id
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: The tracking number of the return shipping label
+        transactions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.TransactionDto'
+          description: List of transactions that make up the billable amount to invoice a merchant
+      description: The details of a public return order (V1), including the transactions and inventory items
+      title: Returns.PublicReturnV1Dto
+    Returns.ReturnAction:
+      type: string
+      enum:
+      - Default
+      - Restock
+      - Quarantine
+      - Dispose
+      title: Returns.ReturnAction
+    Returns.PublicReturnDto:
+      type: object
+      properties:
+        arrived_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the return arrived at the fulfillment center
+        awaiting_arrival_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the return entered Awaiting Arrival status
+        cancelled_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the return was cancelled, if applicable
+        channel:
+          $ref: '#/components/schemas/Returns.ChannelDto'
+        completed_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time for when the return order was completely processed
+        customer_name:
+          type:
+          - string
+          - 'null'
+          description: Name of merchant that return belongs to
+        fulfillment_center:
+          $ref: '#/components/schemas/Returns.FulfillmentCenterDto'
+        id:
+          type: integer
+          description: Unique id of the return order
+        insert_date:
+          type: string
+          format: date-time
+          description: The date and time for when the return order was created
+        inventory:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.InventoryItemDto'
+          description: List of inventory items in return order
+        invoice:
+          $ref: '#/components/schemas/Returns.InvoiceDto'
+        original_shipment_id:
+          type:
+          - integer
+          - 'null'
+          description: ShipmentId for which return was created
+        processing_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time when the return started processing
+        reference_id:
+          type:
+          - string
+          - 'null'
+          description: Unique reference id of the return order. Created by merchant if a regular return.
+        return_type:
+          type:
+          - string
+          - 'null'
+          description: Type of the return, i.e. Regular, RTS
+        shipment_tracking_number:
+          type:
+          - string
+          - 'null'
+          description: The tracking number of the original shipment
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status of the return order, i.e. Awaiting Arrival
+        status_history:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.StatusHistoryDto'
+          description: List of status history in return order
+        store_order_id:
+          type:
+          - string
+          - 'null'
+          description: Reference to external order id
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: The tracking number of the return shipping label
+        transactions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.TransactionDto'
+          description: List of transactions that make up the billable amount to invoice a merchant
+      description: The details of a public return order, including the transactions and inventory items
+      title: Returns.PublicReturnDto
+    202601ReturnGetParametersSortOrder:
+      type: string
+      enum:
+      - Asc
+      - Desc
+      title: 202601ReturnGetParametersSortOrder
+    Returns.InvoiceDto:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Amount being charged
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: Currency code of amount
+      description: The invoice amount and curency
+      title: Returns.InvoiceDto
+    Returns.FulfillmentCenterDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique id of the fulfillment center
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name give to the fulfillment center
+      description: The details of a Fulfillment Center
+      title: Returns.FulfillmentCenterDto
+    Returns.LotInformationDto:
+      type: object
+      properties:
+        expiration:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The expiration date for this lot.
+        minimumShelfLife:
+          type:
+          - integer
+          - 'null'
+          description: A minimum amount of time in days this product can be safely returned to the shelf without expiring.
+        number:
+          type:
+          - string
+          - 'null'
+          description: An alphanumeric string uniquely identifying this lot of produced inventory.
+      description: Lot information associated with a specific inventory item.
+      title: Returns.LotInformationDto
+    Returns.ActionRequestedDto:
+      type: object
+      properties:
+        action:
+          type:
+          - string
+          - 'null'
+          description: The action to take
+        action_type:
+          type:
+          - string
+          - 'null'
+          description: The source of the action to take, i.e. Inventory Default or Overriden by Merchant at creation
+        instructions:
+          type:
+          - string
+          - 'null'
+          description: The instructions for how to take the action given by inventory owning Merchant
+      description: The details of the action requested for inventory
+      title: Returns.ActionRequestedDto
+    Returns.InventoryItemV1Dto:
+      type: object
+      properties:
+        action_requested:
+          $ref: '#/components/schemas/Returns.ActionRequestedDto'
+        action_taken:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.ActionTakenDto'
+          description: List of actions taken
+        id:
+          type: integer
+          description: Unique id of the inventory
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the product
+        quantity:
+          type: integer
+          description: Number of inventory that is being returned
+      description: The details of the inventory in the return order
+      title: Returns.InventoryItemV1Dto
+    Returns.CreateReturnRequest:
+      type: object
+      properties:
+        fulfillment_center:
+          $ref: '#/components/schemas/Returns.Facility'
+        inventory:
+          type: array
+          items:
+            $ref: '#/components/schemas/Returns.ReturnInventory'
+          description: Array of inventory items being returned
+        original_shipment_id:
+          type:
+          - integer
+          - 'null'
+          description: Shipment from which the items in the return originated <example>123456</example>
+        reference_id:
+          type: string
+          description: "Client-defined external unique identifier for the return order.\r\n            If tracking id is not provided, this value must appear on the box label as RMA. <example>Example: ShipBob_Return_123</example>"
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number for the return shipment <example>1Z9999999999999999</example>
+      required:
+      - fulfillment_center
+      - inventory
+      - reference_id
+      description: The request payload for creating a Return of inventory.
+      title: Returns.CreateReturnRequest
+    Returns_cancelReturnOrder_Response_200:
+      type: object
+      properties: {}
+      description: Empty response body
+      title: Returns_cancelReturnOrder_Response_200
+    Returns.InventoryItemDto:
+      type: object
+      properties:
+        action_requested:
+          $ref: '#/components/schemas/Returns.ActionRequestedDto'
+        action_taken:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.ActionTakenDto'
+          description: List of actions taken
+        barcodes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of barcodes associated with the inventory item
+        id:
+          type: integer
+          description: Unique id of the inventory
+        lot_information:
+          $ref: '#/components/schemas/Returns.LotInformationDto'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the product
+        quantity:
+          type: integer
+          description: Number of inventory that is being returned
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier for the inventory item
+      description: The details of the inventory in the return order
+      title: Returns.InventoryItemDto
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2

@@ -1,0 +1,196 @@
+openapi: 3.1.0
+info:
+  title: API Reference subpackage_billing subpackage_simulations API
+  version: 1.0.0
+servers:
+- url: https://api.shipbob.com
+- url: https://sandbox-api.shipbob.com
+tags:
+- name: subpackage_simulations
+paths:
+  /2026-01/simulate/shipment:
+    post:
+      operationId: simulates-shipment
+      summary: Simulates Shipment
+      description: 'Simulation shipments in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).
+
+
+        <Warning>This endpoint is **only available** on sandbox.</Warning>'
+      tags:
+      - subpackage_simulations
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Existing registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simulation.simulationResponseModel'
+      requestBody:
+        description: Order Simulation Request Model
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Simulation.orderSimulationRequestModel'
+  /2026-01/simulate/status/{simulationId}:
+    get:
+      operationId: get-simulation-status
+      summary: Get Simulation Status
+      description: 'Get the status of a simulation in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).
+
+
+        <Warning>This endpoint is **only available** on sandbox.</Warning>'
+      tags:
+      - subpackage_simulations
+      parameters:
+      - name: simulationId
+        in: path
+        description: The simulation id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: Authorization
+        in: header
+        description: Authentication using Personal Access Token (PAT) token or OAuth2
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The simulation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Simulation.simulationStatusResponseModel'
+components:
+  schemas:
+    Simulation.actionStatusResponseModel:
+      type: object
+      properties:
+        action:
+          oneOf:
+          - $ref: '#/components/schemas/SimulationActionStatusResponseModelAction'
+          - type: 'null'
+          description: 'The name of the action performed in the simulation (for example: ShipOrder, DeliverOrder).'
+        message:
+          type:
+          - string
+          - 'null'
+          description: Additional details about the action status, such as progress information or an error message.
+        next:
+          $ref: '#/components/schemas/Simulation.actionStatusResponseModel'
+          description: The status for the next action in the sequence, if actions are chained.
+        schedule_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The scheduled time for the action to run, in ISO 8601 date-time format (UTC).
+        status:
+          type:
+          - string
+          - 'null'
+          description: The current execution state of the action.
+      description: Represents the current status of a simulation action, optionally including a chained next action status.
+      title: Simulation.actionStatusResponseModel
+    Simulation.simulationResponseModel:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: Optional message about the submitted simulation.
+        simulation_id:
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the simulation run.
+      description: Response returned after submitting a simulation request.
+      title: Simulation.simulationResponseModel
+    SimulationActionStatusResponseModelAction:
+      type: string
+      enum:
+      - ShipOrder
+      - DeliverOrder
+      description: 'The name of the action performed in the simulation (for example: ShipOrder, DeliverOrder).'
+      title: SimulationActionStatusResponseModelAction
+    Simulation.simulationStatusResponseModel:
+      type: object
+      properties:
+        entity_id:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier of the entity the simulation is associated with (for example: shipment id).'
+        entity_type:
+          type:
+          - string
+          - 'null'
+          description: 'The type of entity the simulation is associated with (for example: Order).'
+        simulation:
+          $ref: '#/components/schemas/Simulation.actionStatusResponseModel'
+          description: The current status of the simulation action(s), including any chained next actions.
+        simulation_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The unique identifier of the simulation run.
+      description: Provides the current status for a simulation run, including the target entity and the action execution chain.
+      title: Simulation.simulationStatusResponseModel
+    Simulation.simulationModel:
+      type: object
+      properties:
+        action:
+          oneOf:
+          - $ref: '#/components/schemas/SimulationSimulationModelAction'
+          - type: 'null'
+          description: The simulation action to perform.
+        delay:
+          type:
+          - integer
+          - 'null'
+          description: Optional delay before executing this action, in minutes.
+        next:
+          $ref: '#/components/schemas/Simulation.simulationModel'
+          description: The next action in the sequence, if actions are chained.
+      required:
+      - action
+      description: Defines a simulation action to run, with an optional delay and an optional next action to allow chaining.
+      title: Simulation.simulationModel
+    Simulation.orderSimulationRequestModel:
+      type: object
+      properties:
+        shipment_id:
+          type:
+          - string
+          - 'null'
+          description: The ShipBob shipment id the simulation should target.
+        simulation:
+          $ref: '#/components/schemas/Simulation.simulationModel'
+          description: The simulation action definition, optionally chained with subsequent actions.
+      required:
+      - shipment_id
+      - simulation
+      description: Request payload for running a simulation against a specific shipment.
+      title: Simulation.orderSimulationRequestModel
+    SimulationSimulationModelAction:
+      type: string
+      enum:
+      - ShipOrder
+      - DeliverOrder
+      description: The simulation action to perform.
+      title: SimulationSimulationModelAction
+  securitySchemes:
+    PAT:
+      type: http
+      scheme: bearer
+      description: Authentication using Personal Access Token (PAT) token or OAuth2
