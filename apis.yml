@@ -6,7 +6,20 @@ description: ShipBob is a Chicago-based global ecommerce fulfillment network and
   operating 60+ fulfillment centers, providing distributed warehousing, inventory,
   B2B/EDI, and shipping operations for direct-to-consumer brands with a developer-friendly
   REST API.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/shipbob.png
 tags:
 - Logistics
 - Fulfillment
@@ -20,28 +33,16 @@ created: '2026-05-08'
 modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
-- aid: shipbob:shipbob-developer-api
-  name: ShipBob Developer API
-  description: ShipBob Developer API provides versioned REST endpoints for channels,
-    orders, products, inventory, receiving orders, returns, webhooks, locations, billing,
-    and shipment simulations. Latest API version is 2026-01 (released February 2026);
-    selectable via dated URL prefix (e.g. /2026-01/order). Authentication via Personal
-    Access Token (PAT) for single-user integrations or OAuth 2.0 for multi-tenant
-    App Store apps. Sliding-window rate limit of 150 requests/minute per user per
-    application; throttled responses return HTTP 429 with `x-retry-after` and `x-remaining-calls`
-    headers.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: shipbob:shipbob-subpackage-billing-api
+  name: ShipBob subpackage_billing API
+  description: The subpackage_billing API from ShipBob — 4 operation(s) for subpackage_billing.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
   tags:
-  - Logistics
-  - Fulfillment
-  - REST
-  - 3PL
-  - Ecommerce
-  - Inventory
-  - Webhooks
+  - subpackage_billing
   properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-billing-api-openapi.yml
   - type: Documentation
     url: https://developer.shipbob.com/
   - type: Authentication
@@ -54,12 +55,244 @@ apis:
     url: https://developer.shipbob.com/rate-limit
   - type: FAQ
     url: https://developer.shipbob.com/faq
-  - type: OpenAPI
-    url: openapi/shipbob-openapi.json
   - type: AsyncAPI
     url: asyncapi/shipbob-webhooks-asyncapi.yml
-  - url: graphql/shipbob-graphql.md
-    type: GraphQL
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-channels-api
+  name: ShipBob subpackage_channels API
+  description: The subpackage_channels API from ShipBob — 1 operation(s) for subpackage_channels.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_channels
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-channels-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-inventory-api
+  name: ShipBob subpackage_inventory API
+  description: The subpackage_inventory API from ShipBob — 9 operation(s) for subpackage_inventory.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-locations-api
+  name: ShipBob subpackage_locations API
+  description: The subpackage_locations API from ShipBob — 1 operation(s) for subpackage_locations.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_locations
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-locations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-orders-api
+  name: ShipBob subpackage_orders API
+  description: The subpackage_orders API from ShipBob — 21 operation(s) for subpackage_orders.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_orders
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-products-api
+  name: ShipBob subpackage_products API
+  description: The subpackage_products API from ShipBob — 11 operation(s) for subpackage_products.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_products
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-products-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-receiving-api
+  name: ShipBob subpackage_receiving API
+  description: The subpackage_receiving API from ShipBob — 8 operation(s) for subpackage_receiving.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_receiving
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-receiving-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-returns-api
+  name: ShipBob subpackage_returns API
+  description: The subpackage_returns API from ShipBob — 3 operation(s) for subpackage_returns.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_returns
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-returns-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-simulations-api
+  name: ShipBob subpackage_simulations API
+  description: The subpackage_simulations API from ShipBob — 2 operation(s) for subpackage_simulations.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_simulations
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-simulations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
+- aid: shipbob:shipbob-subpackage-webhooks-api
+  name: ShipBob subpackage_webhooks API
+  description: The subpackage_webhooks API from ShipBob — 2 operation(s) for subpackage_webhooks.
+  humanURL: https://developer.shipbob.com/
+  baseURL: https://api.shipbob.com
+  tags:
+  - subpackage_webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/shipbob-subpackage-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.shipbob.com/
+  - type: Authentication
+    url: https://developer.shipbob.com/auth
+  - type: GettingStarted
+    url: https://developer.shipbob.com/quickstart
+  - type: ReleaseNotes
+    url: https://developer.shipbob.com/release-notes
+  - type: RateLimits
+    url: https://developer.shipbob.com/rate-limit
+  - type: FAQ
+    url: https://developer.shipbob.com/faq
+  - type: AsyncAPI
+    url: asyncapi/shipbob-webhooks-asyncapi.yml
+  - type: GraphQL
+    url: graphql/shipbob-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/shipbob-agentic-access.yml
