@@ -1,0 +1,32 @@
+{
+  "provider": "shipbob",
+  "sources": [
+    "shipbob-subpackage-billing-api-openapi.yml",
+    "shipbob-subpackage-channels-api-openapi.yml",
+    "shipbob-subpackage-inventory-api-openapi.yml",
+    "shipbob-subpackage-locations-api-openapi.yml",
+    "shipbob-subpackage-orders-api-openapi.yml",
+    "shipbob-subpackage-products-api-openapi.yml",
+    "shipbob-subpackage-receiving-api-openapi.yml",
+    "shipbob-subpackage-returns-api-openapi.yml",
+    "shipbob-subpackage-simulations-api-openapi.yml",
+    "shipbob-subpackage-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "shipbob-subpackage-billing-api-openapi.yml",
+    "shipbob-subpackage-channels-api-openapi.yml",
+    "shipbob-subpackage-inventory-api-openapi.yml",
+    "shipbob-subpackage-locations-api-openapi.yml",
+    "shipbob-subpackage-orders-api-openapi.yml",
+    "shipbob-subpackage-products-api-openapi.yml",
+    "shipbob-subpackage-receiving-api-openapi.yml",
+    "shipbob-subpackage-returns-api-openapi.yml",
+    "shipbob-subpackage-simulations-api-openapi.yml",
+    "shipbob-subpackage-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
