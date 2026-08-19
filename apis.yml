@@ -31,7 +31,7 @@ tags:
 - Direct-to-Consumer
 created: '2026-05-08'
 modified: '2026-05-30'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: shipbob:shipbob-subpackage-billing-api
   name: ShipBob subpackage_billing API
