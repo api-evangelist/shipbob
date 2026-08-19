@@ -1,0 +1,386 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_inventory API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Inventory Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve inventory levels for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of inventory level items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-total_on_hand_quantity' sorts by quantity descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves current inventory levels across all locations. Returns available, on-hand, committed, and other quantity types. Supports filtering by inventory IDs and product attributes."
+        },
+        {
+          "info": {
+            "name": "Get Inventory Levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/:inventoryId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the aggregated inventory levels for a specific inventory item across all locations, including available, on-hand, committed, and other quantity types."
+        },
+        {
+          "info": {
+            "name": "Get Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory/:inventoryId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific inventory item by its ID, including product details, variant information, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "Get All Inventories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "FilterOperations",
+                "value": "",
+                "type": "query",
+                "description": "Advanced filtering operations. Apply multiple key-value filters to refine inventory results. Each filter operation contains a 'key' (field name) and 'rawValue' (filter value) to match."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve information for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter by active status. True returns only active inventory items, False returns only inactive items. Omit to return both."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter by digital product status. True returns only digital products (no physical fulfillment), False returns only physical products. Omit to return both."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of all inventory items. Supports filtering by active status, tags, and various product attributes. Use query parameters to search and filter results."
+        },
+        {
+          "info": {
+            "name": "Query Inventory History Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/inventory/history:query",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetches inventory movement events that change on-hand quantities within the ShipBob network. Returns events such as receiving/stow, order picks, adjustments, restocks, and attribute updates. Filter by inventory IDs, event category, date range, and facility. Supports cursor-based pagination for large result sets."
+        },
+        {
+          "info": {
+            "name": "Get All Inventory Levels Grouped By Fulfillment Center",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/locations",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "LocationType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by location type. Valid values: 'hub', 'spoke', or 'lts'. Defaults to all locations if not specified."
+              },
+              {
+                "name": "LocationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific fulfillment center location ID. Use this to retrieve inventory levels for a particular fulfillment center."
+              },
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve location-grouped inventory levels for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of location-grouped inventory level items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for all inventory items grouped by fulfillment center location. Supports filtering by location type, location ID, and various product attributes."
+        },
+        {
+          "info": {
+            "name": "Get Inventory Levels Grouped By Fulfillment Center",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/:inventoryId/locations",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for a specific inventory item broken down by fulfillment center location. Shows quantity breakdowns for each location where the inventory is stored."
+        },
+        {
+          "info": {
+            "name": "Get All Inventory Levels Grouped By Lot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/lots",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "LocationId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific fulfillment center location ID. Use this to retrieve lot-based inventory levels for a particular warehouse or distribution center."
+              },
+              {
+                "name": "SearchBy",
+                "value": "",
+                "type": "query",
+                "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve lot-grouped inventory levels for specific inventory items only."
+              },
+              {
+                "name": "IsActive",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+              },
+              {
+                "name": "IsDigital",
+                "value": "",
+                "type": "query",
+                "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of lot-grouped inventory level items to return per page. Controls pagination size for the response."
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-lot_date' sorts by lot date descending). Multiple fields can be comma-separated."
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for all inventory items grouped by lot number. Enables tracking of inventory across multiple lots, including expiration dates and manufacturing batch information."
+        },
+        {
+          "info": {
+            "name": "Get Inventory Levels Grouped By Lot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/inventory-level/:inventoryId/lots",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "inventoryId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves inventory levels for a specific inventory item broken down by lot number. Useful for tracking inventory by manufacturing lot, expiration date, or batch information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

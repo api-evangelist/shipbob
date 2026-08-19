@@ -1,0 +1,287 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_receiving API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_receiving",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Multiple Warehouse Receiving Orders\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query",
+                "description": "Page of WROs to get\n"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of WROs per page to request\n"
+              },
+              {
+                "name": "IDs",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO IDs to filter by\n"
+              },
+              {
+                "name": "Statuses",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO statuses to filter by\n"
+              },
+              {
+                "name": "InsertStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Earliest date that a WRO was created\n"
+              },
+              {
+                "name": "InsertEndDate",
+                "value": "",
+                "type": "query",
+                "description": "Latest date that a WRO was created\n"
+              },
+              {
+                "name": "FulfillmentCenterIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO fulfillment center IDs to filter by\n"
+              },
+              {
+                "name": "PurchaseOrderNumbers",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of WRO PO numbers to filter by\n"
+              },
+              {
+                "name": "ExternalSync",
+                "value": "",
+                "type": "query",
+                "description": "Flag to return external_sync_timestamp WROs\n"
+              },
+              {
+                "name": "CompletedStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Earliest date that a WRO was completed\n"
+              },
+              {
+                "name": "CompletedEndDate",
+                "value": "",
+                "type": "query",
+                "description": "Latest date that a WRO was completed\n"
+              }
+            ]
+          },
+          "docs": "Returns a list of warehouse receiving orders with optional filtering by status, fulfillment center, purchase order number, and date range.\n"
+        },
+        {
+          "info": {
+            "name": "Create Warehouse Receiving Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/receiving",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new warehouse receiving order with specified fulfillment center, boxes, and inventory items.\n"
+        },
+        {
+          "info": {
+            "name": "Get Warehouse Receiving Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order\n"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific warehouse receiving order by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Get Fulfillment Centers\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/fulfillment-center",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns a list of ShipBob fulfillment centers where inventory can be received.\n"
+        },
+        {
+          "info": {
+            "name": "Get Warehouse Receiving Order Boxes\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id/boxes",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order"
+              }
+            ]
+          },
+          "docs": "Returns the boxes and their contents for a specific warehouse receiving order.\n"
+        },
+        {
+          "info": {
+            "name": "Get Warehouse Receiving Order Box Labels\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id/labels",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order"
+              }
+            ]
+          },
+          "docs": "Returns a PDF containing box labels for a specific warehouse receiving order.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel Warehouse Receiving Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order to cancel"
+              }
+            ]
+          },
+          "docs": "Cancels an existing warehouse receiving order. Only orders in certain statuses can be cancelled.\n"
+        },
+        {
+          "info": {
+            "name": "Set ExternalSync flag for Wros\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/receiving:setExternalSync",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the external sync flag for one or more warehouse receiving orders to enable or disable external synchronization.\n"
+        },
+        {
+          "info": {
+            "name": "Get Inventory Distributions by WRO ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/receiving/:id/distributions",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the receiving order\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the distribution details for a specific receiving order within ShipBob's Inventory Placement Program (IPP).\n\n<Warning>This endpoint is available only to accounts enrolled in ShipBob's Inventory Placement Program (IPP).</Warning>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

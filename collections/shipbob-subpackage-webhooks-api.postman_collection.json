@@ -1,0 +1,732 @@
+{
+  "item": [
+    {
+      "id": "dc1cb109-5e62-4179-950f-94aa7a0e7173",
+      "name": "subpackage_webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "044b157c-fb15-4fb4-82bf-36db8f2223df",
+          "name": "Create Subscription\n",
+          "request": {
+            "name": "Create Subscription\n",
+            "description": {
+              "content": "This endpoint creates a new webhook subscription.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"url\": \"<uri>\",\n  \"description\": \"<string,null>\",\n  \"secret\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6eb40348-e932-45fb-b3d4-2ef78fd387ba",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"return.created\",\n    \"return.updated\"\n  ],\n  \"url\": \"<uri>\",\n  \"description\": \"<string,null>\",\n  \"secret\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1954-10-23T11:13:43.349Z\",\n  \"description\": \"string\",\n  \"id\": \"string\",\n  \"secret\": \"string\",\n  \"topics\": [\n    \"return.created\",\n    \"billing.credit.created\"\n  ],\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "249de4a9-78a9-4500-a5f2-fee48e3f7cb9",
+              "name": "No access right at this time",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"return.created\",\n    \"return.updated\"\n  ],\n  \"url\": \"<uri>\",\n  \"description\": \"<string,null>\",\n  \"secret\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc9df7bd-3f0d-4bfc-8fb5-e37da8feba10",
+              "name": "No access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"return.created\",\n    \"return.updated\"\n  ],\n  \"url\": \"<uri>\",\n  \"description\": \"<string,null>\",\n  \"secret\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60b0cf77-bd20-4ef0-a64a-a764550e38ee",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"topics\": [\n    \"return.created\",\n    \"return.updated\"\n  ],\n  \"url\": \"<uri>\",\n  \"description\": \"<string,null>\",\n  \"secret\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"$type\": \"string\",\n  \"content_types\": [\n    \"string\",\n    \"string\"\n  ],\n  \"declared_type\": \"string\",\n  \"status_code\": 6091,\n  \"value\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24a55bac-4e24-4c86-b97c-40a84848669b",
+          "name": "Get Subscriptions\n",
+          "request": {
+            "name": "Get Subscriptions\n",
+            "description": {
+              "content": "  This endpoint returns a list of webhook subscriptions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "RecordsPerPage",
+                  "value": "<integer>",
+                  "description": "Number of webhooks returned per page in a paginated response.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "Cursor",
+                  "value": "<string>",
+                  "description": "[Optional] A pagination token used to retrieve the next or previous page of results. Omit to start at the first page.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d8e8b78-dcd9-4df5-b49b-b9c1a9adba44",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"created_at\": \"2013-08-24T21:40:19.412Z\",\n      \"description\": \"string\",\n      \"enabled\": true,\n      \"id\": \"string\",\n      \"topics\": [\n        \"billing.refund.created\",\n        \"return.updated\"\n      ],\n      \"url\": \"string\"\n    },\n    {\n      \"created_at\": \"1951-07-20T02:10:55.093Z\",\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"id\": \"string\",\n      \"topics\": [\n        \"order.shipment.on_hold\",\n        \"return.completed\"\n      ],\n      \"url\": \"string\"\n    }\n  ],\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c767803-1e83-4c7f-a6f5-586a02aeadcf",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"$type\": \"string\",\n  \"content_types\": [\n    \"string\",\n    \"string\"\n  ],\n  \"declared_type\": \"string\",\n  \"status_code\": 3103,\n  \"value\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c52254e0-00db-44cf-8c06-750f1ab89cb1",
+              "name": "No access right at this time",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00d2596f-51da-426e-ad3b-998a8974cb8b",
+              "name": "No access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99a87535-823a-4052-b675-566203682e29",
+          "name": "Delete Subscription\n",
+          "request": {
+            "name": "Delete Subscription\n",
+            "description": {
+              "content": "  This endpoint deletes a webhook subscription.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "webhook",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) This is the id of the webhook subscription to delete\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce51252c-7425-44c8-8a10-592cf9324052",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) This is the id of the webhook subscription to delete\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28ff3494-681d-411a-a4e8-54f91e93198e",
+              "name": "No access right at this time",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) This is the id of the webhook subscription to delete\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67c9eea8-1f62-4317-89b6-dab5982612ae",
+              "name": "No access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "webhook",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) This is the id of the webhook subscription to delete\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5db83596-4046-4f65-a000-f033b0d8441e",
+    "name": "API Reference subpackage_billing subpackage_webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2518 @@
+{
+  "item": [
+    {
+      "id": "6635163e-a622-4834-b3bb-288dbb051f4f",
+      "name": "subpackage_receiving",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4095d622-d75f-409a-8950-c90f17e31307",
+          "name": "Create Warehouse Receiving Order\n",
+          "request": {
+            "name": "Create Warehouse Receiving Order\n",
+            "description": {
+              "content": "Creates a new warehouse receiving order with specified fulfillment center, boxes, and inventory items.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"box_packaging_type\": \"<string>\",\n  \"boxes\": [\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"lot_date\": \"<string,null-date-time>\",\n          \"lot_number\": \"<string,null>\"\n        },\n        {\n          \"inventory_id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"lot_date\": \"<string,null-date-time>\",\n          \"lot_number\": \"<string,null>\"\n        }\n      ],\n      \"tracking_number\": \"<string,null>\"\n    },\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"lot_date\": \"<string,null-date-time>\",\n          \"lot_number\": \"<string,null>\"\n        },\n        {\n          \"inventory_id\": \"<integer>\",\n          \"quantity\": \"<integer>\",\n          \"lot_date\": \"<string,null-date-time>\",\n          \"lot_number\": \"<string,null>\"\n        }\n      ],\n      \"tracking_number\": \"<string,null>\"\n    }\n  ],\n  \"expected_arrival_date\": \"<dateTime>\",\n  \"fulfillment_center\": {\n    \"id\": \"<integer>\"\n  },\n  \"package_type\": \"<string>\",\n  \"purchase_order_number\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca68e828-f72b-4e15-9147-eff65c4bffa0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"boxes\": [\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 8486,\n          \"quantity\": 8047,\n          \"lot_date\": \"2024-01-19T23:21:05.302Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 9058,\n          \"quantity\": 5469,\n          \"lot_date\": \"1977-10-27T04:04:04.741Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    },\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 1070,\n          \"quantity\": 197,\n          \"lot_date\": \"1973-07-20T21:30:37.294Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 7496,\n          \"quantity\": 3937,\n          \"lot_date\": \"1975-11-18T16:13:12.707Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    }\n  ],\n  \"expected_arrival_date\": \"<dateTime>\",\n  \"fulfillment_center\": {\n    \"id\": 3469\n  },\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"box_labels_uri\": \"string\",\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"expected_arrival_date\": \"1984-11-09T07:40:46.301Z\",\n  \"external_sync_timestamp\": \"1971-08-17T01:20:22.328Z\",\n  \"fulfillment_center\": {\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"id\": 6486,\n    \"name\": \"string\",\n    \"phone_number\": \"string\",\n    \"state\": \"string\",\n    \"timezone\": \"string\",\n    \"zip_code\": \"string\"\n  },\n  \"id\": 334,\n  \"insert_date\": \"2023-02-10T16:42:42.530Z\",\n  \"inventory_quantities\": [\n    {\n      \"expected_quantity\": 8475,\n      \"inventory_id\": 6235,\n      \"received_quantity\": 6062,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 4125\n    },\n    {\n      \"expected_quantity\": 8678,\n      \"inventory_id\": 811,\n      \"received_quantity\": 3545,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 8260\n    }\n  ],\n  \"last_updated_date\": \"1954-12-26T19:33:43.801Z\",\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"string\",\n  \"status\": \"InternalTransfer\",\n  \"status_history\": [\n    {\n      \"id\": 4367,\n      \"status\": \"string\",\n      \"timestamp\": \"2022-05-06T09:16:11.326Z\"\n    },\n    {\n      \"id\": 1705,\n      \"status\": \"string\",\n      \"timestamp\": \"2015-08-12T15:48:11.240Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "baaa4a56-7096-43e0-bc56-d16d30958e5b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"boxes\": [\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 8486,\n          \"quantity\": 8047,\n          \"lot_date\": \"2024-01-19T23:21:05.302Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 9058,\n          \"quantity\": 5469,\n          \"lot_date\": \"1977-10-27T04:04:04.741Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    },\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 1070,\n          \"quantity\": 197,\n          \"lot_date\": \"1973-07-20T21:30:37.294Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 7496,\n          \"quantity\": 3937,\n          \"lot_date\": \"1975-11-18T16:13:12.707Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    }\n  ],\n  \"expected_arrival_date\": \"<dateTime>\",\n  \"fulfillment_center\": {\n    \"id\": 3469\n  },\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key_1\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce9f0939-42f7-4dab-922a-f1b9058b3a46",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"boxes\": [\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 8486,\n          \"quantity\": 8047,\n          \"lot_date\": \"2024-01-19T23:21:05.302Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 9058,\n          \"quantity\": 5469,\n          \"lot_date\": \"1977-10-27T04:04:04.741Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    },\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 1070,\n          \"quantity\": 197,\n          \"lot_date\": \"1973-07-20T21:30:37.294Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 7496,\n          \"quantity\": 3937,\n          \"lot_date\": \"1975-11-18T16:13:12.707Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    }\n  ],\n  \"expected_arrival_date\": \"<dateTime>\",\n  \"fulfillment_center\": {\n    \"id\": 3469\n  },\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97da0e00-2fb7-40f7-bb70-c04ccae9e134",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"boxes\": [\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 8486,\n          \"quantity\": 8047,\n          \"lot_date\": \"2024-01-19T23:21:05.302Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 9058,\n          \"quantity\": 5469,\n          \"lot_date\": \"1977-10-27T04:04:04.741Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    },\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 1070,\n          \"quantity\": 197,\n          \"lot_date\": \"1973-07-20T21:30:37.294Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 7496,\n          \"quantity\": 3937,\n          \"lot_date\": \"1975-11-18T16:13:12.707Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    }\n  ],\n  \"expected_arrival_date\": \"<dateTime>\",\n  \"fulfillment_center\": {\n    \"id\": 3469\n  },\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09c16c96-1076-4133-a813-879daa30a3ed",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"boxes\": [\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 8486,\n          \"quantity\": 8047,\n          \"lot_date\": \"2024-01-19T23:21:05.302Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 9058,\n          \"quantity\": 5469,\n          \"lot_date\": \"1977-10-27T04:04:04.741Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    },\n    {\n      \"box_items\": [\n        {\n          \"inventory_id\": 1070,\n          \"quantity\": 197,\n          \"lot_date\": \"1973-07-20T21:30:37.294Z\",\n          \"lot_number\": \"string\"\n        },\n        {\n          \"inventory_id\": 7496,\n          \"quantity\": 3937,\n          \"lot_date\": \"1975-11-18T16:13:12.707Z\",\n          \"lot_number\": \"string\"\n        }\n      ],\n      \"tracking_number\": \"string\"\n    }\n  ],\n  \"expected_arrival_date\": \"<dateTime>\",\n  \"fulfillment_center\": {\n    \"id\": 3469\n  },\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"instance\": \"string\",\n  \"status\": 4191,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc94e503-4f10-4cb0-804c-1aac70256e1c",
+          "name": "Get Multiple Warehouse Receiving Orders\n",
+          "request": {
+            "name": "Get Multiple Warehouse Receiving Orders\n",
+            "description": {
+              "content": "Returns a list of warehouse receiving orders with optional filtering by status, fulfillment center, purchase order number, and date range.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Page",
+                  "value": "<int32>",
+                  "description": "Page of WROs to get\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "Limit",
+                  "value": "<int32>",
+                  "description": "Number of WROs per page to request\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "IDs",
+                  "value": "<string>",
+                  "description": "Comma separated list of WRO IDs to filter by\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "Statuses",
+                  "value": "<string>",
+                  "description": "Comma separated list of WRO statuses to filter by\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "InsertStartDate",
+                  "value": "<dateTime>",
+                  "description": "Earliest date that a WRO was created\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "InsertEndDate",
+                  "value": "<dateTime>",
+                  "description": "Latest date that a WRO was created\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "FulfillmentCenterIds",
+                  "value": "<string>",
+                  "description": "Comma separated list of WRO fulfillment center IDs to filter by\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "PurchaseOrderNumbers",
+                  "value": "<string>",
+                  "description": "Comma separated list of WRO PO numbers to filter by\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ExternalSync",
+                  "value": "<boolean>",
+                  "description": "Flag to return external_sync_timestamp WROs\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "CompletedStartDate",
+                  "value": "<dateTime>",
+                  "description": "Earliest date that a WRO was completed\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "CompletedEndDate",
+                  "value": "<dateTime>",
+                  "description": "Latest date that a WRO was completed\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f23c9d25-df00-4ea3-b610-76c4311f09b4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Page",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "IDs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InsertStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InsertEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PurchaseOrderNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ExternalSync",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"box_labels_uri\": \"string\",\n    \"box_packaging_type\": \"MultipleSkuPerBox\",\n    \"expected_arrival_date\": \"1992-01-11T22:35:23.477Z\",\n    \"external_sync_timestamp\": \"2020-07-18T12:38:57.535Z\",\n    \"fulfillment_center\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"email\": \"string\",\n      \"id\": 8392,\n      \"name\": \"string\",\n      \"phone_number\": \"string\",\n      \"state\": \"string\",\n      \"timezone\": \"string\",\n      \"zip_code\": \"string\"\n    },\n    \"id\": 7769,\n    \"insert_date\": \"1993-04-15T04:14:19.256Z\",\n    \"inventory_quantities\": [\n      {\n        \"expected_quantity\": 469,\n        \"inventory_id\": 8103,\n        \"received_quantity\": 451,\n        \"sku\": \"string\",\n        \"stowed_quantity\": 7500\n      },\n      {\n        \"expected_quantity\": 6667,\n        \"inventory_id\": 7089,\n        \"received_quantity\": 9818,\n        \"sku\": \"string\",\n        \"stowed_quantity\": 1393\n      }\n    ],\n    \"last_updated_date\": \"1999-08-27T13:22:10.909Z\",\n    \"package_type\": \"Pallet\",\n    \"purchase_order_number\": \"string\",\n    \"status\": \"PartiallyArrived\",\n    \"status_history\": [\n      {\n        \"id\": 964,\n        \"status\": \"string\",\n        \"timestamp\": \"1956-06-10T23:18:01.729Z\"\n      },\n      {\n        \"id\": 6966,\n        \"status\": \"string\",\n        \"timestamp\": \"1975-01-08T13:50:32.842Z\"\n      }\n    ]\n  },\n  {\n    \"box_labels_uri\": \"string\",\n    \"box_packaging_type\": \"OneSkuPerBox\",\n    \"expected_arrival_date\": \"2021-03-28T16:08:59.653Z\",\n    \"external_sync_timestamp\": \"2025-01-23T11:56:52.674Z\",\n    \"fulfillment_center\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"email\": \"string\",\n      \"id\": 4715,\n      \"name\": \"string\",\n      \"phone_number\": \"string\",\n      \"state\": \"string\",\n      \"timezone\": \"string\",\n      \"zip_code\": \"string\"\n    },\n    \"id\": 8641,\n    \"insert_date\": \"2014-03-16T01:46:53.116Z\",\n    \"inventory_quantities\": [\n      {\n        \"expected_quantity\": 682,\n        \"inventory_id\": 1656,\n        \"received_quantity\": 2581,\n        \"sku\": \"string\",\n        \"stowed_quantity\": 2879\n      },\n      {\n        \"expected_quantity\": 905,\n        \"inventory_id\": 1016,\n        \"received_quantity\": 1979,\n        \"sku\": \"string\",\n        \"stowed_quantity\": 7579\n      }\n    ],\n    \"last_updated_date\": \"1980-08-25T11:51:47.693Z\",\n    \"package_type\": \"FloorLoadedContainer\",\n    \"purchase_order_number\": \"string\",\n    \"status\": \"InternalTransfer\",\n    \"status_history\": [\n      {\n        \"id\": 7166,\n        \"status\": \"string\",\n        \"timestamp\": \"1999-02-22T01:05:49.174Z\"\n      },\n      {\n        \"id\": 4886,\n        \"status\": \"string\",\n        \"timestamp\": \"1992-01-25T19:26:04.120Z\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e906addb-c2bb-4ca2-a265-acf111f4e5e9",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Page",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "IDs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InsertStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InsertEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PurchaseOrderNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ExternalSync",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92c3325b-4da9-4f8a-bfa9-d6c2ec1dec51",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Page",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "IDs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InsertStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InsertEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PurchaseOrderNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ExternalSync",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff4c4c8d-0dd2-4bd8-8698-96d4c9704f0d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Page",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "IDs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InsertStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InsertEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PurchaseOrderNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ExternalSync",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"instance\": \"string\",\n  \"status\": 4191,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "256a646d-e163-4400-a805-b02b84b678af",
+          "name": "Get Warehouse Receiving Order\n",
+          "request": {
+            "name": "Get Warehouse Receiving Order\n",
+            "description": {
+              "content": "Returns details of a specific warehouse receiving order by ID.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "id",
+                  "description": "(Required) Id of the receiving order\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9abba04a-99f4-48d8-9308-bc0e6b48d755",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"box_labels_uri\": \"string\",\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"expected_arrival_date\": \"1984-11-09T07:40:46.301Z\",\n  \"external_sync_timestamp\": \"1971-08-17T01:20:22.328Z\",\n  \"fulfillment_center\": {\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"id\": 6486,\n    \"name\": \"string\",\n    \"phone_number\": \"string\",\n    \"state\": \"string\",\n    \"timezone\": \"string\",\n    \"zip_code\": \"string\"\n  },\n  \"id\": 334,\n  \"insert_date\": \"2023-02-10T16:42:42.530Z\",\n  \"inventory_quantities\": [\n    {\n      \"expected_quantity\": 8475,\n      \"inventory_id\": 6235,\n      \"received_quantity\": 6062,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 4125\n    },\n    {\n      \"expected_quantity\": 8678,\n      \"inventory_id\": 811,\n      \"received_quantity\": 3545,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 8260\n    }\n  ],\n  \"last_updated_date\": \"1954-12-26T19:33:43.801Z\",\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"string\",\n  \"status\": \"InternalTransfer\",\n  \"status_history\": [\n    {\n      \"id\": 4367,\n      \"status\": \"string\",\n      \"timestamp\": \"2022-05-06T09:16:11.326Z\"\n    },\n    {\n      \"id\": 1705,\n      \"status\": \"string\",\n      \"timestamp\": \"2015-08-12T15:48:11.240Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2da3d170-3fe3-465f-a692-df6707176a06",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08bec744-3b4a-479b-81bf-66914b666fce",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a029099-9b44-47a5-80de-66f54b310fae",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"instance\": \"string\",\n  \"status\": 4191,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d02121a4-c764-492e-a9a0-ff7b68cfa627",
+          "name": "Get Fulfillment Centers\n",
+          "request": {
+            "name": "Get Fulfillment Centers\n",
+            "description": {
+              "content": "Returns a list of ShipBob fulfillment centers where inventory can be received.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "fulfillment-center"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be827ded-c3f0-4f76-8e6b-5cb10f1f5caa",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "fulfillment-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"id\": 803,\n    \"name\": \"string\",\n    \"phone_number\": \"string\",\n    \"state\": \"string\",\n    \"timezone\": \"string\",\n    \"zip_code\": \"string\"\n  },\n  {\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"id\": 3099,\n    \"name\": \"string\",\n    \"phone_number\": \"string\",\n    \"state\": \"string\",\n    \"timezone\": \"string\",\n    \"zip_code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c26f3b3-564a-48cc-9be8-db2aecd02fae",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "fulfillment-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebfa69ff-fba9-45b5-afc7-ac25577bbbb9",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "fulfillment-center"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90fe818d-9e95-4566-a049-5a94a57b35c7",
+          "name": "Get Warehouse Receiving Order Boxes\n",
+          "request": {
+            "name": "Get Warehouse Receiving Order Boxes\n",
+            "description": {
+              "content": "Returns the boxes and their contents for a specific warehouse receiving order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving",
+                ":id",
+                "boxes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "id",
+                  "description": "(Required) Id of the receiving order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57951d9e-1162-4a52-9ae9-d75de994fe07",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "boxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"arrived_date\": \"1984-10-15T21:53:39.355Z\",\n    \"box_id\": 6894,\n    \"box_items\": [\n      {\n        \"inventory_id\": 6667,\n        \"lot_date\": \"1959-10-28T08:34:13.447Z\",\n        \"lot_number\": \"string\",\n        \"quantity\": 7265,\n        \"received_quantity\": 992,\n        \"stowed_quantity\": 594\n      },\n      {\n        \"inventory_id\": 2990,\n        \"lot_date\": \"1992-07-27T18:03:39.787Z\",\n        \"lot_number\": \"string\",\n        \"quantity\": 8692,\n        \"received_quantity\": 8224,\n        \"stowed_quantity\": 5824\n      }\n    ],\n    \"box_number\": 5050,\n    \"box_status\": \"Awaiting\",\n    \"counting_started_date\": \"1985-11-04T05:52:52.461Z\",\n    \"received_date\": \"1992-07-08T22:00:28.227Z\",\n    \"tracking_number\": \"string\"\n  },\n  {\n    \"arrived_date\": \"2000-04-29T01:05:38.749Z\",\n    \"box_id\": 8808,\n    \"box_items\": [\n      {\n        \"inventory_id\": 6535,\n        \"lot_date\": \"1997-02-09T12:55:19.996Z\",\n        \"lot_number\": \"string\",\n        \"quantity\": 4094,\n        \"received_quantity\": 4091,\n        \"stowed_quantity\": 6283\n      },\n      {\n        \"inventory_id\": 4925,\n        \"lot_date\": \"2023-10-25T06:31:01.597Z\",\n        \"lot_number\": \"string\",\n        \"quantity\": 8972,\n        \"received_quantity\": 2373,\n        \"stowed_quantity\": 2522\n      }\n    ],\n    \"box_number\": 9835,\n    \"box_status\": \"Arrived\",\n    \"counting_started_date\": \"1968-08-30T14:16:08.423Z\",\n    \"received_date\": \"2020-01-23T15:28:37.710Z\",\n    \"tracking_number\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b595aba8-2444-448c-83f2-e5f104eb565d",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "boxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acb136e4-02b0-4575-adf3-9cccbe30adf1",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "boxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb739f0b-1333-420f-bb6e-152272398dd4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "boxes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"instance\": \"string\",\n  \"status\": 4191,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d3aa132-1de0-43f5-a10b-baba5bda2fa2",
+          "name": "Get Warehouse Receiving Order Box Labels\n",
+          "request": {
+            "name": "Get Warehouse Receiving Order Box Labels\n",
+            "description": {
+              "content": "Returns a PDF containing box labels for a specific warehouse receiving order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving",
+                ":id",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "id",
+                  "description": "(Required) Id of the receiving order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "460f9718-831d-483c-9d6c-796983fe99ff",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75443dda-dbc4-4e90-89cd-e87322c3edf9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"instance\": \"string\",\n  \"status\": 4191,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "357ef6af-b34a-40ef-9151-81f0908930d1",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e92fef6c-cb5f-48ae-9a37-d9dd19881052",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07123d63-b0d8-46be-a780-4b7a04ab4ff3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"instance\": \"string\",\n  \"status\": 4191,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0955c0cf-ad5d-4490-adab-bb13c06c28f7",
+          "name": "Cancel Warehouse Receiving Order\n",
+          "request": {
+            "name": "Cancel Warehouse Receiving Order\n",
+            "description": {
+              "content": "Cancels an existing warehouse receiving order. Only orders in certain statuses can be cancelled.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving",
+                "{{id}}:cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b98fe160-2c4e-4524-9899-3a37e6d21410",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"box_labels_uri\": \"string\",\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"expected_arrival_date\": \"1984-11-09T07:40:46.301Z\",\n  \"external_sync_timestamp\": \"1971-08-17T01:20:22.328Z\",\n  \"fulfillment_center\": {\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"id\": 6486,\n    \"name\": \"string\",\n    \"phone_number\": \"string\",\n    \"state\": \"string\",\n    \"timezone\": \"string\",\n    \"zip_code\": \"string\"\n  },\n  \"id\": 334,\n  \"insert_date\": \"2023-02-10T16:42:42.530Z\",\n  \"inventory_quantities\": [\n    {\n      \"expected_quantity\": 8475,\n      \"inventory_id\": 6235,\n      \"received_quantity\": 6062,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 4125\n    },\n    {\n      \"expected_quantity\": 8678,\n      \"inventory_id\": 811,\n      \"received_quantity\": 3545,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 8260\n    }\n  ],\n  \"last_updated_date\": \"1954-12-26T19:33:43.801Z\",\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"string\",\n  \"status\": \"InternalTransfer\",\n  \"status_history\": [\n    {\n      \"id\": 4367,\n      \"status\": \"string\",\n      \"timestamp\": \"2022-05-06T09:16:11.326Z\"\n    },\n    {\n      \"id\": 1705,\n      \"status\": \"string\",\n      \"timestamp\": \"2015-08-12T15:48:11.240Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59a3811d-5797-40cb-83ff-f290ae0beba7",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46312c6c-adc9-4065-a00d-ed9426b50b42",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6073e889-a13f-45a2-a140-1f054efd694b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"instance\": \"string\",\n  \"status\": 4191,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e1d1461-916f-436e-8e71-a7d8cd562742",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key_1\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "889acd94-47a4-45a2-85fa-df6249b67565",
+          "name": "Set ExternalSync flag for Wros\n",
+          "request": {
+            "name": "Set ExternalSync flag for Wros\n",
+            "description": {
+              "content": "Sets the external sync flag for one or more warehouse receiving orders to enable or disable external synchronization.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving:setExternalSync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_external_sync\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "176f92c2-920d-4c67-9958-6584edb47599",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving:setExternalSync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_external_sync\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"box_labels_uri\": \"string\",\n  \"box_packaging_type\": \"EverythingInOneBox\",\n  \"expected_arrival_date\": \"1984-11-09T07:40:46.301Z\",\n  \"external_sync_timestamp\": \"1971-08-17T01:20:22.328Z\",\n  \"fulfillment_center\": {\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"country\": \"string\",\n    \"email\": \"string\",\n    \"id\": 6486,\n    \"name\": \"string\",\n    \"phone_number\": \"string\",\n    \"state\": \"string\",\n    \"timezone\": \"string\",\n    \"zip_code\": \"string\"\n  },\n  \"id\": 334,\n  \"insert_date\": \"2023-02-10T16:42:42.530Z\",\n  \"inventory_quantities\": [\n    {\n      \"expected_quantity\": 8475,\n      \"inventory_id\": 6235,\n      \"received_quantity\": 6062,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 4125\n    },\n    {\n      \"expected_quantity\": 8678,\n      \"inventory_id\": 811,\n      \"received_quantity\": 3545,\n      \"sku\": \"string\",\n      \"stowed_quantity\": 8260\n    }\n  ],\n  \"last_updated_date\": \"1954-12-26T19:33:43.801Z\",\n  \"package_type\": \"Package\",\n  \"purchase_order_number\": \"string\",\n  \"status\": \"InternalTransfer\",\n  \"status_history\": [\n    {\n      \"id\": 4367,\n      \"status\": \"string\",\n      \"timestamp\": \"2022-05-06T09:16:11.326Z\"\n    },\n    {\n      \"id\": 1705,\n      \"status\": \"string\",\n      \"timestamp\": \"2015-08-12T15:48:11.240Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c0065d0-49b5-4d46-bc00-34b022d2c33d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving:setExternalSync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_external_sync\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d95906a-5589-4462-9037-f596a6134e19",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving:setExternalSync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_external_sync\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a23ecec-954d-46e9-972e-1d4e3b6c4da7",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving:setExternalSync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_external_sync\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a6bae57-a07c-4e85-bbd8-e17bb58caf7b",
+          "name": "Get Inventory Distributions by WRO ID",
+          "request": {
+            "name": "Get Inventory Distributions by WRO ID",
+            "description": {
+              "content": "Retrieves the distribution details for a specific receiving order within ShipBob's Inventory Placement Program (IPP).\n\n<Warning>This endpoint is available only to accounts enrolled in ShipBob's Inventory Placement Program (IPP).</Warning>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "receiving",
+                ":id",
+                "distributions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "id",
+                  "description": "(Required) Id of the receiving order\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2764be20-397e-4fa1-ae2a-5b38fb89ab6e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "distributions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"distributions\": [\n    {\n      \"expected_quantity\": 4299,\n      \"fulfillment_center_abbreviation\": \"string\",\n      \"fulfillment_center_id\": 3838,\n      \"inventory_id\": 694,\n      \"lot_date\": \"2018-08-18T23:51:09.274Z\",\n      \"lot_number\": \"string\",\n      \"product_sku\": \"string\",\n      \"received_quantity\": 8229,\n      \"status\": \"Completed\",\n      \"stowed_quantity\": 5777\n    },\n    {\n      \"expected_quantity\": 4333,\n      \"fulfillment_center_abbreviation\": \"string\",\n      \"fulfillment_center_id\": 1714,\n      \"inventory_id\": 6802,\n      \"lot_date\": \"2018-06-10T01:50:24.879Z\",\n      \"lot_number\": \"string\",\n      \"product_sku\": \"string\",\n      \"received_quantity\": 7347,\n      \"status\": \"Stowing\",\n      \"stowed_quantity\": 7942\n    }\n  ],\n  \"id\": 66,\n  \"status\": \"Awaiting\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6302c75-5dce-481c-a8c2-fca7ad8d0825",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "distributions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d6c6f5a-7b87-4b77-a482-4ace6bb0856e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "distributions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d87bafbd-9684-4808-a4a6-2eee207ca034",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "receiving",
+                    ":id",
+                    "distributions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) Id of the receiving order\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Id of the receiving order to cancel",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<int32>",
+      "key": "id"
+    }
+  ],
+  "info": {
+    "_postman_id": "6488b320-1ab3-4da8-a47b-793e0f372c04",
+    "name": "API Reference subpackage_billing subpackage_receiving API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+# ShipBob Developer API
+
+## Instructions for AI Agents
+
+- For clean Markdown of any page, append `.md` to the page URL
+- For section-specific indexes, append `/llms.txt` to any section URL
+- For AI client integration (Claude Code, Cursor, etc.), connect to the MCP server at https://developer.shipbob.com/_mcp/server
+
+## Versions
+
+- [2026-07](https://developer.shipbob.com/2026-07/llms.txt) (default)
+- [2026-01](https://developer.shipbob.com/2026-01/llms.txt)
+- [2025-07](https://developer.shipbob.com/2025-07/llms.txt)
+- [v2.0](https://developer.shipbob.com/v2.0/llms.txt)
+- [v1.0](https://developer.shipbob.com/v1.0/llms.txt)
+- [Experimental](https://developer.shipbob.com/experimental/llms.txt)

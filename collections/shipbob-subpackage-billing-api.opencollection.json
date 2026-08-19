@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/transactions:query",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search transactions with filters (date, invoice, fee type, etc.)"
+        },
+        {
+          "info": {
+            "name": "Get Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/invoices",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+              },
+              {
+                "name": "FromDate",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] Start date for filtering invoices by invoice date. Default is current - 1 month date.\n"
+              },
+              {
+                "name": "ToDate",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] End date for filtering invoices by invoice date. Default is current date.\n"
+              },
+              {
+                "name": "InvoiceTypes",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] Filter invoices by invoice type."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of invoices to return per page (default: 100). Must be between 1 and 1000.\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort invoices by Invoice Date. Values - Ascending, Descending. Default: Descending.\n"
+              }
+            ]
+          },
+          "docs": "Gets a paginated list of invoices, optionally filtered by invoice types and date range"
+        },
+        {
+          "info": {
+            "name": "Get Transactions by Invoice ID\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/invoices/:invoiceId/transactions",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the invoice whose transactions are to be retrieved.\n"
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of transactions to return per page (default is 100, to be entered when API is called for first time). Must be between 1 and 1000.\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order of the results. Valid values: Ascending or Descending (default: Descending).\n"
+              }
+            ]
+          },
+          "docs": "The unique identifier of the invoice whose transactions are to be retrieved"
+        },
+        {
+          "info": {
+            "name": "Get Transaction Fees\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/transaction-fees",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "This endpoint returns a list of transaction fees\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

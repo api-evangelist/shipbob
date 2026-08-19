@@ -1,0 +1,256 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_returns API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_returns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Return Orders\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/return",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Ids",
+                "value": "",
+                "type": "query",
+                "description": "The IDs of the returns to fetch. Accepts a comma-separated list of return IDs (e.g., 123,456,789).\n"
+              },
+              {
+                "name": "ReferenceIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return reference IDs (RMA numbers) to filter by.\n"
+              },
+              {
+                "name": "Status",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return statuses to filter by (e.g., AwaitingArrival,Arrived,Processing,Completed,Cancelled).\n"
+              },
+              {
+                "name": "FulfillmentCenterIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fulfillment center IDs to filter by.\n"
+              },
+              {
+                "name": "TrackingNumbers",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of tracking numbers to filter by.\n"
+              },
+              {
+                "name": "OriginalShipmentIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of original shipment IDs to filter by.\n"
+              },
+              {
+                "name": "InventoryIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of inventory IDs to filter by.\n"
+              },
+              {
+                "name": "StartDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns created on or after this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "EndDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns created on or before this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "ReturnTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return types to filter by (e.g., Regular,ReturnToSender).\n"
+              },
+              {
+                "name": "ReturnActions",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of return actions to filter by (e.g., Restock,Quarantine,Dispose).\n"
+              },
+              {
+                "name": "StoreOrderIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of store order IDs to filter by.\n"
+              },
+              {
+                "name": "Sortby",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by.\n"
+              },
+              {
+                "name": "CompletedStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns completed on or after this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "CompletedEndDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns completed on or before this date (ISO 8601 format).\n"
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve. Used for pagination through result sets.\n"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return per page.\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results. Desc = newest to oldest, Asc = oldest to newest, Desc is default\n"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of return orders with optional filters for IDs, statuses, dates, and other criteria. Use this to track all returns across your ShipBob account.\n"
+        },
+        {
+          "info": {
+            "name": "Create Return Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/return",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new return order for a previously shipped order. Specify the original shipment, inventory items to return, and requested return actions.\n"
+        },
+        {
+          "info": {
+            "name": "Get Return Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/return/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Id of the Return\n"
+              }
+            ]
+          },
+          "docs": "Retrieves the complete details of a specific return order by its unique ID. Use this to view return status, inventory items, transactions, and processing history.\n"
+        },
+        {
+          "info": {
+            "name": "Edit Return Order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shipbob.com/2026-01/return/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing return using the provided request body and returns the updated return payload.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel Return order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/return/:id:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the return order\n"
+              }
+            ]
+          },
+          "docs": "Cancels a return order for given return ID\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_webhooks API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Subscriptions\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "RecordsPerPage",
+                "value": "",
+                "type": "query",
+                "description": "Number of webhooks returned per page in a paginated response.\n"
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "[Optional] A pagination token used to retrieve the next or previous page of results. Omit to start at the first page.\n"
+              }
+            ]
+          },
+          "docs": "  This endpoint returns a list of webhook subscriptions.\n"
+        },
+        {
+          "info": {
+            "name": "Create Subscription\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/webhook",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new webhook subscription.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Subscription\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shipbob.com/2026-01/webhook/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "This is the id of the webhook subscription to delete\n"
+              }
+            ]
+          },
+          "docs": "  This endpoint deletes a webhook subscription.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

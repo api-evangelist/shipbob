@@ -1,0 +1,2031 @@
+{
+  "item": [
+    {
+      "id": "755918d0-0bbd-40cd-82c5-368f90f06d31",
+      "name": "subpackage_returns",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cc95941b-2072-4d6f-b9d2-b73d92d33f58",
+          "name": "Create Return Order\n",
+          "request": {
+            "name": "Create Return Order\n",
+            "description": {
+              "content": "Creates a new return order for a previously shipped order. Specify the original shipment, inventory items to return, and requested return actions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "return"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                "key": "shipbob_channel_id",
+                "value": "<int32>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fulfillment_center\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string,null>\"\n  },\n  \"inventory\": [\n    {\n      \"id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"requested_action\": \"<string>\",\n      \"lot_date\": \"<string,null-date-time>\",\n      \"lot_number\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"requested_action\": \"<string>\",\n      \"lot_date\": \"<string,null-date-time>\",\n      \"lot_number\": \"<string,null>\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "812e319c-8f71-4869-99c0-9fef1c8dc2f9",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": {\n    \"id\": 279,\n    \"name\": \"string\"\n  },\n  \"completed_date\": \"1999-04-07T03:03:15.349Z\",\n  \"customer_name\": \"string\",\n  \"fulfillment_center\": {\n    \"id\": 1097,\n    \"name\": \"string\"\n  },\n  \"id\": 7527,\n  \"insert_date\": \"1964-10-25T07:13:33.797Z\",\n  \"inventory\": [\n    {\n      \"action_requested\": {\n        \"action\": \"string\",\n        \"action_type\": \"string\",\n        \"instructions\": \"string\"\n      },\n      \"action_taken\": [\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"https://XMkrdWGeDscGjjCASi.sazbndJgETmED7Dq3YaMga,y2FFOMguxMO1Xzp5W\",\n          \"quantity_processed\": 5141\n        },\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://XHSpFmqjXTXXlyDFfAvYQXVRz.jpqDwLNFhMG28\",\n          \"quantity_processed\": 6192\n        }\n      ],\n      \"id\": 2691,\n      \"name\": \"string\",\n      \"quantity\": 9663\n    },\n    {\n      \"action_requested\": {\n        \"action\": \"string\",\n        \"action_type\": \"string\",\n        \"instructions\": \"string\"\n      },\n      \"action_taken\": [\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://cCLaApgoYReazOvIcJPiMSNpA.mlapyg3ZeC\",\n          \"quantity_processed\": 2124\n        },\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://zpPZjkvfWjEeKmelYDVaOXZop.obuerBR5RKY4n2-3qKtZzaCY+Pi+\",\n          \"quantity_processed\": 9502\n        }\n      ],\n      \"id\": 7618,\n      \"name\": \"string\",\n      \"quantity\": 9114\n    }\n  ],\n  \"invoice_amount\": 899.454790225902,\n  \"original_shipment_id\": 618,\n  \"reference_id\": \"string\",\n  \"return_type\": \"string\",\n  \"status\": \"string\",\n  \"store_order_id\": \"string\",\n  \"tracking_number\": \"string\",\n  \"transactions\": [\n    {\n      \"amount\": 4084.628918363704,\n      \"transaction_type\": \"string\"\n    },\n    {\n      \"amount\": 2411.7607012645713,\n      \"transaction_type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10a6b514-a94c-41f3-bc85-c2a4adb2ccec",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 4701,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce31eb28-e27b-4c4d-b6c0-fc3bfefe58de",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9744aa68-b7d0-42fb-b70a-c4a41646810f",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3bc5dc4a-1323-4a5c-a962-c5c070b48e5b",
+              "name": "Unprocessable Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": {},\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"message\": \"string\",\n  \"stackTrace\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "600b89bb-5cc9-42db-b50e-b4e44d5d53b9",
+          "name": "Get Return Orders\n",
+          "request": {
+            "name": "Get Return Orders\n",
+            "description": {
+              "content": "Retrieves a paginated list of return orders with optional filters for IDs, statuses, dates, and other criteria. Use this to track all returns across your ShipBob account.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "return"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Ids",
+                  "value": "<string>",
+                  "description": "The IDs of the returns to fetch. Accepts a comma-separated list of return IDs (e.g., 123,456,789).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ReferenceIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of return reference IDs (RMA numbers) to filter by.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "Status",
+                  "value": "<string>",
+                  "description": "Comma-separated list of return statuses to filter by (e.g., AwaitingArrival,Arrived,Processing,Completed,Cancelled).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "FulfillmentCenterIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fulfillment center IDs to filter by.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "TrackingNumbers",
+                  "value": "<string>",
+                  "description": "Comma-separated list of tracking numbers to filter by.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "OriginalShipmentIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of original shipment IDs to filter by.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "InventoryIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory IDs to filter by.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "StartDate",
+                  "value": "<dateTime>",
+                  "description": "Filter returns created on or after this date (ISO 8601 format).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "EndDate",
+                  "value": "<dateTime>",
+                  "description": "Filter returns created on or before this date (ISO 8601 format).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ReturnTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of return types to filter by (e.g., Regular,ReturnToSender).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ReturnActions",
+                  "value": "<string>",
+                  "description": "Comma-separated list of return actions to filter by (e.g., Restock,Quarantine,Dispose).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "StoreOrderIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of store order IDs to filter by.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "Sortby",
+                  "value": "<string>",
+                  "description": "Field to sort results by.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "CompletedStartDate",
+                  "value": "<dateTime>",
+                  "description": "Filter returns completed on or after this date (ISO 8601 format).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "CompletedEndDate",
+                  "value": "<dateTime>",
+                  "description": "Filter returns completed on or before this date (ISO 8601 format).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "Cursor",
+                  "value": "<integer>",
+                  "description": "Page number to retrieve. Used for pagination through result sets.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "Limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of records to return per page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "SortOrder",
+                  "value": "<string>",
+                  "description": "Sort order for results. Desc = newest to oldest, Asc = oldest to newest, Desc is default\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                "key": "shipbob_channel_id",
+                "value": "<int32>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "db1eca81-c7d6-4ce6-98dd-62f25c761343",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReferenceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "TrackingNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OriginalShipmentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "EndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ReturnTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReturnActions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StoreOrderIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "Desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"http://tlyaTlorhYmDpwWeKlygiTQ.zzQhwD9BYukt1RDK,w.LPi055gCqVoIdA0Yg6XgiMi3deWBXZFgFJtZNeZ3i7nXIfnxt+y4uBD\",\n  \"items\": [\n    {\n      \"arrived_date\": \"1956-07-11T15:30:14.771Z\",\n      \"awaiting_arrival_date\": \"1949-02-01T15:44:33.044Z\",\n      \"cancelled_date\": \"2025-07-19T13:32:28.699Z\",\n      \"channel\": {\n        \"id\": 4849,\n        \"name\": \"string\"\n      },\n      \"completed_date\": \"2000-01-31T13:21:41.816Z\",\n      \"customer_name\": \"string\",\n      \"fulfillment_center\": {\n        \"id\": 8305,\n        \"name\": \"string\"\n      },\n      \"id\": 8434,\n      \"insert_date\": \"2015-09-29T07:24:42.985Z\",\n      \"inventory\": [\n        {\n          \"action_requested\": {\n            \"action\": \"string\",\n            \"action_type\": \"string\",\n            \"instructions\": \"string\"\n          },\n          \"action_taken\": [\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"barcodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"id\": 4677,\n          \"lot_information\": {\n            \"expiration\": \"1977-11-01T04:57:37.867Z\",\n            \"minimumShelfLife\": 4776,\n            \"number\": \"string\"\n          },\n          \"name\": \"string\",\n          \"quantity\": 8478,\n          \"sku\": \"string\"\n        },\n        {\n          \"action_requested\": {\n            \"action\": \"string\",\n            \"action_type\": \"string\",\n            \"instructions\": \"string\"\n          },\n          \"action_taken\": [\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"barcodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"id\": 9243,\n          \"lot_information\": {\n            \"expiration\": \"2003-11-28T11:07:11.256Z\",\n            \"minimumShelfLife\": 9249,\n            \"number\": \"string\"\n          },\n          \"name\": \"string\",\n          \"quantity\": 8602,\n          \"sku\": \"string\"\n        }\n      ],\n      \"invoice\": {\n        \"amount\": 9455.896870173918,\n        \"currency_code\": \"string\"\n      },\n      \"original_shipment_id\": 5918,\n      \"processing_date\": \"1972-12-12T01:27:01.025Z\",\n      \"reference_id\": \"string\",\n      \"return_type\": \"string\",\n      \"shipment_tracking_number\": \"string\",\n      \"status\": \"string\",\n      \"status_history\": [\n        {\n          \"status\": \"string\",\n          \"timestamp\": \"1972-07-03T15:57:14.281Z\"\n        },\n        {\n          \"status\": \"string\",\n          \"timestamp\": \"1992-10-15T00:24:57.728Z\"\n        }\n      ],\n      \"store_order_id\": \"string\",\n      \"tracking_number\": \"string\",\n      \"transactions\": [\n        {\n          \"amount\": 5988.736592549063,\n          \"transaction_type\": \"string\"\n        },\n        {\n          \"amount\": 2465.124757544466,\n          \"transaction_type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"arrived_date\": \"1968-10-10T03:09:04.329Z\",\n      \"awaiting_arrival_date\": \"1951-07-09T16:59:41.738Z\",\n      \"cancelled_date\": \"1990-07-15T01:41:24.409Z\",\n      \"channel\": {\n        \"id\": 4296,\n        \"name\": \"string\"\n      },\n      \"completed_date\": \"1953-12-11T20:04:39.500Z\",\n      \"customer_name\": \"string\",\n      \"fulfillment_center\": {\n        \"id\": 9552,\n        \"name\": \"string\"\n      },\n      \"id\": 9890,\n      \"insert_date\": \"1961-06-28T23:41:54.999Z\",\n      \"inventory\": [\n        {\n          \"action_requested\": {\n            \"action\": \"string\",\n            \"action_type\": \"string\",\n            \"instructions\": \"string\"\n          },\n          \"action_taken\": [\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"barcodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"id\": 9889,\n          \"lot_information\": {\n            \"expiration\": \"1953-03-24T03:54:01.801Z\",\n            \"minimumShelfLife\": 6910,\n            \"number\": \"string\"\n          },\n          \"name\": \"string\",\n          \"quantity\": 3742,\n          \"sku\": \"string\"\n        },\n        {\n          \"action_requested\": {\n            \"action\": \"string\",\n            \"action_type\": \"string\",\n            \"instructions\": \"string\"\n          },\n          \"action_taken\": [\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"action\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"action_reason\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"image_url\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"quantity_processed\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"barcodes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"id\": 992,\n          \"lot_information\": {\n            \"expiration\": \"1980-05-26T19:02:28.271Z\",\n            \"minimumShelfLife\": 1206,\n            \"number\": \"string\"\n          },\n          \"name\": \"string\",\n          \"quantity\": 461,\n          \"sku\": \"string\"\n        }\n      ],\n      \"invoice\": {\n        \"amount\": 981.3272288166597,\n        \"currency_code\": \"string\"\n      },\n      \"original_shipment_id\": 5727,\n      \"processing_date\": \"1967-01-29T21:27:03.700Z\",\n      \"reference_id\": \"string\",\n      \"return_type\": \"string\",\n      \"shipment_tracking_number\": \"string\",\n      \"status\": \"string\",\n      \"status_history\": [\n        {\n          \"status\": \"string\",\n          \"timestamp\": \"1965-09-16T23:06:27.832Z\"\n        },\n        {\n          \"status\": \"string\",\n          \"timestamp\": \"2008-11-15T19:45:52.107Z\"\n        }\n      ],\n      \"store_order_id\": \"string\",\n      \"tracking_number\": \"string\",\n      \"transactions\": [\n        {\n          \"amount\": 2758.097211251692,\n          \"transaction_type\": \"string\"\n        },\n        {\n          \"amount\": 6628.519733365223,\n          \"transaction_type\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"last\": \"https://pKN.aeqhVkf2NeF06Wm1ljKASsDuNkTl+xURL9z\",\n  \"next\": \"http://yRJdkcgIEENZ.jxqkqHMapXCUrIhK8.RO.5rYwL24.zhE0OuaHXE.,ixmvMitrXhWDWPu\",\n  \"prev\": \"https://KUMpIGDRDFUbyGj.yoxCZuDWenmtZogy7gcUSqymnD6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1911637-fca7-4c07-8f52-adc7758cd59d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReferenceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "TrackingNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OriginalShipmentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "EndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ReturnTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReturnActions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StoreOrderIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "Desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 4701,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b46e5443-24b1-4ee5-bc14-dab6a0103e18",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReferenceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "TrackingNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OriginalShipmentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "EndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ReturnTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReturnActions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StoreOrderIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "Desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3b07bab-f03f-437e-af68-55b99f09312d",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReferenceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "TrackingNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OriginalShipmentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "EndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ReturnTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReturnActions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StoreOrderIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "Desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0094852a-9f87-43ca-9189-b42229f22388",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReferenceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FulfillmentCenterIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "TrackingNumbers",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "OriginalShipmentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "EndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ReturnTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ReturnActions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "StoreOrderIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "CompletedStartDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "CompletedEndDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "Limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "Desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 4701,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4026b820-263e-4e63-98da-259c16698b6d",
+          "name": "Get Return Order\n",
+          "request": {
+            "name": "Get Return Order\n",
+            "description": {
+              "content": "Retrieves the complete details of a specific return order by its unique ID. Use this to view return status, inventory items, transactions, and processing history.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "return",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "id",
+                  "description": "(Required) The Id of the Return\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                "key": "shipbob_channel_id",
+                "value": "<int32>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0de20d6-a389-49e3-b904-d27d784fd1c3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) The Id of the Return\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"arrived_date\": \"1979-11-25T05:01:40.002Z\",\n  \"awaiting_arrival_date\": \"1973-01-10T17:58:25.858Z\",\n  \"cancelled_date\": \"1960-07-06T00:54:30.628Z\",\n  \"channel\": {\n    \"id\": 446,\n    \"name\": \"string\"\n  },\n  \"completed_date\": \"1947-03-30T14:31:27.522Z\",\n  \"customer_name\": \"string\",\n  \"fulfillment_center\": {\n    \"id\": 9662,\n    \"name\": \"string\"\n  },\n  \"id\": 9142,\n  \"insert_date\": \"1950-04-11T00:43:32.842Z\",\n  \"inventory\": [\n    {\n      \"action_requested\": {\n        \"action\": \"string\",\n        \"action_type\": \"string\",\n        \"instructions\": \"string\"\n      },\n      \"action_taken\": [\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"https://QFIFFQwsIVdVonaoftPWGdTKfXKiC.cqowpPhUKVYo\",\n          \"quantity_processed\": 9075\n        },\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"https://xSxgnqxnVcceYXhIsqvcUnzeBf.hspdWTlHn-pKK-\",\n          \"quantity_processed\": 8193\n        }\n      ],\n      \"barcodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"id\": 2508,\n      \"lot_information\": {\n        \"expiration\": \"1986-03-04T01:59:40.533Z\",\n        \"minimumShelfLife\": 8797,\n        \"number\": \"string\"\n      },\n      \"name\": \"string\",\n      \"quantity\": 5499,\n      \"sku\": \"string\"\n    },\n    {\n      \"action_requested\": {\n        \"action\": \"string\",\n        \"action_type\": \"string\",\n        \"instructions\": \"string\"\n      },\n      \"action_taken\": [\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://oslsjxzJ.axmDjkyH-p6IrIJtPZ6MvRr4HUllnuksDXtqQUxTv1E0n\",\n          \"quantity_processed\": 6276\n        },\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://hdyHfxAHQYl.vekjwu9bbqERyuqnPlZ57eVgcopNFzXztP\",\n          \"quantity_processed\": 9518\n        }\n      ],\n      \"barcodes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"id\": 2027,\n      \"lot_information\": {\n        \"expiration\": \"1948-03-16T12:55:19.038Z\",\n        \"minimumShelfLife\": 2087,\n        \"number\": \"string\"\n      },\n      \"name\": \"string\",\n      \"quantity\": 8899,\n      \"sku\": \"string\"\n    }\n  ],\n  \"invoice\": {\n    \"amount\": 1538.5870429888193,\n    \"currency_code\": \"string\"\n  },\n  \"original_shipment_id\": 4847,\n  \"processing_date\": \"1991-09-11T06:01:51.774Z\",\n  \"reference_id\": \"string\",\n  \"return_type\": \"string\",\n  \"shipment_tracking_number\": \"string\",\n  \"status\": \"string\",\n  \"status_history\": [\n    {\n      \"status\": \"string\",\n      \"timestamp\": \"2015-06-01T01:15:42.210Z\"\n    },\n    {\n      \"status\": \"string\",\n      \"timestamp\": \"1999-09-10T14:52:45.830Z\"\n    }\n  ],\n  \"store_order_id\": \"string\",\n  \"tracking_number\": \"string\",\n  \"transactions\": [\n    {\n      \"amount\": 1236.057053963253,\n      \"transaction_type\": \"string\"\n    },\n    {\n      \"amount\": 2596.275758361943,\n      \"transaction_type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4eb4d999-4e77-4b45-aa28-406c971b3cfb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) The Id of the Return\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 4701,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "174cf89e-7d89-4964-944c-0aab2206d690",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) The Id of the Return\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67fcd97b-6c61-48ab-a144-b1ff495d2208",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) The Id of the Return\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d55f3c21-01fd-4fbf-b7e2-a07986587b3e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) The Id of the Return\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Retrieve your channel ID from the [GET /channel](/api/channels/get-channels) endpoint. Use the channel ID that has write scopes.",
+                    "key": "shipbob_channel_id",
+                    "value": "<int32>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 4701,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "400afb12-c4ef-46be-9430-8a858c1aab18",
+          "name": "Edit Return Order\n",
+          "request": {
+            "name": "Edit Return Order\n",
+            "description": {
+              "content": "Updates an existing return using the provided request body and returns the updated return payload.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "return",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fulfillment_center\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string,null>\"\n  },\n  \"inventory\": [\n    {\n      \"id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"requested_action\": \"<string>\",\n      \"lot_date\": \"<string,null-date-time>\",\n      \"lot_number\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"requested_action\": \"<string>\",\n      \"lot_date\": \"<string,null-date-time>\",\n      \"lot_number\": \"<string,null>\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c36db4c-cf89-4f1a-b362-19b3e2fde84f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"channel\": {\n    \"id\": 279,\n    \"name\": \"string\"\n  },\n  \"completed_date\": \"1999-04-07T03:03:15.349Z\",\n  \"customer_name\": \"string\",\n  \"fulfillment_center\": {\n    \"id\": 1097,\n    \"name\": \"string\"\n  },\n  \"id\": 7527,\n  \"insert_date\": \"1964-10-25T07:13:33.797Z\",\n  \"inventory\": [\n    {\n      \"action_requested\": {\n        \"action\": \"string\",\n        \"action_type\": \"string\",\n        \"instructions\": \"string\"\n      },\n      \"action_taken\": [\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"https://XMkrdWGeDscGjjCASi.sazbndJgETmED7Dq3YaMga,y2FFOMguxMO1Xzp5W\",\n          \"quantity_processed\": 5141\n        },\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://XHSpFmqjXTXXlyDFfAvYQXVRz.jpqDwLNFhMG28\",\n          \"quantity_processed\": 6192\n        }\n      ],\n      \"id\": 2691,\n      \"name\": \"string\",\n      \"quantity\": 9663\n    },\n    {\n      \"action_requested\": {\n        \"action\": \"string\",\n        \"action_type\": \"string\",\n        \"instructions\": \"string\"\n      },\n      \"action_taken\": [\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://cCLaApgoYReazOvIcJPiMSNpA.mlapyg3ZeC\",\n          \"quantity_processed\": 2124\n        },\n        {\n          \"action\": \"string\",\n          \"action_reason\": \"string\",\n          \"image_url\": \"http://zpPZjkvfWjEeKmelYDVaOXZop.obuerBR5RKY4n2-3qKtZzaCY+Pi+\",\n          \"quantity_processed\": 9502\n        }\n      ],\n      \"id\": 7618,\n      \"name\": \"string\",\n      \"quantity\": 9114\n    }\n  ],\n  \"invoice_amount\": 899.454790225902,\n  \"original_shipment_id\": 618,\n  \"reference_id\": \"string\",\n  \"return_type\": \"string\",\n  \"status\": \"string\",\n  \"store_order_id\": \"string\",\n  \"tracking_number\": \"string\",\n  \"transactions\": [\n    {\n      \"amount\": 4084.628918363704,\n      \"transaction_type\": \"string\"\n    },\n    {\n      \"amount\": 2411.7607012645713,\n      \"transaction_type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a31f033e-a80f-4a4c-bbbd-7c32efcd0c69",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "261fd803-5acd-4468-b4c4-435a457c6b23",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69555175-3995-4b4f-9548-037dcaae2c3c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83dbbfab-62e1-43b9-b65a-0239782b9234",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fulfillment_center\": {\n    \"id\": 9133,\n    \"name\": \"string\"\n  },\n  \"inventory\": [\n    {\n      \"id\": 7083,\n      \"quantity\": 7574,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"1976-11-26T16:10:17.548Z\",\n      \"lot_number\": \"string\"\n    },\n    {\n      \"id\": 4424,\n      \"quantity\": 9605,\n      \"requested_action\": \"Default\",\n      \"lot_date\": \"2004-12-12T15:35:39.031Z\",\n      \"lot_number\": \"string\"\n    }\n  ],\n  \"reference_id\": \"<string>\",\n  \"original_shipment_id\": \"<integer,null>\",\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": {},\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ],\n  \"message\": \"string\",\n  \"stackTrace\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df31c25a-4c72-498a-8b14-596f28026428",
+          "name": "Cancel Return order\n",
+          "request": {
+            "name": "Cancel Return order\n",
+            "description": {
+              "content": "Cancels a return order for given return ID\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "return",
+                "{{id}}:cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b339bd1-a260-4682-9b34-5085a182968d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b22b9b6-b4c5-4b3a-a0e3-9901004ecbe0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2feb4caf-25d1-44e9-a0d3-f26b34a0de1c",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07f424a0-7590-4c06-8191-157d1db39412",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "return",
+                    "{{id}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Id of the return order\n",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<int32>",
+      "key": "id"
+    }
+  ],
+  "info": {
+    "_postman_id": "20690595-885c-4748-af87-90221a1d6746",
+    "name": "API Reference subpackage_billing subpackage_returns API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

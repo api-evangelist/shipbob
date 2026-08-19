@@ -1,0 +1,252 @@
+{
+  "item": [
+    {
+      "id": "3b17ed31-db2b-43d0-ae5a-239b3e8c4325",
+      "name": "subpackage_locations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68ffc3a6-154e-4b19-940d-f00ffa66bcf4",
+          "name": "Get Locations",
+          "request": {
+            "name": "Get Locations",
+            "description": {
+              "content": "Retrieves physical locations across ShipBob's fulfillment network. An active location (`is_active=true`) is operational for fulfillment processes, including receiving inventory and processing returns. Access to locations varies: some are available to all merchants by default, while others require special approval. Use the `access_granted` parameter to determine if a location is available to the authenticated user, and `receiving_enabled` to confirm if the location accepts inventory.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "location"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "IncludeInactive",
+                  "value": "<boolean>",
+                  "description": "Whether the inactive locations should be included or not\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ReceivingEnabled",
+                  "value": "<boolean>",
+                  "description": "Return all the receiving enabled locations\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "AccessGranted",
+                  "value": "<boolean>",
+                  "description": "Return all the access granted locations\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dade6a35-e4e9-43de-8aa0-b106a2b7c237",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "IncludeInactive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "ReceivingEnabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "AccessGranted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"abbreviation\": \"string\",\n    \"access_granted\": true,\n    \"attributes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"id\": 1254,\n    \"is_active\": false,\n    \"is_receiving_enabled\": false,\n    \"is_shipping_enabled\": true,\n    \"name\": \"string\",\n    \"region\": {\n      \"id\": 5766,\n      \"name\": \"string\"\n    },\n    \"services\": [\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\",\n          \"phone_number\": \"string\",\n          \"state\": \"string\",\n          \"zip_code\": \"string\"\n        },\n        \"enabled\": true,\n        \"service_type\": \"Receiving\"\n      },\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\",\n          \"phone_number\": \"string\",\n          \"state\": \"string\",\n          \"zip_code\": \"string\"\n        },\n        \"enabled\": false,\n        \"service_type\": \"Returns\"\n      }\n    ],\n    \"timezone\": \"string\"\n  },\n  {\n    \"abbreviation\": \"string\",\n    \"access_granted\": true,\n    \"attributes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"id\": 4532,\n    \"is_active\": true,\n    \"is_receiving_enabled\": false,\n    \"is_shipping_enabled\": true,\n    \"name\": \"string\",\n    \"region\": {\n      \"id\": 2576,\n      \"name\": \"string\"\n    },\n    \"services\": [\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\",\n          \"phone_number\": \"string\",\n          \"state\": \"string\",\n          \"zip_code\": \"string\"\n        },\n        \"enabled\": true,\n        \"service_type\": \"Receiving\"\n      },\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"email\": \"string\",\n          \"name\": \"string\",\n          \"phone_number\": \"string\",\n          \"state\": \"string\",\n          \"zip_code\": \"string\"\n        },\n        \"enabled\": false,\n        \"service_type\": \"Returns\"\n      }\n    ],\n    \"timezone\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70c97936-e269-4686-af46-078057ed216d",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "IncludeInactive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "ReceivingEnabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "AccessGranted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40e8835d-71d9-4b6b-897a-a7b913c49f47",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "IncludeInactive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "ReceivingEnabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "AccessGranted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1c5b67d6-ee31-4ed9-820e-51cfd0227133",
+    "name": "API Reference subpackage_billing subpackage_locations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "item": [
+    {
+      "id": "9695bb20-7712-4bf2-864f-e10a8b19f490",
+      "name": "subpackage_channels",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc6b51f2-42a5-4330-9266-51fc791055a2",
+          "name": "Get Channels",
+          "request": {
+            "name": "Get Channels",
+            "description": {
+              "content": "Retrieves a paginated list of channels that the authenticated user has access to based on the provided access token.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "channel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "RecordsPerPage",
+                  "value": "50",
+                  "description": "The number of records to return per page. This parameter is used for pagination. If not provided, a default value will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "Cursor",
+                  "value": "<string>",
+                  "description": "A cursor for pagination. This parameter is used to fetch the next set of results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e32b2ba-8fb2-47e3-9dbd-5963aa4e8ac2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "channel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"application_name\": \"string\",\n      \"id\": 7397,\n      \"name\": \"string\",\n      \"scopes\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"application_name\": \"string\",\n      \"id\": 8104,\n      \"name\": \"string\",\n      \"scopes\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2823d9a2-ca63-450c-9b8d-06398e60f3d8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "channel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key_1\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key_2\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key_3\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95689d68-db52-4ddc-a283-53d5803abf25",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "channel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c74c8a3-1f9b-4d4a-8d67-603aabac14d9",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "channel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "RecordsPerPage",
+                      "value": "50"
+                    },
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "014ca19c-df2b-445b-9507-6d3556ba91ae",
+    "name": "API Reference subpackage_billing subpackage_channels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

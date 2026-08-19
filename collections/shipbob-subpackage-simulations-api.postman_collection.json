@@ -1,0 +1,231 @@
+{
+  "item": [
+    {
+      "id": "46716553-11fa-40d0-ac13-1a068215e047",
+      "name": "subpackage_simulations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "721ca501-b2e3-4b99-bf0c-698369a2bfd8",
+          "name": "Simulates Shipment",
+          "request": {
+            "name": "Simulates Shipment",
+            "description": {
+              "content": "Simulation shipments in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).\n\n<Warning>This endpoint is **only available** on sandbox.</Warning>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "simulate",
+                "shipment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipment_id\": \"<string,null>\",\n  \"simulation\": {\n    \"action\": \"<string>\",\n    \"delay\": \"<integer,null>\",\n    \"next\": {\n      \"value\": \"<Circular reference to #/components/schemas/Simulation.simulationModel detected>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c9d3b36-0c2f-4ffb-9dfd-3260b93d7315",
+              "name": "Existing registration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "simulate",
+                    "shipment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipment_id\": \"<string,null>\",\n  \"simulation\": {\n    \"action\": \"ShipOrder\",\n    \"delay\": 3120,\n    \"next\": {\n      \"value\": \"<Circular reference to #/components/schemas/Simulation.simulationModel detected>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"simulation_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ff9269a-887e-4d4e-a7cd-6b33715e44a3",
+          "name": "Get Simulation Status",
+          "request": {
+            "name": "Get Simulation Status",
+            "description": {
+              "content": "Get the status of a simulation in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).\n\n<Warning>This endpoint is **only available** on sandbox.</Warning>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "simulate",
+                "status",
+                ":simulationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "simulationId",
+                  "description": "(Required) The simulation id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65690c60-8bc0-4ddf-95ad-a0d3b4747c09",
+              "name": "The simulation status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "simulate",
+                    "status",
+                    ":simulationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "simulationId",
+                      "description": "(Required) The simulation id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entity_id\": \"string\",\n  \"entity_type\": \"string\",\n  \"simulation\": {\n    \"action\": \"ShipOrder\",\n    \"message\": \"string\",\n    \"next\": {\n      \"value\": \"<Circular reference to #/components/schemas/Simulation.actionStatusResponseModel detected>\"\n    },\n    \"schedule_time\": \"1948-07-19T21:52:17.649Z\",\n    \"status\": \"string\"\n  },\n  \"simulation_id\": \"b60072a4-bc4a-79e2-3352-13a9c7bb0418\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c615a143-c631-4fcc-973d-3ec78755f6f1",
+    "name": "API Reference subpackage_billing subpackage_simulations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

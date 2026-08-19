@@ -1,0 +1,1462 @@
+{
+  "item": [
+    {
+      "id": "2167a498-acf9-4586-8619-bdd0178eda64",
+      "name": "subpackage_billing",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a8a6cf05-3bd8-4db5-9098-9eded48bb4f4",
+          "name": "Search Transactions",
+          "request": {
+            "name": "Search Transactions",
+            "description": {
+              "content": "Search transactions with filters (date, invoice, fee type, etc.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "transactions:query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Cursor",
+                  "value": "<string>",
+                  "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_date\": \"<string,null-date-time>\",\n  \"invoice_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoiced_status\": \"<boolean,null>\",\n  \"page_size\": \"<integer>\",\n  \"reference_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reference_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort_order\": \"Descending\",\n  \"to_date\": \"<string,null-date-time>\",\n  \"transaction_fees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41193de4-8b5d-4fd1-9c88-f60f2637eb7c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transactions:query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from_date\": \"<string,null-date-time>\",\n  \"invoice_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoiced_status\": \"<boolean,null>\",\n  \"page_size\": \"<integer>\",\n  \"reference_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reference_types\": [\n    \"Return\",\n    \"URO\"\n  ],\n  \"sort_order\": \"Descending\",\n  \"to_date\": \"<string,null-date-time>\",\n  \"transaction_fees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_types\": [\n    \"Refund\",\n    \"Credit\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"string\",\n  \"items\": [\n    {\n      \"additional_details\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"amount\": 7328.964286394674,\n      \"charge_date\": \"string\",\n      \"currency_code\": \"string\",\n      \"fulfillment_center\": \"string\",\n      \"invoice_date\": \"string\",\n      \"invoice_id\": 3066,\n      \"invoice_type\": \"AdditionalFee\",\n      \"invoiced_status\": false,\n      \"reference_id\": \"string\",\n      \"reference_type\": \"Return\",\n      \"taxes\": [\n        {\n          \"tax_amount\": 7442.4341951456345,\n          \"tax_rate\": 4949.510083774004,\n          \"tax_type\": \"string\"\n        },\n        {\n          \"tax_amount\": 8959.59635030802,\n          \"tax_rate\": 2516.4826246136417,\n          \"tax_type\": \"string\"\n        }\n      ],\n      \"transaction_fee\": \"string\",\n      \"transaction_id\": \"string\",\n      \"transaction_type\": \"Credit\"\n    },\n    {\n      \"additional_details\": {\n        \"key_0\": {}\n      },\n      \"amount\": 5094.878550526862,\n      \"charge_date\": \"string\",\n      \"currency_code\": \"string\",\n      \"fulfillment_center\": \"string\",\n      \"invoice_date\": \"string\",\n      \"invoice_id\": 8532,\n      \"invoice_type\": \"WarehouseStorage\",\n      \"invoiced_status\": true,\n      \"reference_id\": \"string\",\n      \"reference_type\": \"Transfer Plan\",\n      \"taxes\": [\n        {\n          \"tax_amount\": 3380.462403787182,\n          \"tax_rate\": 893.822767605601,\n          \"tax_type\": \"string\"\n        },\n        {\n          \"tax_amount\": 2937.6149796032037,\n          \"tax_rate\": 9009.479138660925,\n          \"tax_type\": \"string\"\n        }\n      ],\n      \"transaction_fee\": \"string\",\n      \"transaction_id\": \"string\",\n      \"transaction_type\": \"Charge\"\n    }\n  ],\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b839b1f6-7994-4268-a912-9b100c6a406a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transactions:query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from_date\": \"<string,null-date-time>\",\n  \"invoice_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoiced_status\": \"<boolean,null>\",\n  \"page_size\": \"<integer>\",\n  \"reference_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reference_types\": [\n    \"Return\",\n    \"URO\"\n  ],\n  \"sort_order\": \"Descending\",\n  \"to_date\": \"<string,null-date-time>\",\n  \"transaction_fees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_types\": [\n    \"Refund\",\n    \"Credit\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 8981,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81a5808b-6090-44fc-9b7f-f9a47db48aa5",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transactions:query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from_date\": \"<string,null-date-time>\",\n  \"invoice_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoiced_status\": \"<boolean,null>\",\n  \"page_size\": \"<integer>\",\n  \"reference_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reference_types\": [\n    \"Return\",\n    \"URO\"\n  ],\n  \"sort_order\": \"Descending\",\n  \"to_date\": \"<string,null-date-time>\",\n  \"transaction_fees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_types\": [\n    \"Refund\",\n    \"Credit\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3811d5d-53f7-487c-9abc-a050d762072f",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transactions:query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from_date\": \"<string,null-date-time>\",\n  \"invoice_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoiced_status\": \"<boolean,null>\",\n  \"page_size\": \"<integer>\",\n  \"reference_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reference_types\": [\n    \"Return\",\n    \"URO\"\n  ],\n  \"sort_order\": \"Descending\",\n  \"to_date\": \"<string,null-date-time>\",\n  \"transaction_fees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_types\": [\n    \"Refund\",\n    \"Credit\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83f675ef-fd65-4dcd-b8de-8918bf56dad8",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transactions:query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from_date\": \"<string,null-date-time>\",\n  \"invoice_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"invoiced_status\": \"<boolean,null>\",\n  \"page_size\": \"<integer>\",\n  \"reference_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reference_types\": [\n    \"Return\",\n    \"URO\"\n  ],\n  \"sort_order\": \"Descending\",\n  \"to_date\": \"<string,null-date-time>\",\n  \"transaction_fees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_types\": [\n    \"Refund\",\n    \"Credit\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa63bceb-2db0-4854-9f43-f2252afb0323",
+          "name": "Get Invoices",
+          "request": {
+            "name": "Get Invoices",
+            "description": {
+              "content": "Gets a paginated list of invoices, optionally filtered by invoice types and date range",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Cursor",
+                  "value": "<string>",
+                  "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "FromDate",
+                  "value": "<dateTime>",
+                  "description": "[Optional] Start date for filtering invoices by invoice date. Default is current - 1 month date.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ToDate",
+                  "value": "<dateTime>",
+                  "description": "[Optional] End date for filtering invoices by invoice date. Default is current date.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "InvoiceTypes",
+                  "value": "<string>",
+                  "description": "[Optional] Filter invoices by invoice type."
+                },
+                {
+                  "disabled": false,
+                  "key": "InvoiceTypes",
+                  "value": "<string>",
+                  "description": "[Optional] Filter invoices by invoice type."
+                },
+                {
+                  "disabled": false,
+                  "key": "PageSize",
+                  "value": "<integer>",
+                  "description": "Number of invoices to return per page (default: 100). Must be between 1 and 1000.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "SortOrder",
+                  "value": "<string>",
+                  "description": "Sort invoices by Invoice Date. Values - Ascending, Descending. Default: Descending.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93bbfe12-64a6-46f9-8fc1-7d938b204e29",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ToDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Credits"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Shipping"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"string\",\n  \"items\": [\n    {\n      \"amount\": 5597.938972027995,\n      \"currency_code\": \"string\",\n      \"invoice_date\": \"string\",\n      \"invoice_id\": 9607,\n      \"invoice_type\": \"Return\",\n      \"running_balance\": 5127.415982033234\n    },\n    {\n      \"amount\": 8605.995430336383,\n      \"currency_code\": \"string\",\n      \"invoice_date\": \"string\",\n      \"invoice_id\": 8160,\n      \"invoice_type\": \"Shipping\",\n      \"running_balance\": 4157.238697064134\n    }\n  ],\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7083949b-ab6a-4dd6-805e-cc78c7349c39",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ToDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Credits"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Shipping"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 8981,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38291433-da7b-4be2-915e-1fff943d61d3",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ToDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Credits"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Shipping"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa728099-1741-48ab-9a41-d6c38bdd17c8",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ToDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Credits"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Shipping"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fbf9add-d168-4ac7-a7fb-3cd5ce312f19",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ToDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Credits"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Shipping"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 8981,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b186eac-dc0d-461d-a2b2-bbb4916ff88e",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "ToDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Credits"
+                    },
+                    {
+                      "key": "InvoiceTypes",
+                      "value": "Shipping"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dafafd26-de59-4140-bc02-5954cd27117c",
+          "name": "Get Transactions by Invoice ID\n",
+          "request": {
+            "name": "Get Transactions by Invoice ID\n",
+            "description": {
+              "content": "The unique identifier of the invoice whose transactions are to be retrieved",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "invoices",
+                ":invoiceId",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Cursor",
+                  "value": "<string>",
+                  "description": "[Optional] A pagination token used to jump to first, last, next or previous pages. When supplied, it overrides all other filter parameters.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "PageSize",
+                  "value": "<integer>",
+                  "description": "Number of transactions to return per page (default is 100, to be entered when API is called for first time). Must be between 1 and 1000.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "SortOrder",
+                  "value": "<string>",
+                  "description": "Sort order of the results. Valid values: Ascending or Descending (default: Descending).\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "invoiceId",
+                  "description": "(Required) The unique identifier of the invoice whose transactions are to be retrieved.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80a4c553-3540-4a3a-ac04-d1fb36b2854c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices",
+                    ":invoiceId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "invoiceId",
+                      "description": "(Required) The unique identifier of the invoice whose transactions are to be retrieved.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"string\",\n  \"items\": [\n    {\n      \"additional_details\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"amount\": 7328.964286394674,\n      \"charge_date\": \"string\",\n      \"currency_code\": \"string\",\n      \"fulfillment_center\": \"string\",\n      \"invoice_date\": \"string\",\n      \"invoice_id\": 3066,\n      \"invoice_type\": \"AdditionalFee\",\n      \"invoiced_status\": false,\n      \"reference_id\": \"string\",\n      \"reference_type\": \"Return\",\n      \"taxes\": [\n        {\n          \"tax_amount\": 7442.4341951456345,\n          \"tax_rate\": 4949.510083774004,\n          \"tax_type\": \"string\"\n        },\n        {\n          \"tax_amount\": 8959.59635030802,\n          \"tax_rate\": 2516.4826246136417,\n          \"tax_type\": \"string\"\n        }\n      ],\n      \"transaction_fee\": \"string\",\n      \"transaction_id\": \"string\",\n      \"transaction_type\": \"Credit\"\n    },\n    {\n      \"additional_details\": {\n        \"key_0\": {}\n      },\n      \"amount\": 5094.878550526862,\n      \"charge_date\": \"string\",\n      \"currency_code\": \"string\",\n      \"fulfillment_center\": \"string\",\n      \"invoice_date\": \"string\",\n      \"invoice_id\": 8532,\n      \"invoice_type\": \"WarehouseStorage\",\n      \"invoiced_status\": true,\n      \"reference_id\": \"string\",\n      \"reference_type\": \"Transfer Plan\",\n      \"taxes\": [\n        {\n          \"tax_amount\": 3380.462403787182,\n          \"tax_rate\": 893.822767605601,\n          \"tax_type\": \"string\"\n        },\n        {\n          \"tax_amount\": 2937.6149796032037,\n          \"tax_rate\": 9009.479138660925,\n          \"tax_type\": \"string\"\n        }\n      ],\n      \"transaction_fee\": \"string\",\n      \"transaction_id\": \"string\",\n      \"transaction_type\": \"Charge\"\n    }\n  ],\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9aec28e9-10e9-4151-992b-d9a2d0d9b32b",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices",
+                    ":invoiceId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "invoiceId",
+                      "description": "(Required) The unique identifier of the invoice whose transactions are to be retrieved.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dcd79f0-e65f-46b6-abbd-cf21da477188",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices",
+                    ":invoiceId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "invoiceId",
+                      "description": "(Required) The unique identifier of the invoice whose transactions are to be retrieved.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e9293e5-2adb-427c-8705-cc6d0e845d52",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices",
+                    ":invoiceId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "invoiceId",
+                      "description": "(Required) The unique identifier of the invoice whose transactions are to be retrieved.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 8981,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "878b29a8-7e84-498b-81a6-a5749234b238",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "invoices",
+                    ":invoiceId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "SortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "invoiceId",
+                      "description": "(Required) The unique identifier of the invoice whose transactions are to be retrieved.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf9cf307-1cea-4736-a404-beaedf518b4b",
+          "name": "Get Transaction Fees\n",
+          "request": {
+            "name": "Get Transaction Fees\n",
+            "description": {
+              "content": "This endpoint returns a list of transaction fees\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "transaction-fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd585b24-e48a-4af6-a2e9-6724f299e7ef",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transaction-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fee_list\": [\n    \"B2B - Fulfilment Fees\",\n    \"B2B - ASIN Fee\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61a3e1ad-12a3-45e9-94d4-b0dab2c9343c",
+              "name": "Authorization missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transaction-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2e60890-f46d-4536-8956-62f3d024d9c4",
+              "name": "The provided credentials are not authorized to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transaction-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a828e64b-1341-4957-b78d-643c7093780e",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "transaction-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "34480444-a1db-4ba1-bbe4-7c787952594a",
+    "name": "API Reference subpackage_billing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,568 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_products API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/product",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Search",
+                "value": "",
+                "type": "query",
+                "description": "Search Products by name, sku, inventory id or product Id.\n"
+              },
+              {
+                "name": "Barcode",
+                "value": "",
+                "type": "query",
+                "description": "Barcode Associated with variant\n"
+              },
+              {
+                "name": "Barcodes",
+                "value": "",
+                "type": "query",
+                "description": "Barcodes Associated with variant\n"
+              },
+              {
+                "name": "CategoryIds",
+                "value": "",
+                "type": "query",
+                "description": "List of Category Ids associated with product\n"
+              },
+              {
+                "name": "ChannelIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their channel IDs\n"
+              },
+              {
+                "name": "HasDigitalVariants",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with/without digital variants\n"
+              },
+              {
+                "name": "HasVariants",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with/without variants\n"
+              },
+              {
+                "name": "InventoryId",
+                "value": "",
+                "type": "query",
+                "description": "Looks for variants by its associated inventory id\n"
+              },
+              {
+                "name": "IsInventorySyncEnabled",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their IsInventorySyncEnabled is true\n"
+              },
+              {
+                "name": "LastUpdatedTimestamp",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products that have been updated since the given date\n"
+              },
+              {
+                "name": "LegacyIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with by Legacy Product Id(s)\n"
+              },
+              {
+                "name": "Name",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products/Variants by name\n"
+              },
+              {
+                "name": "OnHand",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with inventory\n"
+              },
+              {
+                "name": "PlatformIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their external Platform IDs\n"
+              },
+              {
+                "name": "ProductId",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with an assigned Id\n"
+              },
+              {
+                "name": "ProductType",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products by type\n"
+              },
+              {
+                "name": "ReviewsPending",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products by ReviewsPending\n"
+              },
+              {
+                "name": "SalesChannel",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants assigned to a platform/sales channel \n"
+              },
+              {
+                "name": "SellerSKU",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products that match the provided Seller query\n"
+              },
+              {
+                "name": "SKU",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products that match the provided Sku query\n"
+              },
+              {
+                "name": "TaxonomyIds",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products variants by their taxonomy id or any descendants of the taxonomies sent separated by comma\n"
+              },
+              {
+                "name": "VariantId",
+                "value": "",
+                "type": "query",
+                "description": "Looks for products that contain a variant with the given ID\n"
+              },
+              {
+                "name": "VariantStatus",
+                "value": "",
+                "type": "query",
+                "description": "Looks for Products with variants that contain provided status\n"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "1-250\n"
+              },
+              {
+                "name": "SortBy",
+                "value": "",
+                "type": "query",
+                "description": "Id, Name, Category, TotalOnHandQty\n"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "ASC,DESC\n"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of products. Supports filtering by search term, barcode, SKU, status, and other criteria."
+        },
+        {
+          "info": {
+            "name": "Create Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product with one or more variants. Requires a product name and at least one variant with a unique SKU."
+        },
+        {
+          "info": {
+            "name": "Get Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/product/:productId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a product with all its variants and details."
+        },
+        {
+          "info": {
+            "name": "Update Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shipbob.com/2026-01/product/:productId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product identifier\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a product. Supports partial updates - only the fields provided will be updated. When updating variants through this endpoint, you must include the variant ID."
+        },
+        {
+          "info": {
+            "name": "Delete Product Bundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shipbob.com/2026-01/product/:productId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product identifier\n"
+              }
+            ]
+          },
+          "docs": "Deletes a bundle product by ID. Delete operation not allowed for non-bundles."
+        },
+        {
+          "info": {
+            "name": "Get Product Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/product/:productId/variants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product id\n"
+              }
+            ]
+          },
+          "docs": "Retrieves all variants for a specific product."
+        },
+        {
+          "info": {
+            "name": "Add Product Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product/:productId/variants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds new variants to an existing product. The request body must be an array of variant objects, each requiring a unique SKU."
+        },
+        {
+          "info": {
+            "name": "Update Product Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shipbob.com/2026-01/product/:productId/variants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates one or more product variants. The request body must be an array of variant objects. Each variant must include the variant ID, and only the fields provided will be updated."
+        },
+        {
+          "info": {
+            "name": "Merge Variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/variant/:variantId:merge",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the variant to use as the merge target\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Merges multiple product variants into a target variant. Provide an array of variant IDs to merge into the target variant specified in the path. Inventory from the merged variants will be consolidated into the target variant."
+        },
+        {
+          "info": {
+            "name": "Move Variants Between Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product/:productId:moveVariants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves variants from their current product to the target product specified in the path. Provide an array of variant IDs to move."
+        },
+        {
+          "info": {
+            "name": "Move Variants to New Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/product:moveVariants",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product and moves existing variants from their current products into it. Provide the new product details and variant IDs."
+        },
+        {
+          "info": {
+            "name": "Get Packaging Requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/packaging-requirement",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all available packaging requirements that can be assigned to a product."
+        },
+        {
+          "info": {
+            "name": "Get Taxonomies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/taxonomy",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves all available product taxonomies for categorizing products."
+        },
+        {
+          "info": {
+            "name": "Get Taxonomy by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/taxonomy/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific taxonomy node and its details by taxonomy ID."
+        },
+        {
+          "info": {
+            "name": "Get Taxonomy Parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/taxonomy/:id/parent",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the parent taxonomy node for a given taxonomy ID."
+        },
+        {
+          "info": {
+            "name": "Convert Variant to Bundle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/variant/:variantId:convertToBundle",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Converts an existing product variant into a bundle product. Provide the bundle definition specifying which variants and quantities make up the bundle."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

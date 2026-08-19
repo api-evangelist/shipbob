@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_simulations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_simulations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Simulates Shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/simulate/shipment",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulation shipments in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).\n\n<Warning>This endpoint is **only available** on sandbox.</Warning>"
+        },
+        {
+          "info": {
+            "name": "Get Simulation Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/simulate/status/:simulationId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "simulationId",
+                "value": "",
+                "type": "path",
+                "description": "The simulation id"
+              }
+            ]
+          },
+          "docs": "Get the status of a simulation in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).\n\n<Warning>This endpoint is **only available** on sandbox.</Warning>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

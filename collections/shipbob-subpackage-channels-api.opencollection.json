@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_channels API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_channels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/channel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "RecordsPerPage",
+                "value": "",
+                "type": "query",
+                "description": "The number of records to return per page. This parameter is used for pagination. If not provided, a default value will be used."
+              },
+              {
+                "name": "Cursor",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for pagination. This parameter is used to fetch the next set of results."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of channels that the authenticated user has access to based on the provided access token.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,700 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_orders API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query",
+                "description": "Page of orders to get"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Amount of orders per page to request"
+              },
+              {
+                "name": "IDs",
+                "value": "",
+                "type": "query",
+                "description": "order ids to filter by, comma separated <br /><strong>Example:</strong> ?IDs=1,2"
+              },
+              {
+                "name": "ReferenceIds",
+                "value": "",
+                "type": "query",
+                "description": "Reference ids to filter by, comma separated <br /><strong>Example:</strong> ?ReferenceIds=Ref1,Ref2"
+              },
+              {
+                "name": "StartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date to filter orders inserted later than"
+              },
+              {
+                "name": "EndDate",
+                "value": "",
+                "type": "query",
+                "description": "End date to filter orders inserted earlier than"
+              },
+              {
+                "name": "SortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Order to sort results in"
+              },
+              {
+                "name": "HasTracking",
+                "value": "",
+                "type": "query",
+                "description": "Has any portion of this order been assigned a tracking number"
+              },
+              {
+                "name": "LastUpdateStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date to filter orders updated later than"
+              },
+              {
+                "name": "LastUpdateEndDate",
+                "value": "",
+                "type": "query",
+                "description": "End date to filter orders updated later than"
+              },
+              {
+                "name": "IsTrackingUploaded",
+                "value": "",
+                "type": "query",
+                "description": "Filter orders that their tracking information was fully uploaded"
+              },
+              {
+                "name": "LastTrackingUpdateStartDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date to filter orders with tracking updates later than the supplied date. Will only return orders that have tracking information"
+              },
+              {
+                "name": "LastTrackingUpdateEndDate",
+                "value": "",
+                "type": "query",
+                "description": "End date to filter orders updated later than the supplied date. Will only return orders that have tracking information"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of orders from your ShipBob account with optional filters. All filter parameters use AND logic, meaning orders must match all provided criteria to be returned."
+        },
+        {
+          "info": {
+            "name": "Create Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new order in ShipBob’s system that will be queued for fulfillment. Orders can be created using either product reference IDs (SKUs) or ShipBob product IDs, with reference IDs being the recommended approach."
+        },
+        {
+          "info": {
+            "name": "Get Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific order by its order ID, including order status, shipments, products, and recipient details."
+        },
+        {
+          "info": {
+            "name": "Get Shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific shipment by shipment ID, including shipment status, tracking information, fulfillment center location, and contained products."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId/timeline",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves a chronological timeline of shipment status updates by shipment ID, showing when each status change occurred and providing visibility into the fulfillment progress."
+        },
+        {
+          "info": {
+            "name": "Batch Cancel Shipments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment:batchCancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancels multiple shipments in a single request. Shipments can only be cancelled if they are in a cancellable state (i.e. not picked, packed, or shipped yet)."
+        },
+        {
+          "info": {
+            "name": "Mark Tracking Uploaded",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment:batchUpdateTrackingUpload",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark tracking information as synced to your external system for multiple shipments. Use this endpoint after syncing tracking data to update the IsTrackingUploaded flag, preventing these shipments from appearing in future GET /order queries with IsTrackingUploaded=false.\n\n<Tip>Use this endpoint if you're filtering orders by is_tracking_uploaded. This allows integrations to acknowledge that shipments have been successfully synced to their system.</Tip>"
+        },
+        {
+          "info": {
+            "name": "Update Shipment Address\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:updateAddress",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the shipment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the shipping address for a specific shipment.\n"
+        },
+        {
+          "info": {
+            "name": "Get Shipment Line Items\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:getLineItems",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the shipment"
+              }
+            ]
+          },
+          "docs": "Retrieves the line items for a specific shipment.\n"
+        },
+        {
+          "info": {
+            "name": "Update Shipment Line Items\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:updateLineItems",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the shipment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the line items for a specific shipment. The request body must include the complete list of line items as returned by the GET /{shipmentId}:getLineItems endpoint — partial updates are not supported. Retrieve the current line items first, modify the desired fields, and submit the full payload.\n"
+        },
+        {
+          "info": {
+            "name": "Bulk Update Shipping Service\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shipbob.com/2026-01/shipment:bulkUpdateShippingService",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the shipping service for multiple shipments in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order ID to cancel"
+              }
+            ]
+          },
+          "docs": "Cancels an order and all associated shipments. The order must be in a cancellable state to proceed with the cancellation."
+        },
+        {
+          "info": {
+            "name": "Cancel Shipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Cancels a specific shipment by shipment ID. The shipment must not be picked, packed, or shipped to proceed with the cancellation."
+        },
+        {
+          "info": {
+            "name": "Get Shipping Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipping-method",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "Page",
+                "value": "",
+                "type": "query",
+                "description": "Page of orders to get"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Amount of records per page to request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available shipping methods configured for your merchant account."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Status Timeline by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId/timeline",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get the shipment for"
+              },
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves a chronological timeline of shipment status updates by shipment ID, showing when each status change occurred and providing visibility into the fulfillment progress."
+        },
+        {
+          "info": {
+            "name": "Get All Shipments for Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get shipments for"
+              }
+            ]
+          },
+          "docs": "Retrieves all shipments associated with a specific order, including shipment status, tracking information, and product details."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Logs by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId/logs",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get the shipment for"
+              },
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves operational logs for a specific shipment by shipment ID, providing a detailed record of all events and status changes that have occurred."
+        },
+        {
+          "info": {
+            "name": "Cancel Shipment by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId:cancel",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancels a specific shipment by order ID and shipment ID. The shipment must not be picked, packed, or shipped to proceed with the cancellation."
+        },
+        {
+          "info": {
+            "name": "Get Shipment Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/shipment/:shipmentId/logs",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves operational logs for a specific shipment by shipment ID, providing a detailed record of all events and status changes that have occurred."
+        },
+        {
+          "info": {
+            "name": "Get Shipment by Order ID and Shipment ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/shipment/:shipmentId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order id to get the shipment for"
+              },
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path",
+                "description": "The shipment id to get"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed shipment information for a specific order and shipment combination, including shipment status, tracking information, fulfillment center location, and contained products."
+        },
+        {
+          "info": {
+            "name": "Estimate Fulfillment Cost For Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shipbob.com/2026-01/order:estimate",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "shipbob_channel_id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint will provide, where possible, an estimate of pricing and fulfillment center assignment of a potential standard (direct to consumer) order. Keep in mind that there are ways for the merchant to change FC assignment or product configuration after order creation that could invalidate this estimate. Estimates cannot be returned for items that are unknown, out of stock, or too large for fulfillment using standard box sizes. Additional services such as high-pick fees, shipping insurance, "
+        },
+        {
+          "info": {
+            "name": "Get Order Store Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/order/:orderId/store-order-json",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order ID to Get the JSON Stored"
+              }
+            ]
+          },
+          "docs": "Retrieves the original store order data associated with the order in JSON format, preserving custom fields and metadata from the order source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

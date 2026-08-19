@@ -1,0 +1,3802 @@
+{
+  "item": [
+    {
+      "id": "08fbd3d9-c21a-49b2-abfd-01ab2f820c3a",
+      "name": "subpackage_inventory",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3a862d57-63a2-45a3-8639-230e05e5253d",
+          "name": "Get All Inventory Levels",
+          "request": {
+            "name": "Get All Inventory Levels",
+            "description": {
+              "content": "Retrieves current inventory levels across all locations. Returns available, on-hand, committed, and other quantity types. Supports filtering by inventory IDs and product attributes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory-level"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "SearchBy",
+                  "value": "<string>",
+                  "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "InventoryIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve inventory levels for specific inventory items only."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsActive",
+                  "value": "<boolean>",
+                  "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsDigital",
+                  "value": "<boolean>",
+                  "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+                },
+                {
+                  "disabled": false,
+                  "key": "PageSize",
+                  "value": "<int32>",
+                  "description": "Number of inventory level items to return per page. Controls pagination size for the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "SortBy",
+                  "value": "<string>",
+                  "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-total_on_hand_quantity' sorts by quantity descending). Multiple fields can be comma-separated."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da3806f1-e2ad-4584-a0b6-dbc931854b4b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"string\",\n  \"items\": [\n    {\n      \"inventory_id\": 8277,\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"total_awaiting_quantity\": 5849,\n      \"total_backordered_quantity\": 2099,\n      \"total_committed_quantity\": 8441,\n      \"total_exception_quantity\": 8648,\n      \"total_fulfillable_quantity\": 5161,\n      \"total_internal_transfer_quantity\": 1456,\n      \"total_on_hand_quantity\": 7156,\n      \"total_sellable_quantity\": 4178\n    },\n    {\n      \"inventory_id\": 3002,\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"total_awaiting_quantity\": 3181,\n      \"total_backordered_quantity\": 9478,\n      \"total_committed_quantity\": 8648,\n      \"total_exception_quantity\": 2280,\n      \"total_fulfillable_quantity\": 6731,\n      \"total_internal_transfer_quantity\": 3096,\n      \"total_on_hand_quantity\": 3752,\n      \"total_sellable_quantity\": 3358\n    }\n  ],\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8475fd78-f51d-4d6c-9f93-9a33bd9ec258",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f028dc8-1558-4995-a1b0-09a089a9dbdc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31a5bbdc-a98d-4f14-8f88-12bcc25789bb",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3faac81-f4a0-48bc-b773-02b67a1f501f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4aeda723-8965-45f2-8bbd-7aa0077c309c",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3147cb84-6dd8-4117-bc61-506e7cb2297f",
+          "name": "Get Inventory Levels",
+          "request": {
+            "name": "Get Inventory Levels",
+            "description": {
+              "content": "Retrieves the aggregated inventory levels for a specific inventory item across all locations, including available, on-hand, committed, and other quantity types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory-level",
+                ":inventoryId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "inventoryId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb57e024-aedc-4f52-b6ad-ef41f16f0d79",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inventory_id\": 3235,\n  \"name\": \"string\",\n  \"sku\": \"string\",\n  \"total_awaiting_quantity\": 1720,\n  \"total_backordered_quantity\": 741,\n  \"total_committed_quantity\": 1722,\n  \"total_exception_quantity\": 3374,\n  \"total_fulfillable_quantity\": 7078,\n  \"total_internal_transfer_quantity\": 3759,\n  \"total_on_hand_quantity\": 8288,\n  \"total_sellable_quantity\": 6347\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5627994-6816-45d3-b87e-5d423810b38f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "373af12a-edc1-4460-b0da-fad351f0b406",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1506cbf3-30cb-4798-b7ef-838d46c716c3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "497a541e-64d1-4d5d-812d-159535f468d2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d30fdc95-a829-42f4-895e-68361dd4a770",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2427fafc-4547-4126-8724-4229554727d4",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f433085c-2e77-4c51-8003-8bc0c897825d",
+          "name": "Get Inventory",
+          "request": {
+            "name": "Get Inventory",
+            "description": {
+              "content": "Retrieves detailed information about a specific inventory item by its ID, including product details, variant information, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory",
+                ":inventoryId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "inventoryId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "198f5fdf-ea3e-4ada-b4ff-2b11905fc60b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"barcode\": \"string\",\n  \"dimensions\": {\n    \"height\": 449.38124470114917,\n    \"is_locked\": false,\n    \"length\": 4543.486042682873,\n    \"unit\": \"string\",\n    \"validated\": false,\n    \"width\": 7063.003846613729\n  },\n  \"inventory_id\": 4792,\n  \"is_case\": false,\n  \"is_lot\": false,\n  \"name\": \"string\",\n  \"sku\": \"string\",\n  \"user_id\": 2093,\n  \"variant\": {\n    \"hazmat\": {\n      \"is_hazmat\": true,\n      \"validated\": false\n    },\n    \"is_active\": true,\n    \"is_bundle\": false,\n    \"is_digital\": false\n  },\n  \"weight\": {\n    \"unit\": \"string\",\n    \"value\": 1318.9734208707205\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cec10126-c50b-4c1a-9d44-f38e474ba0d3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7ab003b-b326-4037-830b-36922afffca7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ca2384f-337c-4d1a-bbde-a38c481eefef",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82ef0148-f9f3-4395-b53f-7b830132842b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43d99260-b18f-4b54-90f6-1d9bd65d5034",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d44fa23-d00f-4f40-ac42-1db9730dc4c5",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    ":inventoryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89f2ddef-b71b-450c-b084-f6c8c8a343be",
+          "name": "Get All Inventories",
+          "request": {
+            "name": "Get All Inventories",
+            "description": {
+              "content": "Retrieves a paginated list of all inventory items. Supports filtering by active status, tags, and various product attributes. Use query parameters to search and filter results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "SearchBy",
+                  "value": "<string>",
+                  "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "FilterOperations",
+                  "value": "<string>",
+                  "description": "Advanced filtering operations. Apply multiple key-value filters to refine inventory results. Each filter operation contains a 'key' (field name) and 'rawValue' (filter value) to match."
+                },
+                {
+                  "disabled": false,
+                  "key": "InventoryIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve information for specific inventory items only."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsActive",
+                  "value": "<boolean>",
+                  "description": "Filter by active status. True returns only active inventory items, False returns only inactive items. Omit to return both."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsDigital",
+                  "value": "<boolean>",
+                  "description": "Filter by digital product status. True returns only digital products (no physical fulfillment), False returns only physical products. Omit to return both."
+                },
+                {
+                  "disabled": false,
+                  "key": "PageSize",
+                  "value": "<int32>",
+                  "description": "Number of items to return per page. Controls pagination size for the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "SortBy",
+                  "value": "<string>",
+                  "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25187ac3-ca14-4f65-9f68-7fa8d64f83b7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FilterOperations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"string\",\n  \"items\": [\n    {\n      \"barcode\": \"string\",\n      \"dimensions\": {\n        \"height\": 2463.198937441613,\n        \"is_locked\": true,\n        \"length\": 6272.52527173118,\n        \"unit\": \"string\",\n        \"validated\": false,\n        \"width\": 1837.433234835969\n      },\n      \"inventory_id\": 8956,\n      \"is_case\": true,\n      \"is_lot\": true,\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"user_id\": 3516,\n      \"variant\": {\n        \"hazmat\": {\n          \"is_hazmat\": true,\n          \"validated\": true\n        },\n        \"is_active\": true,\n        \"is_bundle\": true,\n        \"is_digital\": false\n      },\n      \"weight\": {\n        \"unit\": \"string\",\n        \"value\": 2468.325208180383\n      }\n    },\n    {\n      \"barcode\": \"string\",\n      \"dimensions\": {\n        \"height\": 4622.07121789554,\n        \"is_locked\": false,\n        \"length\": 1340.012035803073,\n        \"unit\": \"string\",\n        \"validated\": true,\n        \"width\": 7157.553294653681\n      },\n      \"inventory_id\": 3855,\n      \"is_case\": true,\n      \"is_lot\": false,\n      \"name\": \"string\",\n      \"sku\": \"string\",\n      \"user_id\": 8074,\n      \"variant\": {\n        \"hazmat\": {\n          \"is_hazmat\": true,\n          \"validated\": false\n        },\n        \"is_active\": false,\n        \"is_bundle\": false,\n        \"is_digital\": true\n      },\n      \"weight\": {\n        \"unit\": \"string\",\n        \"value\": 4559.352162778216\n      }\n    }\n  ],\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96bfd4ff-e6ba-4894-8e80-447597b5ac9a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FilterOperations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01acf703-a9ca-46f5-ad9e-a206fa3c40a8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FilterOperations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9169a0b1-b067-4be3-94b7-1212678072ee",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FilterOperations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6eb16fe-3710-4897-a9e5-7916719eca4c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FilterOperations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c24e58f-7d08-450d-a45a-b763d2031e75",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FilterOperations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fdd1034a-fedd-4c4f-ad0a-ee1ba2046c3c",
+          "name": "Query Inventory History Events",
+          "request": {
+            "name": "Query Inventory History Events",
+            "description": {
+              "content": "Fetches inventory movement events that change on-hand quantities within the ShipBob network. Returns events such as receiving/stow, order picks, adjustments, restocks, and attribute updates. Filter by inventory IDs, event category, date range, and facility. Supports cursor-based pagination for large result sets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory",
+                "history:query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<int32>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"facility_id\": \"<integer>\",\n  \"cursor\": \"<integer,null>\",\n  \"end_date\": \"<string,null-date-time>\",\n  \"event_category\": \"<string,null>\",\n  \"inventory_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_date\": \"<string,null-date-time>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5141501c-1ee6-486d-9943-e2d3825b5052",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory",
+                    "history:query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<int32>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"facility_id\": \"<integer>\",\n  \"cursor\": \"<integer,null>\",\n  \"end_date\": \"<string,null-date-time>\",\n  \"event_category\": \"<string,null>\",\n  \"inventory_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"start_date\": \"<string,null-date-time>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"additional_reference\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"decrement\": {\n        \"committed_quantity_change\": 306,\n        \"expiration_date\": \"1966-04-07T06:06:56.953Z\",\n        \"facility_id\": 4356,\n        \"inventory_status\": \"string\",\n        \"location_id\": 2834,\n        \"lot_number\": \"string\",\n        \"operational_stage\": {\n          \"description\": \"string\",\n          \"id\": 4680\n        },\n        \"pack_description_id\": {\n          \"random\": \"string\",\n          \"time\": \"1982-08-21T08:18:21.179Z\"\n        },\n        \"quantity_change\": 2106,\n        \"sku\": \"string\",\n        \"yuki_id\": {\n          \"random\": \"string\",\n          \"time\": \"1987-05-17T11:07:40.655Z\"\n        }\n      },\n      \"event_category\": \"string\",\n      \"event_datetime\": \"1973-05-04T13:38:08.183Z\",\n      \"increment\": {\n        \"committed_quantity_change\": 8305,\n        \"expiration_date\": \"1976-04-26T13:57:09.220Z\",\n        \"facility_id\": 2299,\n        \"inventory_status\": \"string\",\n        \"location_id\": 7385,\n        \"lot_number\": \"string\",\n        \"operational_stage\": {\n          \"description\": \"string\",\n          \"id\": 9668\n        },\n        \"pack_description_id\": {\n          \"random\": \"string\",\n          \"time\": \"2003-08-13T16:47:03.335Z\"\n        },\n        \"quantity_change\": 5021,\n        \"sku\": \"string\",\n        \"yuki_id\": {\n          \"random\": \"string\",\n          \"time\": \"2013-11-15T00:14:11.915Z\"\n        }\n      },\n      \"inventory_audit_event_id\": 3316,\n      \"inventory_id\": 3641,\n      \"shipbob_order_id\": 7546\n    },\n    {\n      \"additional_reference\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"decrement\": {\n        \"committed_quantity_change\": 3590,\n        \"expiration_date\": \"2000-04-26T20:42:45.112Z\",\n        \"facility_id\": 6305,\n        \"inventory_status\": \"string\",\n        \"location_id\": 8246,\n        \"lot_number\": \"string\",\n        \"operational_stage\": {\n          \"description\": \"string\",\n          \"id\": 5606\n        },\n        \"pack_description_id\": {\n          \"random\": \"string\",\n          \"time\": \"2016-05-05T00:26:57.613Z\"\n        },\n        \"quantity_change\": 2632,\n        \"sku\": \"string\",\n        \"yuki_id\": {\n          \"random\": \"string\",\n          \"time\": \"1974-05-16T10:17:01.098Z\"\n        }\n      },\n      \"event_category\": \"string\",\n      \"event_datetime\": \"1963-06-02T11:05:58.796Z\",\n      \"increment\": {\n        \"committed_quantity_change\": 1795,\n        \"expiration_date\": \"1993-06-21T05:43:43.707Z\",\n        \"facility_id\": 1855,\n        \"inventory_status\": \"string\",\n        \"location_id\": 6043,\n        \"lot_number\": \"string\",\n        \"operational_stage\": {\n          \"description\": \"string\",\n          \"id\": 6833\n        },\n        \"pack_description_id\": {\n          \"random\": \"string\",\n          \"time\": \"2015-04-02T16:56:37.899Z\"\n        },\n        \"quantity_change\": 1368,\n        \"sku\": \"string\",\n        \"yuki_id\": {\n          \"random\": \"string\",\n          \"time\": \"2007-06-05T20:13:20.985Z\"\n        }\n      },\n      \"inventory_audit_event_id\": 8131,\n      \"inventory_id\": 2773,\n      \"shipbob_order_id\": 8077\n    }\n  ],\n  \"first\": \"string\",\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8de515e-1cab-422a-bf3a-eeb1460996da",
+          "name": "Get All Inventory Levels Grouped By Fulfillment Center",
+          "request": {
+            "name": "Get All Inventory Levels Grouped By Fulfillment Center",
+            "description": {
+              "content": "Retrieves inventory levels for all inventory items grouped by fulfillment center location. Supports filtering by location type, location ID, and various product attributes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory-level",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "LocationType",
+                  "value": "<string>",
+                  "description": "Filter by location type. Valid values: 'hub', 'spoke', or 'lts'. Defaults to all locations if not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "LocationId",
+                  "value": "<int32>",
+                  "description": "Filter by specific fulfillment center location ID. Use this to retrieve inventory levels for a particular fulfillment center."
+                },
+                {
+                  "disabled": false,
+                  "key": "SearchBy",
+                  "value": "<string>",
+                  "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "InventoryIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve location-grouped inventory levels for specific inventory items only."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsActive",
+                  "value": "<boolean>",
+                  "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsDigital",
+                  "value": "<boolean>",
+                  "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+                },
+                {
+                  "disabled": false,
+                  "key": "PageSize",
+                  "value": "<int32>",
+                  "description": "Number of location-grouped inventory level items to return per page. Controls pagination size for the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "SortBy",
+                  "value": "<string>",
+                  "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-name' sorts by name descending). Multiple fields can be comma-separated."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b52b475-cd1e-43a6-9f33-315f9d22351b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"string\",\n  \"items\": [\n    {\n      \"inventory_id\": 170,\n      \"locations\": [\n        {\n          \"awaiting_quantity\": 1379,\n          \"committed_quantity\": 5905,\n          \"fulfillable_quantity\": 421,\n          \"internal_transfer_quantity\": 4981,\n          \"location_id\": 8803,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 3960\n        },\n        {\n          \"awaiting_quantity\": 2217,\n          \"committed_quantity\": 1014,\n          \"fulfillable_quantity\": 9674,\n          \"internal_transfer_quantity\": 7542,\n          \"location_id\": 5263,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 6971\n        }\n      ],\n      \"name\": \"string\",\n      \"sku\": \"string\"\n    },\n    {\n      \"inventory_id\": 7959,\n      \"locations\": [\n        {\n          \"awaiting_quantity\": 8685,\n          \"committed_quantity\": 7427,\n          \"fulfillable_quantity\": 2683,\n          \"internal_transfer_quantity\": 1922,\n          \"location_id\": 5662,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 654\n        },\n        {\n          \"awaiting_quantity\": 1417,\n          \"committed_quantity\": 4774,\n          \"fulfillable_quantity\": 1934,\n          \"internal_transfer_quantity\": 355,\n          \"location_id\": 1106,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 7129\n        }\n      ],\n      \"name\": \"string\",\n      \"sku\": \"string\"\n    }\n  ],\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "963020b5-f41f-4016-be0f-40edefeecb47",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9875ebc4-9c93-47e9-ae55-d873a1f65771",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa4d9f32-5a83-49e3-8164-3fe666cc3404",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7a95ba9-dd3a-4ed4-b39d-b97f6b4d7923",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cc1f3fb-3b68-428e-b26e-77e1b5a468c6",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c98cc33-932c-4f09-87cb-47ce546fc628",
+          "name": "Get Inventory Levels Grouped By Fulfillment Center",
+          "request": {
+            "name": "Get Inventory Levels Grouped By Fulfillment Center",
+            "description": {
+              "content": "Retrieves inventory levels for a specific inventory item broken down by fulfillment center location. Shows quantity breakdowns for each location where the inventory is stored.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory-level",
+                ":inventoryId",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "inventoryId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7081b6bd-6eb9-41ae-b7be-e8162e823717",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inventory_id\": 9138,\n  \"locations\": [\n    {\n      \"awaiting_quantity\": 6124,\n      \"committed_quantity\": 5852,\n      \"fulfillable_quantity\": 1332,\n      \"internal_transfer_quantity\": 7087,\n      \"location_id\": 8359,\n      \"name\": \"string\",\n      \"on_hand_quantity\": 4933\n    },\n    {\n      \"awaiting_quantity\": 7644,\n      \"committed_quantity\": 6305,\n      \"fulfillable_quantity\": 9429,\n      \"internal_transfer_quantity\": 4394,\n      \"location_id\": 5120,\n      \"name\": \"string\",\n      \"on_hand_quantity\": 656\n    }\n  ],\n  \"name\": \"string\",\n  \"sku\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50197c84-5254-4818-86e9-25b170f8c504",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f10d27c-c6b7-4bcd-ba1a-27e5e9e43b07",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2a45e1d-dca0-4c6c-b449-a3f480bd2300",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d39a0cf-aaed-49e2-b6a8-1c2bb27d2e2d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d8a9571-fab4-4041-9962-84d0c8d4d188",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f3ca180-500f-4746-8617-732accff55cc",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86a3a490-3775-42dd-aefe-1afa72cb6723",
+          "name": "Get All Inventory Levels Grouped By Lot",
+          "request": {
+            "name": "Get All Inventory Levels Grouped By Lot",
+            "description": {
+              "content": "Retrieves inventory levels for all inventory items grouped by lot number. Enables tracking of inventory across multiple lots, including expiration dates and manufacturing batch information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory-level",
+                "lots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "LocationId",
+                  "value": "<int32>",
+                  "description": "Filter by specific fulfillment center location ID. Use this to retrieve lot-based inventory levels for a particular warehouse or distribution center."
+                },
+                {
+                  "disabled": false,
+                  "key": "SearchBy",
+                  "value": "<string>",
+                  "description": "Search is available for 3 fields: Inventory ID, Name, and SKU. Expected behavior for search by Inventory ID is exact match. Expected behavior for search by Inventory Name or SKU is partial match (consecutive characters, case insensitive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "InventoryIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory IDs to filter results. Use this to retrieve lot-grouped inventory levels for specific inventory items only."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsActive",
+                  "value": "<boolean>",
+                  "description": "Filter inventory levels by active status. Set to true to return only active inventory items, false for inactive items. Omit to return all items regardless of status."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsDigital",
+                  "value": "<boolean>",
+                  "description": "Filter inventory levels by digital product status. Set to true to return only digital products, false for physical products. Digital products are items that don't require physical fulfillment."
+                },
+                {
+                  "disabled": false,
+                  "key": "PageSize",
+                  "value": "<int32>",
+                  "description": "Number of lot-grouped inventory level items to return per page. Controls pagination size for the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "SortBy",
+                  "value": "<string>",
+                  "description": "Sort results by field name. Default is ascending order. Prefix with '-' for descending order (e.g., '-lot_date' sorts by lot date descending). Multiple fields can be comma-separated."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fb69220-abd9-4c48-8e4c-552ced030dec",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"first\": \"string\",\n  \"items\": [\n    {\n      \"inventory_id\": 2420,\n      \"lots\": [\n        {\n          \"awaiting_quantity\": 6004,\n          \"committed_quantity\": 5321,\n          \"fulfillable_quantity\": 7480,\n          \"internal_transfer_quantity\": 4332,\n          \"locations\": [\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lot_date\": \"1976-01-26T04:45:51.375Z\",\n          \"lot_number\": \"string\",\n          \"on_hand_quantity\": 204\n        },\n        {\n          \"awaiting_quantity\": 9334,\n          \"committed_quantity\": 7745,\n          \"fulfillable_quantity\": 720,\n          \"internal_transfer_quantity\": 3706,\n          \"locations\": [\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lot_date\": \"1976-11-18T02:10:19.446Z\",\n          \"lot_number\": \"string\",\n          \"on_hand_quantity\": 3632\n        }\n      ],\n      \"name\": \"string\",\n      \"sku\": \"string\"\n    },\n    {\n      \"inventory_id\": 5187,\n      \"lots\": [\n        {\n          \"awaiting_quantity\": 8865,\n          \"committed_quantity\": 8491,\n          \"fulfillable_quantity\": 7922,\n          \"internal_transfer_quantity\": 2600,\n          \"locations\": [\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lot_date\": \"1992-08-22T14:14:10.567Z\",\n          \"lot_number\": \"string\",\n          \"on_hand_quantity\": 8117\n        },\n        {\n          \"awaiting_quantity\": 2252,\n          \"committed_quantity\": 4921,\n          \"fulfillable_quantity\": 165,\n          \"internal_transfer_quantity\": 200,\n          \"locations\": [\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"awaiting_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"committed_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"fulfillable_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"internal_transfer_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"location_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"on_hand_quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lot_date\": \"2015-07-17T23:29:30.423Z\",\n          \"lot_number\": \"string\",\n          \"on_hand_quantity\": 8564\n        }\n      ],\n      \"name\": \"string\",\n      \"sku\": \"string\"\n    }\n  ],\n  \"last\": \"string\",\n  \"next\": \"string\",\n  \"prev\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a849637-845f-4d29-bd1f-dd7e0d4dc838",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef4136ca-6ae1-4b70-a9df-bb54fb86a736",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "957011d6-0985-41a2-a08a-2e76fb24f03a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a1626ad-ee39-490c-8e95-3171ad5c8173",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12f6ea81-8926-4e11-ba10-79f0f5cecfca",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "LocationId",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SearchBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "InventoryIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "IsActive",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "IsDigital",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "PageSize",
+                      "value": "<int32>"
+                    },
+                    {
+                      "key": "SortBy",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fd8e853-ebf0-4c92-b0ac-651e9a4b261b",
+          "name": "Get Inventory Levels Grouped By Lot",
+          "request": {
+            "name": "Get Inventory Levels Grouped By Lot",
+            "description": {
+              "content": "Retrieves inventory levels for a specific inventory item broken down by lot number. Useful for tracking inventory by manufacturing lot, expiration date, or batch information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2026-01",
+                "inventory-level",
+                ":inventoryId",
+                "lots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<int32>",
+                  "key": "inventoryId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0b75cdd-1569-4427-bb73-79849154967d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inventory_id\": 6303,\n  \"lots\": [\n    {\n      \"awaiting_quantity\": 4843,\n      \"committed_quantity\": 2947,\n      \"fulfillable_quantity\": 5074,\n      \"internal_transfer_quantity\": 6943,\n      \"locations\": [\n        {\n          \"awaiting_quantity\": 1012,\n          \"committed_quantity\": 904,\n          \"fulfillable_quantity\": 3252,\n          \"internal_transfer_quantity\": 2763,\n          \"location_id\": 777,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 8062\n        },\n        {\n          \"awaiting_quantity\": 7103,\n          \"committed_quantity\": 9366,\n          \"fulfillable_quantity\": 1432,\n          \"internal_transfer_quantity\": 361,\n          \"location_id\": 2785,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 8025\n        }\n      ],\n      \"lot_date\": \"1997-02-23T00:02:47.217Z\",\n      \"lot_number\": \"string\",\n      \"on_hand_quantity\": 3972\n    },\n    {\n      \"awaiting_quantity\": 2791,\n      \"committed_quantity\": 1907,\n      \"fulfillable_quantity\": 8086,\n      \"internal_transfer_quantity\": 1361,\n      \"locations\": [\n        {\n          \"awaiting_quantity\": 5140,\n          \"committed_quantity\": 2426,\n          \"fulfillable_quantity\": 5328,\n          \"internal_transfer_quantity\": 8376,\n          \"location_id\": 8018,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 903\n        },\n        {\n          \"awaiting_quantity\": 778,\n          \"committed_quantity\": 4196,\n          \"fulfillable_quantity\": 7234,\n          \"internal_transfer_quantity\": 8108,\n          \"location_id\": 4699,\n          \"name\": \"string\",\n          \"on_hand_quantity\": 1029\n        }\n      ],\n      \"lot_date\": \"1995-04-03T19:42:01.299Z\",\n      \"lot_number\": \"string\",\n      \"on_hand_quantity\": 6625\n    }\n  ],\n  \"name\": \"string\",\n  \"sku\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cb37a30-a748-47d4-a48a-7e4cd5e6c4b0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f16a2cc-c0ca-4f37-bac4-af98396f8bf5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d73b137-ecb6-4e63-b00b-dae38c0badf8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a616894-cfb5-4722-b44f-60cb91c8f341",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"status\": 276,\n  \"title\": \"string\",\n  \"type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eebf342f-336e-4c4c-92b8-3262dbb6c4b3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2d59e50-3217-4338-957d-266a28ab291c",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2026-01",
+                    "inventory-level",
+                    ":inventoryId",
+                    "lots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<int32>",
+                      "key": "inventoryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication using Personal Access Token (PAT) token or OAuth2",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shipbob.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "85c9200a-ad5a-4e96-81d2-c89eccc03700",
+    "name": "API Reference subpackage_billing subpackage_inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

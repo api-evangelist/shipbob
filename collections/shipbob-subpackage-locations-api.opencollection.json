@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference subpackage_billing subpackage_locations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "subpackage_locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shipbob.com/2026-01/location",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "IncludeInactive",
+                "value": "",
+                "type": "query",
+                "description": "Whether the inactive locations should be included or not\n"
+              },
+              {
+                "name": "ReceivingEnabled",
+                "value": "",
+                "type": "query",
+                "description": "Return all the receiving enabled locations\n"
+              },
+              {
+                "name": "AccessGranted",
+                "value": "",
+                "type": "query",
+                "description": "Return all the access granted locations\n"
+              }
+            ]
+          },
+          "docs": "Retrieves physical locations across ShipBob's fulfillment network. An active location (`is_active=true`) is operational for fulfillment processes, including receiving inventory and processing returns. Access to locations varies: some are available to all merchants by default, while others require special approval. Use the `access_granted` parameter to determine if a location is available to the authenticated user, and `receiving_enabled` to confirm if the location accepts inventory."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
