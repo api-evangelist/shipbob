@@ -24,6 +24,15 @@ tags:
 - Logistics
 - Fulfillment
 - 3PL
+- E-Commerce
+- Inventory
+- Warehousing
+- Shipping
+- Direct to Consumer
+tags_raw:
+- Logistics
+- Fulfillment
+- 3PL
 - Ecommerce
 - Inventory
 - Warehousing
@@ -38,7 +47,8 @@ apis:
   description: The subpackage_billing API from ShipBob — 4 operation(s) for subpackage_billing.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_billing
   properties:
   - type: OpenAPI
@@ -64,7 +74,8 @@ apis:
   description: The subpackage_channels API from ShipBob — 1 operation(s) for subpackage_channels.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_channels
   properties:
   - type: OpenAPI
@@ -90,7 +101,8 @@ apis:
   description: The subpackage_inventory API from ShipBob — 9 operation(s) for subpackage_inventory.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_inventory
   properties:
   - type: OpenAPI
@@ -116,7 +128,8 @@ apis:
   description: The subpackage_locations API from ShipBob — 1 operation(s) for subpackage_locations.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_locations
   properties:
   - type: OpenAPI
@@ -142,7 +155,8 @@ apis:
   description: The subpackage_orders API from ShipBob — 21 operation(s) for subpackage_orders.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_orders
   properties:
   - type: OpenAPI
@@ -168,7 +182,8 @@ apis:
   description: The subpackage_products API from ShipBob — 11 operation(s) for subpackage_products.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_products
   properties:
   - type: OpenAPI
@@ -194,7 +209,8 @@ apis:
   description: The subpackage_receiving API from ShipBob — 8 operation(s) for subpackage_receiving.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_receiving
   properties:
   - type: OpenAPI
@@ -220,7 +236,8 @@ apis:
   description: The subpackage_returns API from ShipBob — 3 operation(s) for subpackage_returns.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_returns
   properties:
   - type: OpenAPI
@@ -246,7 +263,8 @@ apis:
   description: The subpackage_simulations API from ShipBob — 2 operation(s) for subpackage_simulations.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_simulations
   properties:
   - type: OpenAPI
@@ -272,7 +290,8 @@ apis:
   description: The subpackage_webhooks API from ShipBob — 2 operation(s) for subpackage_webhooks.
   humanURL: https://developer.shipbob.com/
   baseURL: https://api.shipbob.com
-  tags:
+  tags: []
+  tags_raw:
   - subpackage_webhooks
   properties:
   - type: OpenAPI
