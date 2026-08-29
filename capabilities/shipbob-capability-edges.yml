@@ -1,0 +1,69 @@
+slug: shipbob
+provider: ShipBob
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: subpackage_receiving
+  spec_file: shipbob-subpackage-receiving-api-openapi.yml
+  capability_id: BC-2460.10
+  capability_id_l1: BC-2460
+  capability_name: Inbound Operations Management
+  confidence: 0.87
+  evidence: POST /2026-01/receiving  create-warehouse-receiving-order; GET /2026-01/receiving/{id}/boxes;
+    GET /2026-01/receiving/{id}/labels
+  reason: Warehouse Receiving Orders with boxes, box labels and inventory distributions to fulfillment
+    centers is inbound receipt and putaway of goods entering the 3PL warehouse.
+- tag: subpackage_returns
+  spec_file: shipbob-subpackage-returns-api-openapi.yml
+  capability_id: BC-2460.50
+  capability_id_l1: BC-2460
+  capability_name: Returns and Reverse Operations Management
+  confidence: 0.85
+  evidence: POST /2026-01/return  create-return-order; schemas Returns.ReturnAction, Returns.ActionTakenDto,
+    Returns.ReturnInventory
+  reason: Creation, editing and cancellation of return orders with requested/taken disposition actions
+    against returned inventory at a fulfillment center — reverse-logistics receipt and disposition in
+    the 3PL warehouse.
+- tag: subpackage_inventory
+  spec_file: shipbob-subpackage-inventory-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.7
+  evidence: GET /2026-01/inventory-level/locations  get-all-inventory-levels-grouped-by-fulfillment-center;
+    GET /2026-01/inventory-level/lots
+  reason: Reports on-hand and fulfillable inventory quantities by fulfillment center and lot, plus inventory
+    history events — stock visibility across the network. L1 only because the surface is read-only visibility
+    rather than a specific policy/replenishment or in-warehouse storage-operations function.
+- tag: subpackage_orders
+  spec_file: shipbob-subpackage-orders-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: POST /2026-01/order  create-order; GET /2026-01/shipment/{shipmentId}/timeline  get-shipment-timeline;
+    PUT /2026-01/shipment:bulkUpdateShippingService
+  reason: Merchants submit fulfilment orders to the 3PL which become shipments with ship methods, addresses
+    and cancellation — order-to-fulfilment orchestration. Some ambiguity with warehouse outbound operations
+    (BC-2460.30) since the surface is order/shipment-level rather than pick/pack floor activity.
+- tag: subpackage_webhooks
+  spec_file: shipbob-subpackage-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /2026-01/webhook  create-subscription  Create Subscription; schema Webhooks.V2.CreateSubscriptionRequest,
+    Webhooks.Topics
+  reason: Operations create, list and delete outbound webhook subscriptions by topic — lifecycle of event
+    subscriptions for API consumers, which is the Webhook & Event Subscription Management capability rather
+    than any fulfilment business capability.

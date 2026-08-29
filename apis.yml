@@ -325,6 +325,9 @@ apis:
   - type: GraphQL
     url: graphql/shipbob-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/shipbob-capability-edges.yml
+  name: ShipBob Business Capability Map
 - type: AgenticAccess
   url: agentic-access/shipbob-agentic-access.yml
 - type: TrustCenter
