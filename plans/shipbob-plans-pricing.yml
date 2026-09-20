@@ -1,104 +1,18 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: ShipBob
-providerId: shipbob
-created: '2026-05-08'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-08, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-25'
-reconciled: true
-tags:
-- Logistics
-- Fulfillment
-- E-Commerce
-- 3PL
-- Warehousing
-- Plans
-description: ShipBob does not publish fixed plan tiers; pricing is quote-based and built from
-  per-unit fees across pick-and-pack, storage, receiving, and outbound shipping. A documented
-  $275/month minimum applies to fulfillment services (storage, receiving, and shipping billed
-  separately). API access is included with any ShipBob fulfillment account at no extra charge.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.shipbob.com/pricing/
 sources:
 - https://www.shipbob.com/pricing/
-- https://support.shipbob.com/s/article/ShipBob-Storage
-- https://support.shipbob.com/s/article/US-Fulfillment-Center-Additional-Services-Pricing
-- https://developer.shipbob.com/
-plans:
-- id: shipbob-fulfillment
-  name: ShipBob Fulfillment (Quote-Based)
-  type: usage
-  description: Quote-based fulfillment account sized to order volume, SKU count, storage
-    footprint, and complexity. Includes Developer API access at no additional cost.
-  entries:
-  - label: Monthly Fulfillment Minimum
-    name: monthly_minimum
-    type: flat
-    metric: account
-    limit: 1
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: 275 USD
-    userMultiplied: false
-  - label: Pick And Pack
-    name: pick_and_pack
-    type: usage
-    metric: item picked
-    limit: -1
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: quoted per unit
-    userMultiplied: false
-  - label: Storage
-    name: storage
-    type: usage
-    metric: bin / shelf / pallet
-    limit: -1
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: monthly rate per occupied storage unit
-    userMultiplied: false
-  - label: Warehouse Receiving (WRO)
-    name: receiving
-    type: usage
-    metric: WRO
-    limit: -1
-    timeFrame: usage
-    geo: US
-    unit: 1
-    price: 25-40 USD flat for first 2 hours, then 45 USD/hour
-    userMultiplied: false
-  - label: Outbound Shipping
-    name: shipping
-    type: usage
-    metric: shipment
-    limit: -1
-    timeFrame: usage
-    geo: global
-    unit: 1
-    price: per-order based on destination, weight, and method
-    userMultiplied: false
-  - label: Developer API Access
-    name: api_access
-    type: flat
-    metric: included
-    limit: -1
-    timeFrame: usage
-    geo: global
-    unit: 1
-    price: 0 USD (included)
-    userMultiplied: false
-  elements:
-  - name: 60+ Global Fulfillment Centers
-  - name: 2-Day Shipping (Continental US)
-  - name: International Shipping (250+ destinations)
-  - name: B2B / EDI Fulfillment
-  - name: 50+ App Store Integrations
-  - name: Developer API Access (PAT and OAuth)
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: negotiated
+published: false
+note: No numeric price is published on the pricing page; Fulfillment pricing page states standard fee
+  categories and that all quotes are customized; only CTA is 'Get a quote'. Software said to be free,
+  but no numeric prices shown.
+plan_count: 0
+plans: []
