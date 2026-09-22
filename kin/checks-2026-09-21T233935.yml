@@ -2,16 +2,16 @@
 kin_checks:
   slug: shipbob
   schema_version: 0.22.0
-  scored_at: '2026-09-19'
-  run_ts: 2026-09-19T193153
+  scored_at: '2026-09-21'
+  run_ts: 2026-09-21T233935
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 136
     earned: 40
-    partial: 13
-    missed: 61
+    partial: 12
+    missed: 62
     na: 22
   checks:
   - id: multiple_apis
@@ -91,6 +91,8 @@ kin_checks:
     status: missed
   - id: support_channel
     status: missed
+  - id: plans_present
+    status: missed
   - id: plans_multiple
     status: missed
   - id: sign_up_present
@@ -165,9 +167,6 @@ kin_checks:
     status: partial
     earned: 1.0
     detail: pointer liveness 0.5
-  - id: plans_present
-    status: partial
-    earned: 2.0
   - id: agentic_access
     status: partial
     earned: 2.5
