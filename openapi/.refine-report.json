@@ -1,16 +1,7 @@
 {
   "provider": "shipbob",
   "sources": [
-    "shipbob-subpackage-billing-api-openapi.yml",
-    "shipbob-subpackage-channels-api-openapi.yml",
-    "shipbob-subpackage-inventory-api-openapi.yml",
-    "shipbob-subpackage-locations-api-openapi.yml",
-    "shipbob-subpackage-orders-api-openapi.yml",
-    "shipbob-subpackage-products-api-openapi.yml",
-    "shipbob-subpackage-receiving-api-openapi.yml",
-    "shipbob-subpackage-returns-api-openapi.yml",
-    "shipbob-subpackage-simulations-api-openapi.yml",
-    "shipbob-subpackage-webhooks-api-openapi.yml"
+    "_original/shipbob-openapi.json"
   ],
   "outputs": [
     "shipbob-subpackage-billing-api-openapi.yml",
@@ -27,6 +18,31 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "shipbob-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "shipbob-openapi.json: declared missing tag: subpackage_billing",
+    "shipbob-openapi.json: declared missing tag: subpackage_channels",
+    "shipbob-openapi.json: declared missing tag: subpackage_inventory",
+    "shipbob-openapi.json: declared missing tag: subpackage_locations",
+    "shipbob-openapi.json: declared missing tag: subpackage_orders",
+    "shipbob-openapi.json: declared missing tag: subpackage_products",
+    "shipbob-openapi.json: declared missing tag: subpackage_receiving",
+    "shipbob-openapi.json: declared missing tag: subpackage_returns",
+    "shipbob-openapi.json: declared missing tag: subpackage_simulations",
+    "shipbob-openapi.json: declared missing tag: subpackage_webhooks",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "shipbob-subpackage-billing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-channels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-inventory-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-receiving-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-returns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-simulations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shipbob-subpackage-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

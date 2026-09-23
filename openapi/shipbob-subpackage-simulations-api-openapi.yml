@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: API Reference subpackage_billing subpackage_simulations API
+  title: Reference Subpackage Simulations API
   version: 1.0.0
 servers:
 - url: https://api.shipbob.com
@@ -12,10 +12,10 @@ paths:
     post:
       operationId: simulates-shipment
       summary: Simulates Shipment
-      description: 'Simulation shipments in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).
+      description: 'Simulation shipments in the ShipBob sandbox environment. Learn more about sandbox simulations.
 
 
-        <Warning>This endpoint is **only available** on sandbox.</Warning>'
+        This endpoint is **only available** on sandbox.'
       tags:
       - subpackage_simulations
       parameters:
@@ -42,10 +42,10 @@ paths:
     get:
       operationId: get-simulation-status
       summary: Get Simulation Status
-      description: 'Get the status of a simulation in the ShipBob sandbox environment. Learn more about [sandbox simulations](/sandbox/simulations).
+      description: 'Get the status of a simulation in the ShipBob sandbox environment. Learn more about sandbox simulations.
 
 
-        <Warning>This endpoint is **only available** on sandbox.</Warning>'
+        This endpoint is **only available** on sandbox.'
       tags:
       - subpackage_simulations
       parameters:
@@ -71,6 +71,30 @@ paths:
                 $ref: '#/components/schemas/Simulation.simulationStatusResponseModel'
 components:
   schemas:
+    Simulation.simulationStatusResponseModel:
+      type: object
+      properties:
+        entity_id:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier of the entity the simulation is associated with (for example: shipment id).'
+        entity_type:
+          type:
+          - string
+          - 'null'
+          description: 'The type of entity the simulation is associated with (for example: Order).'
+        simulation:
+          $ref: '#/components/schemas/Simulation.actionStatusResponseModel'
+          description: The current status of the simulation action(s), including any chained next actions.
+        simulation_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: The unique identifier of the simulation run.
+      description: Provides the current status for a simulation run, including the target entity and the action execution chain.
+      title: Simulation.simulationStatusResponseModel
     Simulation.actionStatusResponseModel:
       type: object
       properties:
@@ -100,52 +124,6 @@ components:
           description: The current execution state of the action.
       description: Represents the current status of a simulation action, optionally including a chained next action status.
       title: Simulation.actionStatusResponseModel
-    Simulation.simulationResponseModel:
-      type: object
-      properties:
-        message:
-          type:
-          - string
-          - 'null'
-          description: Optional message about the submitted simulation.
-        simulation_id:
-          type:
-          - string
-          - 'null'
-          description: The unique identifier of the simulation run.
-      description: Response returned after submitting a simulation request.
-      title: Simulation.simulationResponseModel
-    SimulationActionStatusResponseModelAction:
-      type: string
-      enum:
-      - ShipOrder
-      - DeliverOrder
-      description: 'The name of the action performed in the simulation (for example: ShipOrder, DeliverOrder).'
-      title: SimulationActionStatusResponseModelAction
-    Simulation.simulationStatusResponseModel:
-      type: object
-      properties:
-        entity_id:
-          type:
-          - string
-          - 'null'
-          description: 'The identifier of the entity the simulation is associated with (for example: shipment id).'
-        entity_type:
-          type:
-          - string
-          - 'null'
-          description: 'The type of entity the simulation is associated with (for example: Order).'
-        simulation:
-          $ref: '#/components/schemas/Simulation.actionStatusResponseModel'
-          description: The current status of the simulation action(s), including any chained next actions.
-        simulation_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: The unique identifier of the simulation run.
-      description: Provides the current status for a simulation run, including the target entity and the action execution chain.
-      title: Simulation.simulationStatusResponseModel
     Simulation.simulationModel:
       type: object
       properties:
@@ -182,6 +160,13 @@ components:
       - simulation
       description: Request payload for running a simulation against a specific shipment.
       title: Simulation.orderSimulationRequestModel
+    SimulationActionStatusResponseModelAction:
+      type: string
+      enum:
+      - ShipOrder
+      - DeliverOrder
+      description: 'The name of the action performed in the simulation (for example: ShipOrder, DeliverOrder).'
+      title: SimulationActionStatusResponseModelAction
     SimulationSimulationModelAction:
       type: string
       enum:
@@ -189,6 +174,21 @@ components:
       - DeliverOrder
       description: The simulation action to perform.
       title: SimulationSimulationModelAction
+    Simulation.simulationResponseModel:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: Optional message about the submitted simulation.
+        simulation_id:
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the simulation run.
+      description: Response returned after submitting a simulation request.
+      title: Simulation.simulationResponseModel
   securitySchemes:
     PAT:
       type: http

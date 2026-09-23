@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: API Reference subpackage_billing subpackage_channels API
+  title: Reference Subpackage Channels API
   version: 1.0.0
 servers:
 - url: https://api.shipbob.com
@@ -12,9 +12,7 @@ paths:
     get:
       operationId: get-channels
       summary: Get Channels
-      description: 'Retrieves a paginated list of channels that the authenticated user has access to based on the provided access token.
-
-        '
+      description: Retrieves a paginated list of channels that the authenticated user has access to based on the provided access token.
       tags:
       - subpackage_channels
       parameters:
@@ -88,13 +86,6 @@ components:
             type: string
           description: Array of permissions granted for the channel
       title: Channels.ChannelViewModel
-    Channels.ErrorResponse:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Channels.ErrorResponse
     Channels.ChannelsV2ViewModel:
       type: object
       properties:
@@ -117,6 +108,13 @@ components:
           description: Previous page url
       description: Get Channels response
       title: Channels.ChannelsV2ViewModel
+    Channels.ErrorResponse:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Channels.ErrorResponse
   securitySchemes:
     PAT:
       type: http
