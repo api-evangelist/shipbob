@@ -1304,111 +1304,446 @@ paths:
                 $ref: '#/components/schemas/Orders.Get.Api.Order.OrderId.StoreOrderJson.Unprocessable.Entity.Object'
 components:
   schemas:
-    Orders.SummaryResponse:
-      type: object
-      properties:
-        failed:
-          type: integer
-          description: Number of shipments that failed to update
-        successful:
-          type: integer
-          description: Number of shipments that were updated successfully
-        total:
-          type: integer
-          description: Total number of shipments included in the bulk operation
-      title: Orders.SummaryResponse
-    Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object:
+    Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object:
       type: object
       additionalProperties:
         type: array
         items:
           type: string
-      title: Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object
-    Orders.LotInfo:
+      title: Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object
+    Orders.CanceledShipmentsViewModel:
       type: object
       properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.CanceledShipmentViewModel'
+          description: The results of all cancellation actions
+      title: Orders.CanceledShipmentsViewModel
+    Orders.Get.Api.Shippingmethod.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Shippingmethod.Unprocessable.Entity.Object
+    Orders.RecipientInfoViewModel:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/OrdersRecipientInfoViewModelAddress'
+          description: Address of the recipient
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+          description: Email address of the recipient
+        name:
+          type: string
+          description: Name of the recipient
+        phone_number:
+          type:
+          - string
+          - 'null'
+          description: Phone number of the recipient
+      required:
+      - address
+      - name
+      description: Information about the recipient of an order
+      title: Orders.RecipientInfoViewModel
+    Orders.ShipmentLineItemsViewModel:
+      type: object
+      properties:
+        fulfillment_center_id:
+          type: integer
+          description: ID of the fulfillment center assigned to fulfill this line item
+        id:
+          type: integer
+          description: Unique identifier of the shipment line item
+        inventory_id:
+          type: integer
+          description: Unique identifier of the inventory item
+        is_manually_assigned_lot:
+          type: boolean
+          description: Indicates whether the lot was manually assigned rather than auto-selected by ShipBob
         lot_date:
           type:
           - string
           - 'null'
-          format: date-time
           description: Expiration or manufacturing date of the lot
         lot_number:
           type:
           - string
           - 'null'
-          description: Lot number identifying a specific batch of inventory
-        selection_method:
-          $ref: '#/components/schemas/Orders.LotSelectionMethod'
-          description: Method used to select the lot for fulfillment
-      title: Orders.LotInfo
-    Orders.Get.Api.Shippingmethod.Bad.Request.Object:
+          description: Lot number of the inventory item
+        quantity:
+          type: integer
+          description: Quantity of the inventory item in the shipment
+      required:
+      - inventory_id
+      - quantity
+      title: Orders.ShipmentLineItemsViewModel
+    Orders.CanceledShipmentViewModel:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/Orders.ShipmentAction'
+        is_success:
+          type: boolean
+          description: If the cancel action was successful
+        reason:
+          type:
+          - string
+          - 'null'
+          description: The reason the cancellation result
+        shipment_id:
+          type: integer
+          format: int64
+          description: The ID of the shipment
+      title: Orders.CanceledShipmentViewModel
+    Orders.Get.Api.Order.OrderId.Bad.Request.Object:
       type: object
       additionalProperties:
         type: array
         items:
           type: string
-      title: Orders.Get.Api.Shippingmethod.Bad.Request.Object
-    Orders.OrderType:
-      type: string
-      enum:
-      - DTC
-      - DropShip
-      - B2B
-      title: Orders.OrderType
-    Orders.UpdateLineItemsRequest:
+      title: Orders.Get.Api.Order.OrderId.Bad.Request.Object
+    Orders.EstimationAddressViewModel:
       type: object
       properties:
-        items:
+        address1:
+          type:
+          - string
+          - 'null'
+          description: First line of the address
+        address2:
+          type:
+          - string
+          - 'null'
+          description: Second line of the address
+        city:
+          type:
+          - string
+          - 'null'
+          description: The city
+        company_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the company receiving the shipment
+        country:
+          type: string
+          description: The country (Must be ISO Alpha-2 for estimates)
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state or province
+        zip_code:
+          type:
+          - string
+          - 'null'
+          format: postal-code
+          description: The zip code or postal code
+      required:
+      - country
+      title: Orders.EstimationAddressViewModel
+    Orders.CreateOrderModel:
+      type: object
+      properties:
+        financials:
+          $ref: '#/components/schemas/Orders.Financials'
+        gift_message:
+          type:
+          - string
+          - 'null'
+          description: Gift message associated with the order
+        location_id:
+          type:
+          - integer
+          - 'null'
+          description: Desired Fulfillment Center Location ID. If not specified, ShipBob will determine the location that fulfills this order.
+        order_number:
+          type:
+          - string
+          - 'null'
+          description: User friendly orderId or store order number that will be shown on the Orders Page. If not provided, referenceId will be used
+        origin_platform_program:
+          type:
+          - string
+          - 'null'
+          description: Origin platform program for the order. Accepts a program name.
+        products:
           type: array
           items:
-            $ref: '#/components/schemas/Orders.ShipmentLineItemsViewModel'
-          description: Complete list of line items for the shipment. Must include all line items — partial updates are not supported
+            $ref: '#/components/schemas/OrdersCreateOrderModelProductsItems'
+          description: Products included in the order. Products identified by reference_id must also include the product name if there is no matching ShipBob product.
+        purchase_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date this order was purchase by the end user
+        recipient:
+          $ref: '#/components/schemas/Orders.RecipientInfoViewModel'
+        reference_id:
+          type: string
+          description: Unique and immutable order identifier from your upstream system
+        retailer_program_data:
+          $ref: '#/components/schemas/Orders.RetailerProgramDataViewModel'
+        sales_channel:
+          $ref: '#/components/schemas/Orders.SalesChannel'
+        shipping_method:
+          type: string
+          description: Client-defined shipping method matching what the user has listed as the shipping method on the Ship Option Mapping setup page in the ShipBob Merchant Portal. If they don’t match, we will create a new one and default it to Standard
+        shipping_terms:
+          $ref: '#/components/schemas/Orders.ShippingTermsViewModel'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.TagViewModel'
+          description: Key value pair array to store extra information at the order level for API purposes. ShipBob won't display the info in the ShipBob Merchant Portal or react based on this data.
+        type:
+          $ref: '#/components/schemas/Orders.OrderType'
       required:
-      - items
-      title: Orders.UpdateLineItemsRequest
-    Orders.Get.Api.Order.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Order.Bad.Request.Object
-    Orders.CancellationResult:
-      type: string
-      enum:
-      - Success
-      - Failure
-      - PartialSuccess
-      title: Orders.CancellationResult
-    Orders.Post.Api.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object
-    Orders.CartonMeasurementsViewModel:
+      - products
+      - recipient
+      - reference_id
+      - shipping_method
+      - type
+      title: Orders.CreateOrderModel
+    Orders.ChannelInfoViewModel:
       type: object
       properties:
-        depth_in:
-          type: number
-          format: double
-          description: Total depth in inches
-        length_in:
-          type: number
-          format: double
-          description: Total length in inches
-        total_weight_oz:
-          type: number
-          format: double
-          description: Total weight in ounces
-        width_in:
-          type: number
-          format: double
-          description: Total width in inches
-      description: Measurements of a carton
-      title: Orders.CartonMeasurementsViewModel
+        id:
+          type: integer
+          description: Unique id of the channel
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the channel
+      description: Created by channel metadata
+      title: Orders.ChannelInfoViewModel
+    Orders.RetailerProgramDataViewModel:
+      type: object
+      properties:
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.RetailerProgramDataAddressViewModel'
+          description: "Ship From - Certain retailers want to display the ship from address as their return facility, not Shipbob’s warehouse address        /// \nMark For Address - Final destination address"
+        customer_ticket_number:
+          type:
+          - string
+          - 'null'
+          description: Customer Ticket Number
+        delivery_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Expected delivery date
+        department:
+          type:
+          - string
+          - 'null'
+          description: Identifies a merchant's store department
+        doNotShipBeforeDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date the retailer does not want the order shipped by.
+        mark_for_store:
+          type:
+          - string
+          - 'null'
+          description: Store Number
+        purchase_order_number:
+          type: string
+          description: First initial documentation sent from buyer to seller with item(s) and quantities.
+        retailer_program_type:
+          type: string
+          description: Identifies retailer-merchant combination
+        shipByDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date the retailer has requested the order to ship by.
+      description: Contains properties that needs to be used for fulfilling B2B/Dropship orders.
+      title: Orders.RetailerProgramDataViewModel
+    Orders.BulkActionApiResponse:
+      type: object
+      properties:
+        results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.IApiDetailResponse'
+          description: Per-shipment results of the bulk operation
+        summary:
+          $ref: '#/components/schemas/Orders.SummaryResponse'
+          description: Summary of the bulk operation results
+      required:
+      - summary
+      title: Orders.BulkActionApiResponse
+    Orders.ServiceLevelDetailViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique id for the service level
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name or title of the service level
+      title: Orders.ServiceLevelDetailViewModel
+    Orders.FulfillmentStatus:
+      type: string
+      enum:
+      - AwaitingInventoryAllocation
+      - AwaitingReset
+      - Unavailable
+      - PendingOnTime
+      - FulfilledOnTime
+      - PendingLate
+      - FulfilledLate
+      title: Orders.FulfillmentStatus
+    Orders.AddressViewModel:
+      type: object
+      properties:
+        address1:
+          type: string
+          description: First line of the address
+        address2:
+          type:
+          - string
+          - 'null'
+          description: Second line of the address
+        city:
+          type: string
+          description: The city
+        company_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the company receiving the shipment
+        country:
+          type: string
+          description: The country (Must be ISO Alpha-2 for estimates)
+        state:
+          type:
+          - string
+          - 'null'
+          description: The state or province
+        zip_code:
+          type:
+          - string
+          - 'null'
+          format: postal-code
+          description: The zip code or postal code
+      required:
+      - address1
+      - city
+      - country
+      title: Orders.AddressViewModel
+    Orders.Post.Api.Order.Estimate.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Order.Estimate.Unprocessable.Entity.Object
+    Orders.UpdateAddressRequest:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City of customer address
+        company_name:
+          type:
+          - string
+          - 'null'
+          description: Company name (optional)
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: Country code of customer address
+        email:
+          type:
+          - string
+          - 'null'
+          description: Customer's email address
+        phone_number:
+          type:
+          - string
+          - 'null'
+          description: Phone number of Recipient address
+        recipient_name:
+          type:
+          - string
+          - 'null'
+          description: Name of customer
+        state:
+          type:
+          - string
+          - 'null'
+          description: State of customer address
+        street_address1:
+          type: string
+          description: Street Address 1
+        street_address2:
+          type:
+          - string
+          - 'null'
+          description: Street Address 2
+        zip_code:
+          type:
+          - string
+          - 'null'
+          description: Zipcode of customer address
+      required:
+      - city
+      - street_address1
+      title: Orders.UpdateAddressRequest
+    Orders.Post.Api.Order.OrderId.Cancel.Internal.Server.Error.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Order.OrderId.Cancel.Internal.Server.Error.Object
+    Orders.Get.Api.Shipment.ShipmentId.Logs.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Shipment.ShipmentId.Logs.Bad.Request.Object
+    Orders.ErrorResponse:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/Orders.ErrorCode'
+          description: Error code identifying the type of error
+        message:
+          type:
+          - string
+          - 'null'
+          description: Human-readable description of the error
+      title: Orders.ErrorResponse
     Orders.ShipmentLogViewModel:
       type: object
       properties:
@@ -1437,84 +1772,23 @@ components:
           format: date-time
           description: Timestamp of event
       title: Orders.ShipmentLogViewModel
-    Orders.CarrierShipType:
-      type: string
-      enum:
-      - Parcel
-      - Freight
-      title: Orders.CarrierShipType
-    Orders.OrderViewModel:
+    Orders.BulkUpdateResponseResult:
       type: object
       properties:
-        channel:
-          $ref: '#/components/schemas/Orders.ChannelInfoViewModel'
-        created_date:
-          type: string
-          format: date-time
-          description: Date this order was created
-        financials:
-          $ref: '#/components/schemas/Orders.Financials'
-        gift_message:
-          type:
-          - string
-          - 'null'
-          description: Gift message associated with the order
-        id:
+        error:
+          $ref: '#/components/schemas/Orders.BulkUpdateResponseError'
+        isSuccess:
+          type: boolean
+        shipmentId:
           type: integer
-          description: Unique id of the order
-        order_number:
-          type:
-          - string
-          - 'null'
-          description: User friendly orderId or store order number that will be shown on the Orders Page. If not provided, referenceId will be used
-        products:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.ProductInfoViewModel'
-          description: List of products included in the order
-        purchase_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Date this order was purchase by the end user
-        recipient:
-          $ref: '#/components/schemas/Orders.RecipientInfoViewModel'
-        reference_id:
-          type:
-          - string
-          - 'null'
-          description: Client-defined external unique id of the order
-        retailer_program_data:
-          $ref: '#/components/schemas/Orders.RetailerProgramDataViewModel'
-        shipments:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.ShipmentViewModel'
-          description: Shipments affiliated with the order
-        shipping_method:
-          type:
-          - string
-          - 'null'
-          description: Client-defined shipping method
-        shipping_terms:
-          $ref: '#/components/schemas/Orders.ShippingTermsViewModel'
-        status:
-          $ref: '#/components/schemas/Orders.OrderStatus'
-        tags:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.TagViewModel'
-          description: Client-defined order tags
-        type:
-          $ref: '#/components/schemas/Orders.OrderType'
-      title: Orders.OrderViewModel
+          format: int64
+      title: Orders.BulkUpdateResponseResult
+    Orders.AddressType:
+      type: string
+      enum:
+      - MarkFor
+      - ShipFrom
+      title: Orders.AddressType
     Orders.ShipmentViewModel:
       type: object
       properties:
@@ -1638,210 +1912,36 @@ components:
           $ref: '#/components/schemas/Orders.TrackingViewModel'
       description: Information about a shipment
       title: Orders.ShipmentViewModel
-    Orders.BulkUpdateTrackingUploadModel:
+    Orders.Post.Api.Shipment.BulkUpdateTrackingUpload.Bad.Request.String:
+      type: string
+      title: Orders.Post.Api.Shipment.BulkUpdateTrackingUpload.Bad.Request.String
+    Orders.BulkUpdateResponseSummary:
       type: object
       properties:
-        is_tracking_uploaded:
-          type: boolean
-          description: 'Indicates whether the Shipment was marked with tracking information
-
-            uploaded to a third-party system where the order originated.
-
-            Applies to all shipments in shipment_ids'
-        shipment_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-          description: Shipment IDs to apply the tracking upload status to
-      description: Model for updating tracking upload status for multiple shipments
-      title: Orders.BulkUpdateTrackingUploadModel
-    Orders.Post.Api.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object
-    Orders.Post.Api.Order.Unprocessable.Entity.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.Unprocessable.Entity.Object
-    Orders.BulkUpdateResponseModel:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.BulkUpdateResponseResult'
-        summary:
-          $ref: '#/components/schemas/Orders.BulkUpdateResponseSummary'
-      title: Orders.BulkUpdateResponseModel
-    Orders.UpdateAddressRequest:
-      type: object
-      properties:
-        city:
-          type: string
-          description: City of customer address
-        company_name:
-          type:
-          - string
-          - 'null'
-          description: Company name (optional)
-        country_code:
-          type:
-          - string
-          - 'null'
-          description: Country code of customer address
-        email:
-          type:
-          - string
-          - 'null'
-          description: Customer's email address
-        phone_number:
-          type:
-          - string
-          - 'null'
-          description: Phone number of Recipient address
-        recipient_name:
-          type:
-          - string
-          - 'null'
-          description: Name of customer
-        state:
-          type:
-          - string
-          - 'null'
-          description: State of customer address
-        street_address1:
-          type: string
-          description: Street Address 1
-        street_address2:
-          type:
-          - string
-          - 'null'
-          description: Street Address 2
-        zip_code:
-          type:
-          - string
-          - 'null'
-          description: Zipcode of customer address
-      required:
-      - city
-      - street_address1
-      title: Orders.UpdateAddressRequest
-    Orders.Post.Api.Order.Estimate.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.Estimate.Bad.Request.Object
-    Orders.CartonDetailsViewModel:
-      type: object
-      properties:
-        products:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.ShipmentProductViewModel'
-          description: List of what is packed in this carton
-      title: Orders.CartonDetailsViewModel
-    Orders.CreateOrderModel:
-      type: object
-      properties:
-        financials:
-          $ref: '#/components/schemas/Orders.Financials'
-        gift_message:
-          type:
-          - string
-          - 'null'
-          description: Gift message associated with the order
-        location_id:
-          type:
-          - integer
-          - 'null'
-          description: Desired Fulfillment Center Location ID. If not specified, ShipBob will determine the location that fulfills this order.
-        order_number:
-          type:
-          - string
-          - 'null'
-          description: User friendly orderId or store order number that will be shown on the Orders Page. If not provided, referenceId will be used
-        origin_platform_program:
-          type:
-          - string
-          - 'null'
-          description: Origin platform program for the order. Accepts a program name.
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrdersCreateOrderModelProductsItems'
-          description: Products included in the order. Products identified by reference_id must also include the product name if there is no matching ShipBob product.
-        purchase_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Date this order was purchase by the end user
-        recipient:
-          $ref: '#/components/schemas/Orders.RecipientInfoViewModel'
-        reference_id:
-          type: string
-          description: Unique and immutable order identifier from your upstream system
-        retailer_program_data:
-          $ref: '#/components/schemas/Orders.RetailerProgramDataViewModel'
-        sales_channel:
-          $ref: '#/components/schemas/Orders.SalesChannel'
-        shipping_method:
-          type: string
-          description: Client-defined shipping method matching what the user has listed as the shipping method on the Ship Option Mapping setup page in the ShipBob Merchant Portal. If they don’t match, we will create a new one and default it to Standard
-        shipping_terms:
-          $ref: '#/components/schemas/Orders.ShippingTermsViewModel'
-        tags:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.TagViewModel'
-          description: Key value pair array to store extra information at the order level for API purposes. ShipBob won't display the info in the ShipBob Merchant Portal or react based on this data.
-        type:
-          $ref: '#/components/schemas/Orders.OrderType'
-      required:
-      - products
-      - recipient
-      - reference_id
-      - shipping_method
-      - type
-      title: Orders.CreateOrderModel
-    Orders.ShipmentLineItemResponse:
-      type: object
-      properties:
-        action:
-          type:
-          - string
-          - 'null'
-          description: The action applied to this line item during the update
-        inventory_id:
+        failed:
           type: integer
-          description: Unique identifier of the inventory item
-        new_value:
-          type:
-          - string
-          - 'null'
-          description: The new value of the field after the update
-        previous_value:
-          type:
-          - string
-          - 'null'
-          description: The previous value of the field before the update
-      title: Orders.ShipmentLineItemResponse
+        successful:
+          type: integer
+        total:
+          type: integer
+      title: Orders.BulkUpdateResponseSummary
+    Orders.MeasurementsViewModel:
+      type: object
+      properties:
+        depth_in:
+          type: integer
+          description: Total depth in inches
+        length_in:
+          type: integer
+          description: Total length in inches
+        total_weight_oz:
+          type: integer
+          description: Total weight in ounces
+        width_in:
+          type: integer
+          description: Total width in inches
+      description: Measurements of a shipment
+      title: Orders.MeasurementsViewModel
     Orders.ProductVariantDetail:
       type: object
       properties:
@@ -1859,13 +1959,30 @@ components:
           - 'null'
           description: Stock keeping unit identifier for the product variant
       title: Orders.ProductVariantDetail
-    Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Bad.Request.Object:
+    Orders.OrderStatus:
+      type: string
+      enum:
+      - Processing
+      - Exception
+      - PartiallyFulfilled
+      - Fulfilled
+      - Cancelled
+      - ImportReview
+      title: Orders.OrderStatus
+    Orders.IApiDetailResponse:
       type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Bad.Request.Object
+      properties:
+        error:
+          $ref: '#/components/schemas/Orders.ErrorResponse'
+          description: Error details if the operation was not successful
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier of the shipment
+        is_success:
+          type: boolean
+          description: Indicates whether the operation was successful for this shipment
+      title: Orders.IApiDetailResponse
     Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Bad.Request.Object:
       type: object
       additionalProperties:
@@ -1892,814 +2009,25 @@ components:
       required:
       - quantity
       title: Orders.EstimateProductInfoModel
-    Orders.BulkUpdateResponseError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      title: Orders.BulkUpdateResponseError
-    Orders.Financials:
-      type: object
-      properties:
-        total_price:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Sum of all line item prices, discounts, and taxes in USD
-      title: Orders.Financials
-    Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Timeline.Bad.Request.Object:
+    Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Bad.Request.Object:
       type: object
       additionalProperties:
         type: array
         items:
           type: string
-      title: Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Timeline.Bad.Request.Object
-    Orders.ShipmentApiResponse:
+      title: Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Bad.Request.Object
+    Orders.CancelShipmentsModel:
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/Orders.ErrorResponse'
-          description: Error details if the update was not successful
-        id:
-          type: integer
-          format: int64
-          description: Unique identifier of the shipment
-        is_success:
-          type: boolean
-          description: Indicates whether the update was successful
-      title: Orders.ShipmentApiResponse
-    Orders.Get.Api.Shipment.ShipmentId.Timeline.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Shipment.ShipmentId.Timeline.Bad.Request.Object
-    Orders.OrderStatusEnum:
-      type: string
-      enum:
-      - None
-      - Processing
-      - Completed
-      - Exception
-      - OnHold
-      - Cancelled
-      - CleanSweeped
-      - LabeledCreated
-      - ImportReview
-      title: Orders.OrderStatusEnum
-    Orders.ShipMethodDetailViewModel:
-      type: object
-      properties:
-        active:
-          type: boolean
-          description: Indicates if the shipping method is active
-        default:
-          type: boolean
-          description: Indicates the shipping method is a ShipBob default shipping method.
-        id:
-          type: integer
-          description: Unique id for shipping method.
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the ship method as selected by the merchant and saved in ShipBob’s database (i.e. “ground”). Corresponds to the shipping_method field in the Orders API.
-        service_level:
-          $ref: '#/components/schemas/Orders.ServiceLevelDetailViewModel'
-      title: Orders.ShipMethodDetailViewModel
-    Orders.InventoryViewModel:
-      type: object
-      properties:
-        expiration_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Expiration date of the inventory
-        id:
-          type: integer
-          description: Unique id of the inventory
-        is_dangerous_goods:
-          type: boolean
-          description: Is inventory Dangerous Good
-        lot:
-          type:
-          - string
-          - 'null'
-          description: Lot number of the inventory
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the inventory item
-        quantity:
-          type: integer
-          description: Quantity of the inventory item to be included in the fulfillment
-        quantity_committed:
-          type: integer
-          description: The quantity of the inventory item allocated from the assigned fulfillment center and committed to the order. If quantity committed is less than order quantity, then the inventory item is out of stock at the assigned fulfillment center.
-        serial_numbers:
+        shipment_ids:
           type:
           - array
           - 'null'
           items:
-            type: string
-          description: Serial number of the inventory
-      description: Information about inventory belonging to a store product
-      title: Orders.InventoryViewModel
-    Orders.ShipmentAction:
-      type: string
-      enum:
-      - CleanSweep
-      - Reassign
-      - ReleaseOrderHold
-      - MoveToOnHoldAndKeepInventory
-      - MoveToOnHoldAndReleaseInventory
-      - Cancel
-      - AddLineItem
-      - RemoveLineItem
-      - UpdateShipOption
-      title: Orders.ShipmentAction
-    Orders.Post.Api.Order.OrderId.Cancel.Internal.Server.Error.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.OrderId.Cancel.Internal.Server.Error.Object
-    Orders.RecipientViewModel:
-      type: object
-      properties:
-        address:
-          oneOf:
-          - $ref: '#/components/schemas/OrdersRecipientViewModelAddress'
-          - type: 'null'
-          description: Address of the recipient
-        email:
-          type:
-          - string
-          - 'null'
-          format: email
-          description: Email address of the recipient
-        full_name:
-          type:
-          - string
-          - 'null'
-          description: FullName of the recipient
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the recipient
-        phone_number:
-          type:
-          - string
-          - 'null'
-          format: tel
-          description: Phone number of the recipient
-      description: Information about the recipient of a shipment
-      title: Orders.RecipientViewModel
-    Orders.Get.Api.Order.OrderId.StoreOrderJson.Unprocessable.Entity.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Order.OrderId.StoreOrderJson.Unprocessable.Entity.Object
-    OrdersRecipientViewModelAddress:
-      oneOf:
-      - $ref: '#/components/schemas/Orders.AddressViewModel'
-      - $ref: '#/components/schemas/Orders.RetailerProgramDataAddressViewModel'
-      description: Address of the recipient
-      title: OrdersRecipientViewModelAddress
-    Orders.Post.Api.Order.OrderId.Cancel.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.OrderId.Cancel.Bad.Request.Object
-    Orders.EstimationAddressViewModel:
-      type: object
-      properties:
-        address1:
-          type:
-          - string
-          - 'null'
-          description: First line of the address
-        address2:
-          type:
-          - string
-          - 'null'
-          description: Second line of the address
-        city:
-          type:
-          - string
-          - 'null'
-          description: The city
-        company_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the company receiving the shipment
-        country:
-          type: string
-          description: The country (Must be ISO Alpha-2 for estimates)
-        state:
-          type:
-          - string
-          - 'null'
-          description: The state or province
-        zip_code:
-          type:
-          - string
-          - 'null'
-          format: postal-code
-          description: The zip code or postal code
-      required:
-      - country
-      title: Orders.EstimationAddressViewModel
-    Orders.CanceledOrderViewModel:
-      type: object
-      properties:
-        canceled_shipment_results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.CanceledShipmentViewModel'
-          description: Results of canceling the shipments associated with the order
-        order:
-          $ref: '#/components/schemas/Orders.OrderViewModel'
-        order_id:
-          type: integer
-          description: The ID of the canceled order
-        status:
-          $ref: '#/components/schemas/Orders.CancellationResult'
-      title: Orders.CanceledOrderViewModel
-    Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Logs.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Logs.Bad.Request.Object
-    Orders.ShipMethodDetailViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Orders.ShipMethodDetailViewModel'
-      title: Orders.ShipMethodDetailViewModelArray
-    Orders.RetailerProgramDataViewModel:
-      type: object
-      properties:
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.RetailerProgramDataAddressViewModel'
-          description: "Ship From - Certain retailers want to display the ship from address as their return facility, not Shipbob’s warehouse address        /// \nMark For Address - Final destination address"
-        customer_ticket_number:
-          type:
-          - string
-          - 'null'
-          description: Customer Ticket Number
-        delivery_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Expected delivery date
-        department:
-          type:
-          - string
-          - 'null'
-          description: Identifies a merchant's store department
-        doNotShipBeforeDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The date the retailer does not want the order shipped by.
-        mark_for_store:
-          type:
-          - string
-          - 'null'
-          description: Store Number
-        purchase_order_number:
-          type: string
-          description: First initial documentation sent from buyer to seller with item(s) and quantities.
-        retailer_program_type:
-          type: string
-          description: Identifies retailer-merchant combination
-        shipByDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The date the retailer has requested the order to ship by.
-      description: Contains properties that needs to be used for fulfilling B2B/Dropship orders.
-      title: Orders.RetailerProgramDataViewModel
-    Orders.Post.Api.Order.OrderId.Cancel.Unprocessable.Entity.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.OrderId.Cancel.Unprocessable.Entity.Object
-    Orders.AddressViewModel:
-      type: object
-      properties:
-        address1:
-          type: string
-          description: First line of the address
-        address2:
-          type:
-          - string
-          - 'null'
-          description: Second line of the address
-        city:
-          type: string
-          description: The city
-        company_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the company receiving the shipment
-        country:
-          type: string
-          description: The country (Must be ISO Alpha-2 for estimates)
-        state:
-          type:
-          - string
-          - 'null'
-          description: The state or province
-        zip_code:
-          type:
-          - string
-          - 'null'
-          format: postal-code
-          description: The zip code or postal code
-      required:
-      - address1
-      - city
-      - country
-      title: Orders.AddressViewModel
-    Orders.TrackingViewModel:
-      type: object
-      properties:
-        bol:
-          type:
-          - string
-          - 'null'
-          description: Bill of lading (BOL) number. Document acknowledging receipt of cargo for shipment.
-        carrier:
-          type:
-          - string
-          - 'null'
-          description: Carrier of the shipment
-        carrier_service:
-          type:
-          - string
-          - 'null'
-          description: The carrier's service which was used for this shipment
-        pro_number:
-          type:
-          - string
-          - 'null'
-          description: Tracking number used for freight carriers
-        scac:
-          type:
-          - string
-          - 'null'
-          description: Standard Carrier Alpha Code (SCAC). Unique 2-4 letter code used to identify transportation companies.
-        shipping_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Date freight was shipped on
-        tracking_number:
-          type:
-          - string
-          - 'null'
-          description: Tracking number of the shipment
-        tracking_url:
-          type:
-          - string
-          - 'null'
-          description: URL to the website where a shipment can be tracked
-      description: Tracking information for a shipment
-      title: Orders.TrackingViewModel
-    Orders.EstimateFulfillmentRequestModel:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Orders.EstimationAddressViewModel'
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/Orders.EstimateProductInfoModel'
-          description: Products to be included in the order. Each product must include one of reference_id or id
-        shipping_methods:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Array of strings specifying shipping methods for which to fetch estimates.
-
-
-            If this field is omitted we will return estimates for all shipping methods defined in ShipBob'
-      required:
-      - address
-      - products
-      title: Orders.EstimateFulfillmentRequestModel
-    Orders.Get.Api.Shipment.ShipmentId.Logs.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Shipment.ShipmentId.Logs.Bad.Request.Object
-    Orders.Post.Api.Order.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.Bad.Request.Object
-    Orders.EstimateViewModel:
-      type: object
-      properties:
-        estimates:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.EstimateDetailViewModel'
-          description: Array of estimates for each shipping method
-      title: Orders.EstimateViewModel
-    Orders.FulfillmentCenterViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Id of the fulfillment center
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the fulfillment center
-      description: Information about a fulfillment center that a shipment can belong to
-      title: Orders.FulfillmentCenterViewModel
-    Orders.ChannelInfoViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique id of the channel
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the channel
-      description: Created by channel metadata
-      title: Orders.ChannelInfoViewModel
-    Orders.TagViewModel:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The key of the tag
-        value:
-          type: string
-          description: The value of the tag
-      required:
-      - name
-      - value
-      title: Orders.TagViewModel
-    Orders.Get.Api.Order.OrderId.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Order.OrderId.Bad.Request.Object
-    Orders.ShipmentLineItemsViewModel:
-      type: object
-      properties:
-        fulfillment_center_id:
-          type: integer
-          description: ID of the fulfillment center assigned to fulfill this line item
-        id:
-          type: integer
-          description: Unique identifier of the shipment line item
-        inventory_id:
-          type: integer
-          description: Unique identifier of the inventory item
-        is_manually_assigned_lot:
-          type: boolean
-          description: Indicates whether the lot was manually assigned rather than auto-selected by ShipBob
-        lot_date:
-          type:
-          - string
-          - 'null'
-          description: Expiration or manufacturing date of the lot
-        lot_number:
-          type:
-          - string
-          - 'null'
-          description: Lot number of the inventory item
-        quantity:
-          type: integer
-          description: Quantity of the inventory item in the shipment
-      required:
-      - inventory_id
-      - quantity
-      title: Orders.ShipmentLineItemsViewModel
-    Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object
-    Orders.AddProductToOrderByProductIdModel:
-      type: object
-      properties:
-        external_line_id:
-          type:
-          - integer
-          - 'null'
-          description: Numeric assignment per item. Used as a reference number for multiple purposes such as split orders, split containers, etc.
-        id:
-          type: integer
-          description: Unique id of the product
-        quantity:
-          type: integer
-          description: The quantity of this product ordered
-        quantity_unit_of_measure_code:
-          type:
-          - string
-          - 'null'
-          description: 'Defined standard for measure for an item (each, inner pack, case, pallet).  Values: EA, INP, CS and PL'
-      required:
-      - id
-      - quantity
-      title: Orders.AddProductToOrderByProductIdModel
-    Orders.BulkUpdateResponseResult:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Orders.BulkUpdateResponseError'
-        isSuccess:
-          type: boolean
-        shipmentId:
-          type: integer
-          format: int64
-      title: Orders.BulkUpdateResponseResult
-    Orders.ShipmentProductViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique id of the product
-        inventory_items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.InventoryViewModel'
-          description: Information about fulfillable inventory items belonging to this product
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the product
-        reference_id:
-          type:
-          - string
-          - 'null'
-          description: Unique reference id of the product
-        sku:
-          type:
-          - string
-          - 'null'
-          description: Stock keeping unit for the product
-      description: Information about a store product belonging to a shipment
-      title: Orders.ShipmentProductViewModel
-    Orders.ShipmentLineItemDetail:
-      type: object
-      properties:
-        committed_quantity:
-          type: integer
-          description: Quantity of the inventory item committed for fulfillment
-        inventory_id:
-          type: integer
-          description: Unique identifier of the inventory item
-        is_hazmat:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether the inventory item is classified as hazardous material
-        is_lot:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates whether the inventory item is lot-tracked
-        lot:
-          $ref: '#/components/schemas/Orders.LotInfo'
-          description: Lot information for the inventory item, if lot-tracked
-        product_variant:
-          $ref: '#/components/schemas/Orders.ProductVariantDetail'
-          description: Product variant details associated with this line item
-        quantity:
-          type: integer
-          description: Total quantity of the inventory item in the shipment
-        serial_numbers:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of serial numbers assigned to this line item
-      title: Orders.ShipmentLineItemDetail
-    Orders.Get.Api.Order.OrderId.Shipment.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Order.OrderId.Shipment.Bad.Request.Object
-    Orders.Post.Api.Shipment.BulkUpdateTrackingUpload.Bad.Request.String:
-      type: string
-      title: Orders.Post.Api.Shipment.BulkUpdateTrackingUpload.Bad.Request.String
-    Orders.FulfillmentStatus:
-      type: string
-      enum:
-      - AwaitingInventoryAllocation
-      - AwaitingReset
-      - Unavailable
-      - PendingOnTime
-      - FulfilledOnTime
-      - PendingLate
-      - FulfilledLate
-      title: Orders.FulfillmentStatus
-    Orders.Get.Api.Shipment.ShipmentId.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Shipment.ShipmentId.Bad.Request.Object
-    OrdersCreateOrderModelProductsItems:
-      oneOf:
-      - $ref: '#/components/schemas/Orders.AddProductToOrderByReferenceIdModel'
-      - $ref: '#/components/schemas/Orders.AddProductToOrderByProductIdModel'
-      title: OrdersCreateOrderModelProductsItems
-    Orders.EstimateDetailViewModel:
-      type: object
-      properties:
-        estimated_currency_code:
-          type:
-          - string
-          - 'null'
-          description: Estimated local currency code
-        estimated_price:
-          type: number
-          format: double
-          description: Estimated price in dollars for the provided shipping method
-        fulfillment_center:
-          $ref: '#/components/schemas/Orders.FulfillmentCenterViewModel'
-        shipping_method:
-          type:
-          - string
-          - 'null'
-          description: Provided shipping method. Maps to ship option in ShipBob.
-        total_weight_oz:
-          type: number
-          format: double
-          description: Total weight of items in cart including packaging.
-      title: Orders.EstimateDetailViewModel
-    Orders.Get.Api.Order.OrderId.StoreOrderJson.OK.String:
-      type: string
-      title: Orders.Get.Api.Order.OrderId.StoreOrderJson.OK.String
-    Orders.ProductInfoViewModel:
-      type: object
-      properties:
-        external_line_id:
-          type:
-          - integer
-          - 'null'
-          description: Numeric assignment per item. Used as a reference number for multiple purposes such as split orders, split containers, etc.
-        gtin:
-          type:
-          - string
-          - 'null'
-          description: Global Trade Item Number - unique and internationally recognized identifier assigned to item by company GS1
-        id:
-          type:
-          - integer
-          - 'null'
-          description: Unique id of the product
-        quantity:
-          type: integer
-          description: The quantity of this product ordered
-        quantity_unit_of_measure_code:
-          type:
-          - string
-          - 'null'
-          description: 'Defined standard for measure for an item (each, inner pack, case, pallet).  Values: EA, INP, CS and PL'
-        reference_id:
-          type:
-          - string
-          - 'null'
-          description: Unique reference id of the product
-        sku:
-          type:
-          - string
-          - 'null'
-          description: Stock keeping unit for the product
-        unit_price:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Price for one item
-        upc:
-          type:
-          - string
-          - 'null'
-          description: Universal Product Code - Unique external identifier
-      title: Orders.ProductInfoViewModel
-    Orders.MeasurementsViewModel:
-      type: object
-      properties:
-        depth_in:
-          type: integer
-          description: Total depth in inches
-        length_in:
-          type: integer
-          description: Total length in inches
-        total_weight_oz:
-          type: integer
-          description: Total weight in ounces
-        width_in:
-          type: integer
-          description: Total width in inches
-      description: Measurements of a shipment
-      title: Orders.MeasurementsViewModel
-    Orders.ErrorCode:
-      type: string
-      enum:
-      - INVALID_PARAMETER
-      - VALIDATION_ERROR
-      - DATABASE_UPDATE_ERROR
-      - REPROCESSING_ERROR
-      - DEALLOCATE_ERROR
-      - NOT_FOUND
-      - CONFLICT
-      title: Orders.ErrorCode
-    Orders.BulkActionApiResponse:
-      type: object
-      properties:
-        results:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.IApiDetailResponse'
-          description: Per-shipment results of the bulk operation
-        summary:
-          $ref: '#/components/schemas/Orders.SummaryResponse'
-          description: Summary of the bulk operation results
-      required:
-      - summary
-      title: Orders.BulkActionApiResponse
-    Orders.OrderViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Orders.OrderViewModel'
-      title: Orders.OrderViewModelArray
-    Orders.StatusInformationViewModel:
-      type: object
-      properties:
-        validation_messages:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      title: Orders.StatusInformationViewModel
+            type: integer
+          description: Shipment IDs to cancel
+      description: Model for cancel multiple shipments at once
+      title: Orders.CancelShipmentsModel
     Orders.RetailerProgramDataAddressViewModel:
       type: object
       properties:
@@ -2742,62 +2070,47 @@ components:
       - type
       description: Address to used when creating a B2B/DropShip order.
       title: Orders.RetailerProgramDataAddressViewModel
-    Orders.ShippingTermsViewModel:
+    Orders.InventoryViewModel:
       type: object
       properties:
-        carrier_type:
-          $ref: '#/components/schemas/Orders.CarrierShipType'
-        payment_term:
-          $ref: '#/components/schemas/Orders.PaymentShipTerm'
-      description: Contains shipping properties that need to be used for fulfilling an order.
-      title: Orders.ShippingTermsViewModel
-    Orders.Get.Api.Shippingmethod.Unprocessable.Entity.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Get.Api.Shippingmethod.Unprocessable.Entity.Object
-    Orders.CanceledShipmentViewModel:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/Orders.ShipmentAction'
-        is_success:
-          type: boolean
-          description: If the cancel action was successful
-        reason:
+        expiration_date:
           type:
           - string
           - 'null'
-          description: The reason the cancellation result
-        shipment_id:
+          format: date-time
+          description: Expiration date of the inventory
+        id:
           type: integer
-          format: int64
-          description: The ID of the shipment
-      title: Orders.CanceledShipmentViewModel
-    Orders.Post.Api.Order.Estimate.Unprocessable.Entity.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Order.Estimate.Unprocessable.Entity.Object
-    Orders.Post.Api.Shipment.ShipmentId.Cancel.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Shipment.ShipmentId.Cancel.Bad.Request.Object
-    Orders.Post.Api.Shipment.Cancelbulk.Internal.Server.Error.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Orders.Post.Api.Shipment.Cancelbulk.Internal.Server.Error.Object
-    Orders.CanceledShipmentsViewModel:
+          description: Unique id of the inventory
+        is_dangerous_goods:
+          type: boolean
+          description: Is inventory Dangerous Good
+        lot:
+          type:
+          - string
+          - 'null'
+          description: Lot number of the inventory
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the inventory item
+        quantity:
+          type: integer
+          description: Quantity of the inventory item to be included in the fulfillment
+        quantity_committed:
+          type: integer
+          description: The quantity of the inventory item allocated from the assigned fulfillment center and committed to the order. If quantity committed is less than order quantity, then the inventory item is out of stock at the assigned fulfillment center.
+        serial_numbers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Serial number of the inventory
+      description: Information about inventory belonging to a store product
+      title: Orders.InventoryViewModel
+    Orders.BulkUpdateResponseModel:
       type: object
       properties:
         results:
@@ -2805,9 +2118,105 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Orders.CanceledShipmentViewModel'
-          description: The results of all cancellation actions
-      title: Orders.CanceledShipmentsViewModel
+            $ref: '#/components/schemas/Orders.BulkUpdateResponseResult'
+        summary:
+          $ref: '#/components/schemas/Orders.BulkUpdateResponseSummary'
+      title: Orders.BulkUpdateResponseModel
+    Orders.EstimateFulfillmentRequestModel:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Orders.EstimationAddressViewModel'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Orders.EstimateProductInfoModel'
+          description: Products to be included in the order. Each product must include one of reference_id or id
+        shipping_methods:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Array of strings specifying shipping methods for which to fetch estimates.
+
+
+            If this field is omitted we will return estimates for all shipping methods defined in ShipBob'
+      required:
+      - address
+      - products
+      title: Orders.EstimateFulfillmentRequestModel
+    Orders.Get.Api.Order.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Order.Bad.Request.Object
+    Orders.OrderStatusEnum:
+      type: string
+      enum:
+      - None
+      - Processing
+      - Completed
+      - Exception
+      - OnHold
+      - Cancelled
+      - CleanSweeped
+      - LabeledCreated
+      - ImportReview
+      title: Orders.OrderStatusEnum
+    Orders.StatusDetailViewModel:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+          description: Describes what the status detail means
+        exception_fulfillment_center_id:
+          type:
+          - integer
+          - 'null'
+        extra_information:
+          $ref: '#/components/schemas/Orders.StatusInformationViewModel'
+        id:
+          type: integer
+          description: The id of the status detail
+        inventory_id:
+          type:
+          - integer
+          - 'null'
+          description: Inventory Id the detail applies to (if applicable)
+        name:
+          type:
+          - string
+          - 'null'
+          description: Short name of the status detail
+      title: Orders.StatusDetailViewModel
+    Orders.ParentCartonViewModel:
+      type: object
+      properties:
+        barcode:
+          type:
+          - string
+          - 'null'
+          description: Barcode assigned to this carton
+        cartons:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.CartonViewModel'
+          description: Cartons packed inside this parent container
+        measurements:
+          $ref: '#/components/schemas/Orders.CartonMeasurementsViewModel'
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of this carton container
+      title: Orders.ParentCartonViewModel
     Orders.PackageMaterialType:
       type: string
       enum:
@@ -2822,18 +2231,166 @@ components:
       - OwnContainer
       - Undefined
       title: Orders.PackageMaterialType
-    Orders.ServiceLevelDetailViewModel:
+    Orders.ShipmentLogViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Orders.ShipmentLogViewModel'
+      title: Orders.ShipmentLogViewModelArray
+    Orders.AddProductToOrderByProductIdModel:
       type: object
       properties:
+        external_line_id:
+          type:
+          - integer
+          - 'null'
+          description: Numeric assignment per item. Used as a reference number for multiple purposes such as split orders, split containers, etc.
         id:
           type: integer
-          description: Unique id for the service level
+          description: Unique id of the product
+        quantity:
+          type: integer
+          description: The quantity of this product ordered
+        quantity_unit_of_measure_code:
+          type:
+          - string
+          - 'null'
+          description: 'Defined standard for measure for an item (each, inner pack, case, pallet).  Values: EA, INP, CS and PL'
+      required:
+      - id
+      - quantity
+      title: Orders.AddProductToOrderByProductIdModel
+    OrdersCreateOrderModelProductsItems:
+      oneOf:
+      - $ref: '#/components/schemas/Orders.AddProductToOrderByReferenceIdModel'
+      - $ref: '#/components/schemas/Orders.AddProductToOrderByProductIdModel'
+      title: OrdersCreateOrderModelProductsItems
+    Orders.Get.Api.Shipment.ShipmentId.Timeline.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Shipment.ShipmentId.Timeline.Bad.Request.Object
+    Orders.ErrorCode:
+      type: string
+      enum:
+      - INVALID_PARAMETER
+      - VALIDATION_ERROR
+      - DATABASE_UPDATE_ERROR
+      - REPROCESSING_ERROR
+      - DEALLOCATE_ERROR
+      - NOT_FOUND
+      - CONFLICT
+      title: Orders.ErrorCode
+    Orders.ShippingTermsViewModel:
+      type: object
+      properties:
+        carrier_type:
+          $ref: '#/components/schemas/Orders.CarrierShipType'
+        payment_term:
+          $ref: '#/components/schemas/Orders.PaymentShipTerm'
+      description: Contains shipping properties that need to be used for fulfilling an order.
+      title: Orders.ShippingTermsViewModel
+    Orders.ShipMethodDetailViewModel:
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: Indicates if the shipping method is active
+        default:
+          type: boolean
+          description: Indicates the shipping method is a ShipBob default shipping method.
+        id:
+          type: integer
+          description: Unique id for shipping method.
         name:
           type:
           - string
           - 'null'
-          description: The name or title of the service level
-      title: Orders.ServiceLevelDetailViewModel
+          description: Name of the ship method as selected by the merchant and saved in ShipBob’s database (i.e. “ground”). Corresponds to the shipping_method field in the Orders API.
+        service_level:
+          $ref: '#/components/schemas/Orders.ServiceLevelDetailViewModel'
+      title: Orders.ShipMethodDetailViewModel
+    Orders.Get.Api.Order.OrderId.StoreOrderJson.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Order.OrderId.StoreOrderJson.Unprocessable.Entity.Object
+    Orders.ShipmentLineItemResponse:
+      type: object
+      properties:
+        action:
+          type:
+          - string
+          - 'null'
+          description: The action applied to this line item during the update
+        inventory_id:
+          type: integer
+          description: Unique identifier of the inventory item
+        new_value:
+          type:
+          - string
+          - 'null'
+          description: The new value of the field after the update
+        previous_value:
+          type:
+          - string
+          - 'null'
+          description: The previous value of the field before the update
+      title: Orders.ShipmentLineItemResponse
+    Orders.Post.Api.Shipment.Cancelbulk.Internal.Server.Error.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Shipment.Cancelbulk.Internal.Server.Error.Object
+    Orders.ShipmentLineItemDetailArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Orders.ShipmentLineItemDetail'
+      title: Orders.ShipmentLineItemDetailArray
+    Orders.CartonDetailsViewModel:
+      type: object
+      properties:
+        products:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.ShipmentProductViewModel'
+          description: List of what is packed in this carton
+      title: Orders.CartonDetailsViewModel
+    Orders.Post.Api.Order.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Order.Unprocessable.Entity.Object
+    Orders.ShipmentLineItemsApiResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Orders.ErrorResponse'
+          description: Error details if the update was not successful
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier of the shipment
+        is_success:
+          type: boolean
+          description: Indicates whether the update was successful
+        shipment_line_items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.ShipmentLineItemResponse'
+          description: List of line item changes applied to the shipment
+      title: Orders.ShipmentLineItemsApiResponse
     Orders.CartonViewModel:
       type: object
       properties:
@@ -2866,18 +2423,259 @@ components:
       - $ref: '#/components/schemas/Orders.RetailerProgramDataAddressViewModel'
       description: Address of the recipient
       title: OrdersRecipientInfoViewModelAddress
-    Orders.ErrorResponse:
+    Orders.Get.Api.Order.OrderId.Shipment.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Order.OrderId.Shipment.Bad.Request.Object
+    Orders.CanceledOrderViewModel:
+      type: object
+      properties:
+        canceled_shipment_results:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.CanceledShipmentViewModel'
+          description: Results of canceling the shipments associated with the order
+        order:
+          $ref: '#/components/schemas/Orders.OrderViewModel'
+        order_id:
+          type: integer
+          description: The ID of the canceled order
+        status:
+          $ref: '#/components/schemas/Orders.CancellationResult'
+      title: Orders.CanceledOrderViewModel
+    Orders.Financials:
+      type: object
+      properties:
+        total_price:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Sum of all line item prices, discounts, and taxes in USD
+      title: Orders.Financials
+    Orders.OrderType:
+      type: string
+      enum:
+      - DTC
+      - DropShip
+      - B2B
+      title: Orders.OrderType
+    Orders.CancellationResult:
+      type: string
+      enum:
+      - Success
+      - Failure
+      - PartialSuccess
+      title: Orders.CancellationResult
+    Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Order.OrderId.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object
+    Orders.Post.Api.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Shipment.ShipmentId.Cancel.Unprocessable.Entity.Object
+    Orders.Post.Api.Order.OrderId.Cancel.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Order.OrderId.Cancel.Unprocessable.Entity.Object
+    Orders.ShipmentProductViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique id of the product
+        inventory_items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.InventoryViewModel'
+          description: Information about fulfillable inventory items belonging to this product
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the product
+        reference_id:
+          type:
+          - string
+          - 'null'
+          description: Unique reference id of the product
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit for the product
+      description: Information about a store product belonging to a shipment
+      title: Orders.ShipmentProductViewModel
+    Orders.EstimateViewModel:
+      type: object
+      properties:
+        estimates:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.EstimateDetailViewModel'
+          description: Array of estimates for each shipping method
+      title: Orders.EstimateViewModel
+    Orders.BulkUpdateShippingServiceRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Reason for updating the shipping service
+        requested_shipping_service_id:
+          type: integer
+          description: ID of the shipping service to assign to the shipments
+        shipment_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: List of shipment IDs to update the shipping service for
+      required:
+      - reason
+      - requested_shipping_service_id
+      - shipment_ids
+      title: Orders.BulkUpdateShippingServiceRequest
+    Orders.StatusInformationViewModel:
+      type: object
+      properties:
+        validation_messages:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      title: Orders.StatusInformationViewModel
+    Orders.Get.Api.Shippingmethod.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Shippingmethod.Bad.Request.Object
+    Orders.ShipmentLineItemDetail:
+      type: object
+      properties:
+        committed_quantity:
+          type: integer
+          description: Quantity of the inventory item committed for fulfillment
+        inventory_id:
+          type: integer
+          description: Unique identifier of the inventory item
+        is_hazmat:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the inventory item is classified as hazardous material
+        is_lot:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates whether the inventory item is lot-tracked
+        lot:
+          $ref: '#/components/schemas/Orders.LotInfo'
+          description: Lot information for the inventory item, if lot-tracked
+        product_variant:
+          $ref: '#/components/schemas/Orders.ProductVariantDetail'
+          description: Product variant details associated with this line item
+        quantity:
+          type: integer
+          description: Total quantity of the inventory item in the shipment
+        serial_numbers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of serial numbers assigned to this line item
+      title: Orders.ShipmentLineItemDetail
+    Orders.Post.Api.Order.Estimate.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Order.Estimate.Bad.Request.Object
+    Orders.Get.Api.Order.OrderId.Shipment.OK.OneOfArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Orders.ShipmentViewModel'
+      title: Orders.Get.Api.Order.OrderId.Shipment.OK.OneOfArray
+    Orders.FulfillmentCenterViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id of the fulfillment center
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the fulfillment center
+      description: Information about a fulfillment center that a shipment can belong to
+      title: Orders.FulfillmentCenterViewModel
+    Orders.UpdateLineItemsRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Orders.ShipmentLineItemsViewModel'
+          description: Complete list of line items for the shipment. Must include all line items — partial updates are not supported
+      required:
+      - items
+      title: Orders.UpdateLineItemsRequest
+    Orders.BulkUpdateResponseError:
       type: object
       properties:
         code:
-          $ref: '#/components/schemas/Orders.ErrorCode'
-          description: Error code identifying the type of error
+          type:
+          - string
+          - 'null'
         message:
           type:
           - string
           - 'null'
-          description: Human-readable description of the error
-      title: Orders.ErrorResponse
+      title: Orders.BulkUpdateResponseError
+    Orders.CartonMeasurementsViewModel:
+      type: object
+      properties:
+        depth_in:
+          type: number
+          format: double
+          description: Total depth in inches
+        length_in:
+          type: number
+          format: double
+          description: Total length in inches
+        total_weight_oz:
+          type: number
+          format: double
+          description: Total weight in ounces
+        width_in:
+          type: number
+          format: double
+          description: Total width in inches
+      description: Measurements of a carton
+      title: Orders.CartonMeasurementsViewModel
     Orders.PaymentShipTerm:
       type: string
       enum:
@@ -2886,47 +2684,168 @@ components:
       - Prepaid
       - MerchantResponsible
       title: Orders.PaymentShipTerm
-    Orders.BulkUpdateResponseSummary:
+    Orders.RecipientViewModel:
       type: object
       properties:
-        failed:
-          type: integer
-        successful:
-          type: integer
-        total:
-          type: integer
-      title: Orders.BulkUpdateResponseSummary
-    Orders.CancelShipmentsModel:
-      type: object
-      properties:
-        shipment_ids:
+        address:
+          oneOf:
+          - $ref: '#/components/schemas/OrdersRecipientViewModelAddress'
+          - type: 'null'
+          description: Address of the recipient
+        email:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            type: integer
-          description: Shipment IDs to cancel
-      description: Model for cancel multiple shipments at once
-      title: Orders.CancelShipmentsModel
-    Orders.IApiDetailResponse:
+          format: email
+          description: Email address of the recipient
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: FullName of the recipient
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the recipient
+        phone_number:
+          type:
+          - string
+          - 'null'
+          format: tel
+          description: Phone number of the recipient
+      description: Information about the recipient of a shipment
+      title: Orders.RecipientViewModel
+    Orders.Post.Api.Order.OrderId.Cancel.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Order.OrderId.Cancel.Bad.Request.Object
+    Orders.Get.Api.Shipment.ShipmentId.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Shipment.ShipmentId.Bad.Request.Object
+    Orders.Get.Api.Order.OrderId.StoreOrderJson.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Order.OrderId.StoreOrderJson.Bad.Request.Object
+    Orders.EstimateDetailViewModel:
+      type: object
+      properties:
+        estimated_currency_code:
+          type:
+          - string
+          - 'null'
+          description: Estimated local currency code
+        estimated_price:
+          type: number
+          format: double
+          description: Estimated price in dollars for the provided shipping method
+        fulfillment_center:
+          $ref: '#/components/schemas/Orders.FulfillmentCenterViewModel'
+        shipping_method:
+          type:
+          - string
+          - 'null'
+          description: Provided shipping method. Maps to ship option in ShipBob.
+        total_weight_oz:
+          type: number
+          format: double
+          description: Total weight of items in cart including packaging.
+      title: Orders.EstimateDetailViewModel
+    Orders.CarrierShipType:
+      type: string
+      enum:
+      - Parcel
+      - Freight
+      title: Orders.CarrierShipType
+    Orders.Get.Api.Order.OrderId.StoreOrderJson.OK.String:
+      type: string
+      title: Orders.Get.Api.Order.OrderId.StoreOrderJson.OK.String
+    Orders.OrderViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Orders.OrderViewModel'
+      title: Orders.OrderViewModelArray
+    Orders.Post.Api.Shipment.Cancelbulk.Unprocessable.Entity.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Shipment.Cancelbulk.Unprocessable.Entity.Object
+    Orders.ShipmentApiResponse:
       type: object
       properties:
         error:
           $ref: '#/components/schemas/Orders.ErrorResponse'
-          description: Error details if the operation was not successful
+          description: Error details if the update was not successful
         id:
           type: integer
           format: int64
           description: Unique identifier of the shipment
         is_success:
           type: boolean
-          description: Indicates whether the operation was successful for this shipment
-      title: Orders.IApiDetailResponse
-    Orders.ShipmentLineItemDetailArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Orders.ShipmentLineItemDetail'
-      title: Orders.ShipmentLineItemDetailArray
+          description: Indicates whether the update was successful
+      title: Orders.ShipmentApiResponse
+    Orders.BulkUpdateTrackingUploadModel:
+      type: object
+      properties:
+        is_tracking_uploaded:
+          type: boolean
+          description: 'Indicates whether the Shipment was marked with tracking information
+
+            uploaded to a third-party system where the order originated.
+
+            Applies to all shipments in shipment_ids'
+        shipment_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+          description: Shipment IDs to apply the tracking upload status to
+      description: Model for updating tracking upload status for multiple shipments
+      title: Orders.BulkUpdateTrackingUploadModel
+    Orders.TagViewModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The key of the tag
+        value:
+          type: string
+          description: The value of the tag
+      required:
+      - name
+      - value
+      title: Orders.TagViewModel
+    Orders.LotInfo:
+      type: object
+      properties:
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Expiration or manufacturing date of the lot
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: Lot number identifying a specific batch of inventory
+        selection_method:
+          $ref: '#/components/schemas/Orders.LotSelectionMethod'
+          description: Method used to select the lot for fulfillment
+      title: Orders.LotInfo
     Orders.AddProductToOrderByReferenceIdModel:
       type: object
       properties:
@@ -2977,45 +2896,80 @@ components:
       - quantity
       - reference_id
       title: Orders.AddProductToOrderByReferenceIdModel
-    Orders.AddressType:
+    Orders.LotSelectionMethod:
       type: string
       enum:
-      - MarkFor
-      - ShipFrom
-      title: Orders.AddressType
-    Orders.ShipmentLogViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Orders.ShipmentLogViewModel'
-      title: Orders.ShipmentLogViewModelArray
-    Orders.Get.Api.Order.OrderId.StoreOrderJson.Bad.Request.Object:
+      - ShipbobChooses
+      - Specific
+      title: Orders.LotSelectionMethod
+    Orders.Post.Api.Order.Bad.Request.Object:
       type: object
       additionalProperties:
         type: array
         items:
           type: string
-      title: Orders.Get.Api.Order.OrderId.StoreOrderJson.Bad.Request.Object
-    Orders.ShipmentLineItemsApiResponse:
+      title: Orders.Post.Api.Order.Bad.Request.Object
+    Orders.ShipmentAction:
+      type: string
+      enum:
+      - CleanSweep
+      - Reassign
+      - ReleaseOrderHold
+      - MoveToOnHoldAndKeepInventory
+      - MoveToOnHoldAndReleaseInventory
+      - Cancel
+      - AddLineItem
+      - RemoveLineItem
+      - UpdateShipOption
+      title: Orders.ShipmentAction
+    Orders.ProductInfoViewModel:
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/Orders.ErrorResponse'
-          description: Error details if the update was not successful
-        id:
-          type: integer
-          format: int64
-          description: Unique identifier of the shipment
-        is_success:
-          type: boolean
-          description: Indicates whether the update was successful
-        shipment_line_items:
+        external_line_id:
           type:
-          - array
+          - integer
           - 'null'
-          items:
-            $ref: '#/components/schemas/Orders.ShipmentLineItemResponse'
-          description: List of line item changes applied to the shipment
-      title: Orders.ShipmentLineItemsApiResponse
+          description: Numeric assignment per item. Used as a reference number for multiple purposes such as split orders, split containers, etc.
+        gtin:
+          type:
+          - string
+          - 'null'
+          description: Global Trade Item Number - unique and internationally recognized identifier assigned to item by company GS1
+        id:
+          type:
+          - integer
+          - 'null'
+          description: Unique id of the product
+        quantity:
+          type: integer
+          description: The quantity of this product ordered
+        quantity_unit_of_measure_code:
+          type:
+          - string
+          - 'null'
+          description: 'Defined standard for measure for an item (each, inner pack, case, pallet).  Values: EA, INP, CS and PL'
+        reference_id:
+          type:
+          - string
+          - 'null'
+          description: Unique reference id of the product
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit for the product
+        unit_price:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Price for one item
+        upc:
+          type:
+          - string
+          - 'null'
+          description: Universal Product Code - Unique external identifier
+      title: Orders.ProductInfoViewModel
     Orders.SalesChannel:
       type: string
       enum:
@@ -3035,130 +2989,176 @@ components:
       - walmart
       - woocommerce
       title: Orders.SalesChannel
-    Orders.StatusDetailViewModel:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: Describes what the status detail means
-        exception_fulfillment_center_id:
-          type:
-          - integer
-          - 'null'
-        extra_information:
-          $ref: '#/components/schemas/Orders.StatusInformationViewModel'
-        id:
-          type: integer
-          description: The id of the status detail
-        inventory_id:
-          type:
-          - integer
-          - 'null'
-          description: Inventory Id the detail applies to (if applicable)
-        name:
-          type:
-          - string
-          - 'null'
-          description: Short name of the status detail
-      title: Orders.StatusDetailViewModel
-    Orders.LotSelectionMethod:
-      type: string
-      enum:
-      - ShipbobChooses
-      - Specific
-      title: Orders.LotSelectionMethod
-    Orders.Get.Api.Order.OrderId.Shipment.OK.OneOfArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Orders.ShipmentViewModel'
-      title: Orders.Get.Api.Order.OrderId.Shipment.OK.OneOfArray
-    Orders.BulkUpdateShippingServiceRequest:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Reason for updating the shipping service
-        requested_shipping_service_id:
-          type: integer
-          description: ID of the shipping service to assign to the shipments
-        shipment_ids:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: List of shipment IDs to update the shipping service for
-      required:
-      - reason
-      - requested_shipping_service_id
-      - shipment_ids
-      title: Orders.BulkUpdateShippingServiceRequest
-    Orders.Post.Api.Shipment.Cancelbulk.Unprocessable.Entity.Object:
+    Orders.Post.Api.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object:
       type: object
       additionalProperties:
         type: array
         items:
           type: string
-      title: Orders.Post.Api.Shipment.Cancelbulk.Unprocessable.Entity.Object
-    Orders.OrderStatus:
-      type: string
-      enum:
-      - Processing
-      - Exception
-      - PartiallyFulfilled
-      - Fulfilled
-      - Cancelled
-      - ImportReview
-      title: Orders.OrderStatus
-    Orders.ParentCartonViewModel:
+      title: Orders.Post.Api.Shipment.ShipmentId.Cancel.Internal.Server.Error.Object
+    Orders.Post.Api.Shipment.ShipmentId.Cancel.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Post.Api.Shipment.ShipmentId.Cancel.Bad.Request.Object
+    Orders.TrackingViewModel:
       type: object
       properties:
-        barcode:
+        bol:
           type:
           - string
           - 'null'
-          description: Barcode assigned to this carton
-        cartons:
+          description: Bill of lading (BOL) number. Document acknowledging receipt of cargo for shipment.
+        carrier:
+          type:
+          - string
+          - 'null'
+          description: Carrier of the shipment
+        carrier_service:
+          type:
+          - string
+          - 'null'
+          description: The carrier's service which was used for this shipment
+        pro_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number used for freight carriers
+        scac:
+          type:
+          - string
+          - 'null'
+          description: Standard Carrier Alpha Code (SCAC). Unique 2-4 letter code used to identify transportation companies.
+        shipping_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date freight was shipped on
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number of the shipment
+        tracking_url:
+          type:
+          - string
+          - 'null'
+          description: URL to the website where a shipment can be tracked
+      description: Tracking information for a shipment
+      title: Orders.TrackingViewModel
+    OrdersRecipientViewModelAddress:
+      oneOf:
+      - $ref: '#/components/schemas/Orders.AddressViewModel'
+      - $ref: '#/components/schemas/Orders.RetailerProgramDataAddressViewModel'
+      description: Address of the recipient
+      title: OrdersRecipientViewModelAddress
+    Orders.ShipMethodDetailViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Orders.ShipMethodDetailViewModel'
+      title: Orders.ShipMethodDetailViewModelArray
+    Orders.SummaryResponse:
+      type: object
+      properties:
+        failed:
+          type: integer
+          description: Number of shipments that failed to update
+        successful:
+          type: integer
+          description: Number of shipments that were updated successfully
+        total:
+          type: integer
+          description: Total number of shipments included in the bulk operation
+      title: Orders.SummaryResponse
+    Orders.OrderViewModel:
+      type: object
+      properties:
+        channel:
+          $ref: '#/components/schemas/Orders.ChannelInfoViewModel'
+        created_date:
+          type: string
+          format: date-time
+          description: Date this order was created
+        financials:
+          $ref: '#/components/schemas/Orders.Financials'
+        gift_message:
+          type:
+          - string
+          - 'null'
+          description: Gift message associated with the order
+        id:
+          type: integer
+          description: Unique id of the order
+        order_number:
+          type:
+          - string
+          - 'null'
+          description: User friendly orderId or store order number that will be shown on the Orders Page. If not provided, referenceId will be used
+        products:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Orders.CartonViewModel'
-          description: Cartons packed inside this parent container
-        measurements:
-          $ref: '#/components/schemas/Orders.CartonMeasurementsViewModel'
+            $ref: '#/components/schemas/Orders.ProductInfoViewModel'
+          description: List of products included in the order
+        purchase_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date this order was purchase by the end user
+        recipient:
+          $ref: '#/components/schemas/Orders.RecipientInfoViewModel'
+        reference_id:
+          type:
+          - string
+          - 'null'
+          description: Client-defined external unique id of the order
+        retailer_program_data:
+          $ref: '#/components/schemas/Orders.RetailerProgramDataViewModel'
+        shipments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.ShipmentViewModel'
+          description: Shipments affiliated with the order
+        shipping_method:
+          type:
+          - string
+          - 'null'
+          description: Client-defined shipping method
+        shipping_terms:
+          $ref: '#/components/schemas/Orders.ShippingTermsViewModel'
+        status:
+          $ref: '#/components/schemas/Orders.OrderStatus'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Orders.TagViewModel'
+          description: Client-defined order tags
         type:
-          type:
-          - string
-          - 'null'
-          description: Type of this carton container
-      title: Orders.ParentCartonViewModel
-    Orders.RecipientInfoViewModel:
+          $ref: '#/components/schemas/Orders.OrderType'
+      title: Orders.OrderViewModel
+    Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Logs.Bad.Request.Object:
       type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/OrdersRecipientInfoViewModelAddress'
-          description: Address of the recipient
-        email:
-          type:
-          - string
-          - 'null'
-          format: email
-          description: Email address of the recipient
-        name:
+      additionalProperties:
+        type: array
+        items:
           type: string
-          description: Name of the recipient
-        phone_number:
-          type:
-          - string
-          - 'null'
-          description: Phone number of the recipient
-      required:
-      - address
-      - name
-      description: Information about the recipient of an order
-      title: Orders.RecipientInfoViewModel
+      title: Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Logs.Bad.Request.Object
+    Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Timeline.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Orders.Get.Api.Order.OrderId.Shipment.ShipmentId.Timeline.Bad.Request.Object
   securitySchemes:
     PAT:
       type: http

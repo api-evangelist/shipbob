@@ -432,80 +432,19 @@ paths:
                 description: Any type
 components:
   schemas:
-    Returns_cancelReturnOrder_Response_200:
-      type: object
-      properties: {}
-      description: Empty response body
-      title: Returns_cancelReturnOrder_Response_200
-    Returns.ActionTakenDto:
+    Returns.ChannelDto:
       type: object
       properties:
-        action:
-          type:
-          - string
-          - 'null'
-          description: The return action taken
-        action_reason:
-          type:
-          - string
-          - 'null'
-          description: The reason the action was taken
-        image_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Image of inventory processed with this action.
-        quantity_processed:
-          type: integer
-          description: The quantity of inventory items processed with this reason and action
-      description: The details of an action taken for inventory item in the return
-      title: Returns.ActionTakenDto
-    Returns.ActionRequestedDto:
-      type: object
-      properties:
-        action:
-          type:
-          - string
-          - 'null'
-          description: The action to take
-        action_type:
-          type:
-          - string
-          - 'null'
-          description: The source of the action to take, i.e. Inventory Default or Overriden by Merchant at creation
-        instructions:
-          type:
-          - string
-          - 'null'
-          description: The instructions for how to take the action given by inventory owning Merchant
-      description: The details of the action requested for inventory
-      title: Returns.ActionRequestedDto
-    Returns.InventoryItemV1Dto:
-      type: object
-      properties:
-        action_requested:
-          $ref: '#/components/schemas/Returns.ActionRequestedDto'
-        action_taken:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Returns.ActionTakenDto'
-          description: List of actions taken
         id:
           type: integer
-          description: Unique id of the inventory
+          description: Unique Id of the channel
         name:
           type:
           - string
           - 'null'
-          description: Name of the product
-        quantity:
-          type: integer
-          description: Number of inventory that is being returned
-      description: The details of the inventory in the return order
-      title: Returns.InventoryItemV1Dto
+          description: Name given to the channel
+      description: The details of a Channel
+      title: Returns.ChannelDto
     Returns.PublicReturnV1Dto:
       type: object
       properties:
@@ -583,72 +522,30 @@ components:
           description: List of transactions that make up the billable amount to invoice a merchant
       description: The details of a public return order (V1), including the transactions and inventory items
       title: Returns.PublicReturnV1Dto
-    Returns.ApiError:
+    Returns.ActionTakenDto:
       type: object
       properties:
-        details:
-          oneOf:
-          - description: Any type
-          - type: 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        message:
+        action:
           type:
           - string
           - 'null'
-        stackTrace:
+          description: The return action taken
+        action_reason:
           type:
           - string
           - 'null'
-          description: StackTrace of the Exception
-      title: Returns.ApiError
-    Returns.StatusHistoryDto:
-      type: object
-      properties:
-        status:
+          description: The reason the action was taken
+        image_url:
           type:
           - string
           - 'null'
-          description: Status to change
-        timestamp:
-          type: string
-          format: date-time
-          description: Date change status
-      description: Status history
-      title: Returns.StatusHistoryDto
-    Returns.InvoiceDto:
-      type: object
-      properties:
-        amount:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Amount being charged
-        currency_code:
-          type:
-          - string
-          - 'null'
-          description: Currency code of amount
-      description: The invoice amount and curency
-      title: Returns.InvoiceDto
-    Returns.ChannelDto:
-      type: object
-      properties:
-        id:
+          format: uri
+          description: Image of inventory processed with this action.
+        quantity_processed:
           type: integer
-          description: Unique Id of the channel
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name given to the channel
-      description: The details of a Channel
-      title: Returns.ChannelDto
+          description: The quantity of inventory items processed with this reason and action
+      description: The details of an action taken for inventory item in the return
+      title: Returns.ActionTakenDto
     Returns.CreateReturnRequest:
       type: object
       properties:
@@ -678,19 +575,97 @@ components:
       - reference_id
       description: The request payload for creating a Return of inventory.
       title: Returns.CreateReturnRequest
-    Returns.FulfillmentCenterDto:
+    Returns.ReturnAction:
+      type: string
+      enum:
+      - Default
+      - Restock
+      - Quarantine
+      - Dispose
+      title: Returns.ReturnAction
+    Returns.PublicReturnDtoPagedUrlResultDto:
       type: object
       properties:
-        id:
-          type: integer
-          description: Unique id of the fulfillment center
-        name:
+        first:
           type:
           - string
           - 'null'
-          description: Name give to the fulfillment center
-      description: The details of a Fulfillment Center
-      title: Returns.FulfillmentCenterDto
+          format: uri
+          description: Return url for first cursor
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.PublicReturnDto'
+          description: Return records
+        last:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for last cursor
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for next cursor
+        prev:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for prev cursor
+      title: Returns.PublicReturnDtoPagedUrlResultDto
+    Returns.ActionRequestedDto:
+      type: object
+      properties:
+        action:
+          type:
+          - string
+          - 'null'
+          description: The action to take
+        action_type:
+          type:
+          - string
+          - 'null'
+          description: The source of the action to take, i.e. Inventory Default or Overriden by Merchant at creation
+        instructions:
+          type:
+          - string
+          - 'null'
+          description: The instructions for how to take the action given by inventory owning Merchant
+      description: The details of the action requested for inventory
+      title: Returns.ActionRequestedDto
+    Returns_cancelReturnOrder_Response_200:
+      type: object
+      properties: {}
+      description: Empty response body
+      title: Returns_cancelReturnOrder_Response_200
+    Returns.ApiError:
+      type: object
+      properties:
+        details:
+          oneOf:
+          - description: Any type
+          - type: 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        message:
+          type:
+          - string
+          - 'null'
+        stackTrace:
+          type:
+          - string
+          - 'null'
+          description: StackTrace of the Exception
+      title: Returns.ApiError
     Returns.ProblemDetails:
       type: object
       properties:
@@ -729,6 +704,31 @@ components:
           description: The type of transaction
       description: The details of a transaction charged to the return order
       title: Returns.TransactionDto
+    Returns.InventoryItemV1Dto:
+      type: object
+      properties:
+        action_requested:
+          $ref: '#/components/schemas/Returns.ActionRequestedDto'
+        action_taken:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.ActionTakenDto'
+          description: List of actions taken
+        id:
+          type: integer
+          description: Unique id of the inventory
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the product
+        quantity:
+          type: integer
+          description: Number of inventory that is being returned
+      description: The details of the inventory in the return order
+      title: Returns.InventoryItemV1Dto
     Returns.InventoryItemDto:
       type: object
       properties:
@@ -768,6 +768,50 @@ components:
           description: Stock keeping unit identifier for the inventory item
       description: The details of the inventory in the return order
       title: Returns.InventoryItemDto
+    Returns.FulfillmentCenterDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique id of the fulfillment center
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name give to the fulfillment center
+      description: The details of a Fulfillment Center
+      title: Returns.FulfillmentCenterDto
+    Returns.Facility:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the facility
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the facility (It is optional because public API integrations do not pass this)
+      required:
+      - id
+      description: A Facility to process Returns.
+      title: Returns.Facility
+    Returns.InvoiceDto:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Amount being charged
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: Currency code of amount
+      description: The invoice amount and curency
+      title: Returns.InvoiceDto
     Returns.LotInformationDto:
       type: object
       properties:
@@ -789,90 +833,20 @@ components:
           description: An alphanumeric string uniquely identifying this lot of produced inventory.
       description: Lot information associated with a specific inventory item.
       title: Returns.LotInformationDto
-    Returns.ReturnAction:
-      type: string
-      enum:
-      - Default
-      - Restock
-      - Quarantine
-      - Dispose
-      title: Returns.ReturnAction
-    Returns.Facility:
+    Returns.StatusHistoryDto:
       type: object
       properties:
-        id:
-          type: integer
-          description: Unique identifier of the facility
-        name:
+        status:
           type:
           - string
           - 'null'
-          description: Name of the facility (It is optional because public API integrations do not pass this)
-      required:
-      - id
-      description: A Facility to process Returns.
-      title: Returns.Facility
-    Returns.PublicReturnDtoPagedUrlResultDto:
-      type: object
-      properties:
-        first:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for first cursor
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Returns.PublicReturnDto'
-          description: Return records
-        last:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for last cursor
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for next cursor
-        prev:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for prev cursor
-      title: Returns.PublicReturnDtoPagedUrlResultDto
-    Returns.ReturnInventory:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID of the inventory item to return.
-        lot_date:
-          type:
-          - string
-          - 'null'
+          description: Status to change
+        timestamp:
+          type: string
           format: date-time
-        lot_number:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-          description: Quantity of the returned inventory item in the return.
-        requested_action:
-          $ref: '#/components/schemas/Returns.ReturnAction'
-      required:
-      - id
-      - quantity
-      - requested_action
-      description: An inventory being returned, includes the quantity and an override for the return action.
-      title: Returns.ReturnInventory
+          description: Date change status
+      description: Status history
+      title: Returns.StatusHistoryDto
     Returns.PublicReturnDto:
       type: object
       properties:
@@ -982,6 +956,32 @@ components:
           description: List of transactions that make up the billable amount to invoice a merchant
       description: The details of a public return order, including the transactions and inventory items
       title: Returns.PublicReturnDto
+    Returns.ReturnInventory:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the inventory item to return.
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lot_number:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          description: Quantity of the returned inventory item in the return.
+        requested_action:
+          $ref: '#/components/schemas/Returns.ReturnAction'
+      required:
+      - id
+      - quantity
+      - requested_action
+      description: An inventory being returned, includes the quantity and an override for the return action.
+      title: Returns.ReturnInventory
     202601ReturnGetParametersSortOrder:
       type: string
       enum:
