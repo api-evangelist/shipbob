@@ -432,278 +432,6 @@ paths:
                 description: Any type
 components:
   schemas:
-    Returns.ChannelDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique Id of the channel
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name given to the channel
-      description: The details of a Channel
-      title: Returns.ChannelDto
-    Returns.PublicReturnV1Dto:
-      type: object
-      properties:
-        channel:
-          $ref: '#/components/schemas/Returns.ChannelDto'
-        completed_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The date and time for when the return order was completely processed
-        customer_name:
-          type:
-          - string
-          - 'null'
-          description: Name of merchant that return belongs to
-        fulfillment_center:
-          $ref: '#/components/schemas/Returns.FulfillmentCenterDto'
-        id:
-          type: integer
-          description: Unique id of the return order
-        insert_date:
-          type: string
-          format: date-time
-          description: The date and time for when the return order was created
-        inventory:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Returns.InventoryItemV1Dto'
-          description: List of inventory items in return order
-        invoice_amount:
-          type:
-          - number
-          - 'null'
-          format: double
-          description: Amount merchant was invoiced for processing the return
-        original_shipment_id:
-          type:
-          - integer
-          - 'null'
-          description: ShipmentId for which return was created
-        reference_id:
-          type:
-          - string
-          - 'null'
-          description: Unique reference id of the return order. Created by merchant if a regular return.
-        return_type:
-          type:
-          - string
-          - 'null'
-          description: Type of the return, i.e. Regular, RTS
-        status:
-          type:
-          - string
-          - 'null'
-          description: Status of the return order, i.e. AwaitingArrival
-        store_order_id:
-          type:
-          - string
-          - 'null'
-          description: Reference to external order id
-        tracking_number:
-          type:
-          - string
-          - 'null'
-          description: The tracking number of the return shipping label
-        transactions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Returns.TransactionDto'
-          description: List of transactions that make up the billable amount to invoice a merchant
-      description: The details of a public return order (V1), including the transactions and inventory items
-      title: Returns.PublicReturnV1Dto
-    Returns.ActionTakenDto:
-      type: object
-      properties:
-        action:
-          type:
-          - string
-          - 'null'
-          description: The return action taken
-        action_reason:
-          type:
-          - string
-          - 'null'
-          description: The reason the action was taken
-        image_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Image of inventory processed with this action.
-        quantity_processed:
-          type: integer
-          description: The quantity of inventory items processed with this reason and action
-      description: The details of an action taken for inventory item in the return
-      title: Returns.ActionTakenDto
-    Returns.CreateReturnRequest:
-      type: object
-      properties:
-        fulfillment_center:
-          $ref: '#/components/schemas/Returns.Facility'
-        inventory:
-          type: array
-          items:
-            $ref: '#/components/schemas/Returns.ReturnInventory'
-          description: Array of inventory items being returned
-        original_shipment_id:
-          type:
-          - integer
-          - 'null'
-          description: Shipment from which the items in the return originated <example>123456</example>
-        reference_id:
-          type: string
-          description: "Client-defined external unique identifier for the return order.\n            If tracking id is not provided, this value must appear on the box label as RMA. <example>Example: ShipBob_Return_123</example>"
-        tracking_number:
-          type:
-          - string
-          - 'null'
-          description: Tracking number for the return shipment <example>1Z9999999999999999</example>
-      required:
-      - fulfillment_center
-      - inventory
-      - reference_id
-      description: The request payload for creating a Return of inventory.
-      title: Returns.CreateReturnRequest
-    Returns.ReturnAction:
-      type: string
-      enum:
-      - Default
-      - Restock
-      - Quarantine
-      - Dispose
-      title: Returns.ReturnAction
-    Returns.PublicReturnDtoPagedUrlResultDto:
-      type: object
-      properties:
-        first:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for first cursor
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Returns.PublicReturnDto'
-          description: Return records
-        last:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for last cursor
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for next cursor
-        prev:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Return url for prev cursor
-      title: Returns.PublicReturnDtoPagedUrlResultDto
-    Returns.ActionRequestedDto:
-      type: object
-      properties:
-        action:
-          type:
-          - string
-          - 'null'
-          description: The action to take
-        action_type:
-          type:
-          - string
-          - 'null'
-          description: The source of the action to take, i.e. Inventory Default or Overriden by Merchant at creation
-        instructions:
-          type:
-          - string
-          - 'null'
-          description: The instructions for how to take the action given by inventory owning Merchant
-      description: The details of the action requested for inventory
-      title: Returns.ActionRequestedDto
-    Returns_cancelReturnOrder_Response_200:
-      type: object
-      properties: {}
-      description: Empty response body
-      title: Returns_cancelReturnOrder_Response_200
-    Returns.ApiError:
-      type: object
-      properties:
-        details:
-          oneOf:
-          - description: Any type
-          - type: 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        message:
-          type:
-          - string
-          - 'null'
-        stackTrace:
-          type:
-          - string
-          - 'null'
-          description: StackTrace of the Exception
-      title: Returns.ApiError
-    Returns.ProblemDetails:
-      type: object
-      properties:
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-      title: Returns.ProblemDetails
-    Returns.TransactionDto:
-      type: object
-      properties:
-        amount:
-          type: number
-          format: double
-          description: The amount charged for this transaction
-        transaction_type:
-          type:
-          - string
-          - 'null'
-          description: The type of transaction
-      description: The details of a transaction charged to the return order
-      title: Returns.TransactionDto
     Returns.InventoryItemV1Dto:
       type: object
       properties:
@@ -729,58 +457,20 @@ components:
           description: Number of inventory that is being returned
       description: The details of the inventory in the return order
       title: Returns.InventoryItemV1Dto
-    Returns.InventoryItemDto:
+    Returns.StatusHistoryDto:
       type: object
       properties:
-        action_requested:
-          $ref: '#/components/schemas/Returns.ActionRequestedDto'
-        action_taken:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Returns.ActionTakenDto'
-          description: List of actions taken
-        barcodes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of barcodes associated with the inventory item
-        id:
-          type: integer
-          description: Unique id of the inventory
-        lot_information:
-          $ref: '#/components/schemas/Returns.LotInformationDto'
-        name:
+        status:
           type:
           - string
           - 'null'
-          description: Name of the product
-        quantity:
-          type: integer
-          description: Number of inventory that is being returned
-        sku:
-          type:
-          - string
-          - 'null'
-          description: Stock keeping unit identifier for the inventory item
-      description: The details of the inventory in the return order
-      title: Returns.InventoryItemDto
-    Returns.FulfillmentCenterDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique id of the fulfillment center
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name give to the fulfillment center
-      description: The details of a Fulfillment Center
-      title: Returns.FulfillmentCenterDto
+          description: Status to change
+        timestamp:
+          type: string
+          format: date-time
+          description: Date change status
+      description: Status history
+      title: Returns.StatusHistoryDto
     Returns.Facility:
       type: object
       properties:
@@ -796,57 +486,40 @@ components:
       - id
       description: A Facility to process Returns.
       title: Returns.Facility
-    Returns.InvoiceDto:
+    Returns.ApiError:
       type: object
       properties:
-        amount:
+        details:
+          oneOf:
+          - description: Any type
+          - type: 'null'
+        errors:
           type:
-          - number
+          - array
           - 'null'
-          format: double
-          description: Amount being charged
-        currency_code:
+          items:
+            type: string
+        message:
           type:
           - string
           - 'null'
-          description: Currency code of amount
-      description: The invoice amount and curency
-      title: Returns.InvoiceDto
-    Returns.LotInformationDto:
+        stackTrace:
+          type:
+          - string
+          - 'null'
+          description: StackTrace of the Exception
+      title: Returns.ApiError
+    202601ReturnGetParametersSortOrder:
+      type: string
+      enum:
+      - Asc
+      - Desc
+      title: 202601ReturnGetParametersSortOrder
+    Returns_cancelReturnOrder_Response_200:
       type: object
-      properties:
-        expiration:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The expiration date for this lot.
-        minimumShelfLife:
-          type:
-          - integer
-          - 'null'
-          description: A minimum amount of time in days this product can be safely returned to the shelf without expiring.
-        number:
-          type:
-          - string
-          - 'null'
-          description: An alphanumeric string uniquely identifying this lot of produced inventory.
-      description: Lot information associated with a specific inventory item.
-      title: Returns.LotInformationDto
-    Returns.StatusHistoryDto:
-      type: object
-      properties:
-        status:
-          type:
-          - string
-          - 'null'
-          description: Status to change
-        timestamp:
-          type: string
-          format: date-time
-          description: Date change status
-      description: Status history
-      title: Returns.StatusHistoryDto
+      properties: {}
+      description: Empty response body
+      title: Returns_cancelReturnOrder_Response_200
     Returns.PublicReturnDto:
       type: object
       properties:
@@ -956,6 +629,339 @@ components:
           description: List of transactions that make up the billable amount to invoice a merchant
       description: The details of a public return order, including the transactions and inventory items
       title: Returns.PublicReturnDto
+    Returns.ActionTakenDto:
+      type: object
+      properties:
+        action:
+          type:
+          - string
+          - 'null'
+          description: The return action taken
+        action_reason:
+          type:
+          - string
+          - 'null'
+          description: The reason the action was taken
+        image_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Image of inventory processed with this action.
+        quantity_processed:
+          type: integer
+          description: The quantity of inventory items processed with this reason and action
+      description: The details of an action taken for inventory item in the return
+      title: Returns.ActionTakenDto
+    Returns.LotInformationDto:
+      type: object
+      properties:
+        expiration:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The expiration date for this lot.
+        minimumShelfLife:
+          type:
+          - integer
+          - 'null'
+          description: A minimum amount of time in days this product can be safely returned to the shelf without expiring.
+        number:
+          type:
+          - string
+          - 'null'
+          description: An alphanumeric string uniquely identifying this lot of produced inventory.
+      description: Lot information associated with a specific inventory item.
+      title: Returns.LotInformationDto
+    Returns.CreateReturnRequest:
+      type: object
+      properties:
+        fulfillment_center:
+          $ref: '#/components/schemas/Returns.Facility'
+        inventory:
+          type: array
+          items:
+            $ref: '#/components/schemas/Returns.ReturnInventory'
+          description: Array of inventory items being returned
+        original_shipment_id:
+          type:
+          - integer
+          - 'null'
+          description: Shipment from which the items in the return originated <example>123456</example>
+        reference_id:
+          type: string
+          description: "Client-defined external unique identifier for the return order.\n            If tracking id is not provided, this value must appear on the box label as RMA. <example>Example: ShipBob_Return_123</example>"
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number for the return shipment <example>1Z9999999999999999</example>
+      required:
+      - fulfillment_center
+      - inventory
+      - reference_id
+      description: The request payload for creating a Return of inventory.
+      title: Returns.CreateReturnRequest
+    Returns.FulfillmentCenterDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique id of the fulfillment center
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name give to the fulfillment center
+      description: The details of a Fulfillment Center
+      title: Returns.FulfillmentCenterDto
+    Returns.ProblemDetails:
+      type: object
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+      title: Returns.ProblemDetails
+    Returns.PublicReturnV1Dto:
+      type: object
+      properties:
+        channel:
+          $ref: '#/components/schemas/Returns.ChannelDto'
+        completed_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The date and time for when the return order was completely processed
+        customer_name:
+          type:
+          - string
+          - 'null'
+          description: Name of merchant that return belongs to
+        fulfillment_center:
+          $ref: '#/components/schemas/Returns.FulfillmentCenterDto'
+        id:
+          type: integer
+          description: Unique id of the return order
+        insert_date:
+          type: string
+          format: date-time
+          description: The date and time for when the return order was created
+        inventory:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.InventoryItemV1Dto'
+          description: List of inventory items in return order
+        invoice_amount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Amount merchant was invoiced for processing the return
+        original_shipment_id:
+          type:
+          - integer
+          - 'null'
+          description: ShipmentId for which return was created
+        reference_id:
+          type:
+          - string
+          - 'null'
+          description: Unique reference id of the return order. Created by merchant if a regular return.
+        return_type:
+          type:
+          - string
+          - 'null'
+          description: Type of the return, i.e. Regular, RTS
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status of the return order, i.e. AwaitingArrival
+        store_order_id:
+          type:
+          - string
+          - 'null'
+          description: Reference to external order id
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: The tracking number of the return shipping label
+        transactions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.TransactionDto'
+          description: List of transactions that make up the billable amount to invoice a merchant
+      description: The details of a public return order (V1), including the transactions and inventory items
+      title: Returns.PublicReturnV1Dto
+    Returns.ActionRequestedDto:
+      type: object
+      properties:
+        action:
+          type:
+          - string
+          - 'null'
+          description: The action to take
+        action_type:
+          type:
+          - string
+          - 'null'
+          description: The source of the action to take, i.e. Inventory Default or Overriden by Merchant at creation
+        instructions:
+          type:
+          - string
+          - 'null'
+          description: The instructions for how to take the action given by inventory owning Merchant
+      description: The details of the action requested for inventory
+      title: Returns.ActionRequestedDto
+    Returns.ReturnAction:
+      type: string
+      enum:
+      - Default
+      - Restock
+      - Quarantine
+      - Dispose
+      title: Returns.ReturnAction
+    Returns.InventoryItemDto:
+      type: object
+      properties:
+        action_requested:
+          $ref: '#/components/schemas/Returns.ActionRequestedDto'
+        action_taken:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.ActionTakenDto'
+          description: List of actions taken
+        barcodes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of barcodes associated with the inventory item
+        id:
+          type: integer
+          description: Unique id of the inventory
+        lot_information:
+          $ref: '#/components/schemas/Returns.LotInformationDto'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the product
+        quantity:
+          type: integer
+          description: Number of inventory that is being returned
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier for the inventory item
+      description: The details of the inventory in the return order
+      title: Returns.InventoryItemDto
+    Returns.InvoiceDto:
+      type: object
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          format: double
+          description: Amount being charged
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: Currency code of amount
+      description: The invoice amount and curency
+      title: Returns.InvoiceDto
+    Returns.PublicReturnDtoPagedUrlResultDto:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for first cursor
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Returns.PublicReturnDto'
+          description: Return records
+        last:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for last cursor
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for next cursor
+        prev:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Return url for prev cursor
+      title: Returns.PublicReturnDtoPagedUrlResultDto
+    Returns.ChannelDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique Id of the channel
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name given to the channel
+      description: The details of a Channel
+      title: Returns.ChannelDto
+    Returns.TransactionDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The amount charged for this transaction
+        transaction_type:
+          type:
+          - string
+          - 'null'
+          description: The type of transaction
+      description: The details of a transaction charged to the return order
+      title: Returns.TransactionDto
     Returns.ReturnInventory:
       type: object
       properties:
@@ -982,12 +988,6 @@ components:
       - requested_action
       description: An inventory being returned, includes the quantity and an override for the return action.
       title: Returns.ReturnInventory
-    202601ReturnGetParametersSortOrder:
-      type: string
-      enum:
-      - Asc
-      - Desc
-      title: 202601ReturnGetParametersSortOrder
   securitySchemes:
     PAT:
       type: http

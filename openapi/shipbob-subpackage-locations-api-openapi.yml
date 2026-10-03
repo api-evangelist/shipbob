@@ -67,6 +67,18 @@ paths:
                 description: Any type
 components:
   schemas:
+    Locations.FulfillmentCenterRegionViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique Id for the location region
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the region the location is in.
+      title: Locations.FulfillmentCenterRegionViewModel
     Locations.ServiceViewModel:
       type: object
       properties:
@@ -128,17 +140,6 @@ components:
           description: Zip code of the location
       description: The service-specific address of the location. Each object contains address type, address1, address2, city, state, country, zip code, phone number, and email
       title: Locations.AddressViewModel
-    Locations.ServiceTypeEnum:
-      type: string
-      enum:
-      - Receiving
-      - Returns
-      title: Locations.ServiceTypeEnum
-    Locations.Get.1.0.Location.OK.OneOfArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Locations.LocationViewModel'
-      title: Locations.Get.1.0.Location.OK.OneOfArray
     Locations.LocationViewModel:
       type: object
       properties:
@@ -191,18 +192,17 @@ components:
           - 'null'
           description: Time zone of the location
       title: Locations.LocationViewModel
-    Locations.FulfillmentCenterRegionViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique Id for the location region
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the region the location is in.
-      title: Locations.FulfillmentCenterRegionViewModel
+    Locations.Get.1.0.Location.OK.OneOfArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Locations.LocationViewModel'
+      title: Locations.Get.1.0.Location.OK.OneOfArray
+    Locations.ServiceTypeEnum:
+      type: string
+      enum:
+      - Receiving
+      - Returns
+      title: Locations.ServiceTypeEnum
   securitySchemes:
     PAT:
       type: http

@@ -71,21 +71,6 @@ paths:
                 $ref: '#/components/schemas/Simulation.simulationStatusResponseModel'
 components:
   schemas:
-    Simulation.simulationResponseModel:
-      type: object
-      properties:
-        message:
-          type:
-          - string
-          - 'null'
-          description: Optional message about the submitted simulation.
-        simulation_id:
-          type:
-          - string
-          - 'null'
-          description: The unique identifier of the simulation run.
-      description: Response returned after submitting a simulation request.
-      title: Simulation.simulationResponseModel
     Simulation.orderSimulationRequestModel:
       type: object
       properties:
@@ -102,20 +87,6 @@ components:
       - simulation
       description: Request payload for running a simulation against a specific shipment.
       title: Simulation.orderSimulationRequestModel
-    SimulationActionStatusResponseModelAction:
-      type: string
-      enum:
-      - ShipOrder
-      - DeliverOrder
-      description: 'The name of the action performed in the simulation (for example: ShipOrder, DeliverOrder).'
-      title: SimulationActionStatusResponseModelAction
-    SimulationSimulationModelAction:
-      type: string
-      enum:
-      - ShipOrder
-      - DeliverOrder
-      description: The simulation action to perform.
-      title: SimulationSimulationModelAction
     Simulation.simulationStatusResponseModel:
       type: object
       properties:
@@ -189,6 +160,35 @@ components:
           description: The current execution state of the action.
       description: Represents the current status of a simulation action, optionally including a chained next action status.
       title: Simulation.actionStatusResponseModel
+    Simulation.simulationResponseModel:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: Optional message about the submitted simulation.
+        simulation_id:
+          type:
+          - string
+          - 'null'
+          description: The unique identifier of the simulation run.
+      description: Response returned after submitting a simulation request.
+      title: Simulation.simulationResponseModel
+    SimulationActionStatusResponseModelAction:
+      type: string
+      enum:
+      - ShipOrder
+      - DeliverOrder
+      description: 'The name of the action performed in the simulation (for example: ShipOrder, DeliverOrder).'
+      title: SimulationActionStatusResponseModelAction
+    SimulationSimulationModelAction:
+      type: string
+      enum:
+      - ShipOrder
+      - DeliverOrder
+      description: The simulation action to perform.
+      title: SimulationSimulationModelAction
   securitySchemes:
     PAT:
       type: http
