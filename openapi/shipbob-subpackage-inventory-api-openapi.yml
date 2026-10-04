@@ -677,6 +677,22 @@ paths:
                 description: Any type
 components:
   schemas:
+    Inventory.VariantResponse:
+      type: object
+      properties:
+        hazmat:
+          $ref: '#/components/schemas/Inventory.HazmatResponse'
+          description: Hazardous materials information
+        is_active:
+          type: boolean
+          description: Indicates if the variant is currently active and available for fulfillment
+        is_bundle:
+          type: boolean
+          description: Indicates if this item is a bundle of multiple products
+        is_digital:
+          type: boolean
+          description: Indicates if this is a digital product (no physical fulfillment required)
+      title: Inventory.VariantResponse
     Inventory.InventoryResponse:
       type: object
       properties:
@@ -717,20 +733,78 @@ components:
           $ref: '#/components/schemas/Inventory.WeightResponse'
           description: Weight information of the inventory item
       title: Inventory.InventoryResponse
-    FulfillmentCenterInventoryService.Ulid:
+    FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference:
       type: object
       properties:
-        random:
+        key:
           type:
           - string
           - 'null'
-          format: byte
-          description: Random component of the ULID (Universally Unique Lexicographically Sortable Identifier).
-        time:
-          type: string
-          format: date-time
-          description: Timestamp component of the ULID, representing when the identifier was created.
-      title: FulfillmentCenterInventoryService.Ulid
+          description: The reference key (e.g., WRO ID, order ID, or other contextual identifier).
+        value:
+          type:
+          - string
+          - 'null'
+          description: The reference value corresponding to the key.
+      title: FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference
+    Inventory.InventoryQuantityLotResponsePagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results. Null if already on the first page.
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.InventoryQuantityLotResponse'
+          description: Array of lot-grouped inventory quantity items in the current page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results. Null if already on the last page.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if on the last page.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: Inventory.InventoryQuantityLotResponsePagedResponse
+    Inventory.FulfillableQuantityByFulfillmentCenter:
+      type: object
+      properties:
+        awaiting_quantity:
+          type: integer
+          description: Quantity expected to arrive at this location
+        committed_quantity:
+          type: integer
+          description: Quantity reserved for existing orders at this location
+        fulfillable_quantity:
+          type: integer
+          description: Quantity available to fulfill new orders at this location
+        internal_transfer_quantity:
+          type: integer
+          description: Quantity in transit to or from this location
+        location_id:
+          type: integer
+          description: Unique identifier for the fulfillment center location
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the fulfillment center
+        on_hand_quantity:
+          type: integer
+          description: Total quantity physically present at this location
+      title: Inventory.FulfillableQuantityByFulfillmentCenter
     Inventory.InventoryQuantityResponse:
       type: object
       properties:
@@ -772,110 +846,16 @@ components:
           type: integer
           description: Total quantity available for sale (fulfillable plus awaiting)
       title: Inventory.InventoryQuantityResponse
-    Inventory.InventoryQuantityFcResponse:
+    Inventory.HazmatResponse:
       type: object
       properties:
-        inventory_id:
-          type: integer
-          description: Unique identifier for the inventory item
-        locations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Inventory.FulfillmentCenterResponse'
-          description: List of fulfillment centers and their respective inventory quantities
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the inventory item
-        sku:
-          type:
-          - string
-          - 'null'
-          description: Stock keeping unit identifier
-      title: Inventory.InventoryQuantityFcResponse
-    FulfillmentCenterInventoryService.YukiOperationalStageEnumTypeResponse:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-          description: Human-readable description of the operational stage (e.g., 'Available', 'Reserved', 'In Transit').
-        id:
-          type: integer
-          description: Numeric identifier for the operational stage.
-      title: FulfillmentCenterInventoryService.YukiOperationalStageEnumTypeResponse
-    FulfillmentCenterInventoryService.InventoryHistoryResponse:
-      type: object
-      properties:
-        data:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistory'
-          description: Array of inventory history events matching the query criteria.
-        first:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the first page of results.
-        last:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the last page of results.
-        next:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the next page of results. Null if no more results available.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the previous page of results. Null if on the first page.
-      title: FulfillmentCenterInventoryService.InventoryHistoryResponse
-    FulfillmentCenterInventoryService.InventoryHistory:
-      type: object
-      properties:
-        additional_reference:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference'
-          description: Additional key-value reference data related to this event.
-        decrement:
-          $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryDetails'
-          description: Details of the source location where inventory quantity decreased.
-        event_category:
-          type:
-          - string
-          - 'null'
-          description: 'The type of inventory event. Supported values: `OrderPicked`, `InventoryAdjusted`, `InventoryFacilityUpdated`, `AttributeUpdated`, `InventoryReceived`, `InventoryRestocked`, `ReceivingStow`, `KittingStow`.'
-        event_datetime:
-          type: string
-          format: date-time
-          description: The timestamp when this inventory event occurred.
-        increment:
-          $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryDetails'
-          description: Details of the destination location where inventory quantity increased.
-        inventory_audit_event_id:
-          type: integer
-          description: Unique identifier for this event. Use as cursor value for pagination to fetch subsequent records.
-        inventory_id:
-          type: integer
-          description: The ShipBob inventory ID for this item.
-        shipbob_order_id:
-          type:
-          - integer
-          - 'null'
-          description: The ShipBob order ID associated with this event, if applicable (e.g., for `OrderPicked` events).
-      title: FulfillmentCenterInventoryService.InventoryHistory
+        is_hazmat:
+          type: boolean
+          description: Indicates if the inventory item is classified as hazardous material
+        validated:
+          type: boolean
+          description: Indicates whether hazmat status has been validated and confirmed
+      title: Inventory.HazmatResponse
     Inventory.WeightResponse:
       type: object
       properties:
@@ -889,87 +869,6 @@ components:
           format: double
           description: Weight value of the inventory item
       title: Inventory.WeightResponse
-    Inventory.VariantResponse:
-      type: object
-      properties:
-        hazmat:
-          $ref: '#/components/schemas/Inventory.HazmatResponse'
-          description: Hazardous materials information
-        is_active:
-          type: boolean
-          description: Indicates if the variant is currently active and available for fulfillment
-        is_bundle:
-          type: boolean
-          description: Indicates if this item is a bundle of multiple products
-        is_digital:
-          type: boolean
-          description: Indicates if this is a digital product (no physical fulfillment required)
-      title: Inventory.VariantResponse
-    Inventory.InventoryQuantityFcResponsePagedResponse:
-      type: object
-      properties:
-        first:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the first page of results. Null if already on the first page.
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Inventory.InventoryQuantityFcResponse'
-          description: Array of location-grouped inventory quantity items in the current page of results.
-        last:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the last page of results. Null if already on the last page.
-        next:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the next page of results. Null if on the last page.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the previous page of results. Null if on the first page.
-      title: Inventory.InventoryQuantityFcResponsePagedResponse
-    Inventory.InventoryQuantityLotResponse:
-      type: object
-      properties:
-        inventory_id:
-          type: integer
-          description: Unique identifier for the inventory item
-        lots:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Inventory.Lots'
-          description: List of lot numbers and their respective inventory quantities
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the inventory item
-        sku:
-          type:
-          - string
-          - 'null'
-          description: Stock keeping unit identifier
-      title: Inventory.InventoryQuantityLotResponse
-    Inventory.HazmatResponse:
-      type: object
-      properties:
-        is_hazmat:
-          type: boolean
-          description: Indicates if the inventory item is classified as hazardous material
-        validated:
-          type: boolean
-          description: Indicates whether hazmat status has been validated and confirmed
-      title: Inventory.HazmatResponse
     Inventory.Lots:
       type: object
       properties:
@@ -1007,6 +906,221 @@ components:
           type: integer
           description: Total quantity physically present for this lot
       title: Inventory.Lots
+    FulfillmentCenterInventoryService.InventoryHistory:
+      type: object
+      properties:
+        additional_reference:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference'
+          description: Additional key-value reference data related to this event.
+        decrement:
+          $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryDetails'
+          description: Details of the source location where inventory quantity decreased.
+        event_category:
+          type:
+          - string
+          - 'null'
+          description: 'The type of inventory event. Supported values: `OrderPicked`, `InventoryAdjusted`, `InventoryFacilityUpdated`, `AttributeUpdated`, `InventoryReceived`, `InventoryRestocked`, `ReceivingStow`, `KittingStow`.'
+        event_datetime:
+          type: string
+          format: date-time
+          description: The timestamp when this inventory event occurred.
+        increment:
+          $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistoryDetails'
+          description: Details of the destination location where inventory quantity increased.
+        inventory_audit_event_id:
+          type: integer
+          description: Unique identifier for this event. Use as cursor value for pagination to fetch subsequent records.
+        inventory_id:
+          type: integer
+          description: The ShipBob inventory ID for this item.
+        shipbob_order_id:
+          type:
+          - integer
+          - 'null'
+          description: The ShipBob order ID associated with this event, if applicable (e.g., for `OrderPicked` events).
+      title: FulfillmentCenterInventoryService.InventoryHistory
+    Inventory.InventoryQuantityFcResponse:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique identifier for the inventory item
+        locations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.FulfillmentCenterResponse'
+          description: List of fulfillment centers and their respective inventory quantities
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the inventory item
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier
+      title: Inventory.InventoryQuantityFcResponse
+    Inventory.InventoryQuantityLotResponse:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique identifier for the inventory item
+        lots:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.Lots'
+          description: List of lot numbers and their respective inventory quantities
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the inventory item
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock keeping unit identifier
+      title: Inventory.InventoryQuantityLotResponse
+    Inventory.FulfillmentCenterResponse:
+      type: object
+      properties:
+        awaiting_quantity:
+          type: integer
+          description: Quantity expected to arrive at this location
+        committed_quantity:
+          type: integer
+          description: Quantity reserved for existing orders at this location
+        fulfillable_quantity:
+          type: integer
+          description: Quantity available to fulfill new orders at this location
+        internal_transfer_quantity:
+          type: integer
+          description: Quantity in transit to or from this location
+        location_id:
+          type: integer
+          description: Unique identifier for the fulfillment center location
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the fulfillment center
+        on_hand_quantity:
+          type: integer
+          description: Total quantity physically present at this location
+      title: Inventory.FulfillmentCenterResponse
+    Inventory.InventoryResponsePagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results. Null if already on the first page.
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.InventoryResponse'
+          description: Array of inventory items in the current page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results. Null if already on the last page.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if on the last page.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: Inventory.InventoryResponsePagedResponse
+    Inventory.DimensionsResponse:
+      type: object
+      properties:
+        height:
+          type: number
+          format: double
+          description: Height measurement of the inventory item
+        is_locked:
+          type: boolean
+          description: Indicates whether dimensions are locked and cannot be modified
+        length:
+          type: number
+          format: double
+          description: Length measurement of the inventory item
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit of measurement for dimensions (i.e. inches)
+        validated:
+          type: boolean
+          description: Indicates whether dimensions have been validated by warehouse staff
+        width:
+          type: number
+          format: double
+          description: Width measurement of the inventory item
+      title: Inventory.DimensionsResponse
+    FulfillmentCenterInventoryService.InventoryHistoryResponse:
+      type: object
+      properties:
+        data:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FulfillmentCenterInventoryService.InventoryHistory'
+          description: Array of inventory history events matching the query criteria.
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if no more results available.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: FulfillmentCenterInventoryService.InventoryHistoryResponse
+    FulfillmentCenterInventoryService.Ulid:
+      type: object
+      properties:
+        random:
+          type:
+          - string
+          - 'null'
+          format: byte
+          description: Random component of the ULID (Universally Unique Lexicographically Sortable Identifier).
+        time:
+          type: string
+          format: date-time
+          description: Timestamp component of the ULID, representing when the identifier was created.
+      title: FulfillmentCenterInventoryService.Ulid
     FulfillmentCenterInventoryService.MerchantHistoryRequest:
       type: object
       properties:
@@ -1045,6 +1159,37 @@ components:
       required:
       - facility_id
       title: FulfillmentCenterInventoryService.MerchantHistoryRequest
+    Inventory.InventoryQuantityResponsePagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the first page of results. Null if already on the first page.
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Inventory.InventoryQuantityResponse'
+          description: Array of inventory quantity items in the current page of results.
+        last:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the last page of results. Null if already on the last page.
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the next page of results. Null if on the last page.
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL to retrieve the previous page of results. Null if on the first page.
+      title: Inventory.InventoryQuantityResponsePagedResponse
     Inventory.ProblemDetails:
       type: object
       properties:
@@ -1074,37 +1219,6 @@ components:
           - 'null'
           description: A URI reference that identifies the problem type. This URI should provide human-readable documentation for the problem.
       title: Inventory.ProblemDetails
-    Inventory.InventoryResponsePagedResponse:
-      type: object
-      properties:
-        first:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the first page of results. Null if already on the first page.
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Inventory.InventoryResponse'
-          description: Array of inventory items in the current page of results.
-        last:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the last page of results. Null if already on the last page.
-        next:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the next page of results. Null if on the last page.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the previous page of results. Null if on the first page.
-      title: Inventory.InventoryResponsePagedResponse
     FulfillmentCenterInventoryService.InventoryHistoryDetails:
       type: object
       properties:
@@ -1151,75 +1265,19 @@ components:
           $ref: '#/components/schemas/FulfillmentCenterInventoryService.Ulid'
           description: Unique identifier for the physical inventory unit (Yuki) in ShipBob's system.
       title: FulfillmentCenterInventoryService.InventoryHistoryDetails
-    Inventory.FulfillmentCenterResponse:
+    FulfillmentCenterInventoryService.YukiOperationalStageEnumTypeResponse:
       type: object
       properties:
-        awaiting_quantity:
-          type: integer
-          description: Quantity expected to arrive at this location
-        committed_quantity:
-          type: integer
-          description: Quantity reserved for existing orders at this location
-        fulfillable_quantity:
-          type: integer
-          description: Quantity available to fulfill new orders at this location
-        internal_transfer_quantity:
-          type: integer
-          description: Quantity in transit to or from this location
-        location_id:
-          type: integer
-          description: Unique identifier for the fulfillment center location
-        name:
+        description:
           type:
           - string
           - 'null'
-          description: Name of the fulfillment center
-        on_hand_quantity:
+          description: Human-readable description of the operational stage (e.g., 'Available', 'Reserved', 'In Transit').
+        id:
           type: integer
-          description: Total quantity physically present at this location
-      title: Inventory.FulfillmentCenterResponse
-    Inventory.FulfillableQuantityByFulfillmentCenter:
-      type: object
-      properties:
-        awaiting_quantity:
-          type: integer
-          description: Quantity expected to arrive at this location
-        committed_quantity:
-          type: integer
-          description: Quantity reserved for existing orders at this location
-        fulfillable_quantity:
-          type: integer
-          description: Quantity available to fulfill new orders at this location
-        internal_transfer_quantity:
-          type: integer
-          description: Quantity in transit to or from this location
-        location_id:
-          type: integer
-          description: Unique identifier for the fulfillment center location
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the fulfillment center
-        on_hand_quantity:
-          type: integer
-          description: Total quantity physically present at this location
-      title: Inventory.FulfillableQuantityByFulfillmentCenter
-    FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference:
-      type: object
-      properties:
-        key:
-          type:
-          - string
-          - 'null'
-          description: The reference key (e.g., WRO ID, order ID, or other contextual identifier).
-        value:
-          type:
-          - string
-          - 'null'
-          description: The reference value corresponding to the key.
-      title: FulfillmentCenterInventoryService.InventoryHistoryAdditionalReference
-    Inventory.InventoryQuantityResponsePagedResponse:
+          description: Numeric identifier for the operational stage.
+      title: FulfillmentCenterInventoryService.YukiOperationalStageEnumTypeResponse
+    Inventory.InventoryQuantityFcResponsePagedResponse:
       type: object
       properties:
         first:
@@ -1232,8 +1290,8 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Inventory.InventoryQuantityResponse'
-          description: Array of inventory quantity items in the current page of results.
+            $ref: '#/components/schemas/Inventory.InventoryQuantityFcResponse'
+          description: Array of location-grouped inventory quantity items in the current page of results.
         last:
           type:
           - string
@@ -1249,65 +1307,7 @@ components:
           - string
           - 'null'
           description: URL to retrieve the previous page of results. Null if on the first page.
-      title: Inventory.InventoryQuantityResponsePagedResponse
-    Inventory.InventoryQuantityLotResponsePagedResponse:
-      type: object
-      properties:
-        first:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the first page of results. Null if already on the first page.
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Inventory.InventoryQuantityLotResponse'
-          description: Array of lot-grouped inventory quantity items in the current page of results.
-        last:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the last page of results. Null if already on the last page.
-        next:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the next page of results. Null if on the last page.
-        prev:
-          type:
-          - string
-          - 'null'
-          description: URL to retrieve the previous page of results. Null if on the first page.
-      title: Inventory.InventoryQuantityLotResponsePagedResponse
-    Inventory.DimensionsResponse:
-      type: object
-      properties:
-        height:
-          type: number
-          format: double
-          description: Height measurement of the inventory item
-        is_locked:
-          type: boolean
-          description: Indicates whether dimensions are locked and cannot be modified
-        length:
-          type: number
-          format: double
-          description: Length measurement of the inventory item
-        unit:
-          type:
-          - string
-          - 'null'
-          description: Unit of measurement for dimensions (i.e. inches)
-        validated:
-          type: boolean
-          description: Indicates whether dimensions have been validated by warehouse staff
-        width:
-          type: number
-          format: double
-          description: Width measurement of the inventory item
-      title: Inventory.DimensionsResponse
+      title: Inventory.InventoryQuantityFcResponsePagedResponse
   securitySchemes:
     PAT:
       type: http

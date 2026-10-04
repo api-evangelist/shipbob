@@ -840,31 +840,28 @@ paths:
               $ref: '#/components/schemas/Products.ConvertVariantToBundleRequest'
 components:
   schemas:
-    Products.BaseSerialScanModel:
+    Products.ReturnPreferencesRequestModel:
       type: object
       properties:
-        exact_character_length:
+        backup_action_id:
           type:
           - integer
           - 'null'
-        is_enabled:
-          type: boolean
-        prefix:
+        instructions:
           type:
           - string
           - 'null'
-        suffix:
+        primary_action_id:
+          type: integer
+        return_to_sender_backup_action_id:
           type:
-          - string
+          - integer
           - 'null'
-      title: Products.BaseSerialScanModel
-    ProductsTaxonomyViewModelParent:
-      oneOf:
-      - $ref: '#/components/schemas/Products.BaseTaxonomyViewModel'
-      - $ref: '#/components/schemas/Products.ChildTaxonomyViewModel'
-      - $ref: '#/components/schemas/Products.TaxonomyViewModel'
-      description: Parent taxonomy node in the category hierarchy
-      title: ProductsTaxonomyViewModelParent
+        return_to_sender_primary_action_id:
+          type:
+          - integer
+          - 'null'
+      title: Products.ReturnPreferencesRequestModel
     Products.ChildTaxonomyViewModel:
       type: object
       properties:
@@ -884,7 +881,39 @@ components:
         has_children:
           type: boolean
       title: Products.ChildTaxonomyViewModel
-    Products.SerialScanRequestModel:
+    Products.AssociatedBundlesViewModel:
+      type: object
+      properties:
+        product_id:
+          type: integer
+          format: int64
+        product_name:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+        variant_id:
+          type: integer
+          format: int64
+        variant_sku:
+          type:
+          - string
+          - 'null'
+      title: Products.AssociatedBundlesViewModel
+    Products_deleteProductBundle_Response_200:
+      type: object
+      properties: {}
+      description: Empty response body
+      title: Products_deleteProductBundle_Response_200
+    Products.VariantStatus:
+      type: string
+      enum:
+      - '1'
+      - '2'
+      - '3'
+      title: Products.VariantStatus
+    Products.BaseSerialScanModel:
       type: object
       properties:
         exact_character_length:
@@ -901,36 +930,13 @@ components:
           type:
           - string
           - 'null'
-      title: Products.SerialScanRequestModel
-    Products.VariantToMigrate:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type:
-          - string
-          - 'null'
-      title: Products.VariantToMigrate
-    Products.BundleDefinitionRequestModel:
-      type: object
-      properties:
-        quantity:
-          type: integer
-        variant_id:
-          type: integer
-          format: int64
-      title: Products.BundleDefinitionRequestModel
-    Products.BaseProductChannelMetadataModel:
+      title: Products.BaseSerialScanModel
+    Products.ShopifyChannelMetadataRequestModel:
       type: object
       properties:
         channel_id:
-          type: integer
-          format: int64
-        channel_name:
           type:
-          - string
+          - integer
           - 'null'
         currency:
           type:
@@ -967,8 +973,633 @@ components:
           type:
           - string
           - 'null'
-      title: Products.BaseProductChannelMetadataModel
-    Products.BarcodeRequestModel:
+      description: Shopify Sales Channel Information
+      title: Products.ShopifyChannelMetadataRequestModel
+    Products.DimensionRequestModel:
+      type: object
+      properties:
+        height:
+          type: number
+          format: double
+        length:
+          type: number
+          format: double
+        width:
+          type: number
+          format: double
+      title: Products.DimensionRequestModel
+    Products.Get.Api.V5.Taxonomy.Id.Parent.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Taxonomy.Id.Parent.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.DimensionViewModel:
+      type: object
+      properties:
+        height:
+          type: number
+          format: double
+          description: Height of the product
+        is_locked:
+          type: boolean
+          description: Flag indicating whether dimensions are locked and cannot be automatically recalculated by the system
+        length:
+          type: number
+          format: double
+          description: Length of the product
+        source:
+          type:
+          - string
+          - 'null'
+          description: Source of the dimension data (e.g., 'User', 'System', 'Warehouse')
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit of measurement for dimensions (e.g., 'in', 'cm')
+        width:
+          type: number
+          format: double
+          description: Width of the product
+      title: Products.DimensionViewModel
+    Products.TaxonomyViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the taxonomy node
+        name:
+          type:
+          - string
+          - 'null'
+          description: Display name of the taxonomy category
+        path:
+          type:
+          - string
+          - 'null'
+          description: Full hierarchical path of the taxonomy (e.g., 'Electronics > Computers > Laptops')
+        children:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.ChildTaxonomyViewModel'
+          description: Child taxonomy nodes that belong to this category
+        parent:
+          oneOf:
+          - $ref: '#/components/schemas/ProductsTaxonomyViewModelParent'
+          - type: 'null'
+          description: Parent taxonomy node in the category hierarchy
+      title: Products.TaxonomyViewModel
+    Products.PackagingRequirementViewModel:
+      type: object
+      properties:
+        applicable_categories:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.ApplicableCategoryViewModel'
+          description: List of product categories where this packaging requirement is applicable
+        applicable_packaging_material_types:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.PackagingMaterialTypeViewModel'
+          description: List of packaging material types that are compatible with this requirement
+        applicable_taxonomy:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of taxonomy paths where this packaging requirement can be applied
+        description:
+          type:
+          - string
+          - 'null'
+          description: Detailed explanation of the packaging requirement and when it should be used
+        id:
+          type: integer
+          description: Unique identifier for the packaging requirement
+        name:
+          type:
+          - string
+          - 'null'
+          description: Display name of the packaging requirement (e.g., 'Poly Bag', 'Bubble Wrap')
+      title: Products.PackagingRequirementViewModel
+    Products.MergeVariantRequestModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Products.MergeVariantRequestModel'
+      title: Products.MergeVariantRequestModelArray
+    Products.MergedChildrenViewModel:
+      type: object
+      properties:
+        channel_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int64
+        completed_at:
+          type: string
+          format: date-time
+        inventory_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        variant_id:
+          type: integer
+          format: int64
+        variant_name:
+          type:
+          - string
+          - 'null'
+      title: Products.MergedChildrenViewModel
+    Products.Post.Api.V5.Product.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Post.Api.V5.Product.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.BaseReturnPreferencesModel:
+      type: object
+      properties:
+        backup_action_id:
+          type:
+          - integer
+          - 'null'
+          description: ID of backup action to take if primary action cannot be completed
+        instructions:
+          type:
+          - string
+          - 'null'
+          description: Special instructions for handling returned items
+        primary_action_id:
+          type: integer
+          description: ID of primary action to take when product is returned by customer (e.g., Restock, Dispose, Return to Sender)
+        return_to_sender_backup_action_id:
+          type:
+          - integer
+          - 'null'
+          description: ID of backup action for undeliverable packages if primary action cannot be completed
+        return_to_sender_primary_action_id:
+          type:
+          - integer
+          - 'null'
+          description: ID of primary action for undeliverable packages that are returned to sender
+      title: Products.BaseReturnPreferencesModel
+    Products.VariantViewModelV5Array:
+      type: array
+      items:
+        $ref: '#/components/schemas/Products.VariantViewModelV5'
+      title: Products.VariantViewModelV5Array
+    Products.BaseTaxonomyViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the taxonomy node
+        name:
+          type:
+          - string
+          - 'null'
+          description: Display name of the taxonomy category
+        path:
+          type:
+          - string
+          - 'null'
+          description: Full hierarchical path of the taxonomy (e.g., 'Electronics > Computers > Laptops')
+      title: Products.BaseTaxonomyViewModel
+    Products.BigCommerceChannelMetadataViewModel:
+      type: object
+      properties:
+        channel_id:
+          type: integer
+          format: int64
+        channel_name:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type: integer
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+        platform_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform_variant_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      title: Products.BigCommerceChannelMetadataViewModel
+    ProductsConvertVariantToBundleRequestChannelMetadataItems:
+      oneOf:
+      - $ref: '#/components/schemas/Products.AmazonChannelMetadataRequestModel'
+      - $ref: '#/components/schemas/Products.BaseChannelMetadataRequestModel'
+      - $ref: '#/components/schemas/Products.BigCommerceChannelMetadataRequestModel'
+      - $ref: '#/components/schemas/Products.ShopifyChannelMetadataRequestModel'
+      title: ProductsConvertVariantToBundleRequestChannelMetadataItems
+    Products.BigCommerceChannelMetadataRequestModel:
+      type: object
+      properties:
+        channel_id:
+          type:
+          - integer
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+        platform_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform_variant_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      description: BigCommerce Sales Channel Information with custom Amazon Fields
+      title: Products.BigCommerceChannelMetadataRequestModel
+    Products.EnumViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type:
+          - string
+          - 'null'
+      title: Products.EnumViewModel
+    Products.ReviewsPendingType:
+      type: string
+      enum:
+      - '0'
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      title: Products.ReviewsPendingType
+    Products.AdditionalHazmatAttributesViewModel:
+      type: object
+      properties:
+        charge_state_percentage:
+          type:
+          - number
+          - 'null'
+          format: double
+        container_metal:
+          type:
+          - boolean
+          - 'null'
+        container_type:
+          type:
+          - string
+          - 'null'
+        lithium_battery_packaging:
+          type:
+          - string
+          - 'null'
+        lithium_battery_type:
+          type:
+          - string
+          - 'null'
+        magnet:
+          type:
+          - boolean
+          - 'null'
+        net_volume:
+          type:
+          - number
+          - 'null'
+          format: double
+        net_weight:
+          type:
+          - number
+          - 'null'
+          format: double
+      title: Products.AdditionalHazmatAttributesViewModel
+    Products.ProductViewModelV5:
+      type: object
+      properties:
+        created_on:
+          type: string
+          format: date-time
+          description: Timestamp when the product was created
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the product
+        name:
+          type:
+          - string
+          - 'null'
+          description: Product name
+        taxonomy:
+          $ref: '#/components/schemas/Products.TaxonomyInformationViewModel'
+          description: Product categorization information including category hierarchy
+        type:
+          type:
+          - string
+          - 'null'
+          description: Product type (e.g., 'Regular' or 'Bundle')
+        updated_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the product was last updated
+        user_id:
+          type: integer
+          format: int64
+          description: ID of the user who owns this product
+        variants:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductsProductViewModelV5VariantsItems'
+          description: List of variants belonging to this product. Each variant represents a specific SKU.
+      title: Products.ProductViewModelV5
+    Products.BaseAdditionalHazmatAttributesModel:
+      type: object
+      properties:
+        charge_state_percentage:
+          type:
+          - number
+          - 'null'
+          format: double
+        container_metal:
+          type:
+          - boolean
+          - 'null'
+        container_type:
+          type:
+          - string
+          - 'null'
+        lithium_battery_packaging:
+          type:
+          - string
+          - 'null'
+        lithium_battery_type:
+          type:
+          - string
+          - 'null'
+        magnet:
+          type:
+          - boolean
+          - 'null'
+        net_volume:
+          type:
+          - number
+          - 'null'
+          format: double
+        net_weight:
+          type:
+          - number
+          - 'null'
+          format: double
+      title: Products.BaseAdditionalHazmatAttributesModel
+    Products.FulfillmentSettingsViewModel:
+      type: object
+      properties:
+        dangerous_goods:
+          type: boolean
+          description: Flag indicating whether the product is classified as dangerous goods (hazmat) requiring special handling
+        is_bpm_parcel:
+          type: boolean
+          description: Flag indicating whether this product qualifies for Business Parcel Manager (BPM) parcel shipping
+        is_case_pick:
+          type: boolean
+          description: Flag indicating whether this product should be picked by the case rather than individual units
+        msds_url:
+          type:
+          - string
+          - 'null'
+          description: URL to the Material Safety Data Sheet (MSDS) for hazardous materials
+        requires_prop65:
+          type: boolean
+          description: Flag indicating California Proposition 65 warning label requirement for products containing chemicals known to cause cancer or reproductive harm
+        serial_scan:
+          $ref: '#/components/schemas/Products.SerialScanViewModel'
+          description: Serial number scanning configuration for tracking individual units
+      title: Products.FulfillmentSettingsViewModel
+    Products.TaxonomyViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Products.TaxonomyViewModel'
+      title: Products.TaxonomyViewModelArray
+    Products.ShopifyChannelMetadataViewModel:
+      type: object
+      properties:
+        channel_id:
+          type: integer
+          format: int64
+        channel_name:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type: integer
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+      title: Products.ShopifyChannelMetadataViewModel
+    Products.BaseCustomsModel:
+      type: object
+      properties:
+        country_code_of_origin:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        hs_tariff_code:
+          type:
+          - string
+          - 'null'
+        is321_eligible:
+          type: boolean
+        value:
+          type:
+          - integer
+          - 'null'
+      title: Products.BaseCustomsModel
+    Products.MergeVariantRequestModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+      title: Products.MergeVariantRequestModel
+    Products.SerialScanViewModel:
+      type: object
+      properties:
+        exact_character_length:
+          type:
+          - integer
+          - 'null'
+        is_enabled:
+          type: boolean
+        prefix:
+          type:
+          - string
+          - 'null'
+        suffix:
+          type:
+          - string
+          - 'null'
+      title: Products.SerialScanViewModel
+    Products.ApplicableCategoryViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        sub_category_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+      title: Products.ApplicableCategoryViewModel
+    Products.CreateProductVariantRequestModelV5Array:
+      type: array
+      items:
+        $ref: '#/components/schemas/Products.CreateProductVariantRequestModelV5'
+      title: Products.CreateProductVariantRequestModelV5Array
+    Products.MigrateVariantRequestModel:
+      type: object
+      properties:
+        category_id:
+          type:
+          - integer
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        product_id:
+          type: integer
+          format: int64
+        sub_category_id:
+          type:
+          - integer
+          - 'null'
+        taxonomy_id:
+          type:
+          - integer
+          - 'null'
+        variants:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.VariantToMigrate'
+      title: Products.MigrateVariantRequestModel
+    Products.BarcodeViewModel:
       type: object
       properties:
         sticker_url:
@@ -981,35 +1612,267 @@ components:
           - string
           - 'null'
           description: The barcode value (e.g., UPC, EAN, GTIN, or other barcode format)
-      title: Products.BarcodeRequestModel
-    Products.Get.Api.V5.Taxonomy.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.FulfillmentSettingsRequestModel:
+      title: Products.BarcodeViewModel
+    Products.Get.Api.V5.Product.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Products.Get.Api.V5.Product.Bad.Request.Object
+    Products.VariantViewModelV5:
       type: object
       properties:
-        dangerous_goods:
-          type: boolean
-        is_bpm_parcel:
-          type: boolean
-        is_case_pick:
-          type: boolean
-        msds_url:
+        additional_hazmat_attributes:
+          $ref: '#/components/schemas/Products.AdditionalHazmatAttributesViewModel'
+          description: Additional hazardous materials attributes for lithium batteries and dangerous goods
+        associated_bundles:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.AssociatedBundlesViewModel'
+          description: List of bundle products that include this variant as a component
+        bundle_definition:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.BundleDefinitionViewModel'
+          description: If this variant is a bundle, defines which variants and quantities make up the bundle
+        created_on:
+          type: string
+          format: date-time
+          description: Timestamp when the variant was created
+        customs:
+          $ref: '#/components/schemas/Products.CustomsViewModel'
+          description: Customs and international shipping information (tariff codes, country of origin, declared value)
+        dimension:
+          $ref: '#/components/schemas/Products.DimensionViewModel'
+          description: Physical dimensions of the variant (length, width, height)
+        fulfillment_settings:
+          $ref: '#/components/schemas/Products.FulfillmentSettingsViewModel'
+          description: Fulfillment-specific settings (Prop 65, dangerous goods, serial scanning, case pick)
+        gtin:
           type:
           - string
           - 'null'
-        requires_prop65:
+          description: Global Trade Item Number - standardized product identifier
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the variant
+        inventory:
+          $ref: '#/components/schemas/Products.InventoryViewModel'
+          description: Current inventory information including on-hand quantity
+        is_digital:
           type: boolean
-        serial_scan:
-          $ref: '#/components/schemas/Products.SerialScanRequestModel'
-      title: Products.FulfillmentSettingsRequestModel
-    Products.Post.Api.V5.Product.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Post.Api.V5.Product.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+          description: Flag indicating whether this is a digital product (no physical fulfillment)
+        is_image_uploaded:
+          type: boolean
+          description: Flag indicating whether a product image has been uploaded for this variant
+        lot_information:
+          $ref: '#/components/schemas/Products.LotInformationViewModel'
+          description: Lot tracking settings including whether lot tracking is enabled and minimum shelf life requirements
+        merge_children:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.MergedChildrenViewModel'
+          description: List of variants that have been merged into this variant
+        name:
+          type:
+          - string
+          - 'null'
+          description: Variant name or descriptor
+        packaging_material_type:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+          description: Type of packaging material used for this variant (ID and name)
+        packaging_requirement:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+          description: Special packaging requirements for this variant (ID and name)
+        return_preferences:
+          $ref: '#/components/schemas/Products.ReturnPreferencesViewModel'
+          description: Customer return handling preferences including primary and backup actions
+        reviews_pending:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of pending review types for this variant (e.g., compliance checks, quality reviews)
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Stock Keeping Unit - unique identifier for the variant used in inventory management
+        status:
+          type:
+          - string
+          - 'null'
+          description: Current status of the variant (e.g., 'Active', 'Inactive')
+        upc:
+          type:
+          - string
+          - 'null'
+          description: Universal Product Code - 12-digit barcode identifier
+        updated_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the variant was last updated
+        weight:
+          $ref: '#/components/schemas/Products.WeightViewModel'
+          description: Weight of the variant including unit of measure
+        barcodes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.BarcodeViewModel'
+          description: List of barcodes associated with this variant (UPC, EAN, etc.)
+        channel_metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductsVariantViewModelV5ChannelMetadataItems'
+          description: Platform-specific metadata for sales channels (e.g., Amazon ASIN, Shopify product IDs)
+      title: Products.VariantViewModelV5
+    Products.ReturnPreferencesViewModel:
+      type: object
+      properties:
+        backup_action:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+          description: Backup action to take if primary action cannot be completed
+        instructions:
+          type:
+          - string
+          - 'null'
+          description: Special instructions for handling returned items
+        primary_action:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+          description: Primary action to take when product is returned by customer (e.g., 'Restock', 'Dispose', 'Return to Sender')
+        return_to_sender_backup_action:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+          description: Backup action for undeliverable packages if primary action cannot be completed
+        return_to_sender_primary_action:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+          description: Primary action for undeliverable packages that are returned to sender
+      title: Products.ReturnPreferencesViewModel
+    Products.HttpValidationProblemDetails:
+      type: object
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+      title: Products.HttpValidationProblemDetails
+    Products.SerialScanRequestModel:
+      type: object
+      properties:
+        exact_character_length:
+          type:
+          - integer
+          - 'null'
+        is_enabled:
+          type: boolean
+        prefix:
+          type:
+          - string
+          - 'null'
+        suffix:
+          type:
+          - string
+          - 'null'
+      title: Products.SerialScanRequestModel
+    Products.WeightViewModel:
+      type: object
+      properties:
+        unit:
+          type:
+          - string
+          - 'null'
+          description: Unit of measurement for weight (e.g., 'lb', 'oz', 'kg', 'g')
+        weight:
+          type: number
+          format: double
+          description: Weight value of the product
+      title: Products.WeightViewModel
+    Products.UpdateProductRequestModelV5:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the product
+        taxonomy_id:
+          type:
+          - integer
+          - 'null'
+          description: The taxonomy ID for categorizing the product
+        type_id:
+          $ref: '#/components/schemas/ProductsBaseProductRequestModelTypeId'
+          description: The product type ID (1 = Regular, 2 = Bundle)
+        id:
+          type: integer
+          format: int64
+          description: Unique reference ID for the product
+        variants:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.UpdateProductVariantRequestModelV5'
+          description: List of variants to update. Each variant must include an ID. Only provided fields will be updated.
+      title: Products.UpdateProductRequestModelV5
+    Products.InventoryViewModel:
+      type: object
+      properties:
+        inventory_id:
+          type:
+          - integer
+          - 'null'
+        on_hand_qty:
+          type: integer
+      title: Products.InventoryViewModel
+    Products.LotInformationRequestModel:
+      type: object
+      properties:
+        is_lot:
+          type: boolean
+        minimum_shelf_life_days:
+          type:
+          - integer
+          - 'null'
+      title: Products.LotInformationRequestModel
     Products.BaseFulfillmentSettingsModel:
       type: object
       properties:
@@ -1034,13 +1897,30 @@ components:
           $ref: '#/components/schemas/Products.BaseSerialScanModel'
           description: Serial number scanning configuration for tracking individual units
       title: Products.BaseFulfillmentSettingsModel
-    Products.Post.Api.V5.Product.MoveVariants.Bad.Request.Object:
+    Products.ConvertVariantToBundleRequest:
       type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Products.Post.Api.V5.Product.MoveVariants.Bad.Request.Object
+      properties:
+        bundle_definition:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.BundleDefinitionRequestModel'
+        channel_metadata:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ProductsConvertVariantToBundleRequestChannelMetadataItems'
+        name:
+          type:
+          - string
+          - 'null'
+        sku:
+          type:
+          - string
+          - 'null'
+      title: Products.ConvertVariantToBundleRequest
     Products.BigCommerceProductChannelMetadataModel:
       type: object
       properties:
@@ -1097,308 +1977,11 @@ components:
           - 'null'
           format: int64
       title: Products.BigCommerceProductChannelMetadataModel
-    Products.UpdateProductVariantModelV5:
-      type: object
-      properties:
-        additional_hazmat_attributes:
-          $ref: '#/components/schemas/Products.BaseAdditionalHazmatAttributesModel'
-        bundle_definition:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.BaseBundleDefinitionModel'
-        channel_metadata:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductsBaseProductVariantModelChannelMetadataItems'
-        customs:
-          $ref: '#/components/schemas/Products.BaseCustomsModel'
-        dimension:
-          $ref: '#/components/schemas/Products.BaseDimensionModel'
-        fulfillment_settings:
-          $ref: '#/components/schemas/Products.BaseFulfillmentSettingsModel'
-        gtin:
-          type:
-          - string
-          - 'null'
-        is_digital:
-          type: boolean
-        lot_information:
-          $ref: '#/components/schemas/Products.BaseLotInformationModel'
-        name:
-          type:
-          - string
-          - 'null'
-        packaging_material_type_id:
-          type:
-          - integer
-          - 'null'
-        packaging_requirement_id:
-          type:
-          - integer
-          - 'null'
-        return_preferences:
-          $ref: '#/components/schemas/Products.BaseReturnPreferencesModel'
-        reviews_pending:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.ReviewsPendingType'
-        sku:
-          type:
-          - string
-          - 'null'
-        status:
-          $ref: '#/components/schemas/Products.VariantStatus'
-        upc:
-          type:
-          - string
-          - 'null'
-        weight:
-          type: number
-          format: double
-        barcodes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.BarcodeModel'
-        id:
-          type: integer
-          format: int64
-      title: Products.UpdateProductVariantModelV5
-    Products.TaxonomyViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the taxonomy node
-        name:
-          type:
-          - string
-          - 'null'
-          description: Display name of the taxonomy category
-        path:
-          type:
-          - string
-          - 'null'
-          description: Full hierarchical path of the taxonomy (e.g., 'Electronics > Computers > Laptops')
-        children:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.ChildTaxonomyViewModel'
-          description: Child taxonomy nodes that belong to this category
-        parent:
-          oneOf:
-          - $ref: '#/components/schemas/ProductsTaxonomyViewModelParent'
-          - type: 'null'
-          description: Parent taxonomy node in the category hierarchy
-      title: Products.TaxonomyViewModel
-    Products.CreateProductVariantRequestModelV5Array:
-      type: array
-      items:
-        $ref: '#/components/schemas/Products.CreateProductVariantRequestModelV5'
-      title: Products.CreateProductVariantRequestModelV5Array
-    ProductsVariantViewModelV5ChannelMetadataItems:
+    Products.Post.Api.V5.Product.ProductId.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
       oneOf:
-      - $ref: '#/components/schemas/Products.ChannelMetadataViewModel'
-      - $ref: '#/components/schemas/Products.AmazonChannelMetadataViewModel'
-      - $ref: '#/components/schemas/Products.BigCommerceChannelMetadataViewModel'
-      - $ref: '#/components/schemas/Products.ShopifyChannelMetadataViewModel'
-      title: ProductsVariantViewModelV5ChannelMetadataItems
-    Products.VariantViewModelV5Array:
-      type: array
-      items:
-        $ref: '#/components/schemas/Products.VariantViewModelV5'
-      title: Products.VariantViewModelV5Array
-    ProductsProductViewModelV5VariantsItems:
-      oneOf:
-      - $ref: '#/components/schemas/Products.VariantViewModelV5'
-      - $ref: '#/components/schemas/Products.VariantInternalViewModelV5'
-      title: ProductsProductViewModelV5VariantsItems
-    Products.Get.Api.V5.Product.ProductId.Variants.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Products.Get.Api.V5.Product.ProductId.Variants.Bad.Request.Object
-    Products.ShopifyChannelMetadataViewModel:
-      type: object
-      properties:
-        channel_id:
-          type: integer
-          format: int64
-        channel_name:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type: integer
-          format: int64
-        is_inventory_sync_enabled:
-          type: boolean
-        legacy_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-      title: Products.ShopifyChannelMetadataViewModel
-    Products.ReturnPreferencesRequestModel:
-      type: object
-      properties:
-        backup_action_id:
-          type:
-          - integer
-          - 'null'
-        instructions:
-          type:
-          - string
-          - 'null'
-        primary_action_id:
-          type: integer
-        return_to_sender_backup_action_id:
-          type:
-          - integer
-          - 'null'
-        return_to_sender_primary_action_id:
-          type:
-          - integer
-          - 'null'
-      title: Products.ReturnPreferencesRequestModel
-    Products.ShopifyChannelMetadataRequestModel:
-      type: object
-      properties:
-        channel_id:
-          type:
-          - integer
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        is_inventory_sync_enabled:
-          type: boolean
-        legacy_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-      description: Shopify Sales Channel Information
-      title: Products.ShopifyChannelMetadataRequestModel
-    Products.CustomsRequestModel:
-      type: object
-      properties:
-        country_code_of_origin:
-          type:
-          - string
-          - 'null'
-          description: ISO 3166-1 alpha-2 country code where the product was manufactured (e.g., 'US', 'CN', 'MX')
-        description:
-          type:
-          - string
-          - 'null'
-          description: Product description for customs documentation
-        hs_tariff_code:
-          type:
-          - string
-          - 'null'
-          description: Harmonized System tariff code used for international customs classification (6-10 digits)
-        is321_eligible:
-          type: boolean
-          description: Flag indicating eligibility for Section 321 de minimis exemption (imports under $800 to US)
-        value:
-          type:
-          - integer
-          - 'null'
-          description: Declared customs value of the product for international shipping
-      title: Products.CustomsRequestModel
-    Products.TaxonomyViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Products.TaxonomyViewModel'
-      title: Products.TaxonomyViewModelArray
-    Products.UpdateProductRequestModelV5:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the product
-        taxonomy_id:
-          type:
-          - integer
-          - 'null'
-          description: The taxonomy ID for categorizing the product
-        type_id:
-          $ref: '#/components/schemas/ProductsBaseProductRequestModelTypeId'
-          description: The product type ID (1 = Regular, 2 = Bundle)
-        id:
-          type: integer
-          format: int64
-          description: Unique reference ID for the product
-        variants:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.UpdateProductVariantRequestModelV5'
-          description: List of variants to update. Each variant must include an ID. Only provided fields will be updated.
-      title: Products.UpdateProductRequestModelV5
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Post.Api.V5.Product.ProductId.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
     ProductsBaseProductRequestModelTypeId:
       type: string
       enum:
@@ -1406,339 +1989,11 @@ components:
       - '2'
       description: The product type ID (1 = Regular, 2 = Bundle)
       title: ProductsBaseProductRequestModelTypeId
-    Products.BundleDefinitionViewModel:
-      type: object
-      properties:
-        product_id:
-          type: integer
-          format: int64
-        quantity:
-          type: integer
-        variant_id:
-          type: integer
-          format: int64
-        variant_name:
-          type:
-          - string
-          - 'null'
-        variant_sku:
-          type:
-          - string
-          - 'null'
-      title: Products.BundleDefinitionViewModel
-    Products.ShopifyProductChannelMetadataModel:
-      type: object
-      properties:
-        channel_id:
-          type: integer
-          format: int64
-        channel_name:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        is_inventory_sync_enabled:
-          type: boolean
-        legacy_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-      title: Products.ShopifyProductChannelMetadataModel
-    Products.SerialScanViewModel:
-      type: object
-      properties:
-        exact_character_length:
-          type:
-          - integer
-          - 'null'
-        is_enabled:
-          type: boolean
-        prefix:
-          type:
-          - string
-          - 'null'
-        suffix:
-          type:
-          - string
-          - 'null'
-      title: Products.SerialScanViewModel
-    Products.WeightViewModel:
-      type: object
-      properties:
-        unit:
-          type:
-          - string
-          - 'null'
-          description: Unit of measurement for weight (e.g., 'lb', 'oz', 'kg', 'g')
-        weight:
-          type: number
-          format: double
-          description: Weight value of the product
-      title: Products.WeightViewModel
-    ProductsBaseProductVariantRequestModelChannelMetadataItems:
-      oneOf:
-      - $ref: '#/components/schemas/Products.BaseChannelMetadataRequestModel'
-      title: ProductsBaseProductVariantRequestModelChannelMetadataItems
-    Products.Delete.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Delete.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.BaseReturnPreferencesModel:
-      type: object
-      properties:
-        backup_action_id:
-          type:
-          - integer
-          - 'null'
-          description: ID of backup action to take if primary action cannot be completed
-        instructions:
-          type:
-          - string
-          - 'null'
-          description: Special instructions for handling returned items
-        primary_action_id:
-          type: integer
-          description: ID of primary action to take when product is returned by customer (e.g., Restock, Dispose, Return to Sender)
-        return_to_sender_backup_action_id:
-          type:
-          - integer
-          - 'null'
-          description: ID of backup action for undeliverable packages if primary action cannot be completed
-        return_to_sender_primary_action_id:
-          type:
-          - integer
-          - 'null'
-          description: ID of primary action for undeliverable packages that are returned to sender
-      title: Products.BaseReturnPreferencesModel
-    Products.Get.Api.V5.Taxonomy.Id.Parent.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Id.Parent.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.HttpValidationProblemDetails:
-      type: object
-      properties:
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-      title: Products.HttpValidationProblemDetails
-    Products.BaseChannelMetadataRequestModel:
-      type: object
-      properties:
-        channel_id:
-          type:
-          - integer
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        is_inventory_sync_enabled:
-          type: boolean
-        legacy_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-      description: Standard Channel Metadata Record to store SellerSKU for a Sales Channel
-      title: Products.BaseChannelMetadataRequestModel
-    Products.ApplicableCategoryViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-        sub_category_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-      title: Products.ApplicableCategoryViewModel
-    Products.BarcodeModel:
-      type: object
-      properties:
-        sticker_url:
-          type:
-          - string
-          - 'null'
-        value:
-          type:
-          - string
-          - 'null'
-      title: Products.BarcodeModel
-    Products.EnumViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type:
-          - string
-          - 'null'
-      title: Products.EnumViewModel
-    Products.BaseDimensionModel:
-      type: object
-      properties:
-        height:
-          type: number
-          format: double
-          description: Height of the product in inches
-        length:
-          type: number
-          format: double
-          description: Length of the product in inches
-        width:
-          type: number
-          format: double
-          description: Width of the product in inches
-      title: Products.BaseDimensionModel
-    Products.Get.Api.V5.Taxonomy.Id.Parent.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Id.Parent.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.Get.Api.V5.Product.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Product.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.Delete.Api.V5.Product.ProductId.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Products.Delete.Api.V5.Product.ProductId.Bad.Request.Object
-    Products.CreateProductRequestModelV5:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the product
-        taxonomy_id:
-          type:
-          - integer
-          - 'null'
-          description: The taxonomy ID for categorizing the product
-        type_id:
-          $ref: '#/components/schemas/ProductsBaseProductRequestModelTypeId'
-          description: The product type ID (1 = Regular, 2 = Bundle)
-        is_quarantine:
-          type: boolean
-          description: Flag indicating whether the product should be created in quarantine status
-        variants:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.CreateProductVariantRequestModelV5'
-          description: List of variants to create with the product. At least one variant is required. Each variant must have a unique SKU.
-      title: Products.CreateProductRequestModelV5
-    Products.FulfillmentSettingsViewModel:
-      type: object
-      properties:
-        dangerous_goods:
-          type: boolean
-          description: Flag indicating whether the product is classified as dangerous goods (hazmat) requiring special handling
-        is_bpm_parcel:
-          type: boolean
-          description: Flag indicating whether this product qualifies for Business Parcel Manager (BPM) parcel shipping
-        is_case_pick:
-          type: boolean
-          description: Flag indicating whether this product should be picked by the case rather than individual units
-        msds_url:
-          type:
-          - string
-          - 'null'
-          description: URL to the Material Safety Data Sheet (MSDS) for hazardous materials
-        requires_prop65:
-          type: boolean
-          description: Flag indicating California Proposition 65 warning label requirement for products containing chemicals known to cause cancer or reproductive harm
-        serial_scan:
-          $ref: '#/components/schemas/Products.SerialScanViewModel'
-          description: Serial number scanning configuration for tracking individual units
-      title: Products.FulfillmentSettingsViewModel
+    Products.PackagingRequirementViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Products.PackagingRequirementViewModel'
+      title: Products.PackagingRequirementViewModelArray
     Products.VariantInternalViewModelV5:
       type: object
       properties:
@@ -1862,67 +2117,173 @@ components:
         compliance:
           $ref: '#/components/schemas/Products.ComplianceViewModel'
       title: Products.VariantInternalViewModelV5
-    Products.AdditionalHazmatAttributesViewModel:
+    ProductsTaxonomyViewModelParent:
+      oneOf:
+      - $ref: '#/components/schemas/Products.BaseTaxonomyViewModel'
+      - $ref: '#/components/schemas/Products.ChildTaxonomyViewModel'
+      - $ref: '#/components/schemas/Products.TaxonomyViewModel'
+      description: Parent taxonomy node in the category hierarchy
+      title: ProductsTaxonomyViewModelParent
+    Products.Get.Api.V5.Taxonomy.Id.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Taxonomy.Id.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.Get.Api.V5.Taxonomy.Id.Parent.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Taxonomy.Id.Parent.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.Get.Api.V5.Product.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Product.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.Get.Api.V5.Taxonomy.Id.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Taxonomy.Id.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.Get.Api.V5.Taxonomy.Id.Parent.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Taxonomy.Id.Parent.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.UpdateProductVariantRequestModelV5:
       type: object
       properties:
-        charge_state_percentage:
+        additional_hazmat_attributes:
+          $ref: '#/components/schemas/Products.AdditionalHazmatAttributesRequestModel'
+          description: Additional hazardous material attributes for variants containing lithium batteries or other regulated materials
+        bundle_definition:
           type:
-          - number
+          - array
           - 'null'
-          format: double
-        container_metal:
+          items:
+            $ref: '#/components/schemas/Products.BundleDefinitionRequestModel'
+          description: For bundle products, defines which variants and quantities make up the bundle
+        channel_metadata:
           type:
-          - boolean
+          - array
           - 'null'
-        container_type:
+          items:
+            $ref: '#/components/schemas/ProductsBaseProductVariantRequestModelChannelMetadataItems'
+          description: Channel-specific metadata for different sales platforms (Amazon, Shopify, BigCommerce, etc.)
+        customs:
+          $ref: '#/components/schemas/Products.CustomsRequestModel'
+          description: Customs information for international shipping including HS tariff code, country of origin, and declared value
+        dimension:
+          $ref: '#/components/schemas/Products.DimensionRequestModel'
+          description: The physical dimensions (length, width, height) of the variant
+        fulfillment_settings:
+          $ref: '#/components/schemas/Products.FulfillmentSettingsRequestModel'
+          description: Fulfillment settings including Prop 65 requirements, dangerous goods, serial scanning, and case pick settings
+        gtin:
           type:
           - string
           - 'null'
-        lithium_battery_packaging:
-          type:
-          - string
-          - 'null'
-        lithium_battery_type:
-          type:
-          - string
-          - 'null'
-        magnet:
-          type:
-          - boolean
-          - 'null'
-        net_volume:
-          type:
-          - number
-          - 'null'
-          format: double
-        net_weight:
-          type:
-          - number
-          - 'null'
-          format: double
-      title: Products.AdditionalHazmatAttributesViewModel
-    ProductsBaseProductVariantModelChannelMetadataItems:
-      oneOf:
-      - $ref: '#/components/schemas/Products.AmazonProductChannelMetadataModel'
-      - $ref: '#/components/schemas/Products.BaseProductChannelMetadataModel'
-      - $ref: '#/components/schemas/Products.BigCommerceProductChannelMetadataModel'
-      - $ref: '#/components/schemas/Products.ShopifyProductChannelMetadataModel'
-      title: ProductsBaseProductVariantModelChannelMetadataItems
-    ProductsProductViewModelVariantsItems:
-      oneOf:
-      - $ref: '#/components/schemas/Products.VariantViewModel'
-      - $ref: '#/components/schemas/Products.VariantInternalViewModel'
-      title: ProductsProductViewModelVariantsItems
-    Products.LotInformationViewModel:
-      type: object
-      properties:
-        is_lot:
+          description: The Global Trade Item Number (GTIN) for the variant
+        is_digital:
           type: boolean
-        minimum_shelf_life_days:
+          description: Indicates whether this is a digital product that requires no physical fulfillment
+        lot_information:
+          $ref: '#/components/schemas/Products.LotInformationRequestModel'
+          description: Lot tracking information including whether the variant is lot-tracked and minimum shelf life
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the variant
+        packaging_material_type_id:
           type:
           - integer
           - 'null'
-      title: Products.LotInformationViewModel
+          description: The ID of the packaging material type (e.g., Box, Envelope, Poly Mailer)
+        packaging_requirement_id:
+          type:
+          - integer
+          - 'null'
+          description: The ID of the packaging requirement for the variant (e.g., IsFragile, RequiresBubbleWrap)
+        return_preferences:
+          $ref: '#/components/schemas/Products.ReturnPreferencesRequestModel'
+          description: Return handling preferences including primary and backup actions for returns
+        sku:
+          type:
+          - string
+          - 'null'
+          description: The unique stock keeping unit (SKU) for the variant
+        status_id:
+          $ref: '#/components/schemas/ProductsBaseProductVariantRequestModelStatusId'
+          description: The status ID of the variant (0 = Active, 1 = Inactive)
+        upc:
+          type:
+          - string
+          - 'null'
+          description: The Universal Product Code (UPC) for the variant
+        weight:
+          type: number
+          format: double
+          description: The weight of the variant in ounces
+        barcodes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.BarcodeRequestModel'
+          description: List of barcodes associated with this variant (UPC, EAN, etc.)
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the variant being updated. Required for update operations.
+      title: Products.UpdateProductVariantRequestModelV5
+    Products.Get.Api.V5.Taxonomy.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Taxonomy.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.Delete.Api.V5.Product.ProductId.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Products.Delete.Api.V5.Product.ProductId.Bad.Request.Object
+    Products.BaseBundleDefinitionModel:
+      type: object
+      properties:
+        quantity:
+          type: integer
+        variant_id:
+          type: integer
+          format: int64
+      title: Products.BaseBundleDefinitionModel
+    Products.CustomsRequestModel:
+      type: object
+      properties:
+        country_code_of_origin:
+          type:
+          - string
+          - 'null'
+          description: ISO 3166-1 alpha-2 country code where the product was manufactured (e.g., 'US', 'CN', 'MX')
+        description:
+          type:
+          - string
+          - 'null'
+          description: Product description for customs documentation
+        hs_tariff_code:
+          type:
+          - string
+          - 'null'
+          description: Harmonized System tariff code used for international customs classification (6-10 digits)
+        is321_eligible:
+          type: boolean
+          description: Flag indicating eligibility for Section 321 de minimis exemption (imports under $800 to US)
+        value:
+          type:
+          - integer
+          - 'null'
+          description: Declared customs value of the product for international shipping
+      title: Products.CustomsRequestModel
     Products.Post.Api.V5.Product.ProductId.MoveVariants.Bad.Request.Object:
       type: object
       additionalProperties:
@@ -1930,192 +2291,6 @@ components:
         items:
           type: string
       title: Products.Post.Api.V5.Product.ProductId.MoveVariants.Bad.Request.Object
-    Products.BaseAdditionalHazmatAttributesModel:
-      type: object
-      properties:
-        charge_state_percentage:
-          type:
-          - number
-          - 'null'
-          format: double
-        container_metal:
-          type:
-          - boolean
-          - 'null'
-        container_type:
-          type:
-          - string
-          - 'null'
-        lithium_battery_packaging:
-          type:
-          - string
-          - 'null'
-        lithium_battery_type:
-          type:
-          - string
-          - 'null'
-        magnet:
-          type:
-          - boolean
-          - 'null'
-        net_volume:
-          type:
-          - number
-          - 'null'
-          format: double
-        net_weight:
-          type:
-          - number
-          - 'null'
-          format: double
-      title: Products.BaseAdditionalHazmatAttributesModel
-    Products.MergedChildrenViewModel:
-      type: object
-      properties:
-        channel_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int64
-        completed_at:
-          type: string
-          format: date-time
-        inventory_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        variant_id:
-          type: integer
-          format: int64
-        variant_name:
-          type:
-          - string
-          - 'null'
-      title: Products.MergedChildrenViewModel
-    Products.VariantViewModelV5:
-      type: object
-      properties:
-        additional_hazmat_attributes:
-          $ref: '#/components/schemas/Products.AdditionalHazmatAttributesViewModel'
-          description: Additional hazardous materials attributes for lithium batteries and dangerous goods
-        associated_bundles:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.AssociatedBundlesViewModel'
-          description: List of bundle products that include this variant as a component
-        bundle_definition:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.BundleDefinitionViewModel'
-          description: If this variant is a bundle, defines which variants and quantities make up the bundle
-        created_on:
-          type: string
-          format: date-time
-          description: Timestamp when the variant was created
-        customs:
-          $ref: '#/components/schemas/Products.CustomsViewModel'
-          description: Customs and international shipping information (tariff codes, country of origin, declared value)
-        dimension:
-          $ref: '#/components/schemas/Products.DimensionViewModel'
-          description: Physical dimensions of the variant (length, width, height)
-        fulfillment_settings:
-          $ref: '#/components/schemas/Products.FulfillmentSettingsViewModel'
-          description: Fulfillment-specific settings (Prop 65, dangerous goods, serial scanning, case pick)
-        gtin:
-          type:
-          - string
-          - 'null'
-          description: Global Trade Item Number - standardized product identifier
-        id:
-          type: integer
-          format: int64
-          description: Unique identifier for the variant
-        inventory:
-          $ref: '#/components/schemas/Products.InventoryViewModel'
-          description: Current inventory information including on-hand quantity
-        is_digital:
-          type: boolean
-          description: Flag indicating whether this is a digital product (no physical fulfillment)
-        is_image_uploaded:
-          type: boolean
-          description: Flag indicating whether a product image has been uploaded for this variant
-        lot_information:
-          $ref: '#/components/schemas/Products.LotInformationViewModel'
-          description: Lot tracking settings including whether lot tracking is enabled and minimum shelf life requirements
-        merge_children:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.MergedChildrenViewModel'
-          description: List of variants that have been merged into this variant
-        name:
-          type:
-          - string
-          - 'null'
-          description: Variant name or descriptor
-        packaging_material_type:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-          description: Type of packaging material used for this variant (ID and name)
-        packaging_requirement:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-          description: Special packaging requirements for this variant (ID and name)
-        return_preferences:
-          $ref: '#/components/schemas/Products.ReturnPreferencesViewModel'
-          description: Customer return handling preferences including primary and backup actions
-        reviews_pending:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of pending review types for this variant (e.g., compliance checks, quality reviews)
-        sku:
-          type:
-          - string
-          - 'null'
-          description: Stock Keeping Unit - unique identifier for the variant used in inventory management
-        status:
-          type:
-          - string
-          - 'null'
-          description: Current status of the variant (e.g., 'Active', 'Inactive')
-        upc:
-          type:
-          - string
-          - 'null'
-          description: Universal Product Code - 12-digit barcode identifier
-        updated_on:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the variant was last updated
-        weight:
-          $ref: '#/components/schemas/Products.WeightViewModel'
-          description: Weight of the variant including unit of measure
-        barcodes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.BarcodeViewModel'
-          description: List of barcodes associated with this variant (UPC, EAN, etc.)
-        channel_metadata:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductsVariantViewModelV5ChannelMetadataItems'
-          description: Platform-specific metadata for sales channels (e.g., Amazon ASIN, Shopify product IDs)
-      title: Products.VariantViewModelV5
     Products.AmazonChannelMetadataRequestModel:
       type: object
       properties:
@@ -2172,14 +2347,353 @@ components:
           - 'null'
       description: Amazon Sales Channel Information with custom Amazon Fields
       title: Products.AmazonChannelMetadataRequestModel
-    Products.MergeVariantRequestModel:
+    ProductsVariantViewModelChannelMetadataItems:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ChannelMetadataViewModel'
+      - $ref: '#/components/schemas/Products.AmazonChannelMetadataViewModel'
+      - $ref: '#/components/schemas/Products.BigCommerceChannelMetadataViewModel'
+      - $ref: '#/components/schemas/Products.ShopifyChannelMetadataViewModel'
+      title: ProductsVariantViewModelChannelMetadataItems
+    Products.VariantToMigrate:
       type: object
       properties:
         id:
           type: integer
           format: int64
-      title: Products.MergeVariantRequestModel
-    Products.BaseBundleDefinitionModel:
+        name:
+          type:
+          - string
+          - 'null'
+      title: Products.VariantToMigrate
+    Products.AmazonProductChannelMetadataModel:
+      type: object
+      properties:
+        channel_id:
+          type: integer
+          format: int64
+        channel_name:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+        asin:
+          type:
+          - string
+          - 'null'
+        fnsku:
+          type:
+          - string
+          - 'null'
+        fulfillment_channel:
+          type:
+          - string
+          - 'null'
+      title: Products.AmazonProductChannelMetadataModel
+    Products.Delete.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Delete.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.FulfillmentSettingsRequestModel:
+      type: object
+      properties:
+        dangerous_goods:
+          type: boolean
+        is_bpm_parcel:
+          type: boolean
+        is_case_pick:
+          type: boolean
+        msds_url:
+          type:
+          - string
+          - 'null'
+        requires_prop65:
+          type: boolean
+        serial_scan:
+          $ref: '#/components/schemas/Products.SerialScanRequestModel'
+      title: Products.FulfillmentSettingsRequestModel
+    Products.Get.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.BarcodeRequestModel:
+      type: object
+      properties:
+        sticker_url:
+          type:
+          - string
+          - 'null'
+          description: URL to download or view a printable barcode sticker
+        value:
+          type:
+          - string
+          - 'null'
+          description: The barcode value (e.g., UPC, EAN, GTIN, or other barcode format)
+      title: Products.BarcodeRequestModel
+    Products.TaxonomyInformationViewModel:
+      type: object
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: Unique identifier for the taxonomy
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of this taxonomy category
+        parent_id:
+          type:
+          - integer
+          - 'null'
+          description: ID of the parent category in the taxonomy hierarchy
+        parent_name:
+          type:
+          - string
+          - 'null'
+          description: Name of the parent category in the taxonomy hierarchy
+        path:
+          type:
+          - string
+          - 'null'
+          description: Full hierarchical path of the taxonomy category (e.g., 'Electronics > Computers > Laptops')
+      title: Products.TaxonomyInformationViewModel
+    Products.ComplianceViewModel:
+      type: object
+      properties:
+        category:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        reasons:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        status:
+          type:
+          - string
+          - 'null'
+      title: Products.ComplianceViewModel
+    Products.Get.Api.V5.Product.ProductId.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Products.Get.Api.V5.Product.ProductId.Bad.Request.Object
+    Products.Get.Api.V5.Taxonomy.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ProblemDetails'
+      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
+      title: Products.Get.Api.V5.Taxonomy.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails
+    Products.Get.Api.V5.Product.ProductId.Variants.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Products.Get.Api.V5.Product.ProductId.Variants.Bad.Request.Object
+    Products.BaseLotInformationModel:
+      type: object
+      properties:
+        is_lot:
+          type: boolean
+        minimum_shelf_life_days:
+          type:
+          - integer
+          - 'null'
+      title: Products.BaseLotInformationModel
+    Products.ShopifyProductChannelMetadataModel:
+      type: object
+      properties:
+        channel_id:
+          type: integer
+          format: int64
+        channel_name:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+      title: Products.ShopifyProductChannelMetadataModel
+    Products.AmazonChannelMetadataViewModel:
+      type: object
+      properties:
+        channel_id:
+          type: integer
+          format: int64
+        channel_name:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type: integer
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+        asin:
+          type:
+          - string
+          - 'null'
+        fnsku:
+          type:
+          - string
+          - 'null'
+        fulfillment_channel:
+          type:
+          - string
+          - 'null'
+      title: Products.AmazonChannelMetadataViewModel
+    ProductsBaseProductVariantRequestModelChannelMetadataItems:
+      oneOf:
+      - $ref: '#/components/schemas/Products.BaseChannelMetadataRequestModel'
+      title: ProductsBaseProductVariantRequestModelChannelMetadataItems
+    Products.ChannelMetadataViewModel:
+      type: object
+      properties:
+        channel_id:
+          type: integer
+          format: int64
+        channel_name:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type: integer
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+      title: Products.ChannelMetadataViewModel
+    Products.BundleDefinitionRequestModel:
       type: object
       properties:
         quantity:
@@ -2187,12 +2701,65 @@ components:
         variant_id:
           type: integer
           format: int64
-      title: Products.BaseBundleDefinitionModel
-    Products.Get.Api.V5.Taxonomy.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails
+      title: Products.BundleDefinitionRequestModel
+    Products.CustomsViewModel:
+      type: object
+      properties:
+        country_code_of_origin:
+          type:
+          - string
+          - 'null'
+          description: ISO 3166-1 alpha-2 country code where the product was manufactured (e.g., 'US', 'CN', 'MX')
+        currency:
+          type:
+          - string
+          - 'null'
+          description: ISO 4217 currency code for the declared value (e.g., 'USD', 'EUR', 'GBP')
+        description:
+          type:
+          - string
+          - 'null'
+          description: Product description for customs documentation
+        hs_tariff_code:
+          type:
+          - string
+          - 'null'
+          description: Harmonized System tariff code used for international customs classification (6-10 digits)
+        is321_eligible:
+          type: boolean
+          description: Flag indicating eligibility for Section 321 de minimis exemption (imports under $800 to US)
+        value:
+          type:
+          - integer
+          - 'null'
+          description: Declared customs value of the product for international shipping
+      title: Products.CustomsViewModel
+    Products.BaseDimensionModel:
+      type: object
+      properties:
+        height:
+          type: number
+          format: double
+          description: Height of the product in inches
+        length:
+          type: number
+          format: double
+          description: Length of the product in inches
+        width:
+          type: number
+          format: double
+          description: Width of the product in inches
+      title: Products.BaseDimensionModel
+    Products.PackagingMaterialTypeViewModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type:
+          - string
+          - 'null'
+      title: Products.PackagingMaterialTypeViewModel
     Products.VariantInternalViewModel:
       type: object
       properties:
@@ -2316,99 +2883,163 @@ components:
         compliance:
           $ref: '#/components/schemas/Products.ComplianceViewModel'
       title: Products.VariantInternalViewModel
-    Products.CreateProductVariantRequestModelV5:
+    ProductsVariantViewModelV5ChannelMetadataItems:
+      oneOf:
+      - $ref: '#/components/schemas/Products.ChannelMetadataViewModel'
+      - $ref: '#/components/schemas/Products.AmazonChannelMetadataViewModel'
+      - $ref: '#/components/schemas/Products.BigCommerceChannelMetadataViewModel'
+      - $ref: '#/components/schemas/Products.ShopifyChannelMetadataViewModel'
+      title: ProductsVariantViewModelV5ChannelMetadataItems
+    Products.BundleDefinitionViewModel:
       type: object
       properties:
-        additional_hazmat_attributes:
-          $ref: '#/components/schemas/Products.AdditionalHazmatAttributesRequestModel'
-          description: Additional hazardous material attributes for variants containing lithium batteries or other regulated materials
-        bundle_definition:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.BundleDefinitionRequestModel'
-          description: For bundle products, defines which variants and quantities make up the bundle
-        channel_metadata:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductsBaseProductVariantRequestModelChannelMetadataItems'
-          description: Channel-specific metadata for different sales platforms (Amazon, Shopify, BigCommerce, etc.)
-        customs:
-          $ref: '#/components/schemas/Products.CustomsRequestModel'
-          description: Customs information for international shipping including HS tariff code, country of origin, and declared value
-        dimension:
-          $ref: '#/components/schemas/Products.DimensionRequestModel'
-          description: The physical dimensions (length, width, height) of the variant
-        fulfillment_settings:
-          $ref: '#/components/schemas/Products.FulfillmentSettingsRequestModel'
-          description: Fulfillment settings including Prop 65 requirements, dangerous goods, serial scanning, and case pick settings
-        gtin:
+        product_id:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+        variant_id:
+          type: integer
+          format: int64
+        variant_name:
           type:
           - string
           - 'null'
-          description: The Global Trade Item Number (GTIN) for the variant
-        is_digital:
-          type: boolean
-          description: Indicates whether this is a digital product that requires no physical fulfillment
-        lot_information:
-          $ref: '#/components/schemas/Products.LotInformationRequestModel'
-          description: Lot tracking information including whether the variant is lot-tracked and minimum shelf life
+        variant_sku:
+          type:
+          - string
+          - 'null'
+      title: Products.BundleDefinitionViewModel
+    Products.BarcodeModel:
+      type: object
+      properties:
+        sticker_url:
+          type:
+          - string
+          - 'null'
+        value:
+          type:
+          - string
+          - 'null'
+      title: Products.BarcodeModel
+    Products.ProductViewModelV5PagedResponse:
+      type: object
+      properties:
+        first:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.ProductViewModelV5'
+        last:
+          type:
+          - string
+          - 'null'
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+      title: Products.ProductViewModelV5PagedResponse
+    Products.CreateProductRequestModelV5:
+      type: object
+      properties:
         name:
           type:
           - string
           - 'null'
-          description: The name of the variant
-        packaging_material_type_id:
+          description: The name of the product
+        taxonomy_id:
           type:
           - integer
           - 'null'
-          description: The ID of the packaging material type (e.g., Box, Envelope, Poly Mailer)
-        packaging_requirement_id:
-          type:
-          - integer
-          - 'null'
-          description: The ID of the packaging requirement for the variant (e.g., IsFragile, RequiresBubbleWrap)
-        return_preferences:
-          $ref: '#/components/schemas/Products.ReturnPreferencesRequestModel'
-          description: Return handling preferences including primary and backup actions for returns
-        sku:
-          type:
-          - string
-          - 'null'
-          description: The unique stock keeping unit (SKU) for the variant
-        status_id:
-          $ref: '#/components/schemas/ProductsBaseProductVariantRequestModelStatusId'
-          description: The status ID of the variant (0 = Active, 1 = Inactive)
-        upc:
-          type:
-          - string
-          - 'null'
-          description: The Universal Product Code (UPC) for the variant
-        weight:
-          type: number
-          format: double
-          description: The weight of the variant in ounces
-        barcodes:
+          description: The taxonomy ID for categorizing the product
+        type_id:
+          $ref: '#/components/schemas/ProductsBaseProductRequestModelTypeId'
+          description: The product type ID (1 = Regular, 2 = Bundle)
+        is_quarantine:
+          type: boolean
+          description: Flag indicating whether the product should be created in quarantine status
+        variants:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Products.BarcodeRequestModel'
-          description: Array of barcode values for the variant
-      title: Products.CreateProductVariantRequestModelV5
-    Products.Post.Api.V5.Product.ProductId.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+            $ref: '#/components/schemas/Products.CreateProductVariantRequestModelV5'
+          description: List of variants to create with the product. At least one variant is required. Each variant must have a unique SKU.
+      title: Products.CreateProductRequestModelV5
+    Products.BaseProductChannelMetadataModel:
+      type: object
+      properties:
+        channel_id:
+          type: integer
+          format: int64
+        channel_name:
+          type:
+          - string
+          - 'null'
+        currency:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        is_inventory_sync_enabled:
+          type: boolean
+        legacy_product_id:
+          type:
+          - integer
+          - 'null'
+          format: int64
+        platform:
+          type:
+          - string
+          - 'null'
+        platform_identifier:
+          type:
+          - string
+          - 'null'
+        platform_inventory_item_id:
+          type:
+          - string
+          - 'null'
+        price:
+          type: number
+          format: double
+        seller_sku:
+          type:
+          - string
+          - 'null'
+      title: Products.BaseProductChannelMetadataModel
+    ProductsBaseProductVariantModelChannelMetadataItems:
+      oneOf:
+      - $ref: '#/components/schemas/Products.AmazonProductChannelMetadataModel'
+      - $ref: '#/components/schemas/Products.BaseProductChannelMetadataModel'
+      - $ref: '#/components/schemas/Products.BigCommerceProductChannelMetadataModel'
+      - $ref: '#/components/schemas/Products.ShopifyProductChannelMetadataModel'
+      title: ProductsBaseProductVariantModelChannelMetadataItems
+    Products.Post.Api.V5.Product.MoveVariants.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Products.Post.Api.V5.Product.MoveVariants.Bad.Request.Object
+    Products.Get.Api.V5.Product.ProductId.Variants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
       oneOf:
       - $ref: '#/components/schemas/Products.ProblemDetails'
       - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Post.Api.V5.Product.ProductId.MoveVariants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.Get.Api.V5.Taxonomy.Id.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Id.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails
+      title: Products.Get.Api.V5.Product.ProductId.Variants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
     Products.VariantViewModel:
       type: object
       properties:
@@ -2530,17 +3161,7 @@ components:
           items:
             $ref: '#/components/schemas/ProductsVariantViewModelChannelMetadataItems'
       title: Products.VariantViewModel
-    Products.PackagingMaterialTypeViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type:
-          - string
-          - 'null'
-      title: Products.PackagingMaterialTypeViewModel
-    Products.UpdateProductVariantRequestModelV5:
+    Products.CreateProductVariantRequestModelV5:
       type: object
       properties:
         additional_hazmat_attributes:
@@ -2621,60 +3242,13 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Products.BarcodeRequestModel'
-          description: List of barcodes associated with this variant (UPC, EAN, etc.)
-        id:
-          type: integer
-          format: int64
-          description: Unique identifier for the variant being updated. Required for update operations.
-      title: Products.UpdateProductVariantRequestModelV5
-    Products.LotInformationRequestModel:
-      type: object
-      properties:
-        is_lot:
-          type: boolean
-        minimum_shelf_life_days:
-          type:
-          - integer
-          - 'null'
-      title: Products.LotInformationRequestModel
-    Products.PackagingRequirementViewModel:
-      type: object
-      properties:
-        applicable_categories:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.ApplicableCategoryViewModel'
-          description: List of product categories where this packaging requirement is applicable
-        applicable_packaging_material_types:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.PackagingMaterialTypeViewModel'
-          description: List of packaging material types that are compatible with this requirement
-        applicable_taxonomy:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of taxonomy paths where this packaging requirement can be applied
-        description:
-          type:
-          - string
-          - 'null'
-          description: Detailed explanation of the packaging requirement and when it should be used
-        id:
-          type: integer
-          description: Unique identifier for the packaging requirement
-        name:
-          type:
-          - string
-          - 'null'
-          description: Display name of the packaging requirement (e.g., 'Poly Bag', 'Bubble Wrap')
-      title: Products.PackagingRequirementViewModel
+          description: Array of barcode values for the variant
+      title: Products.CreateProductVariantRequestModelV5
+    ProductsProductViewModelVariantsItems:
+      oneOf:
+      - $ref: '#/components/schemas/Products.VariantViewModel'
+      - $ref: '#/components/schemas/Products.VariantInternalViewModel'
+      title: ProductsProductViewModelVariantsItems
     Products.ProblemDetails:
       type: object
       properties:
@@ -2699,156 +3273,16 @@ components:
           - string
           - 'null'
       title: Products.ProblemDetails
-    Products.BigCommerceChannelMetadataViewModel:
+    Products.LotInformationViewModel:
       type: object
       properties:
-        channel_id:
-          type: integer
-          format: int64
-        channel_name:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type: integer
-          format: int64
-        is_inventory_sync_enabled:
+        is_lot:
           type: boolean
-        legacy_product_id:
+        minimum_shelf_life_days:
           type:
           - integer
           - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-        platform_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform_variant_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-      title: Products.BigCommerceChannelMetadataViewModel
-    Products.Get.Api.V5.Taxonomy.Id.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Id.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.ConvertVariantToBundleRequest:
-      type: object
-      properties:
-        bundle_definition:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.BundleDefinitionRequestModel'
-        channel_metadata:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductsConvertVariantToBundleRequestChannelMetadataItems'
-        name:
-          type:
-          - string
-          - 'null'
-        sku:
-          type:
-          - string
-          - 'null'
-      title: Products.ConvertVariantToBundleRequest
-    Products.Get.Api.V5.Product.ProductId.Variants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Product.ProductId.Variants.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.Get.Api.V5.Product.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Products.Get.Api.V5.Product.Bad.Request.Object
-    Products.TaxonomyInformationViewModel:
-      type: object
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: Unique identifier for the taxonomy
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of this taxonomy category
-        parent_id:
-          type:
-          - integer
-          - 'null'
-          description: ID of the parent category in the taxonomy hierarchy
-        parent_name:
-          type:
-          - string
-          - 'null'
-          description: Name of the parent category in the taxonomy hierarchy
-        path:
-          type:
-          - string
-          - 'null'
-          description: Full hierarchical path of the taxonomy category (e.g., 'Electronics > Computers > Laptops')
-      title: Products.TaxonomyInformationViewModel
-    Products.MergeVariantRequestModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Products.MergeVariantRequestModel'
-      title: Products.MergeVariantRequestModelArray
-    Products.ReturnPreferencesViewModel:
-      type: object
-      properties:
-        backup_action:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-          description: Backup action to take if primary action cannot be completed
-        instructions:
-          type:
-          - string
-          - 'null'
-          description: Special instructions for handling returned items
-        primary_action:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-          description: Primary action to take when product is returned by customer (e.g., 'Restock', 'Dispose', 'Return to Sender')
-        return_to_sender_backup_action:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-          description: Backup action for undeliverable packages if primary action cannot be completed
-        return_to_sender_primary_action:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-          description: Primary action for undeliverable packages that are returned to sender
-      title: Products.ReturnPreferencesViewModel
+      title: Products.LotInformationViewModel
     ProductsBaseProductVariantRequestModelStatusId:
       type: string
       enum:
@@ -2856,300 +3290,91 @@ components:
       - '1'
       description: The status ID of the variant (0 = Active, 1 = Inactive)
       title: ProductsBaseProductVariantRequestModelStatusId
-    Products.AmazonChannelMetadataViewModel:
-      type: object
-      properties:
-        channel_id:
-          type: integer
-          format: int64
-        channel_name:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type: integer
-          format: int64
-        is_inventory_sync_enabled:
-          type: boolean
-        legacy_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-        asin:
-          type:
-          - string
-          - 'null'
-        fnsku:
-          type:
-          - string
-          - 'null'
-        fulfillment_channel:
-          type:
-          - string
-          - 'null'
-      title: Products.AmazonChannelMetadataViewModel
-    Products.DimensionRequestModel:
-      type: object
-      properties:
-        height:
-          type: number
-          format: double
-        length:
-          type: number
-          format: double
-        width:
-          type: number
-          format: double
-      title: Products.DimensionRequestModel
-    Products.BigCommerceChannelMetadataRequestModel:
-      type: object
-      properties:
-        channel_id:
-          type:
-          - integer
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        is_inventory_sync_enabled:
-          type: boolean
-        legacy_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-        platform_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform_variant_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-      description: BigCommerce Sales Channel Information with custom Amazon Fields
-      title: Products.BigCommerceChannelMetadataRequestModel
-    Products.ProductViewModel:
-      type: object
-      properties:
-        category:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-        created_on:
-          type: string
-          format: date-time
-        id:
-          type: integer
-          format: int64
-        name:
-          type:
-          - string
-          - 'null'
-        sub_category:
-          $ref: '#/components/schemas/Products.EnumViewModel'
-        taxonomy:
-          $ref: '#/components/schemas/Products.TaxonomyInformationViewModel'
-        type:
-          type:
-          - string
-          - 'null'
-        updated_on:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        user_id:
-          type: integer
-          format: int64
-        variants:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductsProductViewModelVariantsItems'
-      title: Products.ProductViewModel
-    Products.ChannelMetadataViewModel:
-      type: object
-      properties:
-        channel_id:
-          type: integer
-          format: int64
-        channel_name:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        id:
-          type: integer
-          format: int64
-        is_inventory_sync_enabled:
-          type: boolean
-        legacy_product_id:
-          type:
-          - integer
-          - 'null'
-          format: int64
-        platform:
-          type:
-          - string
-          - 'null'
-        platform_identifier:
-          type:
-          - string
-          - 'null'
-        platform_inventory_item_id:
-          type:
-          - string
-          - 'null'
-        price:
-          type: number
-          format: double
-        seller_sku:
-          type:
-          - string
-          - 'null'
-      title: Products.ChannelMetadataViewModel
-    Products.Get.Api.V5.Taxonomy.Id.Parent.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
+    ProductsProductViewModelV5VariantsItems:
       oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Id.Parent.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.AssociatedBundlesViewModel:
+      - $ref: '#/components/schemas/Products.VariantViewModelV5'
+      - $ref: '#/components/schemas/Products.VariantInternalViewModelV5'
+      title: ProductsProductViewModelV5VariantsItems
+    Products.UpdateProductVariantModelV5:
       type: object
       properties:
-        product_id:
-          type: integer
-          format: int64
-        product_name:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-        variant_id:
-          type: integer
-          format: int64
-        variant_sku:
-          type:
-          - string
-          - 'null'
-      title: Products.AssociatedBundlesViewModel
-    Products.ComplianceViewModel:
-      type: object
-      properties:
-        category:
+        additional_hazmat_attributes:
+          $ref: '#/components/schemas/Products.BaseAdditionalHazmatAttributesModel'
+        bundle_definition:
           type:
           - array
           - 'null'
           items:
-            type: string
-        reasons:
+            $ref: '#/components/schemas/Products.BaseBundleDefinitionModel'
+        channel_metadata:
           type:
           - array
           - 'null'
           items:
-            type: string
-        status:
+            $ref: '#/components/schemas/ProductsBaseProductVariantModelChannelMetadataItems'
+        customs:
+          $ref: '#/components/schemas/Products.BaseCustomsModel'
+        dimension:
+          $ref: '#/components/schemas/Products.BaseDimensionModel'
+        fulfillment_settings:
+          $ref: '#/components/schemas/Products.BaseFulfillmentSettingsModel'
+        gtin:
           type:
           - string
           - 'null'
-      title: Products.ComplianceViewModel
-    Products.ReviewsPendingType:
-      type: string
-      enum:
-      - '0'
-      - '1'
-      - '2'
-      - '3'
-      - '4'
-      title: Products.ReviewsPendingType
-    Products.BaseCustomsModel:
-      type: object
-      properties:
-        country_code_of_origin:
-          type:
-          - string
-          - 'null'
-        currency:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        hs_tariff_code:
-          type:
-          - string
-          - 'null'
-        is321_eligible:
+        is_digital:
           type: boolean
-        value:
+        lot_information:
+          $ref: '#/components/schemas/Products.BaseLotInformationModel'
+        name:
+          type:
+          - string
+          - 'null'
+        packaging_material_type_id:
           type:
           - integer
           - 'null'
-      title: Products.BaseCustomsModel
-    Products.AmazonProductChannelMetadataModel:
+        packaging_requirement_id:
+          type:
+          - integer
+          - 'null'
+        return_preferences:
+          $ref: '#/components/schemas/Products.BaseReturnPreferencesModel'
+        reviews_pending:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.ReviewsPendingType'
+        sku:
+          type:
+          - string
+          - 'null'
+        status:
+          $ref: '#/components/schemas/Products.VariantStatus'
+        upc:
+          type:
+          - string
+          - 'null'
+        weight:
+          type: number
+          format: double
+        barcodes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Products.BarcodeModel'
+        id:
+          type: integer
+          format: int64
+      title: Products.UpdateProductVariantModelV5
+    Products.BaseChannelMetadataRequestModel:
       type: object
       properties:
         channel_id:
-          type: integer
-          format: int64
-        channel_name:
           type:
-          - string
+          - integer
           - 'null'
         currency:
           type:
@@ -3186,61 +3411,8 @@ components:
           type:
           - string
           - 'null'
-        asin:
-          type:
-          - string
-          - 'null'
-        fnsku:
-          type:
-          - string
-          - 'null'
-        fulfillment_channel:
-          type:
-          - string
-          - 'null'
-      title: Products.AmazonProductChannelMetadataModel
-    Products.ProductViewModelV5:
-      type: object
-      properties:
-        created_on:
-          type: string
-          format: date-time
-          description: Timestamp when the product was created
-        id:
-          type: integer
-          format: int64
-          description: Unique identifier for the product
-        name:
-          type:
-          - string
-          - 'null'
-          description: Product name
-        taxonomy:
-          $ref: '#/components/schemas/Products.TaxonomyInformationViewModel'
-          description: Product categorization information including category hierarchy
-        type:
-          type:
-          - string
-          - 'null'
-          description: Product type (e.g., 'Regular' or 'Bundle')
-        updated_on:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the product was last updated
-        user_id:
-          type: integer
-          format: int64
-          description: ID of the user who owns this product
-        variants:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ProductsProductViewModelV5VariantsItems'
-          description: List of variants belonging to this product. Each variant represents a specific SKU.
-      title: Products.ProductViewModelV5
+      description: Standard Channel Metadata Record to store SellerSKU for a Sales Channel
+      title: Products.BaseChannelMetadataRequestModel
     Products.AdditionalHazmatAttributesRequestModel:
       type: object
       properties:
@@ -3280,221 +3452,49 @@ components:
           - 'null'
           format: double
       title: Products.AdditionalHazmatAttributesRequestModel
-    Products_deleteProductBundle_Response_200:
-      type: object
-      properties: {}
-      description: Empty response body
-      title: Products_deleteProductBundle_Response_200
-    Products.DimensionViewModel:
+    Products.ProductViewModel:
       type: object
       properties:
-        height:
-          type: number
-          format: double
-          description: Height of the product
-        is_locked:
-          type: boolean
-          description: Flag indicating whether dimensions are locked and cannot be automatically recalculated by the system
-        length:
-          type: number
-          format: double
-          description: Length of the product
-        source:
-          type:
-          - string
-          - 'null'
-          description: Source of the dimension data (e.g., 'User', 'System', 'Warehouse')
-        unit:
-          type:
-          - string
-          - 'null'
-          description: Unit of measurement for dimensions (e.g., 'in', 'cm')
-        width:
-          type: number
-          format: double
-          description: Width of the product
-      title: Products.DimensionViewModel
-    ProductsVariantViewModelChannelMetadataItems:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ChannelMetadataViewModel'
-      - $ref: '#/components/schemas/Products.AmazonChannelMetadataViewModel'
-      - $ref: '#/components/schemas/Products.BigCommerceChannelMetadataViewModel'
-      - $ref: '#/components/schemas/Products.ShopifyChannelMetadataViewModel'
-      title: ProductsVariantViewModelChannelMetadataItems
-    ProductsConvertVariantToBundleRequestChannelMetadataItems:
-      oneOf:
-      - $ref: '#/components/schemas/Products.AmazonChannelMetadataRequestModel'
-      - $ref: '#/components/schemas/Products.BaseChannelMetadataRequestModel'
-      - $ref: '#/components/schemas/Products.BigCommerceChannelMetadataRequestModel'
-      - $ref: '#/components/schemas/Products.ShopifyChannelMetadataRequestModel'
-      title: ProductsConvertVariantToBundleRequestChannelMetadataItems
-    Products.BarcodeViewModel:
-      type: object
-      properties:
-        sticker_url:
-          type:
-          - string
-          - 'null'
-          description: URL to download or view a printable barcode sticker
-        value:
-          type:
-          - string
-          - 'null'
-          description: The barcode value (e.g., UPC, EAN, GTIN, or other barcode format)
-      title: Products.BarcodeViewModel
-    Products.CustomsViewModel:
-      type: object
-      properties:
-        country_code_of_origin:
-          type:
-          - string
-          - 'null'
-          description: ISO 3166-1 alpha-2 country code where the product was manufactured (e.g., 'US', 'CN', 'MX')
-        currency:
-          type:
-          - string
-          - 'null'
-          description: ISO 4217 currency code for the declared value (e.g., 'USD', 'EUR', 'GBP')
-        description:
-          type:
-          - string
-          - 'null'
-          description: Product description for customs documentation
-        hs_tariff_code:
-          type:
-          - string
-          - 'null'
-          description: Harmonized System tariff code used for international customs classification (6-10 digits)
-        is321_eligible:
-          type: boolean
-          description: Flag indicating eligibility for Section 321 de minimis exemption (imports under $800 to US)
-        value:
-          type:
-          - integer
-          - 'null'
-          description: Declared customs value of the product for international shipping
-      title: Products.CustomsViewModel
-    Products.PackagingRequirementViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Products.PackagingRequirementViewModel'
-      title: Products.PackagingRequirementViewModelArray
-    Products.Get.Api.V5.Product.ProductId.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
+        category:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+        created_on:
           type: string
-      title: Products.Get.Api.V5.Product.ProductId.Bad.Request.Object
-    Products.InventoryViewModel:
-      type: object
-      properties:
-        inventory_id:
-          type:
-          - integer
-          - 'null'
-        on_hand_qty:
-          type: integer
-      title: Products.InventoryViewModel
-    Products.VariantStatus:
-      type: string
-      enum:
-      - '1'
-      - '2'
-      - '3'
-      title: Products.VariantStatus
-    Products.BaseTaxonomyViewModel:
-      type: object
-      properties:
+          format: date-time
         id:
           type: integer
-          description: Unique identifier for the taxonomy node
+          format: int64
         name:
           type:
           - string
           - 'null'
-          description: Display name of the taxonomy category
-        path:
+        sub_category:
+          $ref: '#/components/schemas/Products.EnumViewModel'
+        taxonomy:
+          $ref: '#/components/schemas/Products.TaxonomyInformationViewModel'
+        type:
           type:
           - string
           - 'null'
-          description: Full hierarchical path of the taxonomy (e.g., 'Electronics > Computers > Laptops')
-      title: Products.BaseTaxonomyViewModel
-    Products.MigrateVariantRequestModel:
-      type: object
-      properties:
-        category_id:
-          type:
-          - integer
-          - 'null'
-        name:
+        updated_on:
           type:
           - string
           - 'null'
-        product_id:
+          format: date-time
+        user_id:
           type: integer
           format: int64
-        sub_category_id:
-          type:
-          - integer
-          - 'null'
-        taxonomy_id:
-          type:
-          - integer
-          - 'null'
         variants:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Products.VariantToMigrate'
-      title: Products.MigrateVariantRequestModel
-    Products.ProductViewModelV5PagedResponse:
-      type: object
-      properties:
-        first:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Products.ProductViewModelV5'
-        last:
-          type:
-          - string
-          - 'null'
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
-      title: Products.ProductViewModelV5PagedResponse
-    Products.BaseLotInformationModel:
-      type: object
-      properties:
-        is_lot:
-          type: boolean
-        minimum_shelf_life_days:
-          type:
-          - integer
-          - 'null'
-      title: Products.BaseLotInformationModel
-    Products.Get.Api.V5.Taxonomy.Id.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails:
+            $ref: '#/components/schemas/ProductsProductViewModelVariantsItems'
+      title: Products.ProductViewModel
+    Products.Get.Api.V5.Taxonomy.Id.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails:
       oneOf:
       - $ref: '#/components/schemas/Products.ProblemDetails'
       - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Taxonomy.Id.Unauthorized.OneOf.ProblemDetails.HttpValidationProblemDetails
-    Products.Get.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails:
-      oneOf:
-      - $ref: '#/components/schemas/Products.ProblemDetails'
-      - $ref: '#/components/schemas/Products.HttpValidationProblemDetails'
-      title: Products.Get.Api.V5.Product.ProductId.Not.Found.OneOf.ProblemDetails.HttpValidationProblemDetails
+      title: Products.Get.Api.V5.Taxonomy.Id.Forbidden.OneOf.ProblemDetails.HttpValidationProblemDetails
   securitySchemes:
     PAT:
       type: http

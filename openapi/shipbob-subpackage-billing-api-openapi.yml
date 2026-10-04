@@ -287,37 +287,58 @@ paths:
                 description: Any type
 components:
   schemas:
-    BillingTransactionRequestFilterV3ReferenceTypesItems:
+    Billing.SortOrder:
       type: string
       enum:
-      - Shipment
-      - Return
-      - WRO
-      - URO
-      title: BillingTransactionRequestFilterV3ReferenceTypesItems
-    BillingTransactionDtoV3ReferenceType:
-      type: string
-      enum:
-      - Shipment
-      - Return
-      - WRO
-      - URO
-      - Ticket Number
-      - FC
-      - LPN Reference
-      - Transfer Plan
-      description: The type of reference associated with the reference ID.
-      title: BillingTransactionDtoV3ReferenceType
-    202601InvoicesGetParametersInvoiceTypesSchemaItems:
+      - Ascending
+      - Descending
+      default: Descending
+      description: Sort order for results. Ascending sorts from lowest to highest, Descending sorts from highest to lowest.
+      title: Billing.SortOrder
+    Billing.InvoiceDtoV3:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The total invoice amount.
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO currency code used in the invoice (e.g., USD, EUR).
+        invoice_date:
+          type:
+          - string
+          - 'null'
+          description: The invoice date in yyyy-mm-dd format.
+        invoice_id:
+          type: integer
+          description: Unique identifier for the invoice.
+        invoice_type:
+          oneOf:
+          - $ref: '#/components/schemas/BillingInvoiceDtoV3InvoiceType'
+          - type: 'null'
+          description: The type or category of the invoice.
+        running_balance:
+          type: number
+          format: double
+          description: The running balance of the account after this invoice is applied.
+      description: Data transfer object representing an invoice.
+      title: Billing.InvoiceDtoV3
+    BillingTransactionDtoV3InvoiceType:
       type: string
       enum:
       - Shipping
-      - WarehouseStorage
       - Inbound Fee
-      - Return
+      - WarehouseStorage
       - AdditionalFee
+      - Return
       - Credits
-      title: 202601InvoicesGetParametersInvoiceTypesSchemaItems
+      - BalanceAdjustment
+      - Payment
+      description: The type or category of the invoice.
+      title: BillingTransactionDtoV3InvoiceType
     Billing.InvoiceDtoCursorPagedResponseV3:
       type: object
       properties:
@@ -350,47 +371,36 @@ components:
           description: Go to the Previous page
       description: Paginated response containing a list of invoices with navigation links for cursor-based pagination.
       title: Billing.InvoiceDtoCursorPagedResponseV3
-    Billing.InvoiceDtoV3:
+    Billing.TransactionDtoCursorPagedResponseV3:
       type: object
       properties:
-        amount:
-          type: number
-          format: double
-          description: The total invoice amount.
-        currency_code:
+        first:
           type:
           - string
           - 'null'
-          description: The ISO currency code used in the invoice (e.g., USD, EUR).
-        invoice_date:
+          description: Go to the first page
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Billing.TransactionDtoV3'
+        last:
           type:
           - string
           - 'null'
-          description: The invoice date in yyyy-mm-dd format.
-        invoice_id:
-          type: integer
-          description: Unique identifier for the invoice.
-        invoice_type:
-          oneOf:
-          - $ref: '#/components/schemas/BillingInvoiceDtoV3InvoiceType'
-          - type: 'null'
-          description: The type or category of the invoice.
-        running_balance:
-          type: number
-          format: double
-          description: The running balance of the account after this invoice is applied.
-      description: Data transfer object representing an invoice.
-      title: Billing.InvoiceDtoV3
-    BillingTransactionDtoV3TransactionType:
-      type: string
-      enum:
-      - Charge
-      - Refund
-      - Credit
-      - Payment
-      - BalanceAdjustment
-      description: The classification or nature of the transaction.
-      title: BillingTransactionDtoV3TransactionType
+          description: Go to the Last page
+        next:
+          type:
+          - string
+          - 'null'
+          description: Go to the Next page
+        prev:
+          type:
+          - string
+          - 'null'
+          description: Go to the Previous page
+      title: Billing.TransactionDtoCursorPagedResponseV3
     Billing.ProblemDetails:
       type: object
       properties:
@@ -415,57 +425,19 @@ components:
           - string
           - 'null'
       title: Billing.ProblemDetails
-    Billing.SortOrder:
+    BillingTransactionDtoV3ReferenceType:
       type: string
       enum:
-      - Ascending
-      - Descending
-      default: Descending
-      description: Sort order for results. Ascending sorts from lowest to highest, Descending sorts from highest to lowest.
-      title: Billing.SortOrder
-    BillingTransactionDtoV3InvoiceType:
-      type: string
-      enum:
-      - Shipping
-      - Inbound Fee
-      - WarehouseStorage
-      - AdditionalFee
+      - Shipment
       - Return
-      - Credits
-      - BalanceAdjustment
-      - Payment
-      description: The type or category of the invoice.
-      title: BillingTransactionDtoV3InvoiceType
-    Billing.InvoiceTaxDtoV3:
-      type: object
-      properties:
-        tax_amount:
-          type: number
-          format: double
-          description: Tax amount charged for this tax type.
-        tax_rate:
-          type: number
-          format: double
-          description: Tax rate applied as a percentage.
-        tax_type:
-          type:
-          - string
-          - 'null'
-          description: Type of tax applied.
-      description: Tax information associated with a transaction or invoice.
-      title: Billing.InvoiceTaxDtoV3
-    Billing.TransactionFeeModelV3:
-      type: object
-      properties:
-        fee_list:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BillingTransactionFeeModelV3FeeListItems'
-          description: Available transaction fee types for billing operations.
-      description: Response model containing available transaction fee types.
-      title: Billing.TransactionFeeModelV3
+      - WRO
+      - URO
+      - Ticket Number
+      - FC
+      - LPN Reference
+      - Transfer Plan
+      description: The type of reference associated with the reference ID.
+      title: BillingTransactionDtoV3ReferenceType
     Billing.TransactionRequestFilterV3:
       type: object
       properties:
@@ -527,19 +499,36 @@ components:
             $ref: '#/components/schemas/BillingTransactionRequestFilterV3TransactionTypesItems'
           description: The classification or nature of the transactions to filter by.
       title: Billing.TransactionRequestFilterV3
-    BillingInvoiceDtoV3InvoiceType:
-      type: string
-      enum:
-      - Shipping
-      - Inbound Fee
-      - WarehouseStorage
-      - AdditionalFee
-      - Return
-      - Credits
-      - BalanceAdjustment
-      - Payment
-      description: The type or category of the invoice.
-      title: BillingInvoiceDtoV3InvoiceType
+    Billing.TransactionFeeModelV3:
+      type: object
+      properties:
+        fee_list:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BillingTransactionFeeModelV3FeeListItems'
+          description: Available transaction fee types for billing operations.
+      description: Response model containing available transaction fee types.
+      title: Billing.TransactionFeeModelV3
+    Billing.InvoiceTaxDtoV3:
+      type: object
+      properties:
+        tax_amount:
+          type: number
+          format: double
+          description: Tax amount charged for this tax type.
+        tax_rate:
+          type: number
+          format: double
+          description: Tax rate applied as a percentage.
+        tax_type:
+          type:
+          - string
+          - 'null'
+          description: Type of tax applied.
+      description: Tax information associated with a transaction or invoice.
+      title: Billing.InvoiceTaxDtoV3
     BillingTransactionFeeModelV3FeeListItems:
       type: string
       enum:
@@ -632,36 +621,37 @@ components:
       - EDI Connection Fee
       - Return Item Processing Fee
       title: BillingTransactionFeeModelV3FeeListItems
-    Billing.TransactionDtoCursorPagedResponseV3:
-      type: object
-      properties:
-        first:
-          type:
-          - string
-          - 'null'
-          description: Go to the first page
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Billing.TransactionDtoV3'
-        last:
-          type:
-          - string
-          - 'null'
-          description: Go to the Last page
-        next:
-          type:
-          - string
-          - 'null'
-          description: Go to the Next page
-        prev:
-          type:
-          - string
-          - 'null'
-          description: Go to the Previous page
-      title: Billing.TransactionDtoCursorPagedResponseV3
+    BillingInvoiceDtoV3InvoiceType:
+      type: string
+      enum:
+      - Shipping
+      - Inbound Fee
+      - WarehouseStorage
+      - AdditionalFee
+      - Return
+      - Credits
+      - BalanceAdjustment
+      - Payment
+      description: The type or category of the invoice.
+      title: BillingInvoiceDtoV3InvoiceType
+    BillingTransactionDtoV3TransactionType:
+      type: string
+      enum:
+      - Charge
+      - Refund
+      - Credit
+      - Payment
+      - BalanceAdjustment
+      description: The classification or nature of the transaction.
+      title: BillingTransactionDtoV3TransactionType
+    BillingTransactionRequestFilterV3ReferenceTypesItems:
+      type: string
+      enum:
+      - Shipment
+      - Return
+      - WRO
+      - URO
+      title: BillingTransactionRequestFilterV3ReferenceTypesItems
     Billing.TransactionDtoV3:
       type: object
       properties:
@@ -747,6 +737,16 @@ components:
           description: The classification or nature of the transaction.
       description: Represents a transaction data object.
       title: Billing.TransactionDtoV3
+    202601InvoicesGetParametersInvoiceTypesSchemaItems:
+      type: string
+      enum:
+      - Shipping
+      - WarehouseStorage
+      - Inbound Fee
+      - Return
+      - AdditionalFee
+      - Credits
+      title: 202601InvoicesGetParametersInvoiceTypesSchemaItems
     BillingTransactionRequestFilterV3TransactionTypesItems:
       type: string
       enum:

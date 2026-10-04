@@ -520,100 +520,69 @@ paths:
                 $ref: '#/components/schemas/Receiving.ProblemDetails'
 components:
   schemas:
-    Receiving.FulfillmentCenterViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Receiving.FulfillmentCenterViewModel'
-      title: Receiving.FulfillmentCenterViewModelArray
-    Receiving.ProblemDetails:
-      type: object
-      additionalProperties:
-        description: Any type
-      title: Receiving.ProblemDetails
-    Receiving.AddBoxItemToBoxModel:
+    Receiving.WroDistributionDetailsResponse:
       type: object
       properties:
-        inventory_id:
-          type: integer
-          description: Unique inventory id of the items in the box
-        lot_date:
+        distributions:
           type:
-          - string
+          - array
           - 'null'
-          format: date-time
-          description: Lot expiration date for the items in the box
-        lot_number:
-          type:
-          - string
-          - 'null'
-          description: Lot number of the items in the box
-        quantity:
+          items:
+            $ref: '#/components/schemas/Receiving.DistributionItem'
+          description: List of distribution items, for a combination of InventoryId, Lot Number, Lot Date and Destination Fulfillment Center Id
+        id:
           type: integer
-          description: Quantity of the items in the box
-      required:
-      - inventory_id
-      - quantity
-      description: Information about an inventory item contained inside a receiving order box
-      title: Receiving.AddBoxItemToBoxModel
-    Receiving.DistributionItem:
-      type: object
-      properties:
-        expected_quantity:
-          type: integer
-          description: Quantity to be distributed according with the transfer plan calculation
-        fulfillment_center_abbreviation:
-          type:
-          - string
-          - 'null'
-          description: Abbreviation of Destination Fulfillment Center Id, including Airport Code and Sequence Number
-        fulfillment_center_id:
-          type: integer
-          description: Destination Fulfillment Center Id for the item
-        inventory_id:
-          type: integer
-          description: Inventory Id of the Item
-        lot_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Lot expiration date of the item
-        lot_number:
-          type:
-          - string
-          - 'null'
-          description: Lot number of the item
-        product_sku:
-          type:
-          - string
-          - 'null'
-          description: Product SKU
-        received_quantity:
-          type: integer
-          description: Quantity received at hub for this item
+          description: Id of the receiving order
         status:
-          $ref: '#/components/schemas/Receiving.DistributionStatus'
-        stowed_quantity:
-          type: integer
-          description: Quantity stowed at Destination Fulfillment Center for this item
-      title: Receiving.DistributionItem
-    Receiving.V2.WarehouseReceivingOrderViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModel'
-      title: Receiving.V2.WarehouseReceivingOrderViewModelArray
-    Receiving.Post.2.0.Receiving.Bad.Request.Object:
+          $ref: '#/components/schemas/Receiving.WarehousePickupRequestStatus'
+      title: Receiving.WroDistributionDetailsResponse
+    Receiving.ReceivingStatus:
+      type: string
+      enum:
+      - Awaiting
+      - Processing
+      - Completed
+      - Cancelled
+      - Incomplete
+      - Arrived
+      - PartiallyArrived
+      - PartiallyArrivedAtHub
+      - ArrivedAtHub
+      - ProcessingAtHub
+      - InternalTransfer
+      title: Receiving.ReceivingStatus
+    Receiving.ValidationProblemDetails:
       type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Receiving.Post.2.0.Receiving.Bad.Request.Object
-    Receiving.BoxViewModelArray:
-      type: array
-      items:
-        $ref: '#/components/schemas/Receiving.BoxViewModel'
-      title: Receiving.BoxViewModelArray
+      properties:
+        detail:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        instance:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+      title: Receiving.ValidationProblemDetails
     Receiving.V2.WarehouseReceivingOrderViewModel:
       type: object
       properties:
@@ -671,13 +640,18 @@ components:
             $ref: '#/components/schemas/Receiving.V2.ReceivingOrderStatusHistoryViewModel'
           description: The history of status changes for this receiving order
       title: Receiving.V2.WarehouseReceivingOrderViewModel
-    Receiving.PackageType:
-      type: string
-      enum:
-      - Package
-      - Pallet
-      - FloorLoadedContainer
-      title: Receiving.PackageType
+    Receiving.UpdateExternalSyncModel:
+      type: object
+      properties:
+        ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+        is_external_sync:
+          type: boolean
+      title: Receiving.UpdateExternalSyncModel
     Receiving.BoxStatus:
       type: string
       enum:
@@ -689,83 +663,56 @@ components:
       - Cancelled
       - InternalTransfer
       title: Receiving.BoxStatus
-    Receiving.PackingType:
-      type: string
-      enum:
-      - EverythingInOneBox
-      - OneSkuPerBox
-      - MultipleSkuPerBox
-      title: Receiving.PackingType
-    Receiving.BoxViewModel:
+    Receiving.DistributionItem:
       type: object
       properties:
-        arrived_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Date the box arrived
-        box_id:
+        expected_quantity:
           type: integer
-        box_items:
+          description: Quantity to be distributed according with the transfer plan calculation
+        fulfillment_center_abbreviation:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Receiving.BoxItemViewModel'
-          description: Information about the items included in the box
-        box_number:
+          description: Abbreviation of Destination Fulfillment Center Id, including Airport Code and Sequence Number
+        fulfillment_center_id:
           type: integer
-          description: The number of the box in the receiving order
-        box_status:
-          $ref: '#/components/schemas/Receiving.BoxStatus'
-        counting_started_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Date counting of the box's inventory items started
-        received_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Date the box was received
-        tracking_number:
-          type:
-          - string
-          - 'null'
-          description: Tracking number of the box shipment
-      description: Information about a box shipment included in a receiving order
-      title: Receiving.BoxViewModel
-    Receiving.BoxItemViewModel:
-      type: object
-      properties:
+          description: Destination Fulfillment Center Id for the item
         inventory_id:
           type: integer
-          description: Unique identifier of the inventory item
+          description: Inventory Id of the Item
         lot_date:
           type:
           - string
           - 'null'
           format: date-time
-          description: Expiration date of the item's lot
+          description: Lot expiration date of the item
         lot_number:
           type:
           - string
           - 'null'
-          description: Lot number the item belongs to
-        quantity:
-          type: integer
-          description: Quantity of the item included
+          description: Lot number of the item
+        product_sku:
+          type:
+          - string
+          - 'null'
+          description: Product SKU
         received_quantity:
           type: integer
-          description: Quantity of the item that was received after processing the receiving order
+          description: Quantity received at hub for this item
+        status:
+          $ref: '#/components/schemas/Receiving.DistributionStatus'
         stowed_quantity:
           type: integer
-          description: Quantity of the item that has been stowed
-      description: Information about an item contained inside a box as part of a receiving order
-      title: Receiving.BoxItemViewModel
+          description: Quantity stowed at Destination Fulfillment Center for this item
+      title: Receiving.DistributionItem
+    Receiving.DistributionStatus:
+      type: string
+      enum:
+      - NotStarted
+      - InProgress
+      - Stowing
+      - Completed
+      title: Receiving.DistributionStatus
     Receiving.Post.2.0.Receiving.Id.Cancel.Unprocessable.Entity.Object:
       type: object
       additionalProperties:
@@ -773,6 +720,28 @@ components:
         items:
           type: string
       title: Receiving.Post.2.0.Receiving.Id.Cancel.Unprocessable.Entity.Object
+    Receiving.BoxViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Receiving.BoxViewModel'
+      title: Receiving.BoxViewModelArray
+    Receiving.V2.WarehouseReceivingOrderViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Receiving.V2.WarehouseReceivingOrderViewModel'
+      title: Receiving.V2.WarehouseReceivingOrderViewModelArray
+    Receiving.AssignOrderToFulfillmentCenterModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the fulfillment center to assign this receiving order to
+      required:
+      - id
+      description: 'Model containing information that assigns a receiving order to a fulfillment center.
+
+        If the fulfillment center provided is in a receiving hub region, then the response will be the receiving hub location.'
+      title: Receiving.AssignOrderToFulfillmentCenterModel
     Receiving.FulfillmentCenterViewModel:
       type: object
       properties:
@@ -831,33 +800,150 @@ components:
           description: Postal code of the fulfillment center
       description: Information about a fulfillment center
       title: Receiving.FulfillmentCenterViewModel
-    Receiving.ReceivingStatus:
+    Receiving.ProblemDetails:
+      type: object
+      additionalProperties:
+        description: Any type
+      title: Receiving.ProblemDetails
+    Receiving.PackingType:
       type: string
       enum:
-      - Awaiting
-      - Processing
-      - Completed
-      - Cancelled
-      - Incomplete
-      - Arrived
-      - PartiallyArrived
-      - PartiallyArrivedAtHub
-      - ArrivedAtHub
-      - ProcessingAtHub
-      - InternalTransfer
-      title: Receiving.ReceivingStatus
-    Receiving.AssignOrderToFulfillmentCenterModel:
+      - EverythingInOneBox
+      - OneSkuPerBox
+      - MultipleSkuPerBox
+      title: Receiving.PackingType
+    Receiving.BoxItemViewModel:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique identifier of the inventory item
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Expiration date of the item's lot
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: Lot number the item belongs to
+        quantity:
+          type: integer
+          description: Quantity of the item included
+        received_quantity:
+          type: integer
+          description: Quantity of the item that was received after processing the receiving order
+        stowed_quantity:
+          type: integer
+          description: Quantity of the item that has been stowed
+      description: Information about an item contained inside a box as part of a receiving order
+      title: Receiving.BoxItemViewModel
+    Receiving.Post.2.0.Receiving.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Receiving.Post.2.0.Receiving.Bad.Request.Object
+    Receiving.PackageType:
+      type: string
+      enum:
+      - Package
+      - Pallet
+      - FloorLoadedContainer
+      title: Receiving.PackageType
+    Receiving.V2.InventoryQuantityViewModel:
+      type: object
+      properties:
+        expected_quantity:
+          type: integer
+          description: Quantity of the inventory item submitted in the WRO
+        inventory_id:
+          type: integer
+          description: ID of the inventory item
+        received_quantity:
+          type: integer
+          description: Quantity of the inventory item received by the warehouse
+        sku:
+          type:
+          - string
+          - 'null'
+          description: Sku of the inventory item
+        stowed_quantity:
+          type: integer
+          description: Quantity of the inventory item stowed by the warehouse
+      title: Receiving.V2.InventoryQuantityViewModel
+    Receiving.Post.2.0.Receiving.Set.External.Sync.Bad.Request.Object:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      title: Receiving.Post.2.0.Receiving.Set.External.Sync.Bad.Request.Object
+    Receiving.V2.ReceivingOrderStatusHistoryViewModel:
       type: object
       properties:
         id:
           type: integer
-          description: ID of the fulfillment center to assign this receiving order to
+          description: Unique id of the status
+        status:
+          type:
+          - string
+          - 'null'
+          description: Name of the status
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the status was recorded
+      description: View model for receiving order status history
+      title: Receiving.V2.ReceivingOrderStatusHistoryViewModel
+    Receiving.AddBoxToOrderModel:
+      type: object
+      properties:
+        box_items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Receiving.AddBoxItemToBoxModel'
+          description: Items contained in this box
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number for the box shipment
       required:
-      - id
-      description: 'Model containing information that assigns a receiving order to a fulfillment center.
-
-        If the fulfillment center provided is in a receiving hub region, then the response will be the receiving hub location.'
-      title: Receiving.AssignOrderToFulfillmentCenterModel
+      - box_items
+      - tracking_number
+      description: Information about a box shipment to be added to a receiving order
+      title: Receiving.AddBoxToOrderModel
+    Receiving.AddBoxItemToBoxModel:
+      type: object
+      properties:
+        inventory_id:
+          type: integer
+          description: Unique inventory id of the items in the box
+        lot_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Lot expiration date for the items in the box
+        lot_number:
+          type:
+          - string
+          - 'null'
+          description: Lot number of the items in the box
+        quantity:
+          type: integer
+          description: Quantity of the items in the box
+      required:
+      - inventory_id
+      - quantity
+      description: Information about an inventory item contained inside a receiving order box
+      title: Receiving.AddBoxItemToBoxModel
     Receiving.CreateReceivingOrderModel:
       type: object
       properties:
@@ -891,71 +977,15 @@ components:
       - package_type
       description: Information to create a new receiving order
       title: Receiving.CreateReceivingOrderModel
-    Receiving.DistributionStatus:
-      type: string
-      enum:
-      - NotStarted
-      - InProgress
-      - Stowing
-      - Completed
-      title: Receiving.DistributionStatus
-    Receiving.WroDistributionDetailsResponse:
-      type: object
-      properties:
-        distributions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Receiving.DistributionItem'
-          description: List of distribution items, for a combination of InventoryId, Lot Number, Lot Date and Destination Fulfillment Center Id
-        id:
-          type: integer
-          description: Id of the receiving order
-        status:
-          $ref: '#/components/schemas/Receiving.WarehousePickupRequestStatus'
-      title: Receiving.WroDistributionDetailsResponse
     Receiving.Get.2.0.Receiving.Id.Labels.OK.String:
       type: string
       format: byte
       title: Receiving.Get.2.0.Receiving.Id.Labels.OK.String
-    Receiving.AddBoxToOrderModel:
-      type: object
-      properties:
-        box_items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Receiving.AddBoxItemToBoxModel'
-          description: Items contained in this box
-        tracking_number:
-          type:
-          - string
-          - 'null'
-          description: Tracking number for the box shipment
-      required:
-      - box_items
-      - tracking_number
-      description: Information about a box shipment to be added to a receiving order
-      title: Receiving.AddBoxToOrderModel
-    Receiving.V2.ReceivingOrderStatusHistoryViewModel:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique id of the status
-        status:
-          type:
-          - string
-          - 'null'
-          description: Name of the status
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the status was recorded
-      description: View model for receiving order status history
-      title: Receiving.V2.ReceivingOrderStatusHistoryViewModel
+    Receiving.FulfillmentCenterViewModelArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Receiving.FulfillmentCenterViewModel'
+      title: Receiving.FulfillmentCenterViewModelArray
     Receiving.WarehousePickupRequestStatus:
       type: string
       enum:
@@ -971,78 +1001,48 @@ components:
       - ProcessingAtHub
       - InternalTransfer
       title: Receiving.WarehousePickupRequestStatus
-    Receiving.UpdateExternalSyncModel:
+    Receiving.BoxViewModel:
       type: object
       properties:
-        ids:
+        arrived_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date the box arrived
+        box_id:
+          type: integer
+        box_items:
           type:
           - array
           - 'null'
           items:
-            type: integer
-        is_external_sync:
-          type: boolean
-      title: Receiving.UpdateExternalSyncModel
-    Receiving.ValidationProblemDetails:
-      type: object
-      properties:
-        detail:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        instance:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-      title: Receiving.ValidationProblemDetails
-    Receiving.V2.InventoryQuantityViewModel:
-      type: object
-      properties:
-        expected_quantity:
+            $ref: '#/components/schemas/Receiving.BoxItemViewModel'
+          description: Information about the items included in the box
+        box_number:
           type: integer
-          description: Quantity of the inventory item submitted in the WRO
-        inventory_id:
-          type: integer
-          description: ID of the inventory item
-        received_quantity:
-          type: integer
-          description: Quantity of the inventory item received by the warehouse
-        sku:
+          description: The number of the box in the receiving order
+        box_status:
+          $ref: '#/components/schemas/Receiving.BoxStatus'
+        counting_started_date:
           type:
           - string
           - 'null'
-          description: Sku of the inventory item
-        stowed_quantity:
-          type: integer
-          description: Quantity of the inventory item stowed by the warehouse
-      title: Receiving.V2.InventoryQuantityViewModel
-    Receiving.Post.2.0.Receiving.Set.External.Sync.Bad.Request.Object:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          type: string
-      title: Receiving.Post.2.0.Receiving.Set.External.Sync.Bad.Request.Object
+          format: date-time
+          description: Date counting of the box's inventory items started
+        received_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Date the box was received
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: Tracking number of the box shipment
+      description: Information about a box shipment included in a receiving order
+      title: Receiving.BoxViewModel
   securitySchemes:
     PAT:
       type: http
