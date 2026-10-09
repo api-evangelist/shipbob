@@ -1,23 +1,167 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/shipbob-openapi.json
+source: openapi/shipbob-subpackage-billing-api-openapi.yml, openapi/shipbob-subpackage-channels-api-openapi.yml,
+  openapi/shipbob-subpackage-inventory-api-openapi.yml, openapi/shipbob-subpackage-locations-api-openapi.yml,
+  openapi/shipbob-subpackage-orders-api-openapi.yml, openapi/shipbob-subpackage-products-api-openapi.yml,
+  openapi/shipbob-subpackage-receiving-api-openapi.yml, openapi/shipbob-subpackage-returns-api-openapi.yml,
+  openapi/shipbob-subpackage-simulations-api-openapi.yml, openapi/shipbob-subpackage-webhooks-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 72
   by_action_class:
-    connected: 42
-    acting: 30
+    connected: 44
+    acting: 28
   by_consequence:
-    read: 42
+    read: 44
     physical: 16
-    write: 14
+    write: 12
   human_in_the_loop_required: 0
 operations:
+- path: /2026-01/transactions:query
+  method: post
+  operationId: search-transactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/invoices
+  method: get
+  operationId: get-invoices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/invoices/{invoiceId}/transactions
+  method: get
+  operationId: get-transactions-by-invoice-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/transaction-fees
+  method: get
+  operationId: get-transaction-fees
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /2026-01/channel
   method: get
   operationId: get-channels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory-level
+  method: get
+  operationId: get-all-inventory-levels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory-level/{inventoryId}
+  method: get
+  operationId: get-inventory-levels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory/{inventoryId}
+  method: get
+  operationId: get-inventory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory
+  method: get
+  operationId: get-all-inventories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory/history:query
+  method: post
+  operationId: query-inventory-history-events
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory-level/locations
+  method: get
+  operationId: get-all-inventory-levels-grouped-by-fulfillment-center
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory-level/{inventoryId}/locations
+  method: get
+  operationId: get-inventory-levels-grouped-by-fulfillment-center
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory-level/lots
+  method: get
+  operationId: get-all-inventory-levels-grouped-by-lot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/inventory-level/{inventoryId}/lots
+  method: get
+  operationId: get-inventory-levels-grouped-by-lot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /2026-01/location
+  method: get
+  operationId: get-locations
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -539,102 +683,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /2026-01/inventory-level
-  method: get
-  operationId: get-all-inventory-levels
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/inventory-level/{inventoryId}
-  method: get
-  operationId: get-inventory-levels
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/inventory/{inventoryId}
-  method: get
-  operationId: get-inventory
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/inventory
-  method: get
-  operationId: get-all-inventories
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/inventory/history:query
-  method: post
-  operationId: query-inventory-history-events
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /2026-01/inventory-level/locations
-  method: get
-  operationId: get-all-inventory-levels-grouped-by-fulfillment-center
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/inventory-level/{inventoryId}/locations
-  method: get
-  operationId: get-inventory-levels-grouped-by-fulfillment-center
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/inventory-level/lots
-  method: get
-  operationId: get-all-inventory-levels-grouped-by-lot
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/inventory-level/{inventoryId}/lots
-  method: get
-  operationId: get-inventory-levels-grouped-by-lot
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /2026-01/receiving
   method: post
   operationId: create-warehouse-receiving-order
@@ -821,6 +869,34 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /2026-01/simulate/shipment
+  method: post
+  operationId: simulates-shipment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /2026-01/simulate/status/{simulationId}
+  method: get
+  operationId: get-simulation-status
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /2026-01/webhook
   method: post
   operationId: create-subscription
@@ -863,87 +939,3 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /2026-01/location
-  method: get
-  operationId: get-locations
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/transactions:query
-  method: post
-  operationId: search-transactions
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /2026-01/invoices
-  method: get
-  operationId: get-invoices
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/invoices/{invoiceId}/transactions
-  method: get
-  operationId: get-transactions-by-invoice-id
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/transaction-fees
-  method: get
-  operationId: get-transaction-fees
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /2026-01/simulate/shipment
-  method: post
-  operationId: simulates-shipment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /2026-01/simulate/status/{simulationId}
-  method: get
-  operationId: get-simulation-status
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
