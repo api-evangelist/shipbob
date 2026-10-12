@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/shipbob/integrations
+- https://n8n.io/integrations/shipbob/
+- https://composio.dev/toolkits/shipbob
+- https://monid.ai/tools/shipbob
+checked:
+- https://composio.dev/toolkits/shipbob
+- https://monid.ai/tools/shipbob
+- https://n8n.io/integrations/shipbob/
+- https://zapier.com/apps/shipbob/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
