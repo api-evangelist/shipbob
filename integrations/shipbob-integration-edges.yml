@@ -10,6 +10,7 @@ checked:
 - https://monid.ai/tools/shipbob
 - https://n8n.io/integrations/shipbob/
 - https://zapier.com/apps/shipbob/integrations
+- wordpress/integrations/wordpress-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -24,4 +25,21 @@ edges:
   detected_by: detect-carrier-edges.py
   first_seen: '2026-10-13'
   matched_by: domain:shipbob.com
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/shipbob-express-rates/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - ShipBob Express Rates
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 templates: []
