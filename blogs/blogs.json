@@ -2,22 +2,22 @@
   "repo": "shipbob",
   "feeds": [
     {
-      "source": "https://developer.shipbob.com/llms.txt",
-      "feed_url": "https://developer.shipbob.com/llms.txt",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
       "source": "https://www.shipbob.com/blog/feed/",
       "feed_url": "https://www.shipbob.com/blog/feed/",
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://developer.shipbob.com/llms.txt",
+      "feed_url": "https://developer.shipbob.com/llms.txt",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
-  "post_count": 36,
+  "fetched": "2026-10-10T13:15:00Z",
+  "post_count": 38,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
