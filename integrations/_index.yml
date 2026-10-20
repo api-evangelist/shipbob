@@ -14,19 +14,6 @@
   relationship: carrier-coverage
   status: not-a-workflow
   arazzo: null
-- slug: shipbob-wordpress-own
-  label: WordPress (own)
-  partner: wordpress
-  partner_name: WordPress (own)
-  category: WordPress plugin
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://wordpress.org/plugins/shipbob-express-rates/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: shipbob-meltano
   label: Meltano
   partner: meltano
@@ -54,5 +41,30 @@
     quality:
     - gold
     builder: 'community (Meltano Hub variant maintainers: hotgluexyz)'
+  status: not-a-workflow
+  arazzo: null
+- slug: shipbob-gorgias-own
+  label: Gorgias (own)
+  partner: gorgias
+  partner_name: Gorgias (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.gorgias.com/apps/shipbob
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: shipbob-wordpress-own
+  label: WordPress (own)
+  partner: wordpress
+  partner_name: WordPress (own)
+  category: WordPress plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://wordpress.org/plugins/shipbob-express-rates/
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null

@@ -6,6 +6,7 @@ source:
 - https://composio.dev/toolkits/shipbob
 - https://monid.ai/tools/shipbob
 checked:
+- gorgias/integrations/gorgias-integration-edges.yml
 - https://composio.dev/toolkits/shipbob
 - https://github.com/meltano/hub
 - https://monid.ai/tools/shipbob
@@ -26,23 +27,6 @@ edges:
   detected_by: detect-carrier-edges.py
   first_seen: '2026-10-13'
   matched_by: domain:shipbob.com
-- partner_name: WordPress (own)
-  partner: wordpress
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://wordpress.org/plugins/shipbob-express-rates/
-  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
-  apps:
-  - ShipBob Express Rates
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: WordPress plugin
 - partner_name: Meltano
   partner: meltano
   partner_match: aggregator
@@ -72,4 +56,37 @@ edges:
     builder: 'community (Meltano Hub variant maintainers: hotgluexyz)'
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: Gorgias (own)
+  partner: gorgias
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.gorgias.com/apps/shipbob
+  mirror_of: gorgias/integrations/gorgias-integration-edges.yml
+  apps:
+  - ShipBob
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/shipbob-express-rates/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - ShipBob Express Rates
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 templates: []
