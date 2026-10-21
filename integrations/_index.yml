@@ -111,3 +111,15 @@
     status: Active
   status: not-a-workflow
   arazzo: null
+- slug: shipbob-amazon-selling-partner-appstore
+  label: Amazon Selling Partner Appstore
+  partner: amazon-seller-central
+  partner_name: Amazon Selling Partner Appstore
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://sellercentral.amazon.com/selling-partner-appstore/dp/amzn1.sellerapps.app.ebffd2c7-474c-4f38-92f9-12e0defe3697
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
