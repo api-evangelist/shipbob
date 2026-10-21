@@ -13,6 +13,7 @@ checked:
 - https://n8n.io/integrations/shipbob/
 - https://zapier.com/apps/shipbob/integrations
 - wordpress/integrations/wordpress-integration-edges.yml
+- bigcommerce/integrations/bigcommerce-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -89,4 +90,21 @@ edges:
   detected: '2026-10-15'
   detected_by: mirror-platform-listings.py
   category: WordPress plugin
+- partner_name: BigCommerce (own)
+  partner: bigcommerce
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.bigcommerce.com/apps/shipbob/
+  mirror_of: bigcommerce/integrations/bigcommerce-integration-edges.yml
+  apps:
+  - ShipBob
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: Shipping & Fulfillment, Fulfillment & Delivery
 templates: []
