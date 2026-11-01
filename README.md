@@ -1,4 +1,4 @@
-# ShipBob (shipbob)
+# ShipBob
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,71 +66,193 @@
 
 ShipBob is a Chicago-based global ecommerce fulfillment network and 3PL operating 60+ fulfillment centers, providing distributed warehousing, inventory, B2B/EDI, and shipping operations for direct-to-consumer brands with a developer-friendly REST API.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/shipbob/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/shipbob/refs/heads/main/apis.yml)
+**Areas:** Logistics · Fulfillment · 3PL · E-Commerce · Inventory · Warehousing · Shipping · Direct to Consumer
 
-## Tags
+## ShipBob on APIs.io
 
-- Logistics
-- Fulfillment
-- 3PL
-- Ecommerce
-- Inventory
-- Warehousing
-- Shipping
-- Direct-to-Consumer
+Everything profiled for ShipBob is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/shipbob/](https://apis.io/providers/shipbob/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (10)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-30
+- [ShipBob Subpackage Billing API](https://apis.io/apis/shipbob/shipbob-subpackage-billing-api/) — The subpackage_billing API from ShipBob — 4 operation(s) for subpackage_billing.
+- [ShipBob Subpackage Channels API](https://apis.io/apis/shipbob/shipbob-subpackage-channels-api/) — The subpackage_channels API from ShipBob — 1 operation(s) for subpackage_channels.
+- [ShipBob Subpackage Inventory API](https://apis.io/apis/shipbob/shipbob-subpackage-inventory-api/) — The subpackage_inventory API from ShipBob — 9 operation(s) for subpackage_inventory.
+- [ShipBob Subpackage Locations API](https://apis.io/apis/shipbob/shipbob-subpackage-locations-api/) — The subpackage_locations API from ShipBob — 1 operation(s) for subpackage_locations.
+- [ShipBob Subpackage Orders API](https://apis.io/apis/shipbob/shipbob-subpackage-orders-api/) — The subpackage_orders API from ShipBob — 21 operation(s) for subpackage_orders.
+- [ShipBob Subpackage Products API](https://apis.io/apis/shipbob/shipbob-subpackage-products-api/) — The subpackage_products API from ShipBob — 11 operation(s) for subpackage_products.
+- [ShipBob Subpackage Receiving API](https://apis.io/apis/shipbob/shipbob-subpackage-receiving-api/) — The subpackage_receiving API from ShipBob — 8 operation(s) for subpackage_receiving.
+- [ShipBob Subpackage Returns API](https://apis.io/apis/shipbob/shipbob-subpackage-returns-api/) — The subpackage_returns API from ShipBob — 3 operation(s) for subpackage_returns.
+- [ShipBob Subpackage Simulations API](https://apis.io/apis/shipbob/shipbob-subpackage-simulations-api/) — The subpackage_simulations API from ShipBob — 2 operation(s) for subpackage_simulations.
+- [ShipBob Subpackage Webhooks API](https://apis.io/apis/shipbob/shipbob-subpackage-webhooks-api/) — The subpackage_webhooks API from ShipBob — 2 operation(s) for subpackage_webhooks.
 
-## APIs
+### Published properties
 
-### ShipBob Developer API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-ShipBob Developer API provides versioned REST endpoints for channels, orders, products, inventory, receiving orders, returns, webhooks, locations, billing, and shipment simulations. Latest API version is 2026-01 (released February 2026); selectable via dated URL prefix (e.g. /2026-01/order). Authentication via Personal Access Token (PAT) for single-user integrations or OAuth 2.0 for multi-tenant App Store apps. Sliding-window rate limit of 150 requests/minute per user per application; throttled responses return HTTP 429 with `x-retry-after` and `x-remaining-calls` headers.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://developer.shipbob.com/](https://developer.shipbob.com/)
-- **Base URL:** `https://api.shipbob.com`
+Event-driven and webhook contracts.
 
-#### Tags
+- [ShipBob Webhooks](https://apis.io/asyncapis/shipbob/shipbob-webhooks-asyncapi/)
 
-- Logistics
-- Fulfillment
-- REST
-- 3PL
-- Ecommerce
-- Inventory
-- Webhooks
+#### Event channels (28)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://developer.shipbob.com/)
-- [Authentication](https://developer.shipbob.com/auth)
-- [Quickstart](https://developer.shipbob.com/quickstart)
-- [Release Notes](https://developer.shipbob.com/release-notes)
-- [Rate Limit](https://developer.shipbob.com/rate-limit)
-- [F A Q](https://developer.shipbob.com/faq)
-- [OpenAPI](openapi/shipbob-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/shipbob.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/shipbob.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi/shipbob-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [billing.charge.created](https://apis.io/channels/shipbob/billing-charge-created/)
+- [billing.credit.created](https://apis.io/channels/shipbob/billing-credit-created/)
+- [billing.refund.created](https://apis.io/channels/shipbob/billing-refund-created/)
+- [legacy.order_shipped](https://apis.io/channels/shipbob/legacy-order-shipped/)
+- [legacy.shipment_cancelled](https://apis.io/channels/shipbob/legacy-shipment-cancelled/)
+- [legacy.shipment_delivered](https://apis.io/channels/shipbob/legacy-shipment-delivered/)
+- [legacy.shipment_exception](https://apis.io/channels/shipbob/legacy-shipment-exception/)
+- [legacy.shipment_onhold](https://apis.io/channels/shipbob/legacy-shipment-onhold/)
+- [order.shipment.address.updated](https://apis.io/channels/shipbob/order-shipment-address-updated/)
+- [order.shipment.cancelled](https://apis.io/channels/shipbob/order-shipment-cancelled/)
+- [order.shipment.delivered](https://apis.io/channels/shipbob/order-shipment-delivered/)
+- [order.shipment.exception](https://apis.io/channels/shipbob/order-shipment-exception/)
+- [order.shipment.line_item.added](https://apis.io/channels/shipbob/order-shipment-line-item-added/)
+- [order.shipment.line_item.removed](https://apis.io/channels/shipbob/order-shipment-line-item-removed/)
+- [order.shipment.line_item.updated](https://apis.io/channels/shipbob/order-shipment-line-item-updated/)
+- [order.shipment.on_hold](https://apis.io/channels/shipbob/order-shipment-on-hold/)
+- [order.shipment.shipping_service.updated](https://apis.io/channels/shipbob/order-shipment-shipping-service-updated/)
+- [order.shipment.tracking.updated](https://apis.io/channels/shipbob/order-shipment-tracking-updated/)
+- [order.shipped](https://apis.io/channels/shipbob/order-shipped/)
+- [return.completed](https://apis.io/channels/shipbob/return-completed/)
+- [return.created](https://apis.io/channels/shipbob/return-created/)
+- [return.updated](https://apis.io/channels/shipbob/return-updated/)
+- [wro.box.arrived](https://apis.io/channels/shipbob/wro-box-arrived/)
+- [wro.box.scanned](https://apis.io/channels/shipbob/wro-box-scanned/)
+- [wro.box.stowed](https://apis.io/channels/shipbob/wro-box-stowed/)
+- …and 3 more published on APIs.io
 
-## Common Properties
+#### GraphQL (1)
+
+GraphQL schemas.
+
+- [Moved to /providers/shipbob/](https://apis.io/graphqls/shipbob/shipbob-graphql/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [shipbob](https://apis.io/servers/shipbob/shipbob/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Shipbob Agentic Access](https://apis.io/agentic-access/shipbob/shipbob-agentic-access/)
+
+#### Collections (11)
+
+Postman and Open Collection request collections.
+
+- [API Reference](https://apis.io/collections/shipbob/open-shipbob/)
+- [API Reference subpackage_billing API](https://apis.io/collections/shipbob/open-shipbob-subpackage-billing-api/)
+- [API Reference subpackage_billing subpackage_channels API](https://apis.io/collections/shipbob/open-shipbob-subpackage-channels-api/)
+- [API Reference subpackage_billing subpackage_inventory API](https://apis.io/collections/shipbob/open-shipbob-subpackage-inventory-api/)
+- [API Reference subpackage_billing subpackage_locations API](https://apis.io/collections/shipbob/open-shipbob-subpackage-locations-api/)
+- [API Reference subpackage_billing subpackage_orders API](https://apis.io/collections/shipbob/open-shipbob-subpackage-orders-api/)
+- [API Reference subpackage_billing subpackage_products API](https://apis.io/collections/shipbob/open-shipbob-subpackage-products-api/)
+- [API Reference subpackage_billing subpackage_receiving API](https://apis.io/collections/shipbob/open-shipbob-subpackage-receiving-api/)
+- [API Reference subpackage_billing subpackage_returns API](https://apis.io/collections/shipbob/open-shipbob-subpackage-returns-api/)
+- [API Reference subpackage_billing subpackage_simulations API](https://apis.io/collections/shipbob/open-shipbob-subpackage-simulations-api/)
+- [API Reference subpackage_billing subpackage_webhooks API](https://apis.io/collections/shipbob/open-shipbob-subpackage-webhooks-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [ShipBob — asyncapi rules](https://apis.io/rules/shipbob/shipbob-asyncapi-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Shipbob Authentication](https://apis.io/security/shipbob/shipbob-authentication/)
+- [Shipbob Domain Security](https://apis.io/security/shipbob/shipbob-domain-security/)
+- [Shipbob Trust Center](https://apis.io/security/shipbob/shipbob-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Shipbob Plans Pricing](https://apis.io/plans/shipbob/shipbob-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Shipbob Rate Limits](https://apis.io/rate-limits/shipbob/shipbob-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Shipbob Finops](https://apis.io/finops/shipbob/shipbob-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.shipbob.com/)
 - [Documentation](https://developer.shipbob.com/)
 - [Pricing](https://www.shipbob.com/pricing/)
-- [App Store](https://www.shipbob.com/integrations/)
-- [Support Portal](https://support.shipbob.com/)
-- [GitHub Organization](https://github.com/ShipBob)
-- [LinkedIn](https://www.linkedin.com/company/shipbob)
-- [Plans](plans/shipbob-plans-pricing.yml)
-- [Rate Limits](rate-limits/shipbob-rate-limits.yml)
-- [Fin Ops](finops/shipbob-finops.yml)
-- [L L Ms Txt](https://developer.shipbob.com/llms.txt)
+- [Blog](https://www.shipbob.com/blog/feed/)
+- [GitHub](https://github.com/ShipBob)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 36.5** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 56.7 |
+| Contract governance | 11.4 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 35.7 |
+| Access clarity | 18.4 |
+
+**Agent readiness 40.4** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/shipbob/](https://apis.io/providers/shipbob/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ShipBob: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/shipbob/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
